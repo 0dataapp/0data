@@ -35,6 +35,10 @@ describe('ZDAVitrine_Access', function () {
 	it('shows ZDAVitrineIdentityName', function() {
 		browser.assert.elements(ZDAVitrineIdentityName, 1);
 	});
+
+	it('shows ZDAVitrineList', function () {
+		browser.assert.elements('.ZDAVitrineList', 1);
+	});
 	
 	it('shows ROCORootLink', function() {
 		browser.assert.elements('.ROCORootLink', 1);
