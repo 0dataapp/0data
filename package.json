@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "preinstall": "node ./package-preinstall.js",
+    "postinstall": "node ./package-postinstall.js",
+    "setup": "olsk-bundle",
+    "start": "olsk-express",
+    "test": "olsk-spec"
+  },
+  "dependencies": {
+    "OLSKExpress": "olsk/OLSKExpress",
+    "normalize.css": "latest",
+    "OLSKLayout": "olsk/OLSKLayout",
+    "OLSKLanguageSwitcher": "olsk/OLSKLanguageSwitcher",
+    "ROCORootLink": "rationalcreative/ROCORootLink",
+    "OLSKRobots": "olsk/OLSKRobots",
+    "// I sacrifice myself for the commas of others": null
+  },
+  "devDependencies": {
+    "livereload": "latest",
+    "OLSKDisk": "olsk/OLSKDisk",
+    "OLSKSpec": "olsk/OLSKSpec",
+    "OLSKHotfix": "olsk/OLSKHotfix",
+    "OLSKBundle": "olsk/OLSKBundle",
+    "// I sacrifice myself for the commas of others": null
+  }
+}

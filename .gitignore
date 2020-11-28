@@ -1,0 +1,11 @@
+# NODE
+node_modules
+package-lock.json
+
+# BUILD
+**/__*/*
+.static
+
+# LOCAL
+.env*
+!.env-sample
