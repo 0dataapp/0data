@@ -1,0 +1,27 @@
+<div class="ZDAVitrineList">
+
+<% if (!locals.ZDAVitrineListData.length) { -%>
+	<p class="ZDAVitrineListEmpty"><%= OLSKLocalized('ZDAVitrineListEmptyText') %></p>
+<% } -%>
+
+<% if (locals.ZDAVitrineListData.length) { -%>
+<table class="ZDAVitrineListTable">
+	<tr>
+		<th class="ZDAVitrineListTableHeadingName"><%= OLSKLocalized('ZDAVitrineListTableHeadingNameText') %></th>
+		<th class="ZDAVitrineListTableHeadingBlurb"><%= OLSKLocalized('ZDAVitrineListTableHeadingBlurbText') %></th>
+		<th class="ZDAVitrineListTableHeadingWebsite"><%= OLSKLocalized('ZDAVitrineListTableHeadingWebsiteText') %></th>
+	</tr>
+	
+	<% locals.ZDAVitrineListData.forEach(function (item) { -%>
+		<tr class="ZDAVitrineListTableRow">
+			<td class="ZDAVitrineListTableRowName"><%= item.ZDAProjectName %></td>
+			<td class="ZDAVitrineListTableRowBlurb"><%= item.ZDAProjectBlurb %></td>
+			<td>
+				<a class="ZDAVitrineListTableRowWebsite" href="<%= item.ZDAProjectWebsite %>"><%= item.ZDAProjectWebsite %></a>
+			</td>
+		</tr>
+	<% }) -%>
+</table>
+<% } -%>
+
+</div>
