@@ -1,0 +1,18 @@
+.ZDAVitrineIdentity {
+	display: flex;
+
+	margin-top: 15px;
+
+	align-items: center;
+}
+
+.ZDAVitrineIdentityLogo {
+	width: 48px;
+	height: 48px;
+
+	padding-right: 4px;
+}
+
+.ZDAVitrineIdentityName {
+	margin: 0;
+}

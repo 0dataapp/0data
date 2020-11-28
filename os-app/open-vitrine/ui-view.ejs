@@ -1,0 +1,30 @@
+<%
+locals.OLSKPageTitle = OLSKLocalized('ZDAVitrineTitle');
+locals.OLSKPageDescription = OLSKLocalized('ZDAVitrineDescription');
+locals.OLSKPageAssets = [
+	'/_shared/__external/normalize.css/normalize.css',
+	'/_shared/__external/OLSKLayout/ui-style.css',
+	'ui-style.css',
+];
+locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
+locals.OLSKPageMetaTags = {
+	viewport: 'width=device-width',
+};
+%>
+
+<div class="ZDAVitrine OLSKCommon">
+
+<%- include('../../node_modules/OLSKLanguageSwitcher/main.ejs') %>
+
+<hr>
+
+<div class="ZDAVitrineIdentity">
+	<img class="ZDAVitrineIdentityLogo" src="<%= process.env.ZDA_TOUCH_ICON_URL %>" role="presentation" />
+	<h1 class="ZDAVitrineIdentityName"><%= OLSKLocalized('ZDAVitrineTitle') %></h1>
+</div>
+
+<hr />
+
+<%- include('../_shared/__external/ROCORootLink/main.ejs') %>
+
+</div>
