@@ -51,7 +51,7 @@ describe('DataListingProjects', function test_DataListingProjects() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><th></th></tr><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,

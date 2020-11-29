@@ -85,7 +85,7 @@ const mod = {
 			return Object.assign(coll, {
 				[item]: {
 					[mod.DataFetchURLIndexRemoteStorage()]: (function () { // remotestorage
-						return cheerio('table', param2).first().find('tr').map(function (e) {
+						return cheerio('table', param2).first().find('tr:not(tr:first-of-type)').map(function (e) {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
 								ZDAProjectBlurb: cheerio('td:nth-child(2)', this).text(),
