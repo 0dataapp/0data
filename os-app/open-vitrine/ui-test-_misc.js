@@ -62,4 +62,12 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineFissionLink', function test_ZDAVitrineFissionLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineFissionLink, 'href', process.env.ZDA_VITRINE_FISSION_URL);
+		});
+	
+	});
+
 });

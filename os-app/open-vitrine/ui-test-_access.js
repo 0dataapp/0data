@@ -15,6 +15,7 @@ Object.entries({
 	ZDAVitrineRemoteStorageLink: '.ZDAVitrineRemoteStorageLink',
 	ZDAVitrineSolidProjectLink: '.ZDAVitrineSolidProjectLink',
 	ZDAVitrineUnhostedLink: '.ZDAVitrineUnhostedLink',
+	ZDAVitrineFissionLink: '.ZDAVitrineFissionLink',
 
 	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
 }).map(function (e) {
@@ -74,6 +75,11 @@ describe('ZDAVitrine_Access', function () {
 	it('shows ZDAVitrineUnhostedLink', function () {
 		browser.assert.elements(ZDAVitrineUnhostedLink, 1);
 	});
+
+	it('shows ZDAVitrineFissionLink', function () {
+		browser.assert.elements(ZDAVitrineFissionLink, 1);
+	});
+
 	it('shows ZDAVitrineProjectsHeading', function () {
 		browser.assert.elements(ZDAVitrineProjectsHeading, 1);
 	});
