@@ -3,7 +3,7 @@ ZDAVitrineDescription: Own your data, all of it.
 ZDAVitrineAspectsHeadingText: Aspects
 ZDAVitrineAspectsListItemText:
   - an app in which <em>your data stays with you</em>
-  - all data is stored in a place where <em>you control</em>
+  - <em>you control where</em> the data is stored
   - using protocols like remoteStorage or SOLID for <em>flexibility and interoperability</em>
   - <em>do what you want</em> with your data at <em>any time</em>
   - your data is <em>accessible forever</em> even if the app stops working
