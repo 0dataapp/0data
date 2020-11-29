@@ -30,9 +30,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: mod.DataListingURLs().reduce(function (coll, item) {
-						return coll.concat(mod.DataListingProjects(item, mod._ValueCache[item]));
-					}, []),
+					ZDAVitrineListData: mod.DataObjects(),
 				});
 			},
 			OLSKRouteLanguages: ['en'],
@@ -114,6 +112,12 @@ const mod = {
 				}[i],
 			});
 		}, {})[param1]());
+	},
+
+	DataObjects () {
+		return mod.DataListingURLs().reduce(function (coll, item) {
+			return coll.concat(mod.DataListingProjects(item, mod._ValueCache[item]));
+		}, []);
 	},
 
 	DataProjectSchema (inputData) {
