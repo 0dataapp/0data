@@ -54,4 +54,12 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineUnhostedLink', function test_ZDAVitrineUnhostedLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineUnhostedLink, 'href', process.env.ZDA_VITRINE_UNHOSTED_URL);
+		});
+	
+	});
+
 });
