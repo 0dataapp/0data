@@ -9,16 +9,14 @@
 	<tr>
 		<th class="ZDAVitrineListTableHeadingName"><%= OLSKLocalized('ZDAVitrineListTableHeadingNameText') %></th>
 		<th class="ZDAVitrineListTableHeadingBlurb"><%= OLSKLocalized('ZDAVitrineListTableHeadingBlurbText') %></th>
-		<th class="ZDAVitrineListTableHeadingWebsite"><%= OLSKLocalized('ZDAVitrineListTableHeadingWebsiteText') %></th>
 	</tr>
 	
 	<% locals.ZDAVitrineListData.forEach(function (item) { -%>
 		<tr class="ZDAVitrineListTableRow">
-			<td class="ZDAVitrineListTableRowName"><%= item.ZDAProjectName %></td>
-			<td class="ZDAVitrineListTableRowBlurb"><%= item.ZDAProjectBlurb %></td>
 			<td>
-				<a class="ZDAVitrineListTableRowWebsite" href="<%= item.ZDAProjectURL %>"><%= item.ZDAProjectURL %></a>
+				<a class="ZDAVitrineListTableRowName" href="<%= item.ZDAProjectURL %>"><%= item.ZDAProjectName %></a>
 			</td>
+			<td class="ZDAVitrineListTableRowBlurb"><%= item.ZDAProjectBlurb %></td>
 		</tr>
 	<% }) -%>
 </table>

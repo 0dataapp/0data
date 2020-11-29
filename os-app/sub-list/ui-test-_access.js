@@ -9,13 +9,11 @@ Object.entries({
 
 	ZDAVitrineListTableHeadingName: '.ZDAVitrineListTableHeadingName',
 	ZDAVitrineListTableHeadingBlurb: '.ZDAVitrineListTableHeadingBlurb',
-	ZDAVitrineListTableHeadingWebsite: '.ZDAVitrineListTableHeadingWebsite',
 
 	ZDAVitrineListTableRow: '.ZDAVitrineListTableRow',
 	
 	ZDAVitrineListTableRowName: '.ZDAVitrineListTableRowName',
 	ZDAVitrineListTableRowBlurb: '.ZDAVitrineListTableRowBlurb',
-	ZDAVitrineListTableRowWebsite: '.ZDAVitrineListTableRowWebsite',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -64,10 +62,6 @@ describe('ZDAVitrineList_Access', function () {
 
 		it('shows ZDAVitrineListTableHeadingBlurb', function () {
 			browser.assert.elements(ZDAVitrineListTableHeadingBlurb, 1);
-		});
-
-		it('shows ZDAVitrineListTableHeadingWebsite', function () {
-			browser.assert.elements(ZDAVitrineListTableHeadingWebsite, 1);
 		});
 
 		it('shows ZDAVitrineListTableRow', function () {

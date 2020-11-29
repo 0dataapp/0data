@@ -16,6 +16,10 @@ describe('ZDAVitrineList_Misc', function  () {
 
 	describe('ZDAVitrineListTableRowName', function test_ZDAVitrineListTableRowName () {
 
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineListTableRowName, 'href', item.ZDAProjectURL);
+		});
+
 		it('binds ZDAProjectName', function () {
 			browser.assert.text(ZDAVitrineListTableRowName, item.ZDAProjectName);
 		});
@@ -26,18 +30,6 @@ describe('ZDAVitrineList_Misc', function  () {
 
 		it('binds ZDAProjectBlurb', function () {
 			browser.assert.text(ZDAVitrineListTableRowBlurb, item.ZDAProjectBlurb);
-		});
-
-	});
-
-	describe('ZDAVitrineListTableRowWebsite', function test_ZDAVitrineListTableRowWebsite () {
-
-		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineListTableRowWebsite, 'href', item.ZDAProjectURL);
-		});
-
-		it('binds ZDAProjectURL', function () {
-			browser.assert.text(ZDAVitrineListTableRowWebsite, item.ZDAProjectURL);
 		});
 
 	});

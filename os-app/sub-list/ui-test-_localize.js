@@ -35,10 +35,6 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 				browser.assert.text(ZDAVitrineListTableHeadingBlurb, uLocalized('ZDAVitrineListTableHeadingBlurbText'));
 			});
 
-			it('localizes ZDAVitrineListTableHeadingWebsite', function () {
-				browser.assert.text(ZDAVitrineListTableHeadingWebsite, uLocalized('ZDAVitrineListTableHeadingWebsiteText'));
-			});
-
 		});
 
 	});
