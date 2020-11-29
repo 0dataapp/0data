@@ -20,8 +20,6 @@ const uGet = function (inputData) {
 };
 
 const cheerio = require('cheerio');
-const jsdom = require("jsdom");
-const { JSDOM } = jsdom;
 
 const mod = {
 
