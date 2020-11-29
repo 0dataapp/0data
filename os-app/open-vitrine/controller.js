@@ -118,7 +118,13 @@ const mod = {
 					}),
 				}[i],
 			});
-		}, {})[param1]());
+		}, {})[param1]()).map(function (e) {
+			return Object.fromEntries(Object.entries(e).map(function (e) {
+				return e.map(function (e) {
+					return e.trim();
+				});
+			}));
+		});
 	},
 
 	DataObjects () {
