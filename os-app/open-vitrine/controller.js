@@ -118,6 +118,22 @@ const mod = {
 		}, {})[param1]());
 	},
 
+	DataProjectSchema (inputData) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return Object.entries({
+			ZDAProjectName: 'name',
+			ZDAProjectBlurb: 'description',
+			ZDAProjectURL: 'url',
+		}).reduce(function (coll, item) {
+			return !inputData[item[0]] ? coll : Object.assign(coll, {
+				[item[1]]: inputData[item[0]],
+			});
+		}, {});
+	},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {

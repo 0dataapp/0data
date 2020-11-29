@@ -139,6 +139,47 @@ describe('DataListingProjects', function test_DataListingProjects() {
 
 });
 
+describe('DataProjectSchema', function test_DataProjectSchema() {
+	
+	it('throws if not object', function () {
+		throws(function () {
+			mod.DataProjectSchema(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns object', function () {
+		deepEqual(mod.DataProjectSchema({}), {});
+	});
+
+	it('maps ZDAProjectName', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataProjectSchema({
+			ZDAProjectName: item,
+		}), {
+			name: item,
+		});
+	});
+
+	it('maps ZDAProjectBlurb', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataProjectSchema({
+			ZDAProjectBlurb: item,
+		}), {
+			description: item,
+		});
+	});
+
+	it('maps ZDAProjectURL', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataProjectSchema({
+			ZDAProjectURL: item,
+		}), {
+			url: item,
+		});
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData) {
