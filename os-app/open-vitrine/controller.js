@@ -34,6 +34,13 @@ const mod = {
 				});
 			},
 			OLSKRouteLanguages: ['en'],
+		}, {
+			OLSKRoutePath: '/projects.json',
+			OLSKRouteMethod: 'get',
+			OLSKRouteSignature: 'ZDAProjectsJSONRoute',
+			OLSKRouteFunction (req, res, next) {
+				return res.send(mod.DataProjectsJSON());
+			},
 		}];
 	},
 
@@ -136,7 +143,7 @@ const mod = {
 		}, {});
 	},
 
-	DataJSONResponse () {
+	DataProjectsJSON () {
 		return JSON.stringify(this.DataObjects().map(mod.DataProjectSchema));
 	},
 

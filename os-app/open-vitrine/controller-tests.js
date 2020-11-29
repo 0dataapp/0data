@@ -180,7 +180,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 });
 
-describe('DataJSONResponse', function test_DataJSONResponse() {
+describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 	it('returns string', function () {
 		const ZDAProjectName = Math.random().toString();
@@ -192,7 +192,7 @@ describe('DataJSONResponse', function test_DataJSONResponse() {
 			DataObjects: (function () {
 				return [item];
 			}),
-		}).DataJSONResponse(), JSON.stringify([mod.DataProjectSchema(item)]));
+		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectSchema(item)]));
 	});
 
 });
