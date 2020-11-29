@@ -136,6 +136,10 @@ const mod = {
 		}, {});
 	},
 
+	DataJSONResponse () {
+		return JSON.stringify(this.DataObjects().map(mod.DataProjectSchema));
+	},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {

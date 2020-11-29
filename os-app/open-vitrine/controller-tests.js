@@ -180,6 +180,23 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 });
 
+describe('DataJSONResponse', function test_DataJSONResponse() {
+
+	it('returns string', function () {
+		const ZDAProjectName = Math.random().toString();
+		const item = {
+			ZDAProjectName,
+		};
+
+		deepEqual(Object.assign(Object.assign({}, mod), {
+			DataObjects: (function () {
+				return [item];
+			}),
+		}).DataJSONResponse(), JSON.stringify([mod.DataProjectSchema(item)]));
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData) {
