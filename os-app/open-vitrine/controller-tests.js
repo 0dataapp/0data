@@ -90,7 +90,51 @@ describe('DataProjects', function test_DataFetchURLs() {
 				ZDAProjectURL,
 			}]);
 		});
-	
+		
+		it('hides Copyright', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+				ZDAProjectName,
+				ZDAProjectBlurb,
+				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
+			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+		});
+		
+		it('hides (c)', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+				ZDAProjectName,
+				ZDAProjectBlurb,
+				ZDAProjectExtra: '(c) ' + Math.random().toString(),
+			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+		});
+		
+		it('hides . Source', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+				ZDAProjectName,
+				ZDAProjectBlurb,
+				ZDAProjectExtra: '. Source ' + Math.random().toString(),
+			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+		});
+		
+		it('hides combination ', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+				ZDAProjectName,
+				ZDAProjectBlurb,
+				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
+			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+		});
+		
 	});
 
 });

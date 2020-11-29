@@ -94,7 +94,21 @@ const mod = {
 						return cheerio('article', param2).first().find('ul:not(#historical-solid-apps~ul) li').map(function (e) {
 							return {
 								ZDAProjectName: cheerio('a:nth-child(1)', this).text(),
-								ZDAProjectBlurb: cheerio(this).text(),
+								ZDAProjectBlurb: (function(blurb) {
+									if (blurb.includes('(c) ')) {
+										blurb = blurb.slice(0, blurb.indexOf('(c) '));
+									}
+
+									if (blurb.includes('Copyright ')) {
+										blurb = blurb.slice(0, blurb.indexOf('Copyright '));
+									}
+
+									if (blurb.includes('. Source ')) {
+										blurb = blurb.slice(0, blurb.indexOf('. Source '));
+									}
+
+									return blurb;
+								})(cheerio(this).text()).trim(),
 								ZDAProjectURL: cheerio('a:nth-child(1)', this).attr('href'),
 							};
 						});
