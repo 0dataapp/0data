@@ -2,10 +2,10 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
-describe('DataFetchURLs', function test_DataFetchURLs() {
+describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
-		deepEqual(mod.DataFetchURLs(), process.env.ZDA_VITRINE_FETCH_URLS.split(','));
+		deepEqual(mod.DataListingURLs(), process.env.ZDA_VITRINE_FETCH_URLS.split(','));
 	});
 
 });
@@ -26,9 +26,9 @@ describe('DataFetchURLIndexSolidProject', function test_DataFetchURLIndexSolidPr
 
 });
 
-describe('DataProjects', function test_DataFetchURLs() {
+describe('DataProjects', function test_DataListingURLs() {
 
-	it('throws if param1 not in DataFetchURLs', function () {
+	it('throws if param1 not in DataListingURLs', function () {
 		throws(function () {
 			mod.DataProjects(Math.random().toString(), Math.random().toString());
 		}, /ZDAErrorInputNotValid/);
@@ -36,12 +36,12 @@ describe('DataProjects', function test_DataFetchURLs() {
 
 	it('throws if param2 not string', function () {
 		throws(function () {
-			mod.DataProjects(mod.DataFetchURLs()[Date.now() % mod.DataFetchURLs().length], null);
+			mod.DataProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(mod.DataProjects(mod.DataFetchURLs()[Date.now() % mod.DataFetchURLs().length], ''), []);
+		deepEqual(mod.DataProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], ''), []);
 	});
 
 	context('remotestorage', function () {
@@ -51,7 +51,7 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
+			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
@@ -79,7 +79,7 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra,
@@ -95,7 +95,7 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
@@ -106,7 +106,7 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '(c) ' + Math.random().toString(),
@@ -117,7 +117,7 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '. Source ' + Math.random().toString(),
@@ -128,7 +128,7 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
@@ -174,7 +174,7 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 			}),
 		});
 
-		deepEqual(item, mod.DataFetchURLs().map(function (ParamKey, i) {
+		deepEqual(item, mod.DataListingURLs().map(function (ParamKey, i) {
 			return {
 				ParamMap,
 				ParamKey,
@@ -196,7 +196,7 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 				}),
 			});
 
-			deepEqual(item, mod.DataFetchURLs());
+			deepEqual(item, mod.DataListingURLs());
 		});
 	
 	});
@@ -217,7 +217,7 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 				}),
 			});
 
-			deepEqual(item, mod.DataFetchURLs().map(function () {
+			deepEqual(item, mod.DataListingURLs().map(function () {
 				return [_ValueCache, require('path').basename(__dirname), require('path').join(__dirname, '__cached')];
 			}));
 		});

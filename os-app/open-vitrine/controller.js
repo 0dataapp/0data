@@ -32,7 +32,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: mod.DataFetchURLs().reduce(function (coll, item) {
+					ZDAVitrineListData: mod.DataListingURLs().reduce(function (coll, item) {
 						return coll.concat(mod.DataProjects(item, mod._ValueCache[item]));
 					}, []),
 				});
@@ -53,7 +53,7 @@ const mod = {
 
 	_DataFoilOLSKCache: require('OLSKCache'),
 
-	DataFetchURLs() {
+	DataListingURLs() {
 		return process.env.ZDA_VITRINE_FETCH_URLS.split(',');
 	},
 
@@ -70,7 +70,7 @@ const mod = {
 	},
 
 	DataProjects (param1, param2) {
-		if (!mod.DataFetchURLs().includes(param1)) {
+		if (!mod.DataListingURLs().includes(param1)) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
@@ -78,7 +78,7 @@ const mod = {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		return Array.from(mod.DataFetchURLs().reduce(function (coll, item, i) {
+		return Array.from(mod.DataListingURLs().reduce(function (coll, item, i) {
 			return Object.assign(coll, {
 				[item]: {
 					[mod.DataFetchURLIndexRemoteStorage()]: (function () { // remotestorage
@@ -122,7 +122,7 @@ const mod = {
 
 	LifecycleModuleDidLoad () {
 		const _this = this;
-		return mod.DataFetchURLs().map(function (e) {
+		return mod.DataListingURLs().map(function (e) {
 			return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
 				ParamMap: _this._ValueCache,
 				ParamKey: e,
