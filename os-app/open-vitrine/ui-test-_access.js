@@ -9,6 +9,8 @@ Object.entries({
 
 	ZDAVitrineAspectsHeading: '.ZDAVitrineAspectsHeading',
 	ZDAVitrineAspectsList: '.ZDAVitrineAspectsList',
+
+	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -45,6 +47,10 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineAspectsList', function () {
 		browser.assert.elements(ZDAVitrineAspectsList, 1);
+	});
+
+	it('shows ZDAVitrineProjectsHeading', function () {
+		browser.assert.elements(ZDAVitrineProjectsHeading, 1);
 	});
 
 	it('shows ZDAVitrineList', function () {
