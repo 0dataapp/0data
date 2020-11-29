@@ -48,6 +48,10 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineRemoteStorageLink, uLocalized('ZDAVitrineRemoteStorageLinkText'));
 		});
 
+		it('localizes ZDAVitrineSolidProjectLink', function () {
+			browser.assert.text(ZDAVitrineSolidProjectLink, uLocalized('ZDAVitrineSolidProjectLinkText'));
+		});
+
 		it('localizes ZDAVitrineProjectsHeading', function () {
 			browser.assert.text(ZDAVitrineProjectsHeading, uLocalized('ZDAVitrineProjectsHeadingText'));
 		});

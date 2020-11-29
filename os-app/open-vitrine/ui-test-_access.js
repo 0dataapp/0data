@@ -13,6 +13,7 @@ Object.entries({
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
 	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
 	ZDAVitrineRemoteStorageLink: '.ZDAVitrineRemoteStorageLink',
+	ZDAVitrineSolidProjectLink: '.ZDAVitrineSolidProjectLink',
 
 	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
 }).map(function (e) {
@@ -63,6 +64,10 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineRemoteStorageLink', function () {
 		browser.assert.elements(ZDAVitrineRemoteStorageLink, 1);
+	});
+
+	it('shows ZDAVitrineSolidProjectLink', function () {
+		browser.assert.elements(ZDAVitrineSolidProjectLink, 1);
 	});
 	it('shows ZDAVitrineProjectsHeading', function () {
 		browser.assert.elements(ZDAVitrineProjectsHeading, 1);

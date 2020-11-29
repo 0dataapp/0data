@@ -46,4 +46,12 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineSolidProjectLink', function test_ZDAVitrineSolidProjectLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineSolidProjectLink, 'href', process.env.ZDA_VITRINE_SOLID_PROJECT_URL);
+		});
+	
+	});
+
 });
