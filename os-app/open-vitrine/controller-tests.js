@@ -10,6 +10,42 @@ describe('DataFetchURLs', function test_DataFetchURLs() {
 
 });
 
+describe('DataProjects', function test_DataFetchURLs() {
+
+	it('throws if param1 not in DataFetchURLs', function () {
+		throws(function () {
+			mod.DataProjects(Math.random().toString(), Math.random().toString());
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('throws if param2 not string', function () {
+		throws(function () {
+			mod.DataProjects(mod.DataFetchURLs()[Date.now() % mod.DataFetchURLs().length], null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns array', function () {
+		deepEqual(mod.DataProjects(mod.DataFetchURLs()[Date.now() % mod.DataFetchURLs().length], ''), []);
+	});
+
+	context('remotestorage', function () {
+		
+		it('parses html', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+			const ZDAProjectWebsite = Math.random().toString();
+
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[0], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectWebsite }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul>\n</td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
+				ZDAProjectName,
+				ZDAProjectBlurb,
+				ZDAProjectWebsite,
+			}]);
+		});
+	
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData) {

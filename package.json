@@ -13,6 +13,7 @@
     "OLSKLanguageSwitcher": "olsk/OLSKLanguageSwitcher",
     "ROCORootLink": "rationalcreative/ROCORootLink",
     "OLSKRobots": "olsk/OLSKRobots",
+    "cheerio": "latest",
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {

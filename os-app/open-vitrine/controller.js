@@ -19,6 +19,10 @@ const uGet = function (inputData) {
   });
 };
 
+const cheerio = require('cheerio');
+const jsdom = require("jsdom");
+const { JSDOM } = jsdom;
+
 const mod = {
 
 	OLSKControllerRoutes () {
@@ -53,6 +57,35 @@ const mod = {
 
 	_DataContentString (inputData) {
 		return uGet(inputData);
+	},
+
+	DataProjects (param1, param2) {
+		if (!mod.DataFetchURLs().includes(param1)) {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		if (typeof param2 !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return Array.from(mod.DataFetchURLs().reduce(function (coll, item, i) {
+			return Object.assign(coll, {
+				[item]: {
+					0: (function () {
+						return cheerio('table', param2).first().find('tr').map(function (e) {
+							return {
+								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
+								ZDAProjectBlurb: cheerio('td:nth-child(2)', this).text(),
+								ZDAProjectWebsite: cheerio('td:nth-child(1) a', this).attr('href'),
+							};
+						});
+					}),
+					1: (function () {
+						return [];
+					}),
+				}[i],
+			});
+		}, {})[param1]());
 	},
 
 	// LIFECYCLE
