@@ -72,6 +72,10 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineProjectsSourcesBlurb, uLocalized('ZDAVitrineProjectsSourcesBlurbText'));
 		});
 
+		it('localizes ZDAVitrineProjectsCompilationLink', function () {
+			browser.assert.text(ZDAVitrineProjectsCompilationLink, uLocalized('ZDAVitrineProjectsCompilationLinkText'));
+		});
+
 	});
 
 });

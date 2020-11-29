@@ -71,12 +71,24 @@ describe('ZDAVitrine_Misc', function () {
 	});
 
 	require('./controller.js').DataListingURLs().forEach(function (e, i) {
+
+		describe('ZDAVitrineAspectsListItem', function test_ZDAVitrineAspectsListItem () {
+			
+			it('localizes ZDAVitrineAspectsListItem', function () {
+				browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
+				browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e);
+			});
 		
-		it('localizes ZDAVitrineAspectsListItem', function () {
-			browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
-			browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e);
 		});
 
+	});
+
+	describe('ZDAVitrineProjectsCompilationLink', function test_ZDAVitrineProjectsCompilationLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineProjectsCompilationLink, 'href', require('./controller.js').OLSKControllerRoutes().pop().OLSKRoutePath);
+		});
+	
 	});
 
 });
