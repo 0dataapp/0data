@@ -26,22 +26,22 @@ describe('DataFetchURLIndexSolidProject', function test_DataFetchURLIndexSolidPr
 
 });
 
-describe('DataProjects', function test_DataListingURLs() {
+describe('DataListingProjects', function test_DataListingProjects() {
 
 	it('throws if param1 not in DataListingURLs', function () {
 		throws(function () {
-			mod.DataProjects(Math.random().toString(), Math.random().toString());
+			mod.DataListingProjects(Math.random().toString(), Math.random().toString());
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('throws if param2 not string', function () {
 		throws(function () {
-			mod.DataProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], null);
+			mod.DataListingProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(mod.DataProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], ''), []);
+		deepEqual(mod.DataListingProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], ''), []);
 	});
 
 	context('remotestorage', function () {
@@ -51,7 +51,7 @@ describe('DataProjects', function test_DataListingURLs() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
@@ -79,7 +79,7 @@ describe('DataProjects', function test_DataListingURLs() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra,
@@ -95,7 +95,7 @@ describe('DataProjects', function test_DataListingURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
@@ -106,7 +106,7 @@ describe('DataProjects', function test_DataListingURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '(c) ' + Math.random().toString(),
@@ -117,7 +117,7 @@ describe('DataProjects', function test_DataListingURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '. Source ' + Math.random().toString(),
@@ -128,7 +128,7 @@ describe('DataProjects', function test_DataListingURLs() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+			deepEqual(mod.DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
