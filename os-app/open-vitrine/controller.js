@@ -32,7 +32,9 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: [],
+					ZDAVitrineListData: mod.DataFetchURLs().reduce(function (coll, item) {
+						return coll.concat(mod.DataProjects(item, mod._ValueCache[item]));
+					}, []),
 				});
 			},
 			OLSKRouteLanguages: ['en'],
@@ -84,7 +86,7 @@ const mod = {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
 								ZDAProjectBlurb: cheerio('td:nth-child(2)', this).text(),
-								ZDAProjectWebsite: cheerio('td:nth-child(1) a', this).attr('href'),
+								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href'),
 							};
 						});
 					}),
@@ -93,7 +95,7 @@ const mod = {
 							return {
 								ZDAProjectName: cheerio('a:nth-child(1)', this).text(),
 								ZDAProjectBlurb: cheerio(this).text(),
-								ZDAProjectWebsite: cheerio('a:nth-child(1)', this).attr('href'),
+								ZDAProjectURL: cheerio('a:nth-child(1)', this).attr('href'),
 							};
 						});
 					}),

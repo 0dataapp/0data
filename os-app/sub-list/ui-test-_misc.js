@@ -5,7 +5,7 @@ describe('ZDAVitrineList_Misc', function  () {
 	const item = {
 		ZDAProjectName: Math.random().toString(),
 		ZDAProjectBlurb: Math.random().toString(),
-		ZDAProjectWebsite: Math.random().toString(),
+		ZDAProjectURL: Math.random().toString(),
 	};
 
 	before(function() {
@@ -33,11 +33,11 @@ describe('ZDAVitrineList_Misc', function  () {
 	describe('ZDAVitrineListTableRowWebsite', function test_ZDAVitrineListTableRowWebsite () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineListTableRowWebsite, 'href', item.ZDAProjectWebsite);
+			browser.assert.attribute(ZDAVitrineListTableRowWebsite, 'href', item.ZDAProjectURL);
 		});
 
-		it('binds ZDAProjectWebsite', function () {
-			browser.assert.text(ZDAVitrineListTableRowWebsite, item.ZDAProjectWebsite);
+		it('binds ZDAProjectURL', function () {
+			browser.assert.text(ZDAVitrineListTableRowWebsite, item.ZDAProjectURL);
 		});
 
 	});
