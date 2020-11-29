@@ -15,7 +15,7 @@ const uGet = function (inputData) {
       response.on('end', function () {
       	return resolve(body.join(''))
       });
-    });
+    }).on('error', reject);
   });
 };
 
@@ -149,7 +149,9 @@ const mod = {
 				ParamMap: _this._ValueCache,
 				ParamKey: e,
 				ParamCallback: (function () {
-					return _this._DataContentString(e);
+					return Promise.resolve(_this._DataContentString(e)).catch(function (error) {
+						// TODO: Handle fetch error, maybe retry
+					});
 				}),
 				ParamInterval: 1000 * 60 * 60 * 24,
 				_ParamCallbackDidFinish: (function () {
@@ -161,6 +163,8 @@ const mod = {
 
 };
 
-mod.LifecycleModuleDidLoad();
+if (process.env.npm_lifecycle_script === 'olsk-express') {
+	mod.LifecycleModuleDidLoad();
+}
 
 Object.assign(exports, mod);
