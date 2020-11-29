@@ -40,6 +40,10 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineInformationHeading, uLocalized('ZDAVitrineInformationHeadingText'));
 		});
 
+		it('localizes ZDAVitrineAutonomousDataLink', function () {
+			browser.assert.text(ZDAVitrineAutonomousDataLink, uLocalized('ZDAVitrineAutonomousDataLinkText'));
+		});
+
 		it('localizes ZDAVitrineProjectsHeading', function () {
 			browser.assert.text(ZDAVitrineProjectsHeading, uLocalized('ZDAVitrineProjectsHeadingText'));
 		});

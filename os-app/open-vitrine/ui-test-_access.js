@@ -11,6 +11,7 @@ Object.entries({
 	ZDAVitrineAspectsList: '.ZDAVitrineAspectsList',
 
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
+	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
 
 	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
 }).map(function (e) {
@@ -55,6 +56,9 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrineInformationHeading, 1);
 	});
 
+	it('shows ZDAVitrineAutonomousDataLink', function () {
+		browser.assert.elements(ZDAVitrineAutonomousDataLink, 1);
+	});
 	it('shows ZDAVitrineProjectsHeading', function () {
 		browser.assert.elements(ZDAVitrineProjectsHeading, 1);
 	});
