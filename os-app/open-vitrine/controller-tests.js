@@ -61,6 +61,17 @@ describe('DataProjects', function test_DataFetchURLs() {
 	});
 
 	context('solidproject', function () {
+
+		const uArticle = function (inputData = {}) {
+			const item = Object.assign({
+				ZDAProjectName: Math.random().toString(),
+				ZDAProjectBlurb: Math.random().toString(),
+				ZDAProjectExtra: Math.random().toString(),
+				ZDAProjectURL: Math.random().toString(),
+			}, inputData);
+
+			return `<article><p>${ Math.random().toString() }</p><h2>${ Math.random().toString() }</h2><ul><li><a href=\"${ item.ZDAProjectURL }\">${ item.ZDAProjectName }</a> ${ item.ZDAProjectBlurb } <a href=\"${ item.ZDAProjectExtra }\">${ item.ZDAProjectExtra }</a></li></ul><h1 id=\"historical-solid-apps\">${ Math.random().toString() }</h1><ul><li><a href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id=\"apps-inclusion-and-exclusion-criteria\">Apps inclusion and exclusion criteria</h1><ul><li>${ Math.random().toString() }</li></ul></article>`;
+		};
 		
 		it('parses article', function () {
 			const ZDAProjectName = Math.random().toString();
@@ -68,7 +79,12 @@ describe('DataProjects', function test_DataFetchURLs() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], `<article><p>${ Math.random().toString() }</p><h2>${ Math.random().toString() }</h2><ul><li><a href=\"${ ZDAProjectURL }\">${ ZDAProjectName }</a> ${ ZDAProjectBlurb } <a href=\"${ ZDAProjectExtra }\">${ ZDAProjectExtra }</a></li></ul><h1 id=\"historical-solid-apps\">${ Math.random().toString() }</h1><ul><li><a href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id=\"apps-inclusion-and-exclusion-criteria\">Apps inclusion and exclusion criteria</h1><ul><li>${ Math.random().toString() }</li></ul></article>`), [{
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], uArticle({
+				ZDAProjectName,
+				ZDAProjectBlurb,
+				ZDAProjectExtra,
+				ZDAProjectURL,
+			})), [{
 				ZDAProjectName,
 				ZDAProjectBlurb: [ZDAProjectName, ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectURL,
