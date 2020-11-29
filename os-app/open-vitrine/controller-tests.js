@@ -18,6 +18,14 @@ describe('DataFetchURLIndexRemoteStorage', function test_DataFetchURLIndexRemote
 
 });
 
+describe('DataFetchURLIndexSolidProject', function test_DataFetchURLIndexSolidProject() {
+
+	it('returns array', function () {
+		deepEqual(mod.DataFetchURLIndexSolidProject(), 1);
+	});
+
+});
+
 describe('DataProjects', function test_DataFetchURLs() {
 
 	it('throws if param1 not in DataFetchURLs', function () {
@@ -46,6 +54,23 @@ describe('DataProjects', function test_DataFetchURLs() {
 			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectWebsite }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
 				ZDAProjectName,
 				ZDAProjectBlurb,
+				ZDAProjectWebsite,
+			}]);
+		});
+	
+	});
+
+	context('solidproject', function () {
+		
+		it('parses article', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+			const ZDAProjectExtra = Math.random().toString();
+			const ZDAProjectWebsite = Math.random().toString();
+
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexSolidProject()], `<article><p>${ Math.random().toString() }</p><h2>${ Math.random().toString() }</h2><ul><li><a href=\"${ ZDAProjectWebsite }\">${ ZDAProjectName }</a> ${ ZDAProjectBlurb } <a href=\"${ ZDAProjectExtra }\">${ ZDAProjectExtra }</a></li></ul><h1 id=\"historical-solid-apps\">${ Math.random().toString() }</h1><ul><li><a href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id=\"apps-inclusion-and-exclusion-criteria\">Apps inclusion and exclusion criteria</h1><ul><li>${ Math.random().toString() }</li></ul></article>`), [{
+				ZDAProjectName,
+				ZDAProjectBlurb: [ZDAProjectName, ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectWebsite,
 			}]);
 		});

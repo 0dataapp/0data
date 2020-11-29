@@ -59,6 +59,10 @@ const mod = {
 		return 0;
 	},
 
+	DataFetchURLIndexSolidProject() {
+		return 1;
+	},
+
 	_DataContentString (inputData) {
 		return uGet(inputData);
 	},
@@ -84,8 +88,14 @@ const mod = {
 							};
 						});
 					}),
-					1: (function () {
-						return [];
+					[mod.DataFetchURLIndexSolidProject()]: (function () { // solidproject
+						return cheerio('article', param2).first().find('ul:not(#historical-solid-apps~ul) li').map(function (e) {
+							return {
+								ZDAProjectName: cheerio('a:nth-child(1)', this).text(),
+								ZDAProjectBlurb: cheerio(this).text(),
+								ZDAProjectWebsite: cheerio('a:nth-child(1)', this).attr('href'),
+							};
+						});
 					}),
 				}[i],
 			});
