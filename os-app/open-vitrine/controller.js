@@ -55,6 +55,10 @@ const mod = {
 		return process.env.ZDA_VITRINE_FETCH_URLS.split(',');
 	},
 
+	DataFetchURLIndexRemoteStorage() {
+		return 0;
+	},
+
 	_DataContentString (inputData) {
 		return uGet(inputData);
 	},
@@ -71,7 +75,7 @@ const mod = {
 		return Array.from(mod.DataFetchURLs().reduce(function (coll, item, i) {
 			return Object.assign(coll, {
 				[item]: {
-					0: (function () {
+					[mod.DataFetchURLIndexRemoteStorage()]: (function () { // remotestorage
 						return cheerio('table', param2).first().find('tr').map(function (e) {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),

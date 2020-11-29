@@ -10,6 +10,14 @@ describe('DataFetchURLs', function test_DataFetchURLs() {
 
 });
 
+describe('DataFetchURLIndexRemoteStorage', function test_DataFetchURLIndexRemoteStorage() {
+
+	it('returns array', function () {
+		deepEqual(mod.DataFetchURLIndexRemoteStorage(), 0);
+	});
+
+});
+
 describe('DataProjects', function test_DataFetchURLs() {
 
 	it('throws if param1 not in DataFetchURLs', function () {
@@ -30,12 +38,12 @@ describe('DataProjects', function test_DataFetchURLs() {
 
 	context('remotestorage', function () {
 		
-		it('parses html', function () {
+		it('parses table', function () {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectWebsite = Math.random().toString();
 
-			deepEqual(mod.DataProjects(mod.DataFetchURLs()[0], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectWebsite }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul>\n</td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
+			deepEqual(mod.DataProjects(mod.DataFetchURLs()[mod.DataFetchURLIndexRemoteStorage()], `<table><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ ZDAProjectWebsite }\">${ ZDAProjectName }</a></td><td>${ ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`), [{
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectWebsite,
