@@ -26,6 +26,16 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineIdentityName, uLocalized('ZDAVitrineTitle'));
 		});
 
+		it('localizes ZDAVitrineAspectsHeading', function () {
+			browser.assert.text(ZDAVitrineAspectsHeading, uLocalized('ZDAVitrineAspectsHeadingText'));
+		});
+
+		uLocalized('ZDAVitrineAspectsListItemText').forEach(function (e, i) {
+			it('localizes ZDAVitrineAspectsListItem', function () {
+				browser.assert.OLSKInnerHTML(`.ZDAVitrineAspectsListItem:nth-child(${ i + 1 })`, e);
+			});
+		});
+
 	});
 
 });

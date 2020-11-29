@@ -6,6 +6,9 @@ Object.entries({
 	ZDAVitrineIdentity: '.ZDAVitrineIdentity',
 	ZDAVitrineIdentityLogo: '.ZDAVitrineIdentityLogo',
 	ZDAVitrineIdentityName: '.ZDAVitrineIdentityName',
+
+	ZDAVitrineAspectsHeading: '.ZDAVitrineAspectsHeading',
+	ZDAVitrineAspectsList: '.ZDAVitrineAspectsList',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -34,6 +37,14 @@ describe('ZDAVitrine_Access', function () {
 	
 	it('shows ZDAVitrineIdentityName', function() {
 		browser.assert.elements(ZDAVitrineIdentityName, 1);
+	});
+
+	it('shows ZDAVitrineAspectsHeading', function () {
+		browser.assert.elements(ZDAVitrineAspectsHeading, 1);
+	});
+
+	it('shows ZDAVitrineAspectsList', function () {
+		browser.assert.elements(ZDAVitrineAspectsList, 1);
 	});
 
 	it('shows ZDAVitrineList', function () {

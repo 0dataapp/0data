@@ -15,4 +15,32 @@
 
 .ZDAVitrineIdentityName {
 	margin: 0;
+
+	font-size: 24pt;
+	font-weight: bold;
+	font-family: Helvetica;
+}
+
+h1 {
+	padding-bottom: 2px;
+	border-bottom: 1px solid black;
+}
+
+.ZDAVitrineAspectsList {
+	padding-left: 0 !important;
+	text-indent: 0;
+	list-style: none;
+}
+
+.ZDAVitrineAspectsListItem {
+	padding: 10px;
+	border-radius: 5px;
+
+	margin: 10px 0;
+
+	background: #eee;
+}
+
+.ZDAVitrineAspectsListItem em {
+	font-weight: bold;
 }

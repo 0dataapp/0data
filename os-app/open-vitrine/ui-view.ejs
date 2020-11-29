@@ -20,8 +20,16 @@ locals.OLSKPageMetaTags = {
 
 <div class="ZDAVitrineIdentity">
 	<img class="ZDAVitrineIdentityLogo" src="<%= process.env.ZDA_TOUCH_ICON_URL %>" role="presentation" />
-	<h1 class="ZDAVitrineIdentityName"><%= OLSKLocalized('ZDAVitrineTitle') %></h1>
+	<span class="ZDAVitrineIdentityName"><%= OLSKLocalized('ZDAVitrineTitle') %></span>
 </div>
+
+<h1 class="ZDAVitrineAspectsHeading"><%= OLSKLocalized('ZDAVitrineAspectsHeadingText') %></h1>
+
+<ul class="ZDAVitrineAspectsList">
+	<% OLSKLocalized('ZDAVitrineAspectsListItemText').forEach(function (e) { -%>
+		<li class="ZDAVitrineAspectsListItem"><%- e %></li>
+	<% }) -%>
+</ul>
 
 <%- include('../sub-list/ui-view.ejs') %>
 
