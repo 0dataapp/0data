@@ -54,7 +54,7 @@ const mod = {
 	_DataFoilOLSKCache: require('OLSKCache'),
 
 	DataListingURLs() {
-		return process.env.ZDA_VITRINE_FETCH_URLS.split(',');
+		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
 	},
 
 	DataFetchURLIndexRemoteStorage() {

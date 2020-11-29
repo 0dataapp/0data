@@ -5,7 +5,7 @@ const mod = require('./controller.js');
 describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
-		deepEqual(mod.DataListingURLs(), process.env.ZDA_VITRINE_FETCH_URLS.split(','));
+		deepEqual(mod.DataListingURLs(), process.env.ZDA_VITRINE_LISTING_URLS.split(','));
 	});
 
 });
