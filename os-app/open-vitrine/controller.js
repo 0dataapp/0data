@@ -31,6 +31,7 @@ const mod = {
 			OLSKRouteFunction (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
 					ZDAVitrineListData: mod.DataObjects(),
+					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			},
 			OLSKRouteLanguages: ['en'],

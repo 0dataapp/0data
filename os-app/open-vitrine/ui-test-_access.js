@@ -18,6 +18,9 @@ Object.entries({
 	ZDAVitrineFissionLink: '.ZDAVitrineFissionLink',
 
 	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
+
+	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
+	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -86,6 +89,14 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineList', function () {
 		browser.assert.elements('.ZDAVitrineList', 1);
+	});
+
+	it('shows ZDAVitrineProjectsSourcesHeading', function () {
+		browser.assert.elements(ZDAVitrineProjectsSourcesHeading, 1);
+	});
+
+	it('shows ZDAVitrineProjectsSourcesBlurb', function () {
+		browser.assert.elements(ZDAVitrineProjectsSourcesBlurb, 1);
 	});
 	
 	it('shows ROCORootLink', function() {

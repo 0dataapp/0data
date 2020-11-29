@@ -70,4 +70,13 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	require('./controller.js').DataListingURLs().forEach(function (e, i) {
+		
+		it('localizes ZDAVitrineAspectsListItem', function () {
+			browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
+			browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e);
+		});
+
+	});
+
 });

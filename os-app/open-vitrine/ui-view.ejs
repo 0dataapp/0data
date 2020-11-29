@@ -45,6 +45,16 @@ locals.OLSKPageMetaTags = {
 
 <%- include('../sub-list/ui-view.ejs') %>
 
+<h2 class="ZDAVitrineProjectsSourcesHeading"><%= OLSKLocalized('ZDAVitrineProjectsSourcesHeadingText') %></h2>
+
+<p class="ZDAVitrineProjectsSourcesBlurb"><%= OLSKLocalized('ZDAVitrineProjectsSourcesBlurbText') %></p>
+
+<ul class="ZDAVitrineProjectsSourcesList">
+	<% ZDAVitrineProjectsSourceURLs.forEach(function (e) { -%>
+		<li><a class="ZDAVitrineProjectsSourcesListItem" href="<%= e %>"><%- e %></a></li>
+	<% }) -%>
+</ul>
+
 <hr />
 
 <%- include('../_shared/__external/ROCORootLink/main.ejs') %>
