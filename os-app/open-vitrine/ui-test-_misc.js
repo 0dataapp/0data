@@ -38,4 +38,12 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineRemoteStorageLink', function test_ZDAVitrineRemoteStorageLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineRemoteStorageLink, 'href', process.env.ZDA_VITRINE_REMOTE_STORAGE_URL);
+		});
+	
+	});
+
 });

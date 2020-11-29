@@ -9,4 +9,5 @@ ZDAVitrineAspectsListItemText:
   - your data is <em>accessible forever</em> even if the app stops working
 ZDAVitrineInformationHeadingText: More information
 ZDAVitrineAutonomousDataLinkText: Autonomous Data
+ZDAVitrineRemoteStorageLinkText: Remote Storage
 ZDAVitrineProjectsHeadingText: Projects
