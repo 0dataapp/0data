@@ -37,7 +37,7 @@ describe('ZDAVitrine_Misc', function () {
 		});
 		
 		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineIdentityLogo, 'src', process.env.ZDA_TOUCH_ICON_URL);
+			browser.assert.attribute(ZDAVitrineIdentityLogo, 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
 		});
 	
 	});
