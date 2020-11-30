@@ -28,6 +28,10 @@ describe('ZDAVitrineList_Misc', function  () {
 			browser.assert.attribute(ZDAVitrineListItemName, 'href', item.ZDAProjectURL);
 		});
 
+		it('sets target', function () {
+			browser.assert.attribute(ZDAVitrineListItemName, 'target', '_blank');
+		});
+
 		it('binds ZDAProjectName', function () {
 			browser.assert.text(ZDAVitrineListItemName, item.ZDAProjectName);
 		});
