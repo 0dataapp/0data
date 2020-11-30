@@ -98,6 +98,18 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineGitHubLink', function test_ZDAVitrineGitHubLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineGitHubLink, 'href', process.env.ZDA_VITRINE_GITHUB_URL);
+		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineFissionLink, 'Fission');
+		});
+	
+	});
+
 	require('./controller.js').DataListingURLs().forEach(function (e, i) {
 
 		describe('ZDAVitrinePrinciplesListItem', function test_ZDAVitrinePrinciplesListItem () {

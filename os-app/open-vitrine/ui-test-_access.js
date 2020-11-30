@@ -17,6 +17,7 @@ Object.entries({
 	ZDAVitrineSolidProjectLink: '.ZDAVitrineSolidProjectLink',
 	ZDAVitrineUnhostedLink: '.ZDAVitrineUnhostedLink',
 	ZDAVitrineFissionLink: '.ZDAVitrineFissionLink',
+	ZDAVitrineGitHubLink: '.ZDAVitrineGitHubLink',
 
 	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
 
@@ -87,6 +88,10 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineFissionLink', function () {
 		browser.assert.elements(ZDAVitrineFissionLink, 1);
+	});
+
+	it('shows ZDAVitrineGitHubLink', function () {
+		browser.assert.elements(ZDAVitrineGitHubLink, 1);
 	});
 
 	it('shows ZDAVitrineProjectsHeading', function () {
