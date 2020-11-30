@@ -2,6 +2,10 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
+const uRandomElement = function (inputData) {
+	return inputData[Date.now() % inputData.length];
+};
+
 describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
@@ -36,12 +40,12 @@ describe('DataListingProjects', function test_DataListingProjects() {
 
 	it('throws if param2 not string', function () {
 		throws(function () {
-			mod.DataListingProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], null);
+			mod.DataListingProjects(uRandomElement(mod.DataListingURLs()), null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(mod.DataListingProjects(mod.DataListingURLs()[Date.now() % mod.DataListingURLs().length], ''), []);
+		deepEqual(mod.DataListingProjects(uRandomElement(mod.DataListingURLs()), ''), []);
 	});
 
 	context('remotestorage', function () {
