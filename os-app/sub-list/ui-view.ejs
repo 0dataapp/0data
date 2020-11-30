@@ -5,10 +5,12 @@
 <% } -%>
 
 <% locals.ZDAVitrineListData.forEach(function (item) { -%>
-<div class="ZDAVitrineListItem">
-	<a class="ZDAVitrineListItemName" href="<%= item.ZDAProjectURL %>"><%= item.ZDAProjectName %></a>
-	
-	<span class="ZDAVitrineListItemBlurb"><%= item.ZDAProjectBlurb %></span>
+<div class="ZDAVitrineListItem OLSKCommonCard">
+	<div>
+		<a class="ZDAVitrineListItemName" href="<%= item.ZDAProjectURL %>"><%= item.ZDAProjectName %></a>
+
+		<span class="ZDAVitrineListItemBlurb"><%= item.ZDAProjectBlurb %></span>
+	</div>
 </div>
 <% }) -%>
 

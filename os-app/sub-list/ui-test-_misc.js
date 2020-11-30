@@ -14,6 +14,14 @@ describe('ZDAVitrineList_Misc', function  () {
 		});
 	});
 
+	describe('ZDAVitrineListItem', function test_ZDAVitrineListItem () {
+
+		it('classes OLSKCommonCard', function () {
+			browser.assert.hasClass(ZDAVitrineListItem, 'OLSKCommonCard');
+		});
+
+	});
+
 	describe('ZDAVitrineListItemName', function test_ZDAVitrineListItemName () {
 
 		it('sets href', function () {

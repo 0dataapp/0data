@@ -22,3 +22,17 @@ h1 {
 	font-weight: bold;
 	font-style: normal;
 }
+
+.ZDAVitrineListItem {
+	padding: 10px;
+	border-radius: 5px;
+
+	margin: 10px 0;
+
+	background: #eee;
+}
+
+.ZDAVitrineListItem a {
+	text-decoration: none;
+	color: black;
+}
