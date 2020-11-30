@@ -30,13 +30,13 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineIdentityBlurb, uLocalized('ZDAVitrineDescription'));
 		});
 
-		it('localizes ZDAVitrineAspectsHeading', function () {
-			browser.assert.text(ZDAVitrineAspectsHeading, uLocalized('ZDAVitrineAspectsHeadingText'));
+		it('localizes ZDAVitrinePrinciplesHeading', function () {
+			browser.assert.text(ZDAVitrinePrinciplesHeading, uLocalized('ZDAVitrinePrinciplesHeadingText'));
 		});
 
-		uLocalized('ZDAVitrineAspectsListItemText').forEach(function (e, i) {
-			it('localizes ZDAVitrineAspectsListItem', function () {
-				browser.assert.OLSKInnerHTML(`.ZDAVitrineAspectsListItem:nth-child(${ i + 1 })`, e);
+		uLocalized('ZDAVitrinePrinciplesListItemText').forEach(function (e, i) {
+			it('localizes ZDAVitrinePrinciplesListItem', function () {
+				browser.assert.OLSKInnerHTML(`.ZDAVitrinePrinciplesListItem:nth-child(${ i + 1 })`, e);
 			});
 		});
 

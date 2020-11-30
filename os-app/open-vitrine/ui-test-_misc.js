@@ -80,9 +80,9 @@ describe('ZDAVitrine_Misc', function () {
 
 	require('./controller.js').DataListingURLs().forEach(function (e, i) {
 
-		describe('ZDAVitrineAspectsListItem', function test_ZDAVitrineAspectsListItem () {
+		describe('ZDAVitrinePrinciplesListItem', function test_ZDAVitrinePrinciplesListItem () {
 			
-			it('localizes ZDAVitrineAspectsListItem', function () {
+			it('localizes ZDAVitrinePrinciplesListItem', function () {
 				browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
 				browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e);
 			});

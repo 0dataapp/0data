@@ -8,8 +8,8 @@ Object.entries({
 	ZDAVitrineIdentityName: '.ZDAVitrineIdentityName',
 	ZDAVitrineIdentityBlurb: '.ZDAVitrineIdentityBlurb',
 
-	ZDAVitrineAspectsHeading: '.ZDAVitrineAspectsHeading',
-	ZDAVitrineAspectsList: '.ZDAVitrineAspectsList',
+	ZDAVitrinePrinciplesHeading: '.ZDAVitrinePrinciplesHeading',
+	ZDAVitrinePrinciplesList: '.ZDAVitrinePrinciplesList',
 
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
 	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
@@ -57,12 +57,12 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrineIdentityBlurb, 1);
 	});
 
-	it('shows ZDAVitrineAspectsHeading', function () {
-		browser.assert.elements(ZDAVitrineAspectsHeading, 1);
+	it('shows ZDAVitrinePrinciplesHeading', function () {
+		browser.assert.elements(ZDAVitrinePrinciplesHeading, 1);
 	});
 
-	it('shows ZDAVitrineAspectsList', function () {
-		browser.assert.elements(ZDAVitrineAspectsList, 1);
+	it('shows ZDAVitrinePrinciplesList', function () {
+		browser.assert.elements(ZDAVitrinePrinciplesList, 1);
 	});
 
 	it('shows ZDAVitrineInformationHeading', function () {

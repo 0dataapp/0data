@@ -3,13 +3,13 @@ h1 {
 	border-bottom: 1px solid black;
 }
 
-.ZDAVitrineAspectsList {
+.ZDAVitrinePrinciplesList {
 	padding-left: 0 !important;
 	text-indent: 0;
 	list-style: none;
 }
 
-.ZDAVitrineAspectsListItem {
+.ZDAVitrinePrinciplesListItem {
 	padding: 10px;
 	border-radius: 5px;
 
@@ -18,7 +18,7 @@ h1 {
 	background: #eee;
 }
 
-.ZDAVitrineAspectsListItem em {
+.ZDAVitrinePrinciplesListItem em {
 	font-weight: bold;
 	font-style: normal;
 }

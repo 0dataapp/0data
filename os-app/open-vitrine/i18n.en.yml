@@ -1,7 +1,7 @@
 ZDAVitrineTitle: Zero Data App
 ZDAVitrineDescription: Own your data, all of it.
-ZDAVitrineAspectsHeadingText: Aspects
-ZDAVitrineAspectsListItemText:
+ZDAVitrinePrinciplesHeadingText: Principles
+ZDAVitrinePrinciplesListItemText:
   - an app in which <em>your data stays with you</em>
   - <em>you control where</em> the data is stored
   - using protocols like remoteStorage or SOLID for <em>flexibility and interoperability</em>
