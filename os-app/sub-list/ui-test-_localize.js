@@ -18,25 +18,6 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineListEmpty, uLocalized('ZDAVitrineListEmptyText'));
 		});
 
-		context('ZDAVitrineListData', function () {
-
-			before(function() {
-				return browser.OLSKVisit(kDefaultRoute, {
-					OLSKRoutingLanguage: languageCode,
-					ZDAVitrineListData: JSON.stringify([{}]),
-				});
-			});
-
-			it('localizes ZDAVitrineListTableHeadingName', function () {
-				browser.assert.text(ZDAVitrineListTableHeadingName, uLocalized('ZDAVitrineListTableHeadingNameText'));
-			});
-
-			it('localizes ZDAVitrineListTableHeadingBlurb', function () {
-				browser.assert.text(ZDAVitrineListTableHeadingBlurb, uLocalized('ZDAVitrineListTableHeadingBlurbText'));
-			});
-
-		});
-
 	});
 
 });

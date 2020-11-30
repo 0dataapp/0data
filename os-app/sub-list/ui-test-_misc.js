@@ -14,22 +14,22 @@ describe('ZDAVitrineList_Misc', function  () {
 		});
 	});
 
-	describe('ZDAVitrineListTableRowName', function test_ZDAVitrineListTableRowName () {
+	describe('ZDAVitrineListItemName', function test_ZDAVitrineListItemName () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineListTableRowName, 'href', item.ZDAProjectURL);
+			browser.assert.attribute(ZDAVitrineListItemName, 'href', item.ZDAProjectURL);
 		});
 
 		it('binds ZDAProjectName', function () {
-			browser.assert.text(ZDAVitrineListTableRowName, item.ZDAProjectName);
+			browser.assert.text(ZDAVitrineListItemName, item.ZDAProjectName);
 		});
 
 	});
 
-	describe('ZDAVitrineListTableRowBlurb', function test_ZDAVitrineListTableRowBlurb () {
+	describe('ZDAVitrineListItemBlurb', function test_ZDAVitrineListItemBlurb () {
 
 		it('binds ZDAProjectBlurb', function () {
-			browser.assert.text(ZDAVitrineListTableRowBlurb, item.ZDAProjectBlurb);
+			browser.assert.text(ZDAVitrineListItemBlurb, item.ZDAProjectBlurb);
 		});
 
 	});

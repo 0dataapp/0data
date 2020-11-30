@@ -5,15 +5,10 @@ Object.entries({
 	
 	ZDAVitrineListEmpty: '.ZDAVitrineListEmpty',
 
-	ZDAVitrineListTable: '.ZDAVitrineListTable',
-
-	ZDAVitrineListTableHeadingName: '.ZDAVitrineListTableHeadingName',
-	ZDAVitrineListTableHeadingBlurb: '.ZDAVitrineListTableHeadingBlurb',
-
-	ZDAVitrineListTableRow: '.ZDAVitrineListTableRow',
+	ZDAVitrineListItem: '.ZDAVitrineListItem',
 	
-	ZDAVitrineListTableRowName: '.ZDAVitrineListTableRowName',
-	ZDAVitrineListTableRowBlurb: '.ZDAVitrineListTableRowBlurb',
+	ZDAVitrineListItemName: '.ZDAVitrineListItemName',
+	ZDAVitrineListItemBlurb: '.ZDAVitrineListItemBlurb',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -32,8 +27,8 @@ describe('ZDAVitrineList_Access', function () {
 		browser.assert.elements(ZDAVitrineListEmpty, 1);
 	});
 
-	it('hides ZDAVitrineListTable', function () {
-		browser.assert.elements(ZDAVitrineListTable, 0);
+	it('hides ZDAVitrineListItem', function () {
+		browser.assert.elements(ZDAVitrineListItem, 0);
 	});
 
 	context('ZDAVitrineListData', function () {
@@ -52,20 +47,8 @@ describe('ZDAVitrineList_Access', function () {
 			browser.assert.elements(ZDAVitrineListEmpty, 0);
 		});
 
-		it('shows ZDAVitrineListTable', function () {
-			browser.assert.elements(ZDAVitrineListTable, 1);
-		});
-
-		it('shows ZDAVitrineListTableHeadingName', function () {
-			browser.assert.elements(ZDAVitrineListTableHeadingName, 1);
-		});
-
-		it('shows ZDAVitrineListTableHeadingBlurb', function () {
-			browser.assert.elements(ZDAVitrineListTableHeadingBlurb, 1);
-		});
-
-		it('shows ZDAVitrineListTableRow', function () {
-			browser.assert.elements(ZDAVitrineListTableRow, count);
+		it('shows ZDAVitrineListItem', function () {
+			browser.assert.elements(ZDAVitrineListItem, count);
 		});
 
 	});

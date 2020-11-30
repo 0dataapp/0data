@@ -4,22 +4,12 @@
 	<p class="ZDAVitrineListEmpty"><%= OLSKLocalized('ZDAVitrineListEmptyText') %></p>
 <% } -%>
 
-<% if (locals.ZDAVitrineListData.length) { -%>
-<table class="ZDAVitrineListTable">
-	<tr>
-		<th class="ZDAVitrineListTableHeadingName"><%= OLSKLocalized('ZDAVitrineListTableHeadingNameText') %></th>
-		<th class="ZDAVitrineListTableHeadingBlurb"><%= OLSKLocalized('ZDAVitrineListTableHeadingBlurbText') %></th>
-	</tr>
+<% locals.ZDAVitrineListData.forEach(function (item) { -%>
+<div class="ZDAVitrineListItem">
+	<a class="ZDAVitrineListItemName" href="<%= item.ZDAProjectURL %>"><%= item.ZDAProjectName %></a>
 	
-	<% locals.ZDAVitrineListData.forEach(function (item) { -%>
-		<tr class="ZDAVitrineListTableRow">
-			<td>
-				<a class="ZDAVitrineListTableRowName" href="<%= item.ZDAProjectURL %>"><%= item.ZDAProjectName %></a>
-			</td>
-			<td class="ZDAVitrineListTableRowBlurb"><%= item.ZDAProjectBlurb %></td>
-		</tr>
-	<% }) -%>
-</table>
-<% } -%>
+	<span class="ZDAVitrineListItemBlurb"><%= item.ZDAProjectBlurb %></span>
+</div>
+<% }) -%>
 
 </div>
