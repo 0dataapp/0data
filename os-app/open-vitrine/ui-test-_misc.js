@@ -18,6 +18,14 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineIdentity', function test_ZDAVitrineIdentity() {
+
+		it('classes OLSKCommonIdentityCard', function () {
+			browser.assert.hasClass(ZDAVitrineIdentity, 'OLSKCommonIdentityCard');
+		});
+		
+	});
+
 	describe('ZDAVitrineIdentityLogo', function test_ZDAVitrineIdentityLogo() {
 		
 		it('sets role', function () {
