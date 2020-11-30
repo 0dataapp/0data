@@ -44,26 +44,6 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineInformationHeading, uLocalized('ZDAVitrineInformationHeadingText'));
 		});
 
-		it('localizes ZDAVitrineAutonomousDataLink', function () {
-			browser.assert.text(ZDAVitrineAutonomousDataLink, uLocalized('ZDAVitrineAutonomousDataLinkText'));
-		});
-
-		it('localizes ZDAVitrineRemoteStorageLink', function () {
-			browser.assert.text(ZDAVitrineRemoteStorageLink, uLocalized('ZDAVitrineRemoteStorageLinkText'));
-		});
-
-		it('localizes ZDAVitrineSolidProjectLink', function () {
-			browser.assert.text(ZDAVitrineSolidProjectLink, uLocalized('ZDAVitrineSolidProjectLinkText'));
-		});
-
-		it('localizes ZDAVitrineUnhostedLink', function () {
-			browser.assert.text(ZDAVitrineUnhostedLink, uLocalized('ZDAVitrineUnhostedLinkText'));
-		});
-
-		it('localizes ZDAVitrineFissionLink', function () {
-			browser.assert.text(ZDAVitrineFissionLink, uLocalized('ZDAVitrineFissionLinkText'));
-		});
-
 		it('localizes ZDAVitrineProjectsHeading', function () {
 			browser.assert.text(ZDAVitrineProjectsHeading, uLocalized('ZDAVitrineProjectsHeadingText'));
 		});

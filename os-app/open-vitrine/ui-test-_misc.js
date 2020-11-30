@@ -43,6 +43,10 @@ describe('ZDAVitrine_Misc', function () {
 		it('sets href', function () {
 			browser.assert.attribute(ZDAVitrineAutonomousDataLink, 'href', process.env.ZDA_VITRINE_AUTONOMOUS_DATA_URL);
 		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineAutonomousDataLink, 'Autonomous Data');
+		});
 	
 	});
 
@@ -50,6 +54,10 @@ describe('ZDAVitrine_Misc', function () {
 		
 		it('sets href', function () {
 			browser.assert.attribute(ZDAVitrineRemoteStorageLink, 'href', process.env.ZDA_VITRINE_REMOTE_STORAGE_URL);
+		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineRemoteStorageLink, 'remoteStorage');
 		});
 	
 	});
@@ -59,6 +67,10 @@ describe('ZDAVitrine_Misc', function () {
 		it('sets href', function () {
 			browser.assert.attribute(ZDAVitrineSolidProjectLink, 'href', process.env.ZDA_VITRINE_SOLID_PROJECT_URL);
 		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineSolidProjectLink, 'Solid Project');
+		});
 	
 	});
 
@@ -67,6 +79,10 @@ describe('ZDAVitrine_Misc', function () {
 		it('sets href', function () {
 			browser.assert.attribute(ZDAVitrineUnhostedLink, 'href', process.env.ZDA_VITRINE_UNHOSTED_URL);
 		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineUnhostedLink, 'Unhosted');
+		});
 	
 	});
 
@@ -74,6 +90,10 @@ describe('ZDAVitrine_Misc', function () {
 		
 		it('sets href', function () {
 			browser.assert.attribute(ZDAVitrineFissionLink, 'href', process.env.ZDA_VITRINE_FISSION_URL);
+		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineFissionLink, 'Fission');
 		});
 	
 	});
