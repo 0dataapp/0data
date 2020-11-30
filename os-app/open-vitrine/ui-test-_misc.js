@@ -18,7 +18,7 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	describe('ZDAVitrineIdentityLogo', function () {
+	describe('ZDAVitrineIdentityLogo', function test_ZDAVitrineIdentityLogo() {
 		
 		it('sets role', function () {
 			browser.assert.attribute(ZDAVitrineIdentityLogo, 'role', 'presentation');
