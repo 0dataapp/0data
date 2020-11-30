@@ -1,24 +1,24 @@
 .ZDAVitrineIdentity {
+	margin: 2em 0;
+
 	display: flex;
-
-	margin-top: 15px;
-
 	align-items: center;
 }
 
 .ZDAVitrineIdentityLogo {
-	width: 48px;
-	height: 48px;
+	width: 70px;
 
-	padding-right: 4px;
+	margin-right: 4px;
 }
 
 .ZDAVitrineIdentityName {
-	margin: 0;
-
 	font-size: 24pt;
 	font-weight: bold;
 	font-family: Helvetica;
+}
+
+.ZDAVitrineIdentityBlurb {
+	font-style: oblique;
 }
 
 h1 {
@@ -43,4 +43,5 @@ h1 {
 
 .ZDAVitrineAspectsListItem em {
 	font-weight: bold;
+	font-style: normal;
 }
