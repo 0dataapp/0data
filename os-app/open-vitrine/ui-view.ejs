@@ -20,7 +20,11 @@ locals.OLSKPageMetaTags = {
 
 <div class="ZDAVitrineIdentity">
 	<img class="ZDAVitrineIdentityLogo" src="<%= process.env.ZDA_TOUCH_ICON_URL %>" role="presentation" />
-	<span class="ZDAVitrineIdentityName"><%= OLSKLocalized('ZDAVitrineTitle') %></span>
+	<section>
+		<span class="ZDAVitrineIdentityName"><%= OLSKLocalized('ZDAVitrineTitle') %></span>
+		<br />
+		<span class="ZDAVitrineIdentityBlurb"><%= OLSKLocalized('ZDAVitrineDescription') %></span>
+	</section>
 </div>
 
 <h1 class="ZDAVitrineAspectsHeading"><%= OLSKLocalized('ZDAVitrineAspectsHeadingText') %></h1>

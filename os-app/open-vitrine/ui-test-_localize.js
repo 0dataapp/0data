@@ -26,6 +26,10 @@ kDefaultRoute.OLSKRouteLanguages.forEach(function (languageCode) {
 			browser.assert.text(ZDAVitrineIdentityName, uLocalized('ZDAVitrineTitle'));
 		});
 
+		it('localizes ZDAVitrineIdentityBlurb', function () {
+			browser.assert.text(ZDAVitrineIdentityBlurb, uLocalized('ZDAVitrineDescription'));
+		});
+
 		it('localizes ZDAVitrineAspectsHeading', function () {
 			browser.assert.text(ZDAVitrineAspectsHeading, uLocalized('ZDAVitrineAspectsHeadingText'));
 		});

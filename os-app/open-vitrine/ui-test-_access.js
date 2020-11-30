@@ -6,6 +6,7 @@ Object.entries({
 	ZDAVitrineIdentity: '.ZDAVitrineIdentity',
 	ZDAVitrineIdentityLogo: '.ZDAVitrineIdentityLogo',
 	ZDAVitrineIdentityName: '.ZDAVitrineIdentityName',
+	ZDAVitrineIdentityBlurb: '.ZDAVitrineIdentityBlurb',
 
 	ZDAVitrineAspectsHeading: '.ZDAVitrineAspectsHeading',
 	ZDAVitrineAspectsList: '.ZDAVitrineAspectsList',
@@ -50,6 +51,10 @@ describe('ZDAVitrine_Access', function () {
 	
 	it('shows ZDAVitrineIdentityName', function() {
 		browser.assert.elements(ZDAVitrineIdentityName, 1);
+	});
+
+	it('shows ZDAVitrineIdentityBlurb', function () {
+		browser.assert.elements(ZDAVitrineIdentityBlurb, 1);
 	});
 
 	it('shows ZDAVitrineAspectsHeading', function () {
