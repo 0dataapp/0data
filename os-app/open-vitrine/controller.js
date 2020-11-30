@@ -51,11 +51,15 @@ const mod = {
 
 	// VALUE
 
-	_ValueCache: require('OLSKCache').OLSKCacheReadFile(require('path').basename(__dirname), require('path').join(__dirname, '__cached')) || {},
+	_ValueCache: {},
 
 	// DATA
 
 	_DataFoilOLSKCache: require('OLSKCache'),
+
+	DataCacheNamePrimary() {
+		return 'cache-a-primary';
+	},
 
 	DataListingURLs() {
 		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
@@ -157,6 +161,8 @@ const mod = {
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {
+		mod._ValueCache = require('OLSKCache').OLSKCacheReadFile(mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')) || {};
+		
 		const _this = this;
 		return mod.DataListingURLs().map(function (e) {
 			return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
@@ -169,7 +175,7 @@ const mod = {
 				}),
 				ParamInterval: 1000 * 60 * 60 * 24,
 				_ParamCallbackDidFinish: (function () {
-					_this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCache, require('path').basename(__dirname), require('path').join(__dirname, '__cached'));
+					_this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCache, mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached'));
 				}),
 			});
 		})

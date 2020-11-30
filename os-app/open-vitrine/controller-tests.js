@@ -6,6 +6,14 @@ const uRandomElement = function (inputData) {
 	return inputData[Date.now() % inputData.length];
 };
 
+describe('DataCacheNamePrimary', function test_DataCacheNamePrimary() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataCacheNamePrimary(), 'cache-a-primary');
+	});
+
+});
+
 describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
@@ -328,7 +336,7 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 			});
 
 			deepEqual(item, mod.DataListingURLs().map(function () {
-				return [_ValueCache, require('path').basename(__dirname), require('path').join(__dirname, '__cached')];
+				return [_ValueCache, mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')];
 			}));
 		});
 	
