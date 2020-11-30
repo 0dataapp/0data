@@ -16,7 +16,7 @@ locals.OLSKPageMetaTags = {
 
 <%- include('../../node_modules/OLSKLanguageSwitcher/main.ejs') %>
 
-<hr>
+<hr role="presentation" />
 
 <div class="ZDAVitrineIdentity OLSKCommonIdentityCard">
 	<img class="ZDAVitrineIdentityLogo" src="<%= process.env.ZDA_TOUCH_ICON_URL %>" role="presentation" />
@@ -59,13 +59,13 @@ locals.OLSKPageMetaTags = {
 	<% }) -%>
 </ul>
 
-<hr>
+<hr role="presentation" />
 
 <p>
 	<a class="ZDAVitrineProjectsCompilationLink" href="<%= OLSKCanonicalFor('ZDAProjectsJSONRoute') %>"><%= OLSKLocalized('ZDAVitrineProjectsCompilationLinkText') %></a>
 </p>
 
-<hr />
+<hr role="presentation" />
 
 <%- include('../_shared/__external/ROCORootLink/main.ejs') %>
 
