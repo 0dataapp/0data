@@ -28,20 +28,20 @@ const mod = {
 			OLSKRoutePath: '/',
 			OLSKRouteMethod: 'get',
 			OLSKRouteSignature: 'ZDAVitrineRoute',
-			OLSKRouteFunction (req, res, next) {
+			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
 					ZDAVitrineListData: mod.DataObjects(),
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
-			},
-			OLSKRouteLanguages: ['en'],
+			}),
+			OLSKRouteLanguageCodes: ['en'],
 		}, {
 			OLSKRoutePath: '/projects.json',
 			OLSKRouteMethod: 'get',
 			OLSKRouteSignature: 'ZDAProjectsJSONRoute',
-			OLSKRouteFunction (req, res, next) {
+			OLSKRouteFunction: (function ZDAProjectsJSONRoute (req, res, next) {
 				return res.send(mod.DataProjectsJSON());
-			},
+			}),
 		}];
 	},
 
