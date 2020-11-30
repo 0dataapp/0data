@@ -20,6 +20,10 @@ describe('ZDAVitrine_Misc', function () {
 
 	describe('ZDAVitrineIdentity', function test_ZDAVitrineIdentity() {
 
+		it('classes OLSKCommonCard', function () {
+			browser.assert.hasClass(ZDAVitrineIdentity, 'OLSKCommonCard');
+		});
+
 		it('classes OLSKCommonIdentityCard', function () {
 			browser.assert.hasClass(ZDAVitrineIdentity, 'OLSKCommonIdentityCard');
 		});
