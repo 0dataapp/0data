@@ -1,3 +1,5 @@
+const cheerio = require('cheerio');
+
 // How to get node.js HTTP request promise without a single dependency https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
 const uGet = function (inputData) {
   return new Promise((resolve, reject) => {
@@ -18,8 +20,6 @@ const uGet = function (inputData) {
     }).on('error', reject);
   });
 };
-
-const cheerio = require('cheerio');
 
 const mod = {
 
@@ -162,7 +162,7 @@ const mod = {
 
 	LifecycleModuleDidLoad () {
 		mod._ValueCache = require('OLSKCache').OLSKCacheReadFile(mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')) || {};
-		
+
 		const _this = this;
 		return mod.DataListingURLs().map(function (e) {
 			return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
@@ -183,7 +183,7 @@ const mod = {
 
 };
 
-if (process.env.npm_lifecycle_script === 'olsk-express') {
+if (process.env.NODE_ENV === 'production' || process.env.npm_lifecycle_script === 'olsk-express') {
 	mod.LifecycleModuleDidLoad();
 }
 
