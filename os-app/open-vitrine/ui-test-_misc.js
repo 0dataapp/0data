@@ -102,10 +102,10 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	describe('ZDAVitrineGitHubLink', function test_ZDAVitrineGitHubLink () {
+	describe('ZDAVitrineRepoLink', function test_ZDAVitrineRepoLink () {
 		
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineGitHubLink, 'href', process.env.ZDA_VITRINE_REPO_URL);
+			browser.assert.attribute(ZDAVitrineRepoLink, 'href', process.env.ZDA_VITRINE_REPO_URL);
 		});
 
 		it('sets text', function () {
