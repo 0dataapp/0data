@@ -105,7 +105,7 @@ describe('ZDAVitrine_Misc', function () {
 	describe('ZDAVitrineGitHubLink', function test_ZDAVitrineGitHubLink () {
 		
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineGitHubLink, 'href', process.env.ZDA_VITRINE_GITHUB_URL);
+			browser.assert.attribute(ZDAVitrineGitHubLink, 'href', process.env.ZDA_VITRINE_REPO_URL);
 		});
 
 		it('sets text', function () {
