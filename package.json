@@ -1,6 +1,5 @@
 {
   "scripts": {
-    "preinstall": "node ./package-preinstall.js",
     "postinstall": "node ./package-postinstall.js",
     "setup": "olsk-bundle",
     "start": "olsk-express",
