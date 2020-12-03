@@ -6,10 +6,6 @@ describe('ZDAVitrine_Misc', function () {
 		return browser.visit(kDefaultRoute.OLSKRoutePath);
 	});
 
-	it('assigns meta:viewport', function () {
-		browser.assert.attribute('meta[name=viewport]', 'content', 'width=device-width');
-	});
-
 	describe('ZDAVitrine', function () {
 		
 		it('classes OLSKCommon', function () {
