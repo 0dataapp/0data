@@ -2,10 +2,6 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
-const uRandomElement = function (inputData) {
-	return inputData[Date.now() % inputData.length];
-};
-
 describe('DataCacheNamePrimary', function test_DataCacheNamePrimary() {
 
 	it('returns string', function () {
