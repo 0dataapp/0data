@@ -391,7 +391,7 @@ describe('SetupListings', function test_SetupListings() {
 			_SetupListing: (function (e) {
 				return e;
 			}),
-		}), mod.DataListingURLs());
+		}), Promise.all(mod.DataListingURLs()));
 	});
 
 });

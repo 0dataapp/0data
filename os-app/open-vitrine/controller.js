@@ -174,7 +174,7 @@ const mod = {
 		if (!this._DataFoilOLSKCache) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
-		
+
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
 			ParamMap: _this._ValueCache,
@@ -192,7 +192,7 @@ const mod = {
 	},
 
 	SetupListings () {
-		return mod.DataListingURLs().map(this._SetupListing);
+		return Promise.all(mod.DataListingURLs().map(this._SetupListing));
 	},
 
 	// LIFECYCLE
