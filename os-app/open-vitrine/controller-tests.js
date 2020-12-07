@@ -302,6 +302,82 @@ describe('SetupCache', function test_SetupCache() {
 
 });
 
+describe('_SetupListing', function test__SetupListing() {
+
+	const __SetupListing = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataContentString: (function () {}),
+
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheResultFetchRenew: (function () {}),
+				OLSKCacheWriteFile: (function () {}),
+			}, inputData),
+		}, inputData)._SetupListing(inputData.url || Math.random().toString());
+	};
+
+	it('calls OLSKCacheResultFetchRenew', function () {
+		const url = Math.random().toString();
+		const ParamMap = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+
+		const item = __SetupListing({
+			url,
+			_ValueCache: ParamMap,
+			OLSKCacheResultFetchRenew: (function () {
+				return Array.from(arguments);
+			}),
+		}).pop();
+
+		deepEqual(item, {
+			ParamMap,
+			ParamKey: url,
+			ParamCallback: item.ParamCallback,
+			ParamInterval: 1000 * 60 * 60 * 24,
+			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
+		});
+	});
+
+	context('ParamCallback', function () {
+
+		it('calls _DataContentString', async function () {
+			const url = Math.random().toString();
+
+			deepEqual(await __SetupListing({
+				url,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData.ParamCallback();
+				}),
+				_DataContentString: (function () {
+					return Array.from(arguments);
+				}),
+			}), [url]);
+		});
+	
+	});
+
+	context('_ParamCallbackDidFinish', function () {
+
+		it('calls _DataContentString', async function () {
+			const _ValueCache = {
+				[Math.random().toString()]: Math.random().toString(),
+			};
+
+			deepEqual(await __SetupListing({
+				_ValueCache,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData._ParamCallbackDidFinish();
+				}),
+				OLSKCacheWriteFile: (function () {
+					return Array.from(arguments);
+				}),
+			}), [_ValueCache, mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')]);
+		});
+	
+	});
+
+});
+
 describe('SetupListings', function test_SetupListings() {
 
 	const _SetupListings = function (inputData = {}) {
@@ -322,87 +398,24 @@ describe('SetupListings', function test_SetupListings() {
 
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
-	const _LifecycleModuleDidLoad = function (inputData) {
-		return Object.assign(Object.assign({}, mod), {
-			_DataContentString: (function () {}),
-
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					if (inputData.ParamCallback) {
-						inputData.ParamCallback();
-					}
-
-					if (inputData._ParamCallbackDidFinish) {
-						inputData._ParamCallbackDidFinish();
-					}
-				}),
-				OLSKCacheWriteFile: (function () {}),
-			}, inputData),
-		}, inputData).LifecycleModuleDidLoad();
+	const _LifecycleModuleDidLoad = function (inputData = {}) {
+		return Object.assign(mod._DataSetupMethods().reduce(function (coll, item) {
+			return Object.assign(coll, {
+				[item]: function () {
+					return item;
+				},
+			});
+		}, Object.assign({}, mod)), inputData).LifecycleModuleDidLoad();
 	};
 
-	it('calls OLSKCacheResultFetchRenew', function () {
-		const item = [];
+	it('calls _DataSetupMethods', function () {
+		const signature = 'Setup' + Date.now().toString();
 
-		const ParamMap = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-
-		_LifecycleModuleDidLoad({
-			_ValueCache: ParamMap,
-			OLSKCacheResultFetchRenew: (function () {
-				item.push(...arguments);
-			}),
-		});
-
-		deepEqual(item, mod.DataListingURLs().map(function (ParamKey, i) {
-			return {
-				ParamMap,
-				ParamKey,
-				ParamCallback: item[i].ParamCallback,
-				ParamInterval: 1000 * 60 * 60 * 24,
-				_ParamCallbackDidFinish: item[i]._ParamCallbackDidFinish,
-			}
-		}));
-	});
-
-	context('ParamCallback', function () {
-
-		it('calls _DataContentString', function () {
-			const item = [];
-
-			_LifecycleModuleDidLoad({
-				_DataContentString: (function () {
-					item.push(...arguments);
-				}),
-			});
-
-			deepEqual(item, mod.DataListingURLs());
-		});
-	
-	});
-
-	context('_ParamCallbackDidFinish', function () {
-
-		it('calls _DataContentString', function () {
-			const item = [];
-
-			const _ValueCache = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
-			_LifecycleModuleDidLoad({
-				_ValueCache,
-				OLSKCacheWriteFile: (function () {
-					item.push(Array.from(arguments));
-				}),
-			});
-
-			deepEqual(item, mod.DataListingURLs().map(function () {
-				return [_ValueCache, mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')];
-			}));
-		});
-	
+		deepEqual(_LifecycleModuleDidLoad({
+			[signature]: function (arguments) {
+				return signature;
+			},
+		}), mod._DataSetupMethods().concat(signature));
 	});
 
 });
