@@ -5,7 +5,7 @@ const mod = require('./controller.js');
 describe('DataCacheNamePrimary', function test_DataCacheNamePrimary() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNamePrimary(), 'cache-a-primary');
+		deepEqual(mod.DataCacheNamePrimary(), 'cache-alfa-primary');
 	});
 
 });

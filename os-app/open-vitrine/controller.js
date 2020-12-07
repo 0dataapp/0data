@@ -58,7 +58,7 @@ const mod = {
 	_DataFoilOLSKCache: require('OLSKCache'),
 
 	DataCacheNamePrimary() {
-		return 'cache-a-primary';
+		return 'cache-alfa-primary';
 	},
 
 	DataListingURLs() {
