@@ -67,6 +67,10 @@ const mod = {
 		return 'cache-alfa-primary';
 	},
 
+	DataCacheNameDetails() {
+		return 'cache-bravo-details';
+	},
+
 	DataListingURLs() {
 		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
 	},

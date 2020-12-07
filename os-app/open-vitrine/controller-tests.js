@@ -10,6 +10,14 @@ describe('DataCacheNamePrimary', function test_DataCacheNamePrimary() {
 
 });
 
+describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataCacheNameDetails(), 'cache-bravo-details');
+	});
+
+});
+
 describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
