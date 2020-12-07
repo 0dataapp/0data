@@ -195,6 +195,32 @@ describe('_DataListingProjects', function test__DataListingProjects() {
 
 });
 
+describe('DataProjects', function test_DataProjects() {
+	
+	const _DataProjects = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataListingProjects: (function () {}),
+		}, inputData).DataProjects();
+	};
+
+	it('returns array', function () {
+		const _ValueCache = mod.DataListingURLs().reduce(function (coll, item) {
+			return Object.assign(coll, {
+				[item]: Math.random().toString(),
+			});
+		}, {});
+		deepEqual(_DataProjects({
+			_ValueCache,
+			_DataListingProjects: (function () {
+				return [Array.from(arguments)];
+			}),
+		}), mod.DataListingURLs().map(function (e) {
+			return [e, _ValueCache[e]];
+		}));
+	});
+
+});
+
 describe('DataProjectSchema', function test_DataProjectSchema() {
 	
 	it('throws if not object', function () {

@@ -139,8 +139,9 @@ const mod = {
 	},
 
 	DataProjects () {
+		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
-			return coll.concat(mod._DataListingProjects(item, mod._ValueCache[item]));
+			return coll.concat(_this._DataListingProjects(item, _this._ValueCache[item]));
 		}, []);
 	},
 
