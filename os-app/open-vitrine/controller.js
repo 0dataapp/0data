@@ -160,12 +160,6 @@ const mod = {
 		return mod.DataListingURLs().reduce(function (coll, item) {
 			return coll.concat(_this._DataListingProjects(item, _this._ValueListingsCache[item]));
 		}, []).reduce(function (coll, item) {
-			if (Array.isArray(item)) {
-				coll.objects.push(item);
-
-				return coll;
-			}
-
 			if (coll.urls.includes(item.ZDAProjectURL)) {
 				return coll;
 			}

@@ -259,20 +259,41 @@ describe('DataProjects', function test_DataProjects() {
 		}, inputData).DataProjects();
 	};
 
-	it('returns array', function () {
+	it('calls _DataListingProjects', function () {
+		const item = [];
+
 		const _ValueListingsCache = mod.DataListingURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: Math.random().toString(),
 			});
 		}, {});
-		deepEqual(_DataProjects({
+		
+		_DataProjects({
 			_ValueListingsCache,
 			_DataListingProjects: (function () {
-				return [Array.from(arguments)];
+				item.push([...arguments]);
+
+				return [];
 			}),
-		}), mod.DataListingURLs().map(function (e) {
+		});
+
+		deepEqual(item, mod.DataListingURLs().map(function (e) {
 			return [e, _ValueListingsCache[e]];
 		}));
+	});
+
+	it('returns _DataListingProjects', function () {
+		deepEqual(_DataProjects({
+			_DataListingProjects: (function () {
+				return [{
+					ZDAProjectURL: arguments[0],
+				}];
+			}),
+		}), mod.DataListingURLs().reduce(function (coll, item) {
+			return coll.concat({
+				ZDAProjectURL: item,
+			});
+		}, []));
 	});
 
 	it('filters if ZDAProjectURL duplicate', function () {
