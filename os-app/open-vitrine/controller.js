@@ -55,17 +55,13 @@ const mod = {
 		return process.env.NODE_ENV === 'development';
 	},
 
-	// VALUE
-
-	_ValueCache: {},
-
 	// DATA
 
 	_DataFoilOLSKCache: require('OLSKCache'),
 	_DataFoilQueue: require('queue'),
 
-	DataCacheNamePrimary() {
-		return 'cache-alfa-primary';
+	DataCacheNameListings() {
+		return 'cache-alfa-listings';
 	},
 
 	DataCacheNameDetails() {
@@ -158,7 +154,7 @@ const mod = {
 	DataProjects () {
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
-			return coll.concat(_this._DataListingProjects(item, _this._ValueCache[item]));
+			return coll.concat(_this._DataListingProjects(item, _this._ValueListingsCache[item]));
 		}, []).reduce(function (coll, item) {
 			if (Array.isArray(item)) {
 				coll.objects.push(item);
@@ -208,8 +204,8 @@ const mod = {
 		});
 	},
 
-	SetupCache () {
-		this._ValueCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')) || {};
+	SetupListingsCache () {
+		this._ValueListingsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')) || {};
 	},
 
 	_SetupListing (inputData) {
@@ -219,7 +215,7 @@ const mod = {
 
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this._ValueCache,
+			ParamMap: _this._ValueListingsCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
 				return Promise.resolve(_this._DataContentString(inputData)).catch(function (error) {
@@ -228,7 +224,7 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCache, mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached'));
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueListingsCache, mod.DataCacheNameListings(), require('path').join(__dirname, '__cached'));
 			}),
 		});
 	},
@@ -237,8 +233,12 @@ const mod = {
 		return Promise.all(mod.DataListingURLs().map(this._SetupListing));
 	},
 
-	SetupQueue () {
-		this._ValueQueue = this._DataFoilQueue({
+	SetupDetailsCache () {
+		this._ValueDetailsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {};
+	},
+
+	SetupDetailsQueue () {
+		this._ValueDetailsQueue = this._DataFoilQueue({
 			concurrency: 1,
 			autostart: true,
 		});
@@ -248,8 +248,12 @@ const mod = {
 		const _this = this;
 
 		return new Promise(function (res) {
-			_this._ValueQueue.push(async function (_queue_callback) {
-				return _queue_callback(null, res(await _this._DataContentString(inputData)));
+			_this._ValueDetailsQueue.push(async function (_queue_callback) {
+				try {
+					return _queue_callback(null, res(await _this._DataContentString(inputData)));
+				} catch (error) {
+					// TODO: Handle fetch error, maybe retry
+				}
 			});
 		});
 	},
@@ -261,7 +265,7 @@ const mod = {
 
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this._ValueCache,
+			ParamMap: _this._ValueDetailsCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
 				return Promise.resolve(_this._SetupDetailContent(inputData)).catch(function (error) {
@@ -270,7 +274,7 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
 			}),
 		});
 	},

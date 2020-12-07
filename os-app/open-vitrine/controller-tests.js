@@ -2,10 +2,10 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
-describe('DataCacheNamePrimary', function test_DataCacheNamePrimary() {
+describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNamePrimary(), 'cache-alfa-primary');
+		deepEqual(mod.DataCacheNameListings(), 'cache-alfa-listings');
 	});
 
 });
@@ -254,23 +254,24 @@ describe('DataProjects', function test_DataProjects() {
 	
 	const _DataProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
+			_ValueListingsCache: {},
 			_DataListingProjects: (function () {}),
 		}, inputData).DataProjects();
 	};
 
 	it('returns array', function () {
-		const _ValueCache = mod.DataListingURLs().reduce(function (coll, item) {
+		const _ValueListingsCache = mod.DataListingURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: Math.random().toString(),
 			});
 		}, {});
 		deepEqual(_DataProjects({
-			_ValueCache,
+			_ValueListingsCache,
 			_DataListingProjects: (function () {
 				return [Array.from(arguments)];
 			}),
 		}), mod.DataListingURLs().map(function (e) {
-			return [e, _ValueCache[e]];
+			return [e, _ValueListingsCache[e]];
 		}));
 	});
 
@@ -360,37 +361,37 @@ describe('_SetupMethods', function test__SetupMethods() {
 
 });
 
-describe('SetupCache', function test_SetupCache() {
+describe('SetupListingsCache', function test_SetupListingsCache() {
 
-	const _SetupCache = function (inputData) {
+	const _SetupListingsCache = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
 			_DataFoilOLSKCache: Object.assign({
 				OLSKCacheReadFile: (function () {}),
 			}, inputData),
 		});
-		return _mod.SetupCache() || _mod;
+		return _mod.SetupListingsCache() || _mod;
 	};
 
 	it('calls OLSKCacheReadFile', function () {
 		const items = [];
 
-		_SetupCache({
+		_SetupListingsCache({
 			OLSKCacheReadFile: (function () {
 				items.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, [mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')]);
+		deepEqual(items, [mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
 	});
 
-	it('sets _ValueCache', function () {
+	it('sets _ValueListingsCache', function () {
 		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
 
-		deepEqual(_SetupCache({
+		deepEqual(_SetupListingsCache({
 			OLSKCacheReadFile: (function () {
 				return OLSKCacheReadFile;
 			}),
-		})._ValueCache, OLSKCacheReadFile || {});
+		})._ValueListingsCache, OLSKCacheReadFile || {});
 	});
 
 });
@@ -416,7 +417,7 @@ describe('_SetupListing', function test__SetupListing() {
 
 		const item = __SetupListing({
 			url,
-			_ValueCache: ParamMap,
+			_ValueListingsCache: ParamMap,
 			OLSKCacheResultFetchRenew: (function () {
 				return Array.from(arguments);
 			}),
@@ -452,19 +453,19 @@ describe('_SetupListing', function test__SetupListing() {
 	context('_ParamCallbackDidFinish', function () {
 
 		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueCache = {
+			const _ValueListingsCache = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
 			deepEqual(await __SetupListing({
-				_ValueCache,
+				_ValueListingsCache,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
 					return Array.from(arguments);
 				}),
-			}), [_ValueCache, mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')]);
+			}), [_ValueListingsCache, mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
 		});
 	
 	});
@@ -489,34 +490,69 @@ describe('SetupListings', function test_SetupListings() {
 
 });
 
-describe('SetupQueue', function test_SetupQueue() {
+describe('SetupDetailsCache', function test_SetupDetailsCache() {
 
-	const _SetupQueue = function (inputData) {
+	const _SetupDetailsCache = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheReadFile: (function () {}),
+			}, inputData),
+		});
+		return _mod.SetupDetailsCache() || _mod;
+	};
+
+	it('calls OLSKCacheReadFile', function () {
+		const items = [];
+
+		_SetupDetailsCache({
+			OLSKCacheReadFile: (function () {
+				items.push(...arguments);
+			}),
+		});
+
+		deepEqual(items, [mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
+	});
+
+	it('sets _ValueDetailsCache', function () {
+		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
+
+		deepEqual(_SetupDetailsCache({
+			OLSKCacheReadFile: (function () {
+				return OLSKCacheReadFile;
+			}),
+		})._ValueDetailsCache, OLSKCacheReadFile || {});
+	});
+
+});
+
+describe('SetupDetailsQueue', function test_SetupDetailsQueue() {
+
+	const _SetupDetailsQueue = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
 			_DataFoilQueue: (function () {}),
 		}, inputData);
-		return _mod.SetupQueue() || _mod;
+		return _mod.SetupDetailsQueue() || _mod;
 	};
 
 	it('calls _DataFoilQueue', function () {
-		deepEqual(_SetupQueue({
+		deepEqual(_SetupDetailsQueue({
 			_DataFoilQueue: (function () {
 				return Array.from(arguments);
 			}),
-		})._ValueQueue, [{
+		})._ValueDetailsQueue, [{
 			concurrency: 1,
 			autostart: true,
 		}]);
 	});
 
-	it('sets _ValueQueue', function () {
+	it('sets _ValueDetailsQueue', function () {
 		const _DataFoilQueue = Math.random().toString();
 
-		deepEqual(_SetupQueue({
+		deepEqual(_SetupDetailsQueue({
 			_DataFoilQueue: (function () {
 				return _DataFoilQueue;
 			}),
-		})._ValueQueue, _DataFoilQueue);
+		})._ValueDetailsQueue, _DataFoilQueue);
 	});
 
 });
@@ -525,7 +561,7 @@ describe('_SetupDetailContent', function test__SetupDetailContent() {
 
 	const __SetupDetailContent = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueQueue: {
+			_ValueDetailsQueue: {
 				push: (function (callback) {
 					if (inputData._queue_inspect) {
 						inputData._queue_inspect(callback);
@@ -542,7 +578,7 @@ describe('_SetupDetailContent', function test__SetupDetailContent() {
 		deepEqual(__SetupDetailContent() instanceof Promise, true);
 	});
 
-	it('calls _ValueQueue.push', async function () {
+	it('calls _ValueDetailsQueue.push', async function () {
 		const item = [];
 
 		await __SetupDetailContent({
@@ -606,7 +642,7 @@ describe('_SetupDetail', function test__SetupDetail() {
 
 		const item = __SetupDetail({
 			url,
-			_ValueCache: ParamMap,
+			_ValueDetailsCache: ParamMap,
 			OLSKCacheResultFetchRenew: (function () {
 				return Array.from(arguments);
 			}),
@@ -642,19 +678,19 @@ describe('_SetupDetail', function test__SetupDetail() {
 	context('_ParamCallbackDidFinish', function () {
 
 		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueCache = {
+			const _ValueDetailsCache = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
 			deepEqual(await __SetupDetail({
-				_ValueCache,
+				_ValueDetailsCache,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
 					return Array.from(arguments);
 				}),
-			}), [_ValueCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
+			}), [_ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 		});
 	
 	});
