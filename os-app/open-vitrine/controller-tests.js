@@ -471,12 +471,12 @@ describe('SetupListings', function test_SetupListings() {
 		}, inputData).SetupListings();
 	};
 
-	it('calls _SetupListing', function () {
-		deepEqual(_SetupListings({
+	it('calls _SetupListing', async function () {
+		deepEqual(await _SetupListings({
 			_SetupListing: (function (e) {
 				return e;
 			}),
-		}), Promise.all(mod.DataListingURLs()));
+		}), mod.DataListingURLs());
 	});
 
 });
