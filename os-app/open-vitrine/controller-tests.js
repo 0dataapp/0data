@@ -441,6 +441,24 @@ describe('DataProjects', function test_DataProjects() {
 		}), [item2, item1]);
 	});
 
+	it('bumps ZDAProjectIconURL + ZDAProjectBlurb', function () {
+		const item1 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+		const item2 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectBlurb: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+
+		deepEqual(_DataProjects({
+			_DataListingProjects: (function () {
+				return [item1, item2];
+			}),
+		}), [item2, item1]);
+	});
+
 });
 
 describe('DataProjectSchema', function test_DataProjectSchema() {

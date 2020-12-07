@@ -200,8 +200,19 @@ const mod = {
 		}).objects.map(function (e, _ZDAProjectIndex) {
 			return Object.assign(e, _this._DataDetailProperties(e.ZDAProjectURL));
 		}).sort(function (a, b) {
-			if (a.ZDAProjectIconURL !== b.ZDAProjectIconURL) {
-				return !!b.ZDAProjectIconURL - !!a.ZDAProjectIconURL;
+			const unmatched = [
+				'ZDAProjectIconURL',
+				'ZDAProjectBlurb',
+			].filter(function (e) {
+				return a[e] !== b[e];
+			});
+
+			if (unmatched.length) {
+				return unmatched.reduce(function (coll, item) {
+					return coll + !!b[item];
+				}, 0) - unmatched.reduce(function (coll, item) {
+					return coll + !!a[item];
+				}, 0);
 			}
 
 			return 0;
