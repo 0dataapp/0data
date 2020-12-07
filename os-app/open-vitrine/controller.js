@@ -170,6 +170,10 @@ const mod = {
 		this._ValueCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')) || {};
 	},
 
+	SetupListings () {
+		return mod.DataListingURLs().map(this._SetupListing);
+	},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {

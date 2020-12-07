@@ -301,6 +301,25 @@ describe('SetupCache', function test_SetupCache() {
 	});
 
 });
+
+describe('SetupListings', function test_SetupListings() {
+
+	const _SetupListings = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_SetupListing: (function () {}),
+		}, inputData).SetupListings();
+	};
+
+	it('calls _SetupListing', function () {
+		deepEqual(_SetupListings({
+			_SetupListing: (function (e) {
+				return e;
+			}),
+		}), mod.DataListingURLs());
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData) {
