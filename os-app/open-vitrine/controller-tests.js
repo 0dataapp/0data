@@ -425,6 +425,22 @@ describe('DataProjects', function test_DataProjects() {
 		}), [Object.assign(Object.assign(Object.assign({}, project), {}), _DataDetailProperties)]);
 	});
 
+	it('bumps ZDAProjectIconURL', function () {
+		const item1 = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		const item2 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+
+		deepEqual(_DataProjects({
+			_DataListingProjects: (function () {
+				return [item1, item2];
+			}),
+		}), [item2, item1]);
+	});
+
 });
 
 describe('DataProjectSchema', function test_DataProjectSchema() {

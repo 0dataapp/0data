@@ -197,8 +197,14 @@ const mod = {
 		}, {
 			urls: [],
 			objects: [],
-		}).objects.map(function (e) {
+		}).objects.map(function (e, _ZDAProjectIndex) {
 			return Object.assign(e, _this._DataDetailProperties(e.ZDAProjectURL));
+		}).sort(function (a, b) {
+			if (a.ZDAProjectIconURL !== b.ZDAProjectIconURL) {
+				return !!b.ZDAProjectIconURL - !!a.ZDAProjectIconURL;
+			}
+
+			return 0;
 		});
 	},
 
