@@ -142,7 +142,25 @@ const mod = {
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
 			return coll.concat(_this._DataListingProjects(item, _this._ValueCache[item]));
-		}, []);
+		}, []).reduce(function (coll, item) {
+			if (Array.isArray(item)) {
+				coll.objects.push(item);
+
+				return coll;
+			}
+
+			if (coll.urls.includes(item.ZDAProjectURL)) {
+				return coll;
+			}
+
+			coll.urls.push(item.ZDAProjectURL);
+			coll.objects.push(item);
+
+			return coll;
+		}, {
+			urls: [],
+			objects: [],
+		}).objects;
 	},
 
 	DataProjectSchema (inputData) {

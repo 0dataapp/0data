@@ -219,6 +219,18 @@ describe('DataProjects', function test_DataProjects() {
 		}));
 	});
 
+	it('filters if ZDAProjectURL duplicate', function () {
+		const item = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+
+		deepEqual(_DataProjects({
+			_DataListingProjects: (function () {
+				return [item];
+			}),
+		}), [item]);
+	});
+
 });
 
 describe('DataProjectSchema', function test_DataProjectSchema() {
