@@ -323,6 +323,20 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		});
 	});
 
+	it('parses meta:description', function () {
+		const url = 'https://example.com';
+		const _ZDAProjectBlurb = Math.random().toString();
+		const _ValueDetailsCache = {
+			[url]: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
+		};
+		deepEqual(__DataDetailProperties({
+			url,
+			_ValueDetailsCache,
+		}), {
+			_ZDAProjectBlurb,
+		});
+	});
+
 });
 
 describe('DataProjects', function test_DataProjects() {
