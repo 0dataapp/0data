@@ -244,6 +244,16 @@ const mod = {
 		});
 	},
 
+	_SetupDetailContent (inputData) {
+		const _this = this;
+
+		return new Promise(function (res) {
+			_this._ValueQueue.push(async function (_queue_callback) {
+				return _queue_callback(null, res(await _this._DataContentString(inputData)));
+			});
+		});
+	},
+
 	SetupDetails () {
 		const _this = this;
 		return Promise.all(_this.DataProjects().map(function (e) {

@@ -521,6 +521,70 @@ describe('SetupQueue', function test_SetupQueue() {
 
 });
 
+describe('_SetupDetailContent', function test__SetupDetailContent() {
+
+	const __SetupDetailContent = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueQueue: {
+				push: (function (callback) {
+					if (inputData._queue_inspect) {
+						inputData._queue_inspect(callback);
+					}
+
+					return callback(inputData._queue_callback);
+				}),
+			},
+			_DataContentString: (function () {}),
+		}, inputData)._SetupDetailContent(inputData.url || Math.random().toString());
+	};
+
+	it('returns promise', async function () {
+		deepEqual(__SetupDetailContent() instanceof Promise, true);
+	});
+
+	it('calls _ValueQueue.push', async function () {
+		const item = [];
+
+		await __SetupDetailContent({
+			_queue_inspect: (function () {
+				item.push(...arguments);
+			}),
+		});
+
+		deepEqual(typeof item.pop(), 'function');
+	});
+
+	it('calls _DataContentString via function', async function () {
+		const item = [];
+
+		const url = Math.random().toString();
+
+		await __SetupDetailContent({
+			url,
+			_DataContentString: (function () {
+				item.push(...arguments);
+			}),
+		});
+
+		deepEqual(item, [url]);
+	});
+
+	it('calls _queue_callback', async function () {
+		const item = [];
+
+		const _queue_callback = Math.random().toString();
+
+		await __SetupDetailContent({
+			_queue_callback: (function () {
+				item.push(...arguments, _queue_callback);
+			}),
+		});
+
+		deepEqual(item, [null, undefined, _queue_callback]);
+	});
+
+});
+
 describe('SetupDetails', function test_SetupDetails() {
 
 	const _SetupDetails = function (inputData = {}) {
