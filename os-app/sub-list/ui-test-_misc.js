@@ -6,6 +6,7 @@ describe('ZDAVitrineList_Misc', function  () {
 		ZDAProjectName: Math.random().toString(),
 		ZDAProjectBlurb: Math.random().toString(),
 		ZDAProjectURL: Math.random().toString(),
+		ZDAProjectIconURL: Math.random().toString(),
 	};
 
 	before(function() {
@@ -18,6 +19,18 @@ describe('ZDAVitrineList_Misc', function  () {
 
 		it('classes OLSKCommonCard', function () {
 			browser.assert.hasClass(ZDAVitrineListItem, 'OLSKCommonCard');
+		});
+
+	});
+
+	describe('ZDAVitrineListItemIcon', function test_ZDAVitrineListItemIcon () {
+
+		it('sets src', function () {
+			browser.assert.attribute(ZDAVitrineListItemIcon, 'src', item.ZDAProjectIconURL);
+		});
+
+		it('sets role', function () {
+			browser.assert.attribute(ZDAVitrineListItemIcon, 'role', 'presentation');
 		});
 
 	});

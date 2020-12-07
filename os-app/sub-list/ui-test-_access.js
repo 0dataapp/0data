@@ -7,6 +7,7 @@ Object.entries({
 
 	ZDAVitrineListItem: '.ZDAVitrineListItem',
 	
+	ZDAVitrineListItemIcon: '.ZDAVitrineListItemIcon',
 	ZDAVitrineListItemName: '.ZDAVitrineListItemName',
 	ZDAVitrineListItemBlurb: '.ZDAVitrineListItemBlurb',
 }).map(function (e) {
@@ -49,6 +50,36 @@ describe('ZDAVitrineList_Access', function () {
 
 		it('shows ZDAVitrineListItem', function () {
 			browser.assert.elements(ZDAVitrineListItem, count);
+		});
+
+		it('hides ZDAVitrineListItemIcon', function () {
+			browser.assert.elements(ZDAVitrineListItemIcon, 0);
+		});
+
+		it('shows ZDAVitrineListItemName', function () {
+			browser.assert.elements(ZDAVitrineListItemName, count);
+		});
+
+		it('shows ZDAVitrineListItemBlurb', function () {
+			browser.assert.elements(ZDAVitrineListItemBlurb, count);
+		});
+
+		context('ZDAVitrineListItemIcon', function () {
+			
+			before(function() {
+				return browser.OLSKVisit(kDefaultRoute, {
+					ZDAVitrineListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
+						return {
+							ZDAProjectIconURL: Math.random().toString(),
+						};
+					})),
+				});
+			});
+
+			it('shows ZDAVitrineListItemIcon', function () {
+				browser.assert.elements(ZDAVitrineListItemIcon, count);
+			});
+
 		});
 
 	});
