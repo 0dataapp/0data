@@ -89,7 +89,7 @@ const mod = {
 		return Array.from(mod.DataListingURLs().reduce(function (coll, item, i) {
 			return Object.assign(coll, {
 				[item]: {
-					[mod.DataFetchURLIndexRemoteStorage()]: (function () { // remotestorage
+					[mod.DataFetchURLIndexRemoteStorage()]: function () { // remotestorage
 						return cheerio('table', param2).first().find('tr:not(tr:first-of-type)').map(function (e) {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
@@ -97,8 +97,8 @@ const mod = {
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href'),
 							};
 						});
-					}),
-					[mod.DataFetchURLIndexSolidProject()]: (function () { // solidproject
+					},
+					[mod.DataFetchURLIndexSolidProject()]: function () { // solidproject
 						return cheerio('article', param2).first().find('ul:not(#historical-solid-apps~ul) li').map(function (e) {
 							return {
 								ZDAProjectName: cheerio('a:nth-child(1)', this).text(),
@@ -120,7 +120,7 @@ const mod = {
 								ZDAProjectURL: cheerio('a:nth-child(1)', this).attr('href'),
 							};
 						});
-					}),
+					},
 				}[i],
 			});
 		}, {})[param1]()).map(function (e) {

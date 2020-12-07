@@ -278,7 +278,7 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 		const item = [];
 
 		const ParamMap = {
-			alfa: Math.random().toString(),
+			[Math.random().toString()]: Math.random().toString(),
 		};
 
 		_LifecycleModuleDidLoad({
@@ -321,7 +321,7 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 			const item = [];
 
 			const _ValueCache = {
-				alfa: Math.random().toString(),
+				[Math.random().toString()]: Math.random().toString(),
 			};
 
 			_LifecycleModuleDidLoad({
