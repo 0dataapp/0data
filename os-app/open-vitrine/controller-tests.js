@@ -34,6 +34,14 @@ describe('DataFetchURLIndexSolidProject', function test_DataFetchURLIndexSolidPr
 
 });
 
+describe('DataFetchURLIndexUnhosted', function test_DataFetchURLIndexUnhosted() {
+
+	it('returns array', function () {
+		deepEqual(mod.DataFetchURLIndexUnhosted(), 2);
+	});
+
+});
+
 describe('_DataListingProjects', function test__DataListingProjects() {
 
 	it('throws if param1 not in DataListingURLs', function () {
@@ -191,6 +199,45 @@ describe('_DataListingProjects', function test__DataListingProjects() {
 			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
 		});
 		
+	});
+
+	context('unhosted', function () {
+
+		const uList = function (inputData = {}) {
+			const item = Object.assign({
+				ZDAProjectName: Math.random().toString(),
+				ZDAProjectURL: Math.random().toString(),
+			}, inputData);
+
+			return `<ul class="icons"><li><a href="${ item.ZDAProjectURL }"><img src="${ item._ZDAProjectImageHREF }" /></a><p><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></p></li></ul>`;
+		};
+		
+		it('parses list', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectURL = Math.random().toString();
+
+			deepEqual(mod._DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexUnhosted()], uList({
+				ZDAProjectName,
+				ZDAProjectURL,
+			})), [{
+				ZDAProjectName,
+				ZDAProjectURL,
+			}]);
+		});
+		
+		it('strips whitespace', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectURL = Math.random().toString();
+
+			deepEqual(mod._DataListingProjects(mod.DataListingURLs()[mod.DataFetchURLIndexUnhosted()], uList({
+				ZDAProjectName: ' ' + ZDAProjectName + ' ',
+				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
+			})), [{
+				ZDAProjectName,
+				ZDAProjectURL,
+			}]);
+		});
+	
 	});
 
 });

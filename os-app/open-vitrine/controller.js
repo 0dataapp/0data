@@ -79,6 +79,10 @@ const mod = {
 		return 1;
 	},
 
+	DataFetchURLIndexUnhosted() {
+		return 2;
+	},
+
 	_DataContentString (inputData) {
 		return uGet(inputData);
 	},
@@ -124,6 +128,14 @@ const mod = {
 									return blurb;
 								})(cheerio(this).text()).trim(),
 								ZDAProjectURL: cheerio('a:nth-child(1)', this).attr('href'),
+							};
+						});
+					},
+					[mod.DataFetchURLIndexUnhosted()]: function () {
+						return cheerio('.icons', param2).first().find('li').map(function () {
+							return {
+								ZDAProjectName: cheerio('a', this).text(),
+								ZDAProjectURL: cheerio('a', this).attr('href'),
 							};
 						});
 					},
