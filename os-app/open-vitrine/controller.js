@@ -40,7 +40,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: mod.DataProjects(),
+					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod.DataProjects(),
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			}),
