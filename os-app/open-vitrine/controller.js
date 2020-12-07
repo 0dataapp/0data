@@ -21,6 +21,12 @@ const uGet = function (inputData) {
   });
 };
 
+const uSerial = function (inputData) {
+	return inputData.reduce(async function (coll, e) {
+		return e.then(Array.prototype.concat.bind(await coll));
+	}, Promise.resolve([]));
+};
+
 const mod = {
 
 	OLSKControllerRoutes () {
@@ -197,12 +203,12 @@ const mod = {
 
 	// LIFECYCLE
 
-	LifecycleModuleDidLoad () {
+	async LifecycleModuleDidLoad () {
 		const _this = this;
 		
-		return _this._SetupMethods().map(function (e) {
-			return _this[e]();
-		});
+		return await uSerial(_this._SetupMethods().map(function (e) {
+			return Promise.resolve(_this[e]());
+		}));
 	},
 
 };

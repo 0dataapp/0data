@@ -408,10 +408,10 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 		}, Object.assign({}, mod)), inputData).LifecycleModuleDidLoad();
 	};
 
-	it('calls _SetupMethods', function () {
+	it('calls _SetupMethods', async function () {
 		const signature = 'Setup' + Date.now().toString();
 
-		deepEqual(_LifecycleModuleDidLoad({
+		deepEqual(await _LifecycleModuleDidLoad({
 			[signature]: function (arguments) {
 				return signature;
 			},
