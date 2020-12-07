@@ -435,7 +435,7 @@ describe('DataProjects', function test_DataProjects() {
 				_DataDetailProperties: (function () {
 					return _DataDetailProperties;
 				}),
-			}), [Object.assign(_DataDetailProperties)]);
+			}), [_DataDetailProperties]);
 		});
 
 		it('assigns underscore if not present', function () {
