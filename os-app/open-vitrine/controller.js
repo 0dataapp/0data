@@ -182,8 +182,16 @@ const mod = {
 	},
 
 	DataProjects () {
+		if (process.env.ZDA_CACHE_PROJECTS === 'true' && process.env.npm_lifecycle_script === 'olsk-express') {
+			const cached = this._DataFoilOLSKCache.OLSKCacheReadFile('ZDA_CACHE_PROJECTS', require('path').join(__dirname, '__cached'));
+
+			if (cached) {
+				return cached;
+			}
+		}
+
 		const _this = this;
-		return mod.DataListingURLs().reduce(function (coll, item) {
+		const outputData = mod.DataListingURLs().reduce(function (coll, item) {
 			return coll.concat(_this._DataListingProjects(item, _this._ValueListingsCache[item]));
 		}, []).reduce(function (coll, item) {
 			if (coll.urls.includes(item.ZDAProjectURL)) {
@@ -217,6 +225,12 @@ const mod = {
 
 			return 0;
 		});
+
+		if (process.env.ZDA_CACHE_PROJECTS === 'true' && process.env.npm_lifecycle_script === 'olsk-express') {
+			return _this._DataFoilOLSKCache.OLSKCacheWriteFile(outputData, 'ZDA_CACHE_PROJECTS', require('path').join(__dirname, '__cached'));
+		}
+
+		return outputData;
 	},
 
 	DataProjectSchema (inputData) {
