@@ -481,6 +481,33 @@ describe('SetupListings', function test_SetupListings() {
 
 });
 
+describe('SetupDetails', function test_SetupDetails() {
+
+	const _SetupDetails = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			DataProjects: (function () {
+				return [];
+			}),
+			_SetupDetail: (function () {}),
+		}, inputData).SetupDetails();
+	};
+
+	it('calls _SetupDetail', async function () {
+		const ZDAProjectURL = Math.random().toString();
+		deepEqual(await _SetupDetails({
+			DataProjects: (function () {
+				return [{
+					ZDAProjectURL,
+				}];
+			}),
+			_SetupDetail: (function () {
+				return Array.from(arguments);
+			}),
+		}), [[ZDAProjectURL]]);
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {

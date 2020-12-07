@@ -232,6 +232,13 @@ const mod = {
 		return Promise.all(mod.DataListingURLs().map(this._SetupListing));
 	},
 
+	SetupDetails () {
+		const _this = this;
+		return Promise.all(_this.DataProjects().map(function (e) {
+			return _this._SetupDetail(e.ZDAProjectURL);
+		}));
+	},
+
 	// LIFECYCLE
 
 	async LifecycleModuleDidLoad () {
