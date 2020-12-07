@@ -250,6 +250,67 @@ describe('_DataListingProjects', function test__DataListingProjects() {
 
 });
 
+describe('_DataDetailPropertiesURL', function test__DataDetailPropertiesURL() {
+
+	it('throws if param1 not string', function () {
+		throws(function () {
+			mod._DataDetailPropertiesURL(null, Math.random().toString());
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('throws if param2 not string', function () {
+		throws(function () {
+			mod._DataDetailPropertiesURL(Math.random().toString(), null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const url = 'https://example.com';
+		const path = Math.random().toString();
+		deepEqual(mod._DataDetailPropertiesURL(url, path), url + '/' + path);
+	});
+
+	it('returns param2 if complete', function () {
+		const path = 'https://alfa.bravo/' + Math.random().toString();
+		deepEqual(mod._DataDetailPropertiesURL('https://example.com', path), path);
+	});
+
+	it('completes slash', function () {
+		const url = 'https://example.com';
+		const path = '/' + Math.random().toString();
+		deepEqual(mod._DataDetailPropertiesURL(url, path), url + path);
+	});
+
+});
+
+describe('_DataDetailProperties', function test__DataDetailProperties() {
+
+	const __DataDetailProperties = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueDetailsCache: {},
+		}, inputData)._DataDetailProperties(inputData.url || Math.random().toString());
+	};
+
+	it('returns object', function () {
+		deepEqual(__DataDetailProperties(), {});
+	});
+
+	it('parses apple-touch-icon', function () {
+		const url = 'https://example.com';
+		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+		const _ValueDetailsCache = {
+			[url]: `<link rel="apple-touch-icon" href="${ path }">`,
+		};
+		deepEqual(__DataDetailProperties({
+			url,
+			_ValueDetailsCache,
+		}), {
+			ZDAProjectIconURL: mod._DataDetailPropertiesURL(url, path),
+		});
+	});
+
+});
+
 describe('DataProjects', function test_DataProjects() {
 	
 	const _DataProjects = function (inputData = {}) {

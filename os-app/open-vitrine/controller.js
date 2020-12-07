@@ -155,6 +155,32 @@ const mod = {
 		});
 	},
 
+	_DataDetailPropertiesURL (url, path) {
+		if (typeof url !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		if (typeof path !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return (new URL(path, url)).href;
+	},
+
+	_DataDetailProperties (inputData) {
+		return Object.fromEntries([
+			['ZDAProjectIconURL', (function(href) {
+				if (!href) {
+					return;
+				}
+
+				return !href ? null : mod._DataDetailPropertiesURL(inputData, href);
+			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href'))]
+		].filter(function (e) {
+			return !!e[1];
+		}));
+	},
+
 	DataProjects () {
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
