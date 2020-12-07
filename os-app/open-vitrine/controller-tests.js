@@ -585,6 +585,82 @@ describe('_SetupDetailContent', function test__SetupDetailContent() {
 
 });
 
+describe('_SetupDetail', function test__SetupDetail() {
+
+	const __SetupDetail = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_SetupDetailContent: (function () {}),
+
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheResultFetchRenew: (function () {}),
+				OLSKCacheWriteFile: (function () {}),
+			}, inputData),
+		}, inputData)._SetupDetail(inputData.url || Math.random().toString());
+	};
+
+	it('calls OLSKCacheResultFetchRenew', function () {
+		const url = Math.random().toString();
+		const ParamMap = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+
+		const item = __SetupDetail({
+			url,
+			_ValueCache: ParamMap,
+			OLSKCacheResultFetchRenew: (function () {
+				return Array.from(arguments);
+			}),
+		}).pop();
+
+		deepEqual(item, {
+			ParamMap,
+			ParamKey: url,
+			ParamCallback: item.ParamCallback,
+			ParamInterval: 1000 * 60 * 60 * 24,
+			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
+		});
+	});
+
+	context('ParamCallback', function () {
+
+		it('calls _SetupDetailContent', async function () {
+			const url = Math.random().toString();
+
+			deepEqual(await __SetupDetail({
+				url,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData.ParamCallback();
+				}),
+				_SetupDetailContent: (function () {
+					return Array.from(arguments);
+				}),
+			}), [url]);
+		});
+	
+	});
+
+	context('_ParamCallbackDidFinish', function () {
+
+		it('calls OLSKCacheWriteFile', async function () {
+			const _ValueCache = {
+				[Math.random().toString()]: Math.random().toString(),
+			};
+
+			deepEqual(await __SetupDetail({
+				_ValueCache,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData._ParamCallbackDidFinish();
+				}),
+				OLSKCacheWriteFile: (function () {
+					return Array.from(arguments);
+				}),
+			}), [_ValueCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
+		});
+	
+	});
+
+});
+
 describe('SetupDetails', function test_SetupDetails() {
 
 	const _SetupDetails = function (inputData = {}) {

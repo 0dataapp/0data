@@ -254,6 +254,27 @@ const mod = {
 		});
 	},
 
+	_SetupDetail (inputData) {
+		if (!this._DataFoilOLSKCache) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		const _this = this;
+		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
+			ParamMap: _this._ValueCache,
+			ParamKey: inputData,
+			ParamCallback: (function () {
+				return Promise.resolve(_this._SetupDetailContent(inputData)).catch(function (error) {
+					// TODO: Handle fetch error, maybe retry
+				});
+			}),
+			ParamInterval: 1000 * 60 * 60 * 24,
+			_ParamCallbackDidFinish: (function () {
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
+			}),
+		});
+	},
+
 	SetupDetails () {
 		const _this = this;
 		return Promise.all(_this.DataProjects().map(function (e) {
