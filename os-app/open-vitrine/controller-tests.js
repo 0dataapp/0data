@@ -384,13 +384,13 @@ describe('SetupCache', function test_SetupCache() {
 	});
 
 	it('sets _ValueCache', function () {
-		const OLSKCacheReadFile = Math.random().toString();
+		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
 
 		deepEqual(_SetupCache({
 			OLSKCacheReadFile: (function () {
 				return OLSKCacheReadFile;
 			}),
-		})._ValueCache, OLSKCacheReadFile);
+		})._ValueCache, OLSKCacheReadFile || {});
 	});
 
 });
