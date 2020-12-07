@@ -36,7 +36,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: mod.DataObjects(),
+					ZDAVitrineListData: mod.DataProjects(),
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			}),
@@ -83,7 +83,7 @@ const mod = {
 		return uGet(inputData);
 	},
 
-	DataListingProjects (param1, param2) {
+	_DataListingProjects (param1, param2) {
 		if (!mod.DataListingURLs().includes(param1)) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
@@ -138,9 +138,9 @@ const mod = {
 		});
 	},
 
-	DataObjects () {
+	DataProjects () {
 		return mod.DataListingURLs().reduce(function (coll, item) {
-			return coll.concat(mod.DataListingProjects(item, mod._ValueCache[item]));
+			return coll.concat(mod._DataListingProjects(item, mod._ValueCache[item]));
 		}, []);
 	},
 
@@ -161,7 +161,7 @@ const mod = {
 	},
 
 	DataProjectsJSON () {
-		return JSON.stringify(this.DataObjects().map(mod.DataProjectSchema));
+		return JSON.stringify(this.DataProjects().map(mod.DataProjectSchema));
 	},
 
 	// SETUP
