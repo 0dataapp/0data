@@ -489,6 +489,38 @@ describe('SetupListings', function test_SetupListings() {
 
 });
 
+describe('SetupQueue', function test_SetupQueue() {
+
+	const _SetupQueue = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilQueue: (function () {}),
+		}, inputData);
+		return _mod.SetupQueue() || _mod;
+	};
+
+	it('calls _DataFoilQueue', function () {
+		deepEqual(_SetupQueue({
+			_DataFoilQueue: (function () {
+				return Array.from(arguments);
+			}),
+		})._ValueQueue, [{
+			concurrency: 1,
+			autostart: true,
+		}]);
+	});
+
+	it('sets _ValueQueue', function () {
+		const _DataFoilQueue = Math.random().toString();
+
+		deepEqual(_SetupQueue({
+			_DataFoilQueue: (function () {
+				return _DataFoilQueue;
+			}),
+		})._ValueQueue, _DataFoilQueue);
+	});
+
+});
+
 describe('SetupDetails', function test_SetupDetails() {
 
 	const _SetupDetails = function (inputData = {}) {

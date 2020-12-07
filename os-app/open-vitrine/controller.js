@@ -62,6 +62,7 @@ const mod = {
 	// DATA
 
 	_DataFoilOLSKCache: require('OLSKCache'),
+	_DataFoilQueue: require('queue'),
 
 	DataCacheNamePrimary() {
 		return 'cache-alfa-primary';
@@ -234,6 +235,13 @@ const mod = {
 
 	SetupListings () {
 		return Promise.all(mod.DataListingURLs().map(this._SetupListing));
+	},
+
+	SetupQueue () {
+		this._ValueQueue = this._DataFoilQueue({
+			autostart: true,
+			concurrency: true,
+		});
 	},
 
 	SetupDetails () {
