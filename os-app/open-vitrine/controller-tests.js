@@ -61,7 +61,7 @@ describe('_DataListingProjects', function test__DataListingProjects() {
 				ZDAProjectURL: Math.random().toString(),
 			}, inputData);
 
-			return `<table><tr><th></th></tr><tr><td><a rel=\"nofollow\" class=\"external text\" href=\"${ item.ZDAProjectURL }\">${ item.ZDAProjectName }</a></td><td>${ item.ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel=\"nofollow\" class=\"external text\" href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`;
+			return `<table><tr><th></th></tr><tr><td><a rel="nofollow" class="external text" href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></td><td>${ item.ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel="nofollow" class="external text" href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`;
 		};
 		
 		it('parses table', function () {
@@ -108,7 +108,7 @@ describe('_DataListingProjects', function test__DataListingProjects() {
 				ZDAProjectURL: Math.random().toString(),
 			}, inputData);
 
-			return `<article><p>${ Math.random().toString() }</p><h2>${ Math.random().toString() }</h2><ul><li><a href=\"${ item.ZDAProjectURL }\">${ item.ZDAProjectName }</a> ${ item.ZDAProjectBlurb } <a href=\"${ item.ZDAProjectExtra }\">${ item.ZDAProjectExtra }</a></li></ul><h1 id=\"historical-solid-apps\">${ Math.random().toString() }</h1><ul><li><a href=\"${ Math.random().toString() }\">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id=\"apps-inclusion-and-exclusion-criteria\">Apps inclusion and exclusion criteria</h1><ul><li>${ Math.random().toString() }</li></ul></article>`;
+			return `<article><p>${ Math.random().toString() }</p><h2>${ Math.random().toString() }</h2><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a> ${ item.ZDAProjectBlurb } <a href="${ item.ZDAProjectExtra }">${ item.ZDAProjectExtra }</a></li></ul><h1 id="historical-solid-apps">${ Math.random().toString() }</h1><ul><li><a href="${ Math.random().toString() }">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id="apps-inclusion-and-exclusion-criteria">Apps inclusion and exclusion criteria</h1><ul><li>${ Math.random().toString() }</li></ul></article>`;
 		};
 		
 		it('parses article', function () {
