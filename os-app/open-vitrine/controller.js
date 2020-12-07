@@ -207,7 +207,19 @@ const mod = {
 			urls: [],
 			objects: [],
 		}).objects.map(function (e, _ZDAProjectIndex) {
-			return Object.assign(e, _this._DataDetailProperties(e.ZDAProjectURL));
+			return Object.assign(e, Object.entries(_this._DataDetailProperties(e.ZDAProjectURL)).reduce(function (coll, item) {
+				if (item[0].startsWith('_')) {
+					if (e[item[0].slice(1)]) {
+						return coll;
+					}
+
+					item[0] = item[0].slice(1);
+				}
+
+				return Object.assign(coll, {
+					[item[0]]: item[1],
+				});
+			}, {}));
 		}).sort(function (a, b) {
 			const unmatched = [
 				'ZDAProjectIconURL',

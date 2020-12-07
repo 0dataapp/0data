@@ -421,22 +421,59 @@ describe('DataProjects', function test_DataProjects() {
 		deepEqual(item, [project.ZDAProjectURL]);
 	});
 
-	it('assigns _DataDetailProperties', function () {
-		const project = {
-			ZDAProjectURL: Math.random().toString(),
-		};
-		const _DataDetailProperties = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
+	context('_DataDetailProperties', function () {
+		
+		it('assigns values', function () {
+			const _DataDetailProperties = {
+				[Math.random().toString()]: Math.random().toString(),
+			};
 
-		deepEqual(_DataProjects({
-			_DataListingProjects: (function () {
-				return [project];
-			}),
-			_DataDetailProperties: (function () {
-				return _DataDetailProperties;
-			}),
-		}), [Object.assign(Object.assign(Object.assign({}, project), {}), _DataDetailProperties)]);
+			deepEqual(_DataProjects({
+				_DataListingProjects: (function () {
+					return [{}];
+				}),
+				_DataDetailProperties: (function () {
+					return _DataDetailProperties;
+				}),
+			}), [Object.assign(_DataDetailProperties)]);
+		});
+
+		it('assigns underscore if not present', function () {
+			const item = Math.random().toString();
+
+			deepEqual(_DataProjects({
+				_DataListingProjects: (function () {
+					return [{}];
+				}),
+				_DataDetailProperties: (function () {
+					return {
+						['_' + item]: item,
+					};
+				}),
+			}), [{
+				[item]: item,
+			}]);
+		});
+
+		it('ignores underscore', function () {
+			const item = Math.random().toString();
+			
+			deepEqual(_DataProjects({
+				_DataListingProjects: (function () {
+					return [{
+						[item]: item,
+					}];
+				}),
+				_DataDetailProperties: (function () {
+					return {
+						['_' + item]: Math.random().toString(),
+					};
+				}),
+			}), [{
+				[item]: item,
+			}]);
+		});
+	
 	});
 
 	it('bumps ZDAProjectIconURL', function () {
