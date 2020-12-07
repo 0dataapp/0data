@@ -239,8 +239,8 @@ const mod = {
 
 	SetupQueue () {
 		this._ValueQueue = this._DataFoilQueue({
+			concurrency: 1,
 			autostart: true,
-			concurrency: true,
 		});
 	},
 
