@@ -299,7 +299,21 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		const url = 'https://example.com';
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const _ValueDetailsCache = {
-			[url]: `<link rel="apple-touch-icon" href="${ path }">`,
+			[url]: `<link rel="apple-touch-icon" href="${ path }"><link rel="apple-touch-icon-precomposed" href="${ Math.random().toString() }">`,
+		};
+		deepEqual(__DataDetailProperties({
+			url,
+			_ValueDetailsCache,
+		}), {
+			ZDAProjectIconURL: mod._DataDetailPropertiesURL(url, path),
+		});
+	});
+
+	it('parses apple-touch-icon-precomposed', function () {
+		const url = 'https://example.com';
+		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+		const _ValueDetailsCache = {
+			[url]: `<link rel="apple-touch-icon-precomposed" href="${ path }">`,
 		};
 		deepEqual(__DataDetailProperties({
 			url,

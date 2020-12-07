@@ -175,7 +175,7 @@ const mod = {
 				}
 
 				return !href ? null : mod._DataDetailPropertiesURL(inputData, href);
-			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href'))]
+			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href') || cheerio('link[rel="apple-touch-icon-precomposed"]', this._ValueDetailsCache[inputData] || '').attr('href'))]
 		].filter(function (e) {
 			return !!e[1];
 		}));
