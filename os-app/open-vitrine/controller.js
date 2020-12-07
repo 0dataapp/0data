@@ -4,6 +4,10 @@ const cheerio = require('cheerio');
 const uGet = function (inputData) {
   return new Promise((resolve, reject) => {
     (inputData.startsWith('https') ? require('https') : require('http')).get(inputData, (response) => {
+    	if (response.statusCode === 301) {
+    		return resolve(uGet(response.headers.location))
+    	}
+
       if (response.statusCode < 200 || response.statusCode > 299) {
       	return reject(new Error('Error: ' + response.statusCode));
       }
