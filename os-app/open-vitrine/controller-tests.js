@@ -256,6 +256,9 @@ describe('DataProjects', function test_DataProjects() {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueListingsCache: {},
 			_DataListingProjects: (function () {}),
+			_DataDetailProperties: (function () {
+				return {};
+			}),
 		}, inputData).DataProjects();
 	};
 
@@ -306,6 +309,45 @@ describe('DataProjects', function test_DataProjects() {
 				return [item];
 			}),
 		}), [item]);
+	});
+
+	it('calls _DataDetailProperties', function () {
+		const item = [];
+
+		const project = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+
+		_DataProjects({
+			_DataListingProjects: (function () {
+				return [project];
+			}),
+			_DataDetailProperties: (function () {
+				item.push(...arguments);
+
+				return {};
+			}),
+		});
+
+		deepEqual(item, [project.ZDAProjectURL]);
+	});
+
+	it('assigns _DataDetailProperties', function () {
+		const project = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		const _DataDetailProperties = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+
+		deepEqual(_DataProjects({
+			_DataListingProjects: (function () {
+				return [project];
+			}),
+			_DataDetailProperties: (function () {
+				return _DataDetailProperties;
+			}),
+		}), [Object.assign(Object.assign(Object.assign({}, project), {}), _DataDetailProperties)]);
 	});
 
 });

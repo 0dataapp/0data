@@ -171,7 +171,9 @@ const mod = {
 		}, {
 			urls: [],
 			objects: [],
-		}).objects;
+		}).objects.map(function (e) {
+			return Object.assign(e, _this._DataDetailProperties(e.ZDAProjectURL));
+		});
 	},
 
 	DataProjectSchema (inputData) {
