@@ -158,6 +158,16 @@ const mod = {
 		return JSON.stringify(this.DataObjects().map(mod.DataProjectSchema));
 	},
 
+	_DataSetupMethods () {
+		return Object.keys(this).filter(function (e) {
+			return e.match(/^Setup/);
+		});
+	},
+
+	// SETUP
+
+	SetupCache () {},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {

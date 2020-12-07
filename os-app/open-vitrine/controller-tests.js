@@ -253,6 +253,20 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 });
 
+describe('_DataSetupMethods', function test__DataSetupMethods() {
+
+	it('returns array', function () {
+		const signature = 'Setup' + Date.now().toString();
+
+		deepEqual(Object.assign(Object.assign({}, mod), {
+			[signature]: function () {},
+		})._DataSetupMethods(), Object.keys(mod).filter(function (e) {
+			return e.match(/^Setup/);
+		}).concat(signature));
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData) {
