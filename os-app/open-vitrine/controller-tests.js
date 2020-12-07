@@ -267,6 +267,40 @@ describe('_DataSetupMethods', function test__DataSetupMethods() {
 
 });
 
+describe('SetupCache', function test_SetupCache() {
+
+	const _SetupCache = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheReadFile: (function () {}),
+			}, inputData),
+		});
+		return _mod.SetupCache() || _mod;
+	};
+
+	it('calls OLSKCacheReadFile', function () {
+		const items = [];
+
+		_SetupCache({
+			OLSKCacheReadFile: (function () {
+				items.push(...arguments);
+			}),
+		});
+
+		deepEqual(items, [mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')]);
+	});
+
+	it('sets _ValueCache', function () {
+		const OLSKCacheReadFile = Math.random().toString();
+
+		deepEqual(_SetupCache({
+			OLSKCacheReadFile: (function () {
+				return OLSKCacheReadFile;
+			}),
+		})._ValueCache, OLSKCacheReadFile);
+	});
+
+});
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData) {

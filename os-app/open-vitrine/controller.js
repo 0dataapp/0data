@@ -166,7 +166,9 @@ const mod = {
 
 	// SETUP
 
-	SetupCache () {},
+	SetupCache () {
+		this._ValueCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')) || {};
+	},
 
 	// LIFECYCLE
 
