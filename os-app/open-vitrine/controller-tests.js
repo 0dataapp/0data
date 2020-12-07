@@ -253,14 +253,14 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 });
 
-describe('_DataSetupMethods', function test__DataSetupMethods() {
+describe('_SetupMethods', function test__SetupMethods() {
 
 	it('returns array', function () {
 		const signature = 'Setup' + Date.now().toString();
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
 			[signature]: function () {},
-		})._DataSetupMethods(), Object.keys(mod).filter(function (e) {
+		})._SetupMethods(), Object.keys(mod).filter(function (e) {
 			return e.match(/^Setup/);
 		}).concat(signature));
 	});
@@ -399,7 +399,7 @@ describe('SetupListings', function test_SetupListings() {
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {
-		return Object.assign(mod._DataSetupMethods().reduce(function (coll, item) {
+		return Object.assign(mod._SetupMethods().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: function () {
 					return item;
@@ -408,14 +408,14 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 		}, Object.assign({}, mod)), inputData).LifecycleModuleDidLoad();
 	};
 
-	it('calls _DataSetupMethods', function () {
+	it('calls _SetupMethods', function () {
 		const signature = 'Setup' + Date.now().toString();
 
 		deepEqual(_LifecycleModuleDidLoad({
 			[signature]: function (arguments) {
 				return signature;
 			},
-		}), mod._DataSetupMethods().concat(signature));
+		}), mod._SetupMethods().concat(signature));
 	});
 
 });

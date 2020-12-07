@@ -158,13 +158,13 @@ const mod = {
 		return JSON.stringify(this.DataObjects().map(mod.DataProjectSchema));
 	},
 
-	_DataSetupMethods () {
+	// SETUP
+
+	_SetupMethods () {
 		return Object.keys(this).filter(function (e) {
 			return e.match(/^Setup/);
 		});
 	},
-
-	// SETUP
 
 	SetupCache () {
 		this._ValueCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNamePrimary(), require('path').join(__dirname, '__cached')) || {};
@@ -200,7 +200,7 @@ const mod = {
 	LifecycleModuleDidLoad () {
 		const _this = this;
 		
-		return _this._DataSetupMethods().map(function (e) {
+		return _this._SetupMethods().map(function (e) {
 			return _this[e]();
 		});
 	},
