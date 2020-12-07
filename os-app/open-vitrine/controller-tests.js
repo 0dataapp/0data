@@ -451,7 +451,7 @@ describe('_SetupListing', function test__SetupListing() {
 
 	context('_ParamCallbackDidFinish', function () {
 
-		it('calls _DataContentString', async function () {
+		it('calls OLSKCacheWriteFile', async function () {
 			const _ValueCache = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
