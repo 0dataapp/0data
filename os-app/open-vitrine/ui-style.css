@@ -20,14 +20,26 @@
 
 .ZDAVitrineListItem {
 	padding: 10px;
-	border-radius: 5px;
 
 	margin: 10px 0;
-
-	background: #eee;
 }
 
 .ZDAVitrineListItem a {
 	text-decoration: none;
 	color: black;
+}
+
+.ZDAVitrineListItemIcon {
+	border-radius: 5px;
+	overflow: hidden;
+
+	flex-shrink: 0;
+}
+
+.ZDAVitrineListItemName {
+	font-size: 20pt;
+}
+
+.ZDAVitrineListItemBlurb {
+	font-size: 11pt;
 }
