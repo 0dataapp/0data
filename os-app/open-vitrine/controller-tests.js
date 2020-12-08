@@ -136,19 +136,22 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectURL: Math.random().toString(),
 			}, inputData);
 
-			return `<ul class="icons"><li><a href="${ item.ZDAProjectURL }"><img src="${ item._ZDAProjectImageHREF }" /></a><p><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></p></li></ul>`;
+			return `<ul class="icons"><li>${ item._ZDAProjectImageHREF ? `<a href="${ item.ZDAProjectURL }"><img src="${ item._ZDAProjectImageHREF }" /></a>` : '' }<p><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></p></li></ul>`;
 		};
 		
 		it('parses list', function () {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
+			const _ZDAProjectImageHREF = '/' + Math.random().toString();
 
 			deepEqual(mod._DataListingObjects(mod.DataListingURLUnhosted(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
+				_ZDAProjectImageHREF,
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
+				ZDAProjectIconURL: mod._DataDetailPropertiesURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		

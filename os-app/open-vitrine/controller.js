@@ -125,10 +125,18 @@ const mod = {
 					},
 					[mod.DataListingURLUnhosted()]: function () {
 						return cheerio('.icons', param2).first().find('li').map(function () {
-							return {
+							return Object.assign({
 								ZDAProjectName: cheerio('a', this).text(),
 								ZDAProjectURL: cheerio('a', this).attr('href'),
-							};
+							}, (function(inputData) {
+									if (!inputData) {
+										return {};
+									}
+
+									return {
+										ZDAProjectIconURL: mod._DataDetailPropertiesURL(item, inputData),
+									};
+								})(cheerio('img', this).attr('src')));
 						});
 					},
 					[mod.DataListingURLSolidProject()]: function () {
