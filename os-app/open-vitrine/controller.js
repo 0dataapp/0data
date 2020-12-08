@@ -162,7 +162,7 @@ const mod = {
 	DataListedProjects () {
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
-			return coll.concat(_this._DataListingObjects(item, _this._ValueListingsCache[item]));
+			return coll.concat(_this._DataListingObjects(item, _this._ValueListingsCache[item] || ''));
 		}, []).reduce(function (coll, item) {
 			if (coll.urls.includes(item.ZDAProjectURL)) {
 				return coll;
