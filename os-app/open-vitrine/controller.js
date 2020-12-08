@@ -98,18 +98,6 @@ const mod = {
 		}).shift();
 	},
 
-	DataFetchURLIndexRemoteStorage() {
-		return 0;
-	},
-
-	DataFetchURLIndexSolidProject() {
-		return 1;
-	},
-
-	DataFetchURLIndexUnhosted() {
-		return 2;
-	},
-
 	_DataContentString (inputData) {
 		return uGet(inputData);
 	},
@@ -123,10 +111,10 @@ const mod = {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		return Array.from(mod.DataListingURLs().reduce(function (coll, item, i) {
+		return Array.from(mod.DataListingURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: {
-					[mod.DataFetchURLIndexRemoteStorage()]: function () {
+					[mod.DataListingURLRemoteStorage()]: function () {
 						return cheerio('table', param2).first().find('tr:not(tr:first-of-type)').map(function () {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
@@ -135,7 +123,15 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataFetchURLIndexSolidProject()]: function () {
+					[mod.DataListingURLUnhosted()]: function () {
+						return cheerio('.icons', param2).first().find('li').map(function () {
+							return {
+								ZDAProjectName: cheerio('a', this).text(),
+								ZDAProjectURL: cheerio('a', this).attr('href'),
+							};
+						});
+					},
+					[mod.DataListingURLSolidProject()]: function () {
 						return cheerio('article', param2).first().find('ul:not(#historical-solid-apps~ul) li').map(function () {
 							return {
 								ZDAProjectName: cheerio('a:nth-child(1)', this).text(),
@@ -158,15 +154,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataFetchURLIndexUnhosted()]: function () {
-						return cheerio('.icons', param2).first().find('li').map(function () {
-							return {
-								ZDAProjectName: cheerio('a', this).text(),
-								ZDAProjectURL: cheerio('a', this).attr('href'),
-							};
-						});
-					},
-				}[i],
+				}[item],
 			});
 		}, {})[param1]()).map(function (e) {
 			return Object.fromEntries(Object.entries(e).map(function (e) {
@@ -225,7 +213,7 @@ const mod = {
 
 	DataDetailedProjects () {
 		const _this = this;
-		return _this.DataListedProjects().map(function (e, _ZDAProjectIndex) {
+		return _this.DataListedProjects().map(function (e) {
 			return Object.assign(e, Object.entries(_this._DataDetailProperties(e.ZDAProjectURL)).reduce(function (coll, item) {
 				if (item[0].startsWith('_')) {
 					if (e[item[0].slice(1)]) {
