@@ -80,6 +80,24 @@ const mod = {
 		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
 	},
 
+	DataListingURLRemoteStorage () {
+		return mod.DataListingURLs().filter(function (e) {
+			return e.match(/remotestorage/);
+		}).shift();
+	},
+
+	DataListingURLUnhosted () {
+		return mod.DataListingURLs().filter(function (e) {
+			return e.match(/unhosted/);
+		}).shift();
+	},
+
+	DataListingURLSolidProject () {
+		return mod.DataListingURLs().filter(function (e) {
+			return e.match(/solid/);
+		}).shift();
+	},
+
 	DataFetchURLIndexRemoteStorage() {
 		return 0;
 	},

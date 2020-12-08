@@ -34,6 +34,36 @@ describe('DataListingURLs', function test_DataListingURLs() {
 
 });
 
+describe('DataListingURLRemoteStorage', function test_DataListingURLRemoteStorage() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataListingURLRemoteStorage(), mod.DataListingURLs().filter(function (e) {
+			return e.match(/remotestorage/);
+		}).shift());
+	});
+
+});
+
+describe('DataListingURLUnhosted', function test_DataListingURLUnhosted() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataListingURLUnhosted(), mod.DataListingURLs().filter(function (e) {
+			return e.match(/unhosted/);
+		}).shift());
+	});
+
+});
+
+describe('DataListingURLSolidProject', function test_DataListingURLSolidProject() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataListingURLSolidProject(), mod.DataListingURLs().filter(function (e) {
+			return e.match(/solid/);
+		}).shift());
+	});
+
+});
+
 describe('DataFetchURLIndexRemoteStorage', function test_DataFetchURLIndexRemoteStorage() {
 
 	it('returns array', function () {
