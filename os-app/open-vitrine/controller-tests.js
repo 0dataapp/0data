@@ -82,7 +82,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 		deepEqual(mod._DataListingObjects(uRandomElement(mod.DataListingURLs()), ''), []);
 	});
 
-	context('remotestorage', function () {
+	context('remotestorage', function tost_remotestorage () {
 
 		const uTable = function (inputData = {}) {
 			const item = Object.assign({
@@ -128,7 +128,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 	
 	});
 
-	context('unhosted', function () {
+	context('unhosted', function test_unhosted () {
 
 		const uList = function (inputData = {}) {
 			const item = Object.assign({
@@ -167,7 +167,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 	
 	});
 
-	context('solidproject', function () {
+	context('solidproject', function test_solidproject () {
 
 		const uArticle = function (inputData = {}) {
 			const item = Object.assign({
