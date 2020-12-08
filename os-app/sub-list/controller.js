@@ -16,7 +16,7 @@ const mod = {
 				}))));
 			}),
 			OLSKRouteSignature: 'ZDAVitrineListStubRoute',
-			OLSKRouteLanguageCodes: ['en', 'fr'],
+			OLSKRouteLanguageCodes: ['en', 'fr', 'es'],
 			OLSKRouteIsHidden: process.env.NODE_ENV === 'production',
 		}];
 	},
