@@ -72,6 +72,10 @@ const mod = {
 		return 'cache-bravo-details';
 	},
 
+	DataCacheNameProjects() {
+		return 'cache-charlie-projects';
+	},
+
 	DataListingURLs() {
 		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
 	},
@@ -340,6 +344,10 @@ const mod = {
 		return Promise.all(_this.DataProjects().map(function (e) {
 			return _this._SetupDetail(e.ZDAProjectURL);
 		}));
+	},
+
+	SetupProjectsCache () {
+		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')) || {};
 	},
 
 	// LIFECYCLE

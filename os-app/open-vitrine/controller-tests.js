@@ -18,6 +18,14 @@ describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 });
 
+describe('DataCacheNameProjects', function test_DataCacheNameProjects() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataCacheNameProjects(), 'cache-charlie-projects');
+	});
+
+});
+
 describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
@@ -943,6 +951,41 @@ describe('SetupDetails', function test_SetupDetails() {
 				return Array.from(arguments);
 			}),
 		}), [[ZDAProjectURL]]);
+	});
+
+});
+
+describe('SetupProjectsCache', function test_SetupProjectsCache() {
+
+	const _SetupProjectsCache = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheReadFile: (function () {}),
+			}, inputData),
+		});
+		return _mod.SetupProjectsCache() || _mod;
+	};
+
+	it('calls OLSKCacheReadFile', function () {
+		const items = [];
+
+		_SetupProjectsCache({
+			OLSKCacheReadFile: (function () {
+				items.push(...arguments);
+			}),
+		});
+
+		deepEqual(items, [mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
+	});
+
+	it('sets _ValueProjectsCache', function () {
+		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
+
+		deepEqual(_SetupProjectsCache({
+			OLSKCacheReadFile: (function () {
+				return OLSKCacheReadFile;
+			}),
+		})._ValueProjectsCache, OLSKCacheReadFile || {});
 	});
 
 });
