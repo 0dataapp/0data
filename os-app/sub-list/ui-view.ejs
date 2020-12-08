@@ -7,7 +7,9 @@
 <% locals.ZDAVitrineListData.forEach(function (item) { -%>
 <div class="ZDAVitrineListItem OLSKCommonCard">
 	<% if (item.ZDAProjectIconURL) { -%>
-		<img class="ZDAVitrineListItemIconImage" src="<%= item.ZDAProjectIconURL %>" role="presentation" />
+		<a class="ZDAVitrineListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true">
+			<img class="ZDAVitrineListItemIconImage" src="<%= item.ZDAProjectIconURL %>" />
+		</a>
 	<% } -%>
 	<div>
 		<a class="ZDAVitrineListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>

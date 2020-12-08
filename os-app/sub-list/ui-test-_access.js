@@ -7,6 +7,7 @@ Object.entries({
 
 	ZDAVitrineListItem: '.ZDAVitrineListItem',
 	
+	ZDAVitrineListItemIcon: '.ZDAVitrineListItemIcon',
 	ZDAVitrineListItemIconImage: '.ZDAVitrineListItemIconImage',
 	ZDAVitrineListItemName: '.ZDAVitrineListItemName',
 	ZDAVitrineListItemBlurb: '.ZDAVitrineListItemBlurb',
@@ -52,8 +53,8 @@ describe('ZDAVitrineList_Access', function () {
 			browser.assert.elements(ZDAVitrineListItem, count);
 		});
 
-		it('hides ZDAVitrineListItemIconImage', function () {
-			browser.assert.elements(ZDAVitrineListItemIconImage, 0);
+		it('hides ZDAVitrineListItemIcon', function () {
+			browser.assert.elements(ZDAVitrineListItemIcon, 0);
 		});
 
 		it('shows ZDAVitrineListItemName', function () {
@@ -64,7 +65,7 @@ describe('ZDAVitrineList_Access', function () {
 			browser.assert.elements(ZDAVitrineListItemBlurb, count);
 		});
 
-		context('ZDAVitrineListItemIconImage', function () {
+		context('ZDAProjectIconURL', function () {
 			
 			before(function() {
 				return browser.OLSKVisit(kDefaultRoute, {
@@ -74,6 +75,10 @@ describe('ZDAVitrineList_Access', function () {
 						};
 					})),
 				});
+			});
+
+			it('shows ZDAVitrineListItemIcon', function () {
+				browser.assert.elements(ZDAVitrineListItemIcon, count);
 			});
 
 			it('shows ZDAVitrineListItemIconImage', function () {

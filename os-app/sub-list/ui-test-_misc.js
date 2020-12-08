@@ -23,14 +23,22 @@ describe('ZDAVitrineList_Misc', function  () {
 
 	});
 
+	describe('ZDAVitrineListItemIcon', function test_ZDAVitrineListItemIcon () {
+
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineListItemIcon, 'href', item.ZDAProjectURL);
+		});
+
+		it('sets aria-hidden', function () {
+			browser.assert.attribute(ZDAVitrineListItemIcon, 'aria-hidden', 'true');
+		});
+
+	});
+
 	describe('ZDAVitrineListItemIconImage', function test_ZDAVitrineListItemIconImage () {
 
 		it('sets src', function () {
 			browser.assert.attribute(ZDAVitrineListItemIconImage, 'src', item.ZDAProjectIconURL);
-		});
-
-		it('sets role', function () {
-			browser.assert.attribute(ZDAVitrineListItemIconImage, 'role', 'presentation');
 		});
 
 	});
