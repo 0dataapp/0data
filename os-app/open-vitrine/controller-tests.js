@@ -642,6 +642,15 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 		});
 	});
 
+	it('maps ZDAProjectIconURL', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataProjectSchema({
+			ZDAProjectIconURL: item,
+		}), {
+			image: item,
+		});
+	});
+
 });
 
 describe('DataProjectsJSON', function test_DataProjectsJSON() {

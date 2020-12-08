@@ -276,6 +276,7 @@ const mod = {
 			ZDAProjectName: 'name',
 			ZDAProjectBlurb: 'description',
 			ZDAProjectURL: 'url',
+			ZDAProjectIconURL: 'image',
 		}).reduce(function (coll, item) {
 			return !inputData[item[0]] ? coll : Object.assign(coll, {
 				[item[1]]: inputData[item[0]],
