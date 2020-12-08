@@ -662,7 +662,7 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 describe('_SetupMethods', function test__SetupMethods() {
 
 	it('returns array', function () {
-		const signature = 'Setup' + Date.now().toString();
+		const signature = 'Setup' + uRandomInt();
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
 			[signature]: function () {},
@@ -1142,10 +1142,10 @@ describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 	};
 
 	it('calls _SetupMethods', async function () {
-		const signature = 'Setup' + Date.now().toString();
+		const signature = 'Setup' + uRandomInt();
 
 		deepEqual(await _LifecycleModuleDidLoad({
-			[signature]: function (arguments) {
+			[signature]: function () {
 				return signature;
 			},
 		}), mod._SetupMethods().concat(signature));

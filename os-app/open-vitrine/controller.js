@@ -396,10 +396,10 @@ const mod = {
 
 	// LIFECYCLE
 
-	async LifecycleModuleDidLoad () {
+	LifecycleModuleDidLoad () {
 		const _this = this;
 		
-		return await uSerial(_this._SetupMethods().map(function (e) {
+		return uSerial(_this._SetupMethods().map(function (e) {
 			return Promise.resolve(_this[e]());
 		}));
 	},
