@@ -417,6 +417,20 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		});
 	});
 
+	it('parses title', function () {
+		const url = 'https://example.com';
+		const _ZDAProjectBlurb = Math.random().toString();
+		const _ValueDetailsCache = {
+			[url]: `<title>${ _ZDAProjectBlurb }</title>`,
+		};
+		deepEqual(__DataDetailProperties({
+			url,
+			_ValueDetailsCache,
+		}), {
+			_ZDAProjectBlurb,
+		});
+	});
+
 });
 
 describe('DataDetailedProjects', function test_DataDetailedProjects() {
