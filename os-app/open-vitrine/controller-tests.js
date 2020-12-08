@@ -407,22 +407,22 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 
 });
 
-describe('DataProjects', function test_DataProjects() {
+describe('DataDetailedProjects', function test_DataDetailedProjects() {
 	
-	const _DataProjects = function (inputData = {}) {
+	const _DataDetailedProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			DataListedProjects: (function () {}),
 			_DataDetailProperties: (function () {
 				return {};
 			}),
-		}, inputData).DataProjects();
+		}, inputData).DataDetailedProjects();
 	};
 
 	it('returns DataListedProjects', function () {
 		const item = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
-		deepEqual(_DataProjects({
+		deepEqual(_DataDetailedProjects({
 			DataListedProjects: (function () {
 				return [item];
 			}),
@@ -436,7 +436,7 @@ describe('DataProjects', function test_DataProjects() {
 			ZDAProjectURL: Math.random().toString(),
 		};
 
-		_DataProjects({
+		_DataDetailedProjects({
 			DataListedProjects: (function () {
 				return [project];
 			}),
@@ -457,7 +457,7 @@ describe('DataProjects', function test_DataProjects() {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
-			deepEqual(_DataProjects({
+			deepEqual(_DataDetailedProjects({
 				DataListedProjects: (function () {
 					return [{}];
 				}),
@@ -470,7 +470,7 @@ describe('DataProjects', function test_DataProjects() {
 		it('assigns underscore if not present', function () {
 			const item = Math.random().toString();
 
-			deepEqual(_DataProjects({
+			deepEqual(_DataDetailedProjects({
 				DataListedProjects: (function () {
 					return [{}];
 				}),
@@ -487,7 +487,7 @@ describe('DataProjects', function test_DataProjects() {
 		it('ignores underscore', function () {
 			const item = Math.random().toString();
 			
-			deepEqual(_DataProjects({
+			deepEqual(_DataDetailedProjects({
 				DataListedProjects: (function () {
 					return [{
 						[item]: item,
@@ -505,6 +505,27 @@ describe('DataProjects', function test_DataProjects() {
 	
 	});
 
+});
+
+describe('DataProjects', function test_DataProjects() {
+	
+	const _DataProjects = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			DataDetailedProjects: (function () {}),
+		}, inputData).DataProjects();
+	};
+
+	it('returns DataDetailedProjects', function () {
+		const item = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(_DataProjects({
+			DataDetailedProjects: (function () {
+				return [item];
+			}),
+		}), [item]);
+	});
+
 	it('bumps ZDAProjectIconURL', function () {
 		const item1 = {
 			ZDAProjectURL: Math.random().toString(),
@@ -515,7 +536,7 @@ describe('DataProjects', function test_DataProjects() {
 		};
 
 		deepEqual(_DataProjects({
-			DataListedProjects: (function () {
+			DataDetailedProjects: (function () {
 				return [item1, item2];
 			}),
 		}), [item2, item1]);
@@ -533,7 +554,7 @@ describe('DataProjects', function test_DataProjects() {
 		};
 
 		deepEqual(_DataProjects({
-			DataListedProjects: (function () {
+			DataDetailedProjects: (function () {
 				return [item1, item2];
 			}),
 		}), [item2, item1]);

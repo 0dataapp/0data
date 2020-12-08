@@ -205,11 +205,7 @@ const mod = {
 		}));
 	},
 
-	DataProjects () {
-		if (!this.DataListedProjects) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
+	DataDetailedProjects () {
 		const _this = this;
 		return _this.DataListedProjects().map(function (e, _ZDAProjectIndex) {
 			return Object.assign(e, Object.entries(_this._DataDetailProperties(e.ZDAProjectURL)).reduce(function (coll, item) {
@@ -225,7 +221,16 @@ const mod = {
 					[item[0]]: item[1],
 				});
 			}, {}));
-		}).sort(function (a, b) {
+		});
+	},
+
+	DataProjects () {
+		if (!this.DataDetailedProjects) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		const _this = this;
+		return _this.DataDetailedProjects().sort(function (a, b) {
 			const unmatched = [
 				'ZDAProjectIconURL',
 				'ZDAProjectBlurb',
