@@ -21,6 +21,10 @@ describe('ZDAVitrineList_Misc', function  () {
 			browser.assert.hasClass(ZDAVitrineListItem, 'OLSKCommonCard');
 		});
 
+		it('sets lang', function () {
+			browser.assert.attribute(ZDAVitrineListItem, 'lang', 'en');
+		});
+
 	});
 
 	describe('ZDAVitrineListItemIcon', function test_ZDAVitrineListItemIcon () {
