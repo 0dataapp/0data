@@ -11,7 +11,7 @@ describe('ZDARobots_Misc', function () {
 						OLSKRoutingLanguage: e,
 					});
 				}));
-			}, [])));
+			}, []).concat('/application_icon_*')));
 	});
 
 });

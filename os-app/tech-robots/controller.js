@@ -12,7 +12,7 @@ exports.OLSKControllerRoutes = function() {
 						OLSKRoutingLanguage: e,
 					});
 				}));
-			}, [])));
+			}, []).concat('/application_icon_*')));
 		},
 	}];
 };
