@@ -347,7 +347,7 @@ const mod = {
 	},
 
 	SetupProjectsCache () {
-		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')) || {};
+		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached'));
 	},
 
 	SetupProjects () {
