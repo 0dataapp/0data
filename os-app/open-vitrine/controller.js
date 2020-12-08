@@ -224,30 +224,32 @@ const mod = {
 		});
 	},
 
+	DataProjectsSort (a, b) {
+		const unmatched = [
+			'ZDAProjectIconURL',
+			'ZDAProjectBlurb',
+		].filter(function (e) {
+			return a[e] !== b[e];
+		});
+
+		if (unmatched.length) {
+			return unmatched.reduce(function (coll, item) {
+				return coll + !!b[item];
+			}, 0) - unmatched.reduce(function (coll, item) {
+				return coll + !!a[item];
+			}, 0);
+		}
+
+		return 0;
+	},
+
 	DataProjects () {
 		if (!this.DataDetailedProjects) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
 		const _this = this;
-		return _this.DataDetailedProjects().sort(function (a, b) {
-			const unmatched = [
-				'ZDAProjectIconURL',
-				'ZDAProjectBlurb',
-			].filter(function (e) {
-				return a[e] !== b[e];
-			});
-
-			if (unmatched.length) {
-				return unmatched.reduce(function (coll, item) {
-					return coll + !!b[item];
-				}, 0) - unmatched.reduce(function (coll, item) {
-					return coll + !!a[item];
-				}, 0);
-			}
-
-			return 0;
-		});
+		return _this.DataDetailedProjects().sort(mod.DataProjectsSort);
 	},
 
 	DataProjectSchema (inputData) {

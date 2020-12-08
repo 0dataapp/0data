@@ -507,6 +507,36 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 
 });
 
+describe('DataProjectsSort', function test_DataProjectsSort() {
+	
+	it('bumps ZDAProjectIconURL', function () {
+		const item1 = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		const item2 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps ZDAProjectIconURL + ZDAProjectBlurb', function () {
+		const item1 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+		const item2 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectBlurb: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+});
+
 describe('DataProjects', function test_DataProjects() {
 	
 	const _DataProjects = function (inputData = {}) {
@@ -526,30 +556,12 @@ describe('DataProjects', function test_DataProjects() {
 		}), [item]);
 	});
 
-	it('bumps ZDAProjectIconURL', function () {
+	it('sorts with DataProjectsSort', function () {
 		const item1 = {
 			ZDAProjectURL: Math.random().toString(),
 		};
 		const item2 = {
 			ZDAProjectURL: Math.random().toString(),
-			ZDAProjectIconURL: Math.random().toString(),
-		};
-
-		deepEqual(_DataProjects({
-			DataDetailedProjects: (function () {
-				return [item1, item2];
-			}),
-		}), [item2, item1]);
-	});
-
-	it('bumps ZDAProjectIconURL + ZDAProjectBlurb', function () {
-		const item1 = {
-			ZDAProjectURL: Math.random().toString(),
-			ZDAProjectIconURL: Math.random().toString(),
-		};
-		const item2 = {
-			ZDAProjectURL: Math.random().toString(),
-			ZDAProjectBlurb: Math.random().toString(),
 			ZDAProjectIconURL: Math.random().toString(),
 		};
 
