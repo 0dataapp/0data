@@ -40,7 +40,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
 				return res.OLSKLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod.DataProjects(),
+					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod._ValueProjectsCache,
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			}),
@@ -187,6 +187,10 @@ const mod = {
 	},
 
 	DataProjects () {
+		if (!this._ValueListingsCache) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
 			return coll.concat(_this._DataListingProjects(item, _this._ValueListingsCache[item]));
@@ -253,7 +257,7 @@ const mod = {
 	},
 
 	DataProjectsJSON () {
-		return JSON.stringify(this.DataProjects().map(mod.DataProjectSchema));
+		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectSchema));
 	},
 
 	// SETUP

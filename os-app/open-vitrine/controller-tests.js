@@ -570,9 +570,7 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 		};
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
-			DataProjects: (function () {
-				return [item];
-			}),
+			_ValueProjectsCache: [item],
 		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectSchema(item)]));
 	});
 
