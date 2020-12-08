@@ -990,6 +990,64 @@ describe('SetupProjectsCache', function test_SetupProjectsCache() {
 
 });
 
+describe('SetupProjects', function test_SetupProjects() {
+
+	const _SetupProjects = function (inputData) {
+		return Object.assign(inputData._mod || {}, Object.assign({}, mod), {
+			DataProjects: (function () {}),
+
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheResultFetchRenew: (function () {}),
+				OLSKCacheWriteFile: (function () {}),
+			}, inputData),
+		}, inputData).SetupProjects();
+	};
+
+	it('calls OLSKCacheResultFetchRenew', function () {
+		const _mod = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		const DataProjects = (function () {});
+
+		const item = _SetupProjects({
+			_mod,
+			DataProjects,
+			OLSKCacheResultFetchRenew: (function () {
+				return Array.from(arguments);
+			}),
+		}).pop();
+
+		deepEqual(item, {
+			ParamMap: _mod,
+			ParamKey: '_ValueProjectsCache',
+			ParamCallback: DataProjects,
+			ParamInterval: 1000 * 60,
+			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
+		});
+	});
+
+	context('_ParamCallbackDidFinish', function () {
+
+		it('calls OLSKCacheWriteFile', async function () {
+			const _ValueProjectsCache = {
+				[Math.random().toString()]: Math.random().toString(),
+			};
+
+			deepEqual(await _SetupProjects({
+				_ValueProjectsCache,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData._ParamCallbackDidFinish();
+				}),
+				OLSKCacheWriteFile: (function () {
+					return Array.from(arguments);
+				}),
+			}), [_ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
+		});
+	
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {

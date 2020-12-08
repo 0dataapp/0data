@@ -350,6 +350,19 @@ const mod = {
 		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')) || {};
 	},
 
+	SetupProjects () {
+		const _this = this;
+		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
+			ParamMap: _this,
+			ParamKey: '_ValueProjectsCache',
+			ParamCallback: _this.DataProjects,
+			ParamInterval: 1000 * 60,
+			_ParamCallbackDidFinish: (function () {
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached'));
+			}),
+		});
+	},
+
 	// LIFECYCLE
 
 	async LifecycleModuleDidLoad () {
