@@ -96,7 +96,7 @@ const mod = {
 		return uGet(inputData);
 	},
 
-	_DataListingProjects (param1, param2) {
+	_DataListingObjects (param1, param2) {
 		if (!mod.DataListingURLs().includes(param1)) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
@@ -159,6 +159,25 @@ const mod = {
 		});
 	},
 
+	DataListedProjects () {
+		const _this = this;
+		return mod.DataListingURLs().reduce(function (coll, item) {
+			return coll.concat(_this._DataListingObjects(item, _this._ValueListingsCache[item]));
+		}, []).reduce(function (coll, item) {
+			if (coll.urls.includes(item.ZDAProjectURL)) {
+				return coll;
+			}
+
+			coll.urls.push(item.ZDAProjectURL);
+			coll.objects.push(item);
+
+			return coll;
+		}, {
+			urls: [],
+			objects: [],
+		}).objects;
+	},
+
 	_DataDetailPropertiesURL (url, path) {
 		if (typeof url !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -187,26 +206,12 @@ const mod = {
 	},
 
 	DataProjects () {
-		if (!this._ValueListingsCache) {
+		if (!this.DataListedProjects) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
 		const _this = this;
-		return mod.DataListingURLs().reduce(function (coll, item) {
-			return coll.concat(_this._DataListingProjects(item, _this._ValueListingsCache[item]));
-		}, []).reduce(function (coll, item) {
-			if (coll.urls.includes(item.ZDAProjectURL)) {
-				return coll;
-			}
-
-			coll.urls.push(item.ZDAProjectURL);
-			coll.objects.push(item);
-
-			return coll;
-		}, {
-			urls: [],
-			objects: [],
-		}).objects.map(function (e, _ZDAProjectIndex) {
+		return _this.DataListedProjects().map(function (e, _ZDAProjectIndex) {
 			return Object.assign(e, Object.entries(_this._DataDetailProperties(e.ZDAProjectURL)).reduce(function (coll, item) {
 				if (item[0].startsWith('_')) {
 					if (e[item[0].slice(1)]) {
@@ -345,7 +350,7 @@ const mod = {
 
 	SetupDetails () {
 		const _this = this;
-		return Promise.all(_this.DataProjects().map(function (e) {
+		return Promise.all(_this.DataListedProjects().map(function (e) {
 			return _this._SetupDetail(e.ZDAProjectURL);
 		}));
 	},
