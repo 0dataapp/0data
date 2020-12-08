@@ -1,0 +1,16 @@
+ZDAVitrineTitle: Zero Data App
+ZDAVitrineDescription: 'Être propriétaire de vos données, tout.'
+ZDAVitrinePrinciplesHeadingText: Principes
+ZDAVitrinePrinciplesListItemText:
+  - une application dans laquelle <em>vos données restent avec vous</em>
+  - <em>vous contrôlez où</em> les données sont stockées
+  - 'Pas de spam, pas de captcha, pas d''inscription, pas de mots de passe, <em>apportez votre propre identité</em>'
+  - utilisant des protocoles ouverts pour <em>la flexibilité et l'interopérabilité</em>
+  - <em>faites ce que vous voulez</em> avec vos données <em>à tout moment</em>
+  - vos données sont <em>accessibles pour toujours</em> même si l'application ne fonctionne plus
+ZDAVitrineInformationHeadingText: Plus d'info
+ZDAVitrineRepoLinkText: Repositoire
+ZDAVitrineProjectsHeadingText: Projets
+ZDAVitrineProjectsSourcesHeadingText: Sources
+ZDAVitrineProjectsSourcesBlurbText: 'Données compilées à partir des lieux suivants :'
+ZDAVitrineProjectsCompilationLinkText: JSON compilation des données du projet

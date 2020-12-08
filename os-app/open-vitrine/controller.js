@@ -44,7 +44,7 @@ const mod = {
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			}),
-			OLSKRouteLanguageCodes: ['en'],
+			OLSKRouteLanguageCodes: ['en', 'fr'],
 		}, {
 			OLSKRoutePath: '/projects.json',
 			OLSKRouteMethod: 'get',
