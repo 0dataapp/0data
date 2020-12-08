@@ -7,7 +7,7 @@ Object.entries({
 
 	ZDAVitrineListItem: '.ZDAVitrineListItem',
 	
-	ZDAVitrineListItemIcon: '.ZDAVitrineListItemIcon',
+	ZDAVitrineListItemIconImage: '.ZDAVitrineListItemIconImage',
 	ZDAVitrineListItemName: '.ZDAVitrineListItemName',
 	ZDAVitrineListItemBlurb: '.ZDAVitrineListItemBlurb',
 }).map(function (e) {
@@ -52,8 +52,8 @@ describe('ZDAVitrineList_Access', function () {
 			browser.assert.elements(ZDAVitrineListItem, count);
 		});
 
-		it('hides ZDAVitrineListItemIcon', function () {
-			browser.assert.elements(ZDAVitrineListItemIcon, 0);
+		it('hides ZDAVitrineListItemIconImage', function () {
+			browser.assert.elements(ZDAVitrineListItemIconImage, 0);
 		});
 
 		it('shows ZDAVitrineListItemName', function () {
@@ -64,7 +64,7 @@ describe('ZDAVitrineList_Access', function () {
 			browser.assert.elements(ZDAVitrineListItemBlurb, count);
 		});
 
-		context('ZDAVitrineListItemIcon', function () {
+		context('ZDAVitrineListItemIconImage', function () {
 			
 			before(function() {
 				return browser.OLSKVisit(kDefaultRoute, {
@@ -76,8 +76,8 @@ describe('ZDAVitrineList_Access', function () {
 				});
 			});
 
-			it('shows ZDAVitrineListItemIcon', function () {
-				browser.assert.elements(ZDAVitrineListItemIcon, count);
+			it('shows ZDAVitrineListItemIconImage', function () {
+				browser.assert.elements(ZDAVitrineListItemIconImage, count);
 			});
 
 		});

@@ -23,14 +23,14 @@ describe('ZDAVitrineList_Misc', function  () {
 
 	});
 
-	describe('ZDAVitrineListItemIcon', function test_ZDAVitrineListItemIcon () {
+	describe('ZDAVitrineListItemIconImage', function test_ZDAVitrineListItemIconImage () {
 
 		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineListItemIcon, 'src', item.ZDAProjectIconURL);
+			browser.assert.attribute(ZDAVitrineListItemIconImage, 'src', item.ZDAProjectIconURL);
 		});
 
 		it('sets role', function () {
-			browser.assert.attribute(ZDAVitrineListItemIcon, 'role', 'presentation');
+			browser.assert.attribute(ZDAVitrineListItemIconImage, 'role', 'presentation');
 		});
 
 	});
