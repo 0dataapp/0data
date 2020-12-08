@@ -694,20 +694,20 @@ describe('_SetupListing', function test__SetupListing() {
 
 	it('calls OLSKCacheResultFetchRenew', function () {
 		const url = Math.random().toString();
-		const ParamMap = {
+		const _ValueListingsCache = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 
 		const item = __SetupListing({
 			url,
-			_ValueListingsCache: ParamMap,
+			_ValueListingsCache,
 			OLSKCacheResultFetchRenew: (function () {
 				return Array.from(arguments);
 			}),
 		}).pop();
 
 		deepEqual(item, {
-			ParamMap,
+			ParamMap: _ValueListingsCache,
 			ParamKey: url,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
@@ -919,20 +919,20 @@ describe('_SetupDetail', function test__SetupDetail() {
 
 	it('calls OLSKCacheResultFetchRenew', function () {
 		const url = Math.random().toString();
-		const ParamMap = {
+		const _ValueDetailsCache = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 
 		const item = __SetupDetail({
 			url,
-			_ValueDetailsCache: ParamMap,
+			_ValueDetailsCache,
 			OLSKCacheResultFetchRenew: (function () {
 				return Array.from(arguments);
 			}),
 		}).pop();
 
 		deepEqual(item, {
-			ParamMap,
+			ParamMap: _ValueDetailsCache,
 			ParamKey: url,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
