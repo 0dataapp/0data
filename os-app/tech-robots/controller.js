@@ -6,6 +6,7 @@ exports.OLSKControllerRoutes = function() {
 		OLSKRouteFunction (req, res, next) {
 			return res.send(require('OLSKRobots').OLSKRobotsTXT([
 				'ZDAVitrineRoute',
+				'ZDAProjectsJSONRoute',
 			].reduce(function (coll, item) {
 				return coll.concat(res.locals.OLSKCanonicalFor(item)).concat((res.locals.OLSKRouteObjectFor(item).OLSKRouteLanguageCodes || []).map(function (e) {
 					return res.locals.OLSKCanonicalLocalizedFor(item, {
