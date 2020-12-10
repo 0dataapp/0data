@@ -740,7 +740,7 @@ describe('_SetupListing', function test__SetupListing() {
 			url,
 			_ValueListingsCache,
 			OLSKCacheResultFetchRenew: (function () {
-				return Array.from(arguments);
+				return [...arguments];
 			}),
 		}).pop();
 
@@ -764,7 +764,7 @@ describe('_SetupListing', function test__SetupListing() {
 					return inputData.ParamCallback();
 				}),
 				_DataContentString: (function () {
-					return Array.from(arguments);
+					return [...arguments];
 				}),
 			}), [url]);
 		});
@@ -784,7 +784,7 @@ describe('_SetupListing', function test__SetupListing() {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
-					return Array.from(arguments);
+					return [...arguments];
 				}),
 			}), [_ValueListingsCache, mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
 		});
@@ -858,7 +858,7 @@ describe('SetupDetailsQueue', function test_SetupDetailsQueue() {
 	it('calls _DataFoilQueue', function () {
 		deepEqual(_SetupDetailsQueue({
 			_DataFoilQueue: (function () {
-				return Array.from(arguments);
+				return [...arguments];
 			}),
 		})._ValueDetailsQueue, [{
 			concurrency: 1,
@@ -965,7 +965,7 @@ describe('_SetupDetail', function test__SetupDetail() {
 			url,
 			_ValueDetailsCache,
 			OLSKCacheResultFetchRenew: (function () {
-				return Array.from(arguments);
+				return [...arguments];
 			}),
 		}).pop();
 
@@ -989,7 +989,7 @@ describe('_SetupDetail', function test__SetupDetail() {
 					return inputData.ParamCallback();
 				}),
 				_SetupDetailContent: (function () {
-					return Array.from(arguments);
+					return [...arguments];
 				}),
 			}), [url]);
 		});
@@ -1009,7 +1009,7 @@ describe('_SetupDetail', function test__SetupDetail() {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
-					return Array.from(arguments);
+					return [...arguments];
 				}),
 			}), [_ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 		});
@@ -1038,7 +1038,7 @@ describe('SetupDetails', function test_SetupDetails() {
 				}];
 			}),
 			_SetupDetail: (function () {
-				return Array.from(arguments);
+				return [...arguments];
 			}),
 		}), [[ZDAProjectURL]]);
 	});
@@ -1103,7 +1103,7 @@ describe('SetupProjects', function test_SetupProjects() {
 			_mod,
 			DataProjects,
 			OLSKCacheResultFetchRenew: (function () {
-				return Array.from(arguments);
+				return [...arguments];
 			}),
 		}).pop();
 
@@ -1129,7 +1129,7 @@ describe('SetupProjects', function test_SetupProjects() {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
-					return Array.from(arguments);
+					return [...arguments];
 				}),
 			}), [_ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
 		});
