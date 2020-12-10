@@ -694,15 +694,15 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 	};
 
 	it('calls OLSKCacheReadFile', function () {
-		const items = [];
+		const item = [];
 
 		_SetupListingsCache({
 			OLSKCacheReadFile: (function () {
-				items.push(...arguments);
+				item.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, [mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
+		deepEqual(item, [mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
 	});
 
 	it('sets _ValueListingsCache', function () {
@@ -823,15 +823,15 @@ describe('SetupDetailsCache', function test_SetupDetailsCache() {
 	};
 
 	it('calls OLSKCacheReadFile', function () {
-		const items = [];
+		const item = [];
 
 		_SetupDetailsCache({
 			OLSKCacheReadFile: (function () {
-				items.push(...arguments);
+				item.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, [mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
+		deepEqual(item, [mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 	});
 
 	it('sets _ValueDetailsCache', function () {
@@ -1057,15 +1057,15 @@ describe('SetupProjectsCache', function test_SetupProjectsCache() {
 	};
 
 	it('calls OLSKCacheReadFile', function () {
-		const items = [];
+		const item = [];
 
 		_SetupProjectsCache({
 			OLSKCacheReadFile: (function () {
-				items.push(...arguments);
+				item.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, [mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
+		deepEqual(item, [mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
 	});
 
 	it('sets _ValueProjectsCache', function () {
