@@ -3,10 +3,10 @@ const kDefaultRoutePath = require('./controller.js').OLSKControllerRoutes().shif
 Object.entries({
 	ZDAVitrine: '.ZDAVitrine',
 	
-	ZDAVitrineIdentity: '.ZDAVitrineIdentity',
-	ZDAVitrineIdentityLogo: '.ZDAVitrineIdentityLogo',
-	ZDAVitrineIdentityName: '.ZDAVitrineIdentityName',
-	ZDAVitrineIdentityBlurb: '.ZDAVitrineIdentityBlurb',
+	ZDAVitrineCrown: '.ZDAVitrineCrown',
+	ZDAVitrineCrownIcon: '.ZDAVitrineCrownIcon',
+	ZDAVitrineCrownName: '.ZDAVitrineCrownName',
+	ZDAVitrineCrownBlurb: '.ZDAVitrineCrownBlurb',
 
 	ZDAVitrinePrinciplesHeading: '.ZDAVitrinePrinciplesHeading',
 	ZDAVitrinePrinciplesList: '.ZDAVitrinePrinciplesList',
@@ -42,20 +42,20 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements('.OLSKLanguageSwitcher', 1);
 	});
 	
-	it('shows ZDAVitrineIdentity', function() {
-		browser.assert.elements(ZDAVitrineIdentity, 1);
+	it('shows ZDAVitrineCrown', function() {
+		browser.assert.elements(ZDAVitrineCrown, 1);
 	});
 	
-	it('shows ZDAVitrineIdentityLogo', function() {
-		browser.assert.elements(ZDAVitrineIdentityLogo, 1);
+	it('shows ZDAVitrineCrownIcon', function() {
+		browser.assert.elements(ZDAVitrineCrownIcon, 1);
 	});
 	
-	it('shows ZDAVitrineIdentityName', function() {
-		browser.assert.elements(ZDAVitrineIdentityName, 1);
+	it('shows ZDAVitrineCrownName', function() {
+		browser.assert.elements(ZDAVitrineCrownName, 1);
 	});
 
-	it('shows ZDAVitrineIdentityBlurb', function () {
-		browser.assert.elements(ZDAVitrineIdentityBlurb, 1);
+	it('shows ZDAVitrineCrownBlurb', function () {
+		browser.assert.elements(ZDAVitrineCrownBlurb, 1);
 	});
 
 	it('shows ZDAVitrinePrinciplesHeading', function () {

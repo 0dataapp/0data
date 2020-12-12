@@ -18,26 +18,26 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	describe('ZDAVitrineIdentity', function test_ZDAVitrineIdentity() {
+	describe('ZDAVitrineCrown', function test_ZDAVitrineCrown() {
 
 		it('classes OLSKCommonCard', function () {
-			browser.assert.hasClass(ZDAVitrineIdentity, 'OLSKCommonCard');
+			browser.assert.hasClass(ZDAVitrineCrown, 'OLSKCommonCard');
 		});
 
 		it('classes OLSKCommonCrownCard', function () {
-			browser.assert.hasClass(ZDAVitrineIdentity, 'OLSKCommonCrownCard');
+			browser.assert.hasClass(ZDAVitrineCrown, 'OLSKCommonCrownCard');
 		});
 		
 	});
 
-	describe('ZDAVitrineIdentityLogo', function test_ZDAVitrineIdentityLogo() {
+	describe('ZDAVitrineCrownIcon', function test_ZDAVitrineCrownIcon() {
 		
 		it('sets role', function () {
-			browser.assert.attribute(ZDAVitrineIdentityLogo, 'role', 'presentation');
+			browser.assert.attribute(ZDAVitrineCrownIcon, 'role', 'presentation');
 		});
 		
 		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineIdentityLogo, 'src', OLSKTestingCanonical(require('../_shared/common/controller.js').OLSKControllerRoutes().pop()));
+			browser.assert.attribute(ZDAVitrineCrownIcon, 'src', OLSKTestingCanonical(require('../_shared/common/controller.js').OLSKControllerRoutes().pop()));
 		});
 	
 	});
