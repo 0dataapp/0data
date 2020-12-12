@@ -11,6 +11,10 @@ describe('ZDAVitrine_Misc', function () {
 		it('classes OLSKCommon', function () {
 			browser.assert.hasClass(ZDAVitrine, 'OLSKCommon');
 		});
+
+		it('classes OLSKCommonCapped', function () {
+			browser.assert.hasClass(ZDAVitrine, 'OLSKCommonCapped');
+		});
 	
 	});
 
