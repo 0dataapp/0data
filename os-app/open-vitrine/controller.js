@@ -206,6 +206,10 @@ const mod = {
 	},
 
 	_DataDetailPropertyCandidates (inputData) {
+		if (!this._ValueDetailsCache ) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
 		return Object.fromEntries([
 			['ZDAProjectIconURL', (function(href) {
 				if (!href) {
@@ -249,7 +253,9 @@ const mod = {
 	DataImagedProjects () {
 		const _this = this;
 		return _this.DataDetailedProjects().map(function (e) {
-			e.ZDAProjectIconURL = _this._DataImageURL(e.ZDAProjectIconURL);
+			if (e.ZDAProjectIconURL) {
+				e.ZDAProjectIconURL = _this._DataImageURL(e.ZDAProjectIconURL);
+			}
 
 			return e;
 		});

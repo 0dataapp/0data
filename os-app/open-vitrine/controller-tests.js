@@ -616,9 +616,6 @@ describe('DataImagedProjects', function test_DataImagedProjects() {
 	const _DataImagedProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			DataDetailedProjects: (function () {}),
-			_DataImageURL: (function () {
-				return [...arguments].shift();
-			}),
 		}, inputData).DataImagedProjects();
 	};
 
