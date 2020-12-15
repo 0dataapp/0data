@@ -8,7 +8,7 @@
 <div class="ZDAVitrineListItem OLSKCommonCard" lang="en">
 	<% if (item.ZDAProjectIconURL) { -%>
 		<a class="ZDAVitrineListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true">
-			<img class="ZDAVitrineListItemIconImage" src="<%= item.ZDAProjectIconURL %>" />
+			<img class="ZDAVitrineListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
 		</a>
 	<% } -%>
 	<div>

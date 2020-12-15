@@ -7,6 +7,7 @@ describe('ZDAVitrineList_Misc', function  () {
 		ZDAProjectBlurb: Math.random().toString(),
 		ZDAProjectURL: Math.random().toString(),
 		ZDAProjectIconURL: Math.random().toString(),
+		_ZDAProjectIconURLCachedPath: uRandomElement(undefined, Math.random().toString()),
 	};
 
 	before(function() {
@@ -42,7 +43,7 @@ describe('ZDAVitrineList_Misc', function  () {
 	describe('ZDAVitrineListItemIconImage', function test_ZDAVitrineListItemIconImage () {
 
 		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineListItemIconImage, 'src', item.ZDAProjectIconURL);
+			browser.assert.attribute(ZDAVitrineListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL);
 		});
 
 	});
