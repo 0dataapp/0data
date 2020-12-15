@@ -1288,7 +1288,7 @@ describe('_SetupImage', function test__SetupImage() {
 			writeFileSync: (function () {
 				return [...arguments];
 			}),
-		}), [require('path').join(__dirname, '__cached', 'ui-assets', mod._DataImageFilename(url)), _SetupImageContent]);
+		}), [require('path').join(mod._DataImagePath(), mod._DataImageFilename(url)), _SetupImageContent]);
 	});
 
 });

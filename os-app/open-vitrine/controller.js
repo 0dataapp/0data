@@ -303,6 +303,10 @@ const mod = {
 		return mod._DataImageFilenameHash(require('path').basename(inputData, extension)) + extension;
 	},
 
+	_DataImagePath () {
+		return require('path').join(__dirname, '__cached', 'ui-assets');
+	},
+
 	// SETUP
 
 	_SetupMethods () {
@@ -436,7 +440,7 @@ const mod = {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._DataFoilFS.writeFileSync(require('path').join(__dirname, '__cached', 'ui-assets', mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
+		return this._DataFoilFS.writeFileSync(require('path').join(mod._DataImagePath(), mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
 	},
 
 	SetupImages () {
