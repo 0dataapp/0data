@@ -264,8 +264,7 @@ const mod = {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		const _this = this;
-		return _this.DataDetailedProjects().sort(mod.DataProjectsSort);
+		return this.DataDetailedProjects().sort(mod.DataProjectsSort);
 	},
 
 	DataProjectSchema (inputData) {
