@@ -246,6 +246,15 @@ const mod = {
 		return this._DataFoilFS.existsSync(localURL) ? localURL : inputData;
 	},
 
+	DataImagedProjects () {
+		const _this = this;
+		return _this.DataDetailedProjects().map(function (e) {
+			e.ZDAProjectIconURL = _this._DataImageURL(e.ZDAProjectIconURL);
+
+			return e;
+		});
+	},
+
 	DataProjectsSort (a, b) {
 		const unmatched = [
 			'ZDAProjectIconURL',

@@ -613,6 +613,48 @@ describe('_DataImageURL', function test__DataImageURL() {
 
 });
 
+describe('DataImagedProjects', function test_DataImagedProjects() {
+	
+	const _DataImagedProjects = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			DataDetailedProjects: (function () {}),
+			_DataImageURL: (function () {
+				return [...arguments].shift();
+			}),
+		}, inputData).DataImagedProjects();
+	};
+
+	it('returns DataDetailedProjects', function () {
+		const item = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(_DataImagedProjects({
+			DataDetailedProjects: (function () {
+				return [item];
+			}),
+		}), [item]);
+	});
+
+	it('maps _DataImageURL to ZDAProjectIconURL', function () {
+		const project = {
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+		const _DataImageURL = Math.random().toString();
+
+		deepEqual(_DataImagedProjects({
+			DataDetailedProjects: (function () {
+				return [project];
+			}),
+			_DataImageURL: (function () {
+				return _DataImageURL;
+			}),
+		}), [{
+			ZDAProjectIconURL: _DataImageURL,
+		}]);
+	});
+
+});
+
 describe('DataProjectsSort', function test_DataProjectsSort() {
 	
 	it('bumps ZDAProjectIconURL', function () {
