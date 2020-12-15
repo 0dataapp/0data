@@ -445,7 +445,9 @@ const mod = {
 
 	SetupImages () {
 		const _this = this;
-		return Promise.all(_this._ValueProjectsCache.map(function (e) {
+		return Promise.all(_this._ValueProjectsCache.filter(function (e) {
+			return !e.ZDAProjectIconURL.includes(mod._DataImagePath());
+		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);
 		}));
 	},

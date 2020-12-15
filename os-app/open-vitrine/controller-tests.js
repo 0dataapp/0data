@@ -1303,15 +1303,27 @@ describe('SetupImages', function test_SetupImages() {
 	};
 
 	it('calls _SetupImage', async function () {
-		const ZDAProjectURL = Math.random().toString();
+		const ZDAProjectIconURL = Math.random().toString();
 		deepEqual(await _SetupImages({
 			_ValueProjectsCache: [{
-				ZDAProjectURL,
+				ZDAProjectIconURL,
 			}],
 			_SetupImage: (function () {
 				return [...arguments];
 			}),
-		}), [[ZDAProjectURL]]);
+		}), [[ZDAProjectIconURL]]);
+	});
+
+	it('ignores if already local', async function () {
+		const ZDAProjectIconURL = mod._DataImagePath() + Math.random().toString();
+		deepEqual(await _SetupImages({
+			_ValueProjectsCache: [{
+				ZDAProjectIconURL,
+			}],
+			_SetupImage: (function () {
+				return [...arguments];
+			}),
+		}), []);
 	});
 
 });
