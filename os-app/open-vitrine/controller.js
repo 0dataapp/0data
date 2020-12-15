@@ -439,6 +439,13 @@ const mod = {
 		return this._DataFoilFS.writeFileSync(require('path').join(__dirname, '__cached', 'ui-assets', mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
 	},
 
+	SetupImages () {
+		const _this = this;
+		return Promise.all(_this._ValueProjectsCache.map(function (e) {
+			return _this._SetupImage(e.ZDAProjectURL);
+		}));
+	},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {

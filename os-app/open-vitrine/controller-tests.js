@@ -1293,6 +1293,29 @@ describe('_SetupImage', function test__SetupImage() {
 
 });
 
+describe('SetupImages', function test_SetupImages() {
+
+	const _SetupImages = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueProjectsCache: [],
+			_SetupImage: (function () {}),
+		}, inputData).SetupImages();
+	};
+
+	it('calls _SetupImage', async function () {
+		const ZDAProjectURL = Math.random().toString();
+		deepEqual(await _SetupImages({
+			_ValueProjectsCache: [{
+				ZDAProjectURL,
+			}],
+			_SetupImage: (function () {
+				return [...arguments];
+			}),
+		}), [[ZDAProjectURL]]);
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {
