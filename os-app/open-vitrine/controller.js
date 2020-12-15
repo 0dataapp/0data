@@ -221,23 +221,24 @@ const mod = {
 		}));
 	},
 
-	DataDetailedProjects () {
-		const _this = this;
-		return _this.DataListedProjects().map(function (e) {
-			return Object.assign(e, Object.entries(_this._DataDetailPropertyCandidates(e.ZDAProjectURL)).reduce(function (coll, item) {
-				if (item[0].startsWith('_')) {
-					if (e[item[0].slice(1)]) {
-						return coll;
-					}
-
-					item[0] = item[0].slice(1);
+	_DataDetailProperties (inputData) {
+		return Object.assign(inputData, Object.entries(this._DataDetailPropertyCandidates(inputData.ZDAProjectURL)).reduce(function (coll, [key, value]) {
+			if (key.startsWith('_')) {
+				if (inputData[key.slice(1)]) {
+					return coll;
 				}
 
-				return Object.assign(coll, {
-					[item[0]]: item[1],
-				});
-			}, {}));
-		});
+				key = key.slice(1);
+			}
+
+			return Object.assign(coll, {
+				[key]: value,
+			});
+		}, {}));
+	},
+
+	DataDetailedProjects () {
+		return this.DataListedProjects().map(this._DataDetailProperties);
 	},
 
 	DataProjectsSort (a, b) {

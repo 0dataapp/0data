@@ -436,13 +436,100 @@ describe('_DataDetailPropertyCandidates', function test__DataDetailPropertyCandi
 
 });
 
+describe('_DataDetailProperties', function test__DataDetailProperties() {
+	
+	const __DataDetailProperties = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataDetailPropertyCandidates: (function () {
+				return {};
+			}),
+		}, inputData)._DataDetailProperties(inputData.object || {});
+	};
+
+	it('returns inputData', function () {
+		const object = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(__DataDetailProperties({
+			object,
+		}), object);
+	});
+
+	it('calls _DataDetailPropertyCandidates', function () {
+		const item = [];
+
+		const object = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+
+		__DataDetailProperties({
+			object,
+			_DataDetailPropertyCandidates: (function () {
+				item.push(...arguments);
+
+				return {};
+			}),
+		});
+
+		deepEqual(item, [object.ZDAProjectURL]);
+	});
+
+	context('_DataDetailPropertyCandidates', function () {
+		
+		it('assigns values', function () {
+			const _DataDetailPropertyCandidates = {
+				[Math.random().toString()]: Math.random().toString(),
+			};
+
+			deepEqual(__DataDetailProperties({
+				_DataDetailPropertyCandidates: (function () {
+					return _DataDetailPropertyCandidates;
+				}),
+			}), _DataDetailPropertyCandidates);
+		});
+
+		it('assigns underscore if not present', function () {
+			const item = Math.random().toString();
+
+			deepEqual(__DataDetailProperties({
+				_DataDetailPropertyCandidates: (function () {
+					return {
+						['_' + item]: item,
+					};
+				}),
+			}), {
+				[item]: item,
+			});
+		});
+
+		it('ignores underscore', function () {
+			const item = Math.random().toString();
+			
+			deepEqual(__DataDetailProperties({
+				object: {
+					[item]: item,
+				},
+				_DataDetailPropertyCandidates: (function () {
+					return {
+						['_' + item]: Math.random().toString(),
+					};
+				}),
+			}), {
+				[item]: item,
+			});
+		});
+	
+	});
+
+});
+
 describe('DataDetailedProjects', function test_DataDetailedProjects() {
 	
 	const _DataDetailedProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			DataListedProjects: (function () {}),
-			_DataDetailPropertyCandidates: (function () {
-				return {};
+			_DataDetailProperties: (function () {
+				return [...arguments].shift();
 			}),
 		}, inputData).DataDetailedProjects();
 	};
@@ -458,80 +545,21 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 		}), [item]);
 	});
 
-	it('calls _DataDetailPropertyCandidates', function () {
+	it('maps _DataDetailProperties', function () {
 		const item = [];
 
 		const project = {
 			ZDAProjectURL: Math.random().toString(),
 		};
 
-		_DataDetailedProjects({
+		deepEqual(_DataDetailedProjects({
 			DataListedProjects: (function () {
 				return [project];
 			}),
-			_DataDetailPropertyCandidates: (function () {
-				item.push(...arguments);
-
-				return {};
+			_DataDetailProperties: (function () {
+				return [...arguments].shift();
 			}),
-		});
-
-		deepEqual(item, [project.ZDAProjectURL]);
-	});
-
-	context('_DataDetailPropertyCandidates', function () {
-		
-		it('assigns values', function () {
-			const _DataDetailPropertyCandidates = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
-			deepEqual(_DataDetailedProjects({
-				DataListedProjects: (function () {
-					return [{}];
-				}),
-				_DataDetailPropertyCandidates: (function () {
-					return _DataDetailPropertyCandidates;
-				}),
-			}), [_DataDetailPropertyCandidates]);
-		});
-
-		it('assigns underscore if not present', function () {
-			const item = Math.random().toString();
-
-			deepEqual(_DataDetailedProjects({
-				DataListedProjects: (function () {
-					return [{}];
-				}),
-				_DataDetailPropertyCandidates: (function () {
-					return {
-						['_' + item]: item,
-					};
-				}),
-			}), [{
-				[item]: item,
-			}]);
-		});
-
-		it('ignores underscore', function () {
-			const item = Math.random().toString();
-			
-			deepEqual(_DataDetailedProjects({
-				DataListedProjects: (function () {
-					return [{
-						[item]: item,
-					}];
-				}),
-				_DataDetailPropertyCandidates: (function () {
-					return {
-						['_' + item]: Math.random().toString(),
-					};
-				}),
-			}), [{
-				[item]: item,
-			}]);
-		});
-	
+		}), [project]);
 	});
 
 });
