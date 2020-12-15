@@ -668,6 +668,24 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 });
 
+describe('_DataImageFilename', function test__DataImageFilename() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataImageFilename(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
+		const filename = Date.now().toString();
+		const item = 'https://example.com/' + filename + extension;
+
+		deepEqual(mod._DataImageFilename(item), mod._DataImageFilenameHash(filename) + extension);
+	});
+
+});
+
 describe('_SetupMethods', function test__SetupMethods() {
 
 	it('returns array', function () {

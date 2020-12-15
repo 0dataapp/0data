@@ -288,6 +288,20 @@ const mod = {
 		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectSchema));
 	},
 
+	_DataImageFilenameHash (inputData) {
+		return require('crypto').createHash('md5').update(inputData).digest('hex');
+	},
+
+	_DataImageFilename (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const extension = require('path').extname(inputData);
+
+		return mod._DataImageFilenameHash(require('path').basename(inputData, extension)) + extension;
+	},
+
 	// SETUP
 
 	_SetupMethods () {
