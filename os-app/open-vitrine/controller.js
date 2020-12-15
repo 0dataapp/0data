@@ -402,6 +402,20 @@ const mod = {
 		});
 	},
 
+	_SetupImageContent (inputData) {
+		const _this = this;
+
+		return new Promise(function (res) {
+			_this._ValueImagesQueue.push(async function (_queue_callback) {
+				try {
+					return _queue_callback(null, res(await _this._DataContentString(inputData)));
+				} catch (error) {
+					// TODO: Handle fetch error, maybe retry
+				}
+			});
+		});
+	},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {

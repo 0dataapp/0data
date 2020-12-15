@@ -1170,6 +1170,70 @@ describe('SetupImagesQueue', function test_SetupImagesQueue() {
 
 });
 
+describe('_SetupImageContent', function test__SetupImageContent() {
+
+	const __SetupImageContent = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueImagesQueue: {
+				push: (function (callback) {
+					if (inputData._queue_inspect) {
+						inputData._queue_inspect(callback);
+					}
+
+					return callback(inputData._queue_callback);
+				}),
+			},
+			_DataContentString: (function () {}),
+		}, inputData)._SetupImageContent(inputData.url || Math.random().toString());
+	};
+
+	it('returns promise', async function () {
+		deepEqual(__SetupImageContent() instanceof Promise, true);
+	});
+
+	it('calls _ValueImagesQueue.push', async function () {
+		const item = [];
+
+		await __SetupImageContent({
+			_queue_inspect: (function () {
+				item.push(...arguments);
+			}),
+		});
+
+		deepEqual(typeof item.pop(), 'function');
+	});
+
+	it('calls _DataContentString via function', async function () {
+		const item = [];
+
+		const url = Math.random().toString();
+
+		await __SetupImageContent({
+			url,
+			_DataContentString: (function () {
+				item.push(...arguments);
+			}),
+		});
+
+		deepEqual(item, [url]);
+	});
+
+	it('calls _queue_callback', async function () {
+		const item = [];
+
+		const _queue_callback = Math.random().toString();
+
+		await __SetupImageContent({
+			_queue_callback: (function () {
+				item.push(...arguments, _queue_callback);
+			}),
+		});
+
+		deepEqual(item, [null, undefined, _queue_callback]);
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {
