@@ -216,8 +216,8 @@ const mod = {
 			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href') || cheerio('link[rel="apple-touch-icon-precomposed"]', this._ValueDetailsCache[inputData] || '').attr('href'))],
 			['_ZDAProjectBlurb', cheerio('meta[name="description"]', this._ValueDetailsCache[inputData] || '').attr('content')],
 			['_ZDAProjectBlurb', cheerio('title', this._ValueDetailsCache[inputData] || '').text()],
-		].filter(function (e) {
-			return !!e[1];
+		].filter(function ([key, value]) {
+			return !!value;
 		}));
 	},
 
@@ -412,7 +412,7 @@ const mod = {
 	},
 
 	SetupProjectsCache () {
-		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached'));
+		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')) || [];
 	},
 
 	SetupProjects () {

@@ -1210,7 +1210,7 @@ describe('SetupProjectsCache', function test_SetupProjectsCache() {
 			OLSKCacheReadFile: (function () {
 				return OLSKCacheReadFile;
 			}),
-		})._ValueProjectsCache, OLSKCacheReadFile);
+		})._ValueProjectsCache, OLSKCacheReadFile || []);
 	});
 
 });
