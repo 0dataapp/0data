@@ -247,14 +247,14 @@ const mod = {
 
 	_DataImageURL (inputData) {
 		const localURL = require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData));
-		return this._DataFoilFS.existsSync(localURL) ? localURL : inputData;
+		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
 	},
 
 	DataImagedProjects () {
 		const _this = this;
 		return _this.DataDetailedProjects().map(function (e) {
 			if (e.ZDAProjectIconURL) {
-				e.ZDAProjectIconURL = _this._DataImageURL(e.ZDAProjectIconURL);
+				e._ZDAProjectIconURLCachedPath = _this._DataImageURL(e.ZDAProjectIconURL);
 			}
 
 			return e;
@@ -466,7 +466,7 @@ const mod = {
 	SetupImages () {
 		const _this = this;
 		return Promise.all(_this._ValueProjectsCache.filter(function (e) {
-			return e.ZDAProjectIconURL && !e.ZDAProjectIconURL.includes(mod._DataImageCacheDirectoryPath());
+			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);
 		}));

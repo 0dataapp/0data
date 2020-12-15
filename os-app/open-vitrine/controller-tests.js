@@ -595,18 +595,15 @@ describe('_DataImageURL', function test__DataImageURL() {
 			existsSync: (function () {
 				return true;
 			}),
-		}), require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)));
+		}), require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)).replace(require('path').join(__dirname, '../'), '/'));
 	});
 
-	it('returns inputData', function () {
-		const url = Math.random().toString();
-
+	it('returns null', function () {
 		deepEqual(__DataImageURL({
-			url,
 			existsSync: (function () {
 				return false;
 			}),
-		}), url);
+		}), null);
 	});
 
 });
@@ -630,21 +627,22 @@ describe('DataImagedProjects', function test_DataImagedProjects() {
 		}), [item]);
 	});
 
-	it('maps _DataImageURL to ZDAProjectIconURL', function () {
-		const project = {
-			ZDAProjectIconURL: Math.random().toString(),
-		};
+	it('maps _DataImageURL to _ZDAProjectIconURLCachedPath', function () {
+		const ZDAProjectIconURL = Math.random().toString();
 		const _DataImageURL = Math.random().toString();
 
 		deepEqual(_DataImagedProjects({
 			DataDetailedProjects: (function () {
-				return [project];
+				return [{
+					ZDAProjectIconURL,
+				}];
 			}),
 			_DataImageURL: (function () {
 				return _DataImageURL;
 			}),
 		}), [{
-			ZDAProjectIconURL: _DataImageURL,
+			ZDAProjectIconURL,
+			_ZDAProjectIconURLCachedPath: _DataImageURL,
 		}]);
 	});
 
@@ -1435,10 +1433,11 @@ describe('SetupImages', function test_SetupImages() {
 	});
 
 	it('ignores if already local', async function () {
-		const ZDAProjectIconURL = mod._DataImageCacheDirectoryPath() + Math.random().toString();
+		const ZDAProjectIconURL = Math.random().toString();
 		deepEqual(await _SetupImages({
 			_ValueProjectsCache: [{
-				ZDAProjectIconURL,
+				ZDAProjectIconURL: Math.random().toString(),
+				_ZDAProjectIconURLCachedPath: Math.random().toString(),
 			}],
 			_SetupImage: (function () {
 				return [...arguments];
