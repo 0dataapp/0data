@@ -546,8 +546,6 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 	});
 
 	it('maps _DataDetailProperties', function () {
-		const item = [];
-
 		const project = {
 			ZDAProjectURL: Math.random().toString(),
 		};
