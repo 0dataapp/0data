@@ -1252,6 +1252,47 @@ describe('_SetupImageContent', function test__SetupImageContent() {
 
 });
 
+describe('_SetupImage', function test__SetupImage() {
+
+	const __SetupImage = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_SetupImageContent: (function () {}),
+
+			_DataFoilFS: Object.assign({
+				writeFileSync: (function () {}),
+			}, inputData),
+		}, inputData)._SetupImage(inputData.url || Math.random().toString());
+	};
+
+	it('calls _SetupImageContent', async function () {
+		const url = Math.random().toString();
+		deepEqual(await __SetupImage({
+			url,
+			_SetupImageContent: (function () {
+				return [...arguments];
+			}),
+			writeFileSync: (function () {
+				return [...arguments].pop();
+			}),
+		}), [url]);
+	});
+
+	it('calls writeFileSync with result of _SetupImageContent', async function () {
+		const _SetupImageContent = Math.random().toString();
+		const url = Math.random().toString();
+		deepEqual(await __SetupImage({
+			url,
+			_SetupImageContent: (function () {
+				return _SetupImageContent;
+			}),
+			writeFileSync: (function () {
+				return [...arguments];
+			}),
+		}), [require('path').join(__dirname, '__cached', 'ui-assets', mod._DataImageFilename(url)), _SetupImageContent]);
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {

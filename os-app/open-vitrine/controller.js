@@ -63,6 +63,7 @@ const mod = {
 
 	_DataFoilOLSKCache: require('OLSKCache'),
 	_DataFoilQueue: require('queue'),
+	_DataFoilFS: require('fs'),
 
 	DataCacheNameListings() {
 		return 'cache-a-listings';
@@ -428,6 +429,14 @@ const mod = {
 				}
 			});
 		});
+	},
+
+	async _SetupImage (inputData) {
+		if (!this._DataFoilOLSKCache) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		return this._DataFoilFS.writeFileSync(require('path').join(__dirname, '__cached', 'ui-assets', mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
 	},
 
 	// LIFECYCLE
