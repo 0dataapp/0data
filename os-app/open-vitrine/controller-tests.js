@@ -5,7 +5,7 @@ const mod = require('./controller.js');
 describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNameListings(), 'cache-alfa-listings');
+		deepEqual(mod.DataCacheNameListings(), 'cache-a-listings');
 	});
 
 });
@@ -13,7 +13,7 @@ describe('DataCacheNameListings', function test_DataCacheNameListings() {
 describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNameDetails(), 'cache-bravo-details');
+		deepEqual(mod.DataCacheNameDetails(), 'cache-b-details');
 	});
 
 });
@@ -21,7 +21,7 @@ describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 describe('DataCacheNameProjects', function test_DataCacheNameProjects() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNameProjects(), 'cache-charlie-projects');
+		deepEqual(mod.DataCacheNameProjects(), 'cache-c-projects');
 	});
 
 });

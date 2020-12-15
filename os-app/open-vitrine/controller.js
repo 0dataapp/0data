@@ -65,15 +65,15 @@ const mod = {
 	_DataFoilQueue: require('queue'),
 
 	DataCacheNameListings() {
-		return 'cache-alfa-listings';
+		return 'cache-a-listings';
 	},
 
 	DataCacheNameDetails() {
-		return 'cache-bravo-details';
+		return 'cache-b-details';
 	},
 
 	DataCacheNameProjects() {
-		return 'cache-charlie-projects';
+		return 'cache-c-projects';
 	},
 
 	DataListingURLs() {
