@@ -242,7 +242,7 @@ const mod = {
 	},
 
 	_DataImageURL (inputData) {
-		const localURL = require('path').join(mod._DataImagePath(), mod._DataImageFilename(inputData));
+		const localURL = require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData));
 		return this._DataFoilFS.existsSync(localURL) ? localURL : inputData;
 	},
 
@@ -308,7 +308,7 @@ const mod = {
 		return mod._DataImageFilenameHash(require('path').basename(inputData, extension)) + extension;
 	},
 
-	_DataImagePath () {
+	_DataImageCacheDirectoryPath () {
 		return require('path').join(__dirname, '__cached', 'ui-assets');
 	},
 
@@ -445,13 +445,13 @@ const mod = {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._DataFoilFS.writeFileSync(require('path').join(mod._DataImagePath(), mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
+		return this._DataFoilFS.writeFileSync(require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
 	},
 
 	SetupImages () {
 		const _this = this;
 		return Promise.all(_this._ValueProjectsCache.filter(function (e) {
-			return !e.ZDAProjectIconURL.includes(mod._DataImagePath());
+			return !e.ZDAProjectIconURL.includes(mod._DataImageCacheDirectoryPath());
 		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);
 		}));

@@ -586,7 +586,7 @@ describe('_DataImageURL', function test__DataImageURL() {
 			}),
 		});
 
-		deepEqual(item, [require('path').join(mod._DataImagePath(), mod._DataImageFilename(url))]);
+		deepEqual(item, [require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
 	});
 
 	it('returns local URL if existsSync', function () {
@@ -597,7 +597,7 @@ describe('_DataImageURL', function test__DataImageURL() {
 			existsSync: (function () {
 				return true;
 			}),
-		}), require('path').join(mod._DataImagePath(), mod._DataImageFilename(url)));
+		}), require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)));
 	});
 
 	it('returns inputData', function () {
@@ -1365,7 +1365,7 @@ describe('_SetupImage', function test__SetupImage() {
 			writeFileSync: (function () {
 				return [...arguments];
 			}),
-		}), [require('path').join(mod._DataImagePath(), mod._DataImageFilename(url)), _SetupImageContent]);
+		}), [require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)), _SetupImageContent]);
 	});
 
 });
@@ -1392,7 +1392,7 @@ describe('SetupImages', function test_SetupImages() {
 	});
 
 	it('ignores if already local', async function () {
-		const ZDAProjectIconURL = mod._DataImagePath() + Math.random().toString();
+		const ZDAProjectIconURL = mod._DataImageCacheDirectoryPath() + Math.random().toString();
 		deepEqual(await _SetupImages({
 			_ValueProjectsCache: [{
 				ZDAProjectIconURL,
