@@ -687,16 +687,16 @@ describe('DataProjects', function test_DataProjects() {
 	
 	const _DataProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataDetailedProjects: (function () {}),
+			DataImagedProjects: (function () {}),
 		}, inputData).DataProjects();
 	};
 
-	it('returns DataDetailedProjects', function () {
+	it('returns DataImagedProjects', function () {
 		const item = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 		deepEqual(_DataProjects({
-			DataDetailedProjects: (function () {
+			DataImagedProjects: (function () {
 				return [item];
 			}),
 		}), [item]);
@@ -712,7 +712,7 @@ describe('DataProjects', function test_DataProjects() {
 		};
 
 		deepEqual(_DataProjects({
-			DataDetailedProjects: (function () {
+			DataImagedProjects: (function () {
 				return [item1, item2];
 			}),
 		}), [item2, item1]);

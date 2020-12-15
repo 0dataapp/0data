@@ -275,11 +275,11 @@ const mod = {
 	},
 
 	DataProjects () {
-		if (!this.DataDetailedProjects) {
+		if (!this.DataImagedProjects) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this.DataDetailedProjects().sort(mod.DataProjectsSort);
+		return this.DataImagedProjects().sort(mod.DataProjectsSort);
 	},
 
 	DataProjectSchema (inputData) {
