@@ -564,6 +564,55 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 
 });
 
+describe('_DataImageURL', function test__DataImageURL() {
+
+	const __DataImageURL = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataFoilFS: Object.assign({
+				existsSync: (function () {}),
+			}, inputData),
+		}, inputData)._DataImageURL(inputData.url || Math.random().toString());
+	};
+
+	it('calls existsSync', function () {
+		const item = [];
+
+		const url = Math.random().toString();
+
+		__DataImageURL({
+			url,
+			existsSync: (function () {
+				item.push(...arguments);
+			}),
+		});
+
+		deepEqual(item, [require('path').join(mod._DataImagePath(), mod._DataImageFilename(url))]);
+	});
+
+	it('returns local URL if existsSync', function () {
+		const url = Math.random().toString();
+
+		deepEqual(__DataImageURL({
+			url,
+			existsSync: (function () {
+				return true;
+			}),
+		}), require('path').join(mod._DataImagePath(), mod._DataImageFilename(url)));
+	});
+
+	it('returns inputData', function () {
+		const url = Math.random().toString();
+
+		deepEqual(__DataImageURL({
+			url,
+			existsSync: (function () {
+				return false;
+			}),
+		}), url);
+	});
+
+});
+
 describe('DataProjectsSort', function test_DataProjectsSort() {
 	
 	it('bumps ZDAProjectIconURL', function () {

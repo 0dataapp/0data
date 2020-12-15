@@ -241,6 +241,11 @@ const mod = {
 		return this.DataListedProjects().map(this._DataDetailProperties);
 	},
 
+	_DataImageURL (inputData) {
+		const localURL = require('path').join(mod._DataImagePath(), mod._DataImageFilename(inputData));
+		return this._DataFoilFS.existsSync(localURL) ? localURL : inputData;
+	},
+
 	DataProjectsSort (a, b) {
 		const unmatched = [
 			'ZDAProjectIconURL',
