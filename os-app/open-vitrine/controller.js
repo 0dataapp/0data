@@ -1,11 +1,12 @@
 const cheerio = require('cheerio');
 
 // How to get node.js HTTP request promise without a single dependency https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
-const uGet = function (inputData) {
+const uGet = function (inputData, pipePath) {
+	const file = pipePath ? require('fs').createWriteStream(pipePath) : null;
   return new Promise((resolve, reject) => {
     (inputData.startsWith('https') ? require('https') : require('http')).get(inputData, (response) => {
     	if (response.statusCode === 301) {
-    		return resolve(uGet(response.headers.location))
+    		return resolve(uGet(response.headers.location, pipePath))
     	}
 
       if (response.statusCode < 200 || response.statusCode > 299) {
@@ -21,6 +22,10 @@ const uGet = function (inputData) {
       response.on('end', function () {
       	return resolve(body.join(''))
       });
+
+      if (file) {
+      	return response.pipe(file);
+      }      
     }).on('error', reject);
   });
 };
@@ -99,9 +104,9 @@ const mod = {
 		}).shift();
 	},
 
-	_DataContentString (inputData) {
-		return uGet(inputData);
-	},
+	_DataContentString: uGet,
+
+	_DataContentImage: uGet,
 
 	_DataListingObjects (param1, param2) {
 		if (!mod.DataListingURLs().includes(param1)) {
@@ -320,7 +325,7 @@ const mod = {
 
 		const extension = require('path').extname(inputData);
 
-		return mod._DataImageFilenameHash(require('path').basename(inputData, extension)) + extension;
+		return mod._DataImageFilenameHash(inputData) + extension;
 	},
 
 	_DataImageCacheDirectoryPath () {
@@ -441,13 +446,13 @@ const mod = {
 		});
 	},
 
-	_SetupImageContent (inputData) {
+	_SetupImageContent (param1, param2) {
 		const _this = this;
 
 		return new Promise(function (res) {
 			_this._ValueImagesQueue.push(async function (_queue_callback) {
 				try {
-					return _queue_callback(null, res(await _this._DataContentString(inputData)));
+					return _queue_callback(null, res(await _this._DataContentImage(param1, param2)));
 				} catch (error) {
 					// TODO: Handle fetch error, maybe retry
 				}
@@ -455,12 +460,12 @@ const mod = {
 		});
 	},
 
-	async _SetupImage (inputData) {
+	_SetupImage (inputData) {
 		if (!this._DataFoilOLSKCache) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._DataFoilFS.writeFileSync(require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)), await this._SetupImageContent(inputData));
+		return this._SetupImageContent(inputData, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)));
 	},
 
 	SetupImages () {

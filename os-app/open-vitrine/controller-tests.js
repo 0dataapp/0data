@@ -793,7 +793,7 @@ describe('_DataImageFilename', function test__DataImageFilename() {
 		const filename = Date.now().toString();
 		const item = 'https://example.com/' + filename + extension;
 
-		deepEqual(mod._DataImageFilename(item), mod._DataImageFilenameHash(filename) + extension);
+		deepEqual(mod._DataImageFilename(item), mod._DataImageFilenameHash(item) + extension);
 	});
 
 });
@@ -1313,8 +1313,8 @@ describe('_SetupImageContent', function test__SetupImageContent() {
 					return callback(inputData._queue_callback);
 				}),
 			},
-			_DataContentString: (function () {}),
-		}, inputData)._SetupImageContent(inputData.url || Math.random().toString());
+			_DataContentImage: (function () {}),
+		}, inputData)._SetupImageContent(inputData.url || Math.random().toString(), inputData.localPath || Math.random().toString());
 	};
 
 	it('returns promise', async function () {
@@ -1333,19 +1333,21 @@ describe('_SetupImageContent', function test__SetupImageContent() {
 		deepEqual(typeof item.pop(), 'function');
 	});
 
-	it('calls _DataContentString via function', async function () {
+	it('calls _DataContentImage via function', async function () {
 		const item = [];
 
 		const url = Math.random().toString();
+		const localPath = Math.random().toString();
 
 		await __SetupImageContent({
 			url,
-			_DataContentString: (function () {
+			localPath,
+			_DataContentImage: (function () {
 				item.push(...arguments);
 			}),
 		});
 
-		deepEqual(item, [url]);
+		deepEqual(item, [url, localPath]);
 	});
 
 	it('calls _queue_callback', async function () {
@@ -1369,10 +1371,6 @@ describe('_SetupImage', function test__SetupImage() {
 	const __SetupImage = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
 			_SetupImageContent: (function () {}),
-
-			_DataFoilFS: Object.assign({
-				writeFileSync: (function () {}),
-			}, inputData),
 		}, inputData)._SetupImage(inputData.url || Math.random().toString());
 	};
 
@@ -1383,24 +1381,7 @@ describe('_SetupImage', function test__SetupImage() {
 			_SetupImageContent: (function () {
 				return [...arguments];
 			}),
-			writeFileSync: (function () {
-				return [...arguments].pop();
-			}),
-		}), [url]);
-	});
-
-	it('calls writeFileSync with result of _SetupImageContent', async function () {
-		const _SetupImageContent = Math.random().toString();
-		const url = Math.random().toString();
-		deepEqual(await __SetupImage({
-			url,
-			_SetupImageContent: (function () {
-				return _SetupImageContent;
-			}),
-			writeFileSync: (function () {
-				return [...arguments];
-			}),
-		}), [require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)), _SetupImageContent]);
+		}), [url, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
 	});
 
 });
