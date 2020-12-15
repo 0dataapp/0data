@@ -30,8 +30,6 @@ It should be accessible at <a href="http://localhost:3000" target="_blank">http:
 
 ## Testing
 
-Restart the test runner when creating new files so that they will be included (specifically test files, and localization files).
-
 ### Run logic tests
 
 ```
