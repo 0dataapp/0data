@@ -135,7 +135,7 @@ const mod = {
 									}
 
 									return {
-										ZDAProjectIconURL: mod._DataDetailPropertiesURL(item, inputData),
+										ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(item, inputData),
 									};
 								})(cheerio('img', this).attr('src')));
 						});
@@ -193,7 +193,7 @@ const mod = {
 		}).objects;
 	},
 
-	_DataDetailPropertiesURL (url, path) {
+	_DataDetailPropertyCandidatesURL (url, path) {
 		if (typeof url !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
 		}
@@ -205,14 +205,14 @@ const mod = {
 		return (new URL(path, url)).href;
 	},
 
-	_DataDetailProperties (inputData) {
+	_DataDetailPropertyCandidates (inputData) {
 		return Object.fromEntries([
 			['ZDAProjectIconURL', (function(href) {
 				if (!href) {
 					return;
 				}
 
-				return !href ? null : mod._DataDetailPropertiesURL(inputData, href);
+				return !href ? null : mod._DataDetailPropertyCandidatesURL(inputData, href);
 			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href') || cheerio('link[rel="apple-touch-icon-precomposed"]', this._ValueDetailsCache[inputData] || '').attr('href'))],
 			['_ZDAProjectBlurb', cheerio('meta[name="description"]', this._ValueDetailsCache[inputData] || '').attr('content')],
 			['_ZDAProjectBlurb', cheerio('title', this._ValueDetailsCache[inputData] || '').text()],
@@ -224,7 +224,7 @@ const mod = {
 	DataDetailedProjects () {
 		const _this = this;
 		return _this.DataListedProjects().map(function (e) {
-			return Object.assign(e, Object.entries(_this._DataDetailProperties(e.ZDAProjectURL)).reduce(function (coll, item) {
+			return Object.assign(e, Object.entries(_this._DataDetailPropertyCandidates(e.ZDAProjectURL)).reduce(function (coll, item) {
 				if (item[0].startsWith('_')) {
 					if (e[item[0].slice(1)]) {
 						return coll;

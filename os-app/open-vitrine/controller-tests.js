@@ -151,7 +151,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: mod._DataDetailPropertiesURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
+				ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		
@@ -333,49 +333,49 @@ describe('DataListedProjects', function test_DataListedProjects() {
 
 });
 
-describe('_DataDetailPropertiesURL', function test__DataDetailPropertiesURL() {
+describe('_DataDetailPropertyCandidatesURL', function test__DataDetailPropertyCandidatesURL() {
 
 	it('throws if param1 not string', function () {
 		throws(function () {
-			mod._DataDetailPropertiesURL(null, Math.random().toString());
+			mod._DataDetailPropertyCandidatesURL(null, Math.random().toString());
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('throws if param2 not string', function () {
 		throws(function () {
-			mod._DataDetailPropertiesURL(Math.random().toString(), null);
+			mod._DataDetailPropertyCandidatesURL(Math.random().toString(), null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns string', function () {
 		const url = 'https://example.com';
 		const path = Math.random().toString();
-		deepEqual(mod._DataDetailPropertiesURL(url, path), url + '/' + path);
+		deepEqual(mod._DataDetailPropertyCandidatesURL(url, path), url + '/' + path);
 	});
 
 	it('returns param2 if complete', function () {
 		const path = 'https://alfa.bravo/' + Math.random().toString();
-		deepEqual(mod._DataDetailPropertiesURL('https://example.com', path), path);
+		deepEqual(mod._DataDetailPropertyCandidatesURL('https://example.com', path), path);
 	});
 
 	it('completes slash', function () {
 		const url = 'https://example.com';
 		const path = '/' + Math.random().toString();
-		deepEqual(mod._DataDetailPropertiesURL(url, path), url + path);
+		deepEqual(mod._DataDetailPropertyCandidatesURL(url, path), url + path);
 	});
 
 });
 
-describe('_DataDetailProperties', function test__DataDetailProperties() {
+describe('_DataDetailPropertyCandidates', function test__DataDetailPropertyCandidates() {
 
-	const __DataDetailProperties = function (inputData = {}) {
+	const __DataDetailPropertyCandidates = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueDetailsCache: {},
-		}, inputData)._DataDetailProperties(inputData.url || Math.random().toString());
+		}, inputData)._DataDetailPropertyCandidates(inputData.url || Math.random().toString());
 	};
 
 	it('returns object', function () {
-		deepEqual(__DataDetailProperties(), {});
+		deepEqual(__DataDetailPropertyCandidates(), {});
 	});
 
 	it('parses apple-touch-icon', function () {
@@ -384,11 +384,11 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		const _ValueDetailsCache = {
 			[url]: `<link rel="apple-touch-icon" href="${ path }"><link rel="apple-touch-icon-precomposed" href="${ Math.random().toString() }">`,
 		};
-		deepEqual(__DataDetailProperties({
+		deepEqual(__DataDetailPropertyCandidates({
 			url,
 			_ValueDetailsCache,
 		}), {
-			ZDAProjectIconURL: mod._DataDetailPropertiesURL(url, path),
+			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(url, path),
 		});
 	});
 
@@ -398,11 +398,11 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		const _ValueDetailsCache = {
 			[url]: `<link rel="apple-touch-icon-precomposed" href="${ path }">`,
 		};
-		deepEqual(__DataDetailProperties({
+		deepEqual(__DataDetailPropertyCandidates({
 			url,
 			_ValueDetailsCache,
 		}), {
-			ZDAProjectIconURL: mod._DataDetailPropertiesURL(url, path),
+			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(url, path),
 		});
 	});
 
@@ -412,7 +412,7 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		const _ValueDetailsCache = {
 			[url]: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
 		};
-		deepEqual(__DataDetailProperties({
+		deepEqual(__DataDetailPropertyCandidates({
 			url,
 			_ValueDetailsCache,
 		}), {
@@ -426,7 +426,7 @@ describe('_DataDetailProperties', function test__DataDetailProperties() {
 		const _ValueDetailsCache = {
 			[url]: `<title>${ _ZDAProjectBlurb }</title>`,
 		};
-		deepEqual(__DataDetailProperties({
+		deepEqual(__DataDetailPropertyCandidates({
 			url,
 			_ValueDetailsCache,
 		}), {
@@ -441,7 +441,7 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 	const _DataDetailedProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			DataListedProjects: (function () {}),
-			_DataDetailProperties: (function () {
+			_DataDetailPropertyCandidates: (function () {
 				return {};
 			}),
 		}, inputData).DataDetailedProjects();
@@ -458,7 +458,7 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 		}), [item]);
 	});
 
-	it('calls _DataDetailProperties', function () {
+	it('calls _DataDetailPropertyCandidates', function () {
 		const item = [];
 
 		const project = {
@@ -469,7 +469,7 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 			DataListedProjects: (function () {
 				return [project];
 			}),
-			_DataDetailProperties: (function () {
+			_DataDetailPropertyCandidates: (function () {
 				item.push(...arguments);
 
 				return {};
@@ -479,10 +479,10 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 		deepEqual(item, [project.ZDAProjectURL]);
 	});
 
-	context('_DataDetailProperties', function () {
+	context('_DataDetailPropertyCandidates', function () {
 		
 		it('assigns values', function () {
-			const _DataDetailProperties = {
+			const _DataDetailPropertyCandidates = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
@@ -490,10 +490,10 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 				DataListedProjects: (function () {
 					return [{}];
 				}),
-				_DataDetailProperties: (function () {
-					return _DataDetailProperties;
+				_DataDetailPropertyCandidates: (function () {
+					return _DataDetailPropertyCandidates;
 				}),
-			}), [_DataDetailProperties]);
+			}), [_DataDetailPropertyCandidates]);
 		});
 
 		it('assigns underscore if not present', function () {
@@ -503,7 +503,7 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 				DataListedProjects: (function () {
 					return [{}];
 				}),
-				_DataDetailProperties: (function () {
+				_DataDetailPropertyCandidates: (function () {
 					return {
 						['_' + item]: item,
 					};
@@ -522,7 +522,7 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 						[item]: item,
 					}];
 				}),
-				_DataDetailProperties: (function () {
+				_DataDetailPropertyCandidates: (function () {
 					return {
 						['_' + item]: Math.random().toString(),
 					};
