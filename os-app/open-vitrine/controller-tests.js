@@ -1431,6 +1431,12 @@ describe('SetupImages', function test_SetupImages() {
 		}), [[ZDAProjectIconURL]]);
 	});
 
+	it('ignores if no ZDAProjectIconURL', async function () {
+		deepEqual(await _SetupImages({
+			_ValueProjectsCache: [{}],
+		}), []);
+	});
+
 	it('ignores if already local', async function () {
 		const ZDAProjectIconURL = mod._DataImageCacheDirectoryPath() + Math.random().toString();
 		deepEqual(await _SetupImages({

@@ -460,7 +460,7 @@ const mod = {
 	SetupImages () {
 		const _this = this;
 		return Promise.all(_this._ValueProjectsCache.filter(function (e) {
-			return !e.ZDAProjectIconURL.includes(mod._DataImageCacheDirectoryPath());
+			return e.ZDAProjectIconURL && !e.ZDAProjectIconURL.includes(mod._DataImageCacheDirectoryPath());
 		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);
 		}));
