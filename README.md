@@ -18,7 +18,7 @@ Install [Node.js and npm](https://nodejs.org/en/download/), then:
 npm run setup
 ```
 
-If there is no `.env` file, please copy `.env-sample` to `.env`.
+This should create an `.env` file if there is none. If you encounter errors referring to this file, you can find missing variables in `.env-sample`.
 
 ## Running
 
