@@ -1138,6 +1138,38 @@ describe('SetupProjects', function test_SetupProjects() {
 
 });
 
+describe('SetupImagesQueue', function test_SetupImagesQueue() {
+
+	const _SetupImagesQueue = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilQueue: (function () {}),
+		}, inputData);
+		return _mod.SetupImagesQueue() || _mod;
+	};
+
+	it('calls _DataFoilQueue', function () {
+		deepEqual(_SetupImagesQueue({
+			_DataFoilQueue: (function () {
+				return [...arguments];
+			}),
+		})._ValueImagesQueue, [{
+			concurrency: 1,
+			autostart: true,
+		}]);
+	});
+
+	it('sets _ValueImagesQueue', function () {
+		const _DataFoilQueue = Math.random().toString();
+
+		deepEqual(_SetupImagesQueue({
+			_DataFoilQueue: (function () {
+				return _DataFoilQueue;
+			}),
+		})._ValueImagesQueue, _DataFoilQueue);
+	});
+
+});
+
 describe('LifecycleModuleDidLoad', function test_LifecycleModuleDidLoad() {
 
 	const _LifecycleModuleDidLoad = function (inputData = {}) {

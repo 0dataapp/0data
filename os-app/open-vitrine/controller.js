@@ -395,6 +395,13 @@ const mod = {
 		});
 	},
 
+	SetupImagesQueue () {
+		this._ValueImagesQueue = this._DataFoilQueue({
+			concurrency: 1,
+			autostart: true,
+		});
+	},
+
 	// LIFECYCLE
 
 	LifecycleModuleDidLoad () {
