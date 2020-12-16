@@ -16,7 +16,7 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 <hr role="presentation" />
 
 <div class="ZDAVitrineCrown OLSKCommonCard OLSKCommonCrownCard">
-	<img class="ZDAVitrineCrownIcon" src="<%= OLSKCanonical('ZDACommonIdentityRedirect') %>" role="presentation" />
+	<img class="ZDAVitrineCrownIcon" src="<%= process.env.ZDA_VITRINE_IDENTITY_URL %>" role="presentation" />
 	<section>
 		<span class="ZDAVitrineCrownName"><%= OLSKLocalized('ZDAVitrineTitle') %></span>
 		<span class="ZDAVitrineCrownBlurb"><%= OLSKLocalized('ZDAVitrineDescription') %></span>

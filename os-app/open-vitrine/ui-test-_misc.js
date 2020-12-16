@@ -37,7 +37,7 @@ describe('ZDAVitrine_Misc', function () {
 		});
 		
 		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineCrownIcon, 'src', OLSKTestingCanonical(require('../_shared/common/controller.js').OLSKControllerRoutes().pop()));
+			browser.assert.attribute(ZDAVitrineCrownIcon, 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
 		});
 	
 	});
