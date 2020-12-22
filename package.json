@@ -8,7 +8,7 @@
   "dependencies": {
     "OLSKExpress": "olsk/OLSKExpress",
     "normalize.css": "latest",
-    "OLSKLayout": "olsk/OLSKLayout",
+    "OLSKDecor": "olsk/OLSKDecor",
     "OLSKLanguageSwitcher": "olsk/OLSKLanguageSwitcher",
     "ROCORootLink": "rationalcreative/ROCORootLink",
     "OLSKRobots": "olsk/OLSKRobots",
