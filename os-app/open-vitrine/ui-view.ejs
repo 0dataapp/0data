@@ -33,30 +33,21 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 
 <h1 class="ZDAVitrineFlowsHeading"><%= OLSKLocalized('ZDAVitrineFlowsHeadingText') %></h1>
 
+<div class="ZDAVitrineFlowsItem OLSKCommonCard">
+	<img class="ZDAVitrineFlowsTraditionalImage" src="<%= process.env.ZDA_VITRINE_FLOWS_TRADITIONAL_URL %>" role="presentation" />
+	<section>
+		<h2 class="ZDAVitrineFlowsTraditionalHeading"><%- OLSKLocalized('ZDAVitrineFlowsTraditionalHeadingText') %></h2>
+		<p class="ZDAVitrineFlowsTraditionalBlurb"><%- OLSKLocalized('ZDAVitrineFlowsTraditionalBlurbText') %></p>
+	</section>
+</div>
 
-<table class="ZDAVitrineFlowsTable">
-	<tr>
-		<td>
-			<h2 class="ZDAVitrineFlowsTraditionalHeading"><%- OLSKLocalized('ZDAVitrineFlowsTraditionalHeadingText') %></h2>
-			<p class="ZDAVitrineFlowsTraditionalBlurb"><%- OLSKLocalized('ZDAVitrineFlowsTraditionalBlurbText') %></p>
-		</td>
-		<td>
-			<img class="ZDAVitrineFlowsTraditionalImage" src="<%= process.env.ZDA_VITRINE_FLOWS_TRADITIONAL_URL %>" role="presentation" />
-		</td>
-	</tr>
-</table>
-
-<table class="ZDAVitrineFlowsTable">
-	<tr>
-		<td>
-			<h2 class="ZDAVitrineFlowsModernHeading"><%- OLSKLocalized('ZDAVitrineFlowsModernHeadingText') %></h2>
-			<p class="ZDAVitrineFlowsModernBlurb"><%- OLSKLocalized('ZDAVitrineFlowsModernBlurbText') %></p>
-		</td>
-		<td>
-			<img class="ZDAVitrineFlowsModernImage" src="<%= process.env.ZDA_VITRINE_FLOWS_MODERN_URL %>" role="presentation" />
-		</td>
-	</tr>
-</table>
+<div class="ZDAVitrineFlowsItem OLSKCommonCard">
+	<img class="ZDAVitrineFlowsModernImage" src="<%= process.env.ZDA_VITRINE_FLOWS_MODERN_URL %>" role="presentation" />
+	<section>
+		<h2 class="ZDAVitrineFlowsModernHeading"><%- OLSKLocalized('ZDAVitrineFlowsModernHeadingText') %></h2>
+		<p class="ZDAVitrineFlowsModernBlurb"><%- OLSKLocalized('ZDAVitrineFlowsModernBlurbText') %></p>
+	</section>
+</div>
 
 <h1 class="ZDAVitrineInformationHeading"><%= OLSKLocalized('ZDAVitrineInformationHeadingText') %></h1>
 

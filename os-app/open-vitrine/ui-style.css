@@ -18,12 +18,14 @@
 	font-style: normal;
 }
 
-.ZDAVitrineFlowsTable tr:first-of-type td {
-	border: none;
+.ZDAVitrineFlowsItem section {
+	text-align: right;
 }
 
-.ZDAVitrineFlowsTable img {
-	width: 225px;
+.ZDAVitrineFlowsItem img {
+	--OLSKCommonCardImageSize: 200px;
+
+	order: 1;
 }
 
 .ZDAVitrineListItem {
