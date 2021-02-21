@@ -48,6 +48,10 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAVitrineFlowsTraditional, uLocalized('ZDAVitrineFlowsTraditionalText'));
 		});
 
+		it('localizes ZDAVitrineFlowsModern', function () {
+			browser.assert.text(ZDAVitrineFlowsModern, uLocalized('ZDAVitrineFlowsModernText'));
+		});
+
 		it('localizes ZDAVitrineInformationHeading', function () {
 			browser.assert.text(ZDAVitrineInformationHeading, uLocalized('ZDAVitrineInformationHeadingText'));
 		});

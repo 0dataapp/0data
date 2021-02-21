@@ -10,6 +10,7 @@ ZDAVitrinePrinciplesListItemText:
   - seus dados são <em>acessíveis para sempre</em> mesmo qua o aplicativo deixe de funcionar
 ZDAVitrineFlowsHeadingText: Fluxos
 ZDAVitrineFlowsTraditionalText: 'O jeito tradicional é ''atravessar'' aplicativos para acessar seus dados sem o aplicativo, você não tem como acessar o que é seu.'
+ZDAVitrineFlowsModernText: O jeito moderno é manter seus próprios dados sob seu controle no início e dar permissão para os aplicativos acessar quando necessário.
 ZDAVitrineInformationHeadingText: Mais informações
 ZDAVitrineRepoLinkText: Repositório
 ZDAVitrineProjectsHeadingText: Projetos
