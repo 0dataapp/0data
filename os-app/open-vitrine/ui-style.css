@@ -50,6 +50,10 @@
 	margin: 10px 0;
 }
 
+.ZDAVitrineListItem > div {
+	overflow: hidden;
+}
+
 .ZDAVitrineListItem a {
 	text-decoration: none;
 	color: black;
