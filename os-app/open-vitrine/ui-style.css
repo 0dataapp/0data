@@ -23,9 +23,25 @@
 }
 
 .ZDAVitrineFlowsItem img {
-	--OLSKCommonCardImageSize: 200px;
+	--OLSKCommonCardImageSize: 210px;
 
 	order: 1;
+}
+
+@media screen and (max-width: 760px) {
+
+	.ZDAVitrineFlowsItem {
+		flex-direction: column;
+	}
+
+	.ZDAVitrineFlowsItem section {
+		text-align: center;
+	}
+
+	.ZDAVitrineFlowsItem img {
+		--OLSKCommonCardImageSize: 300px;
+	}
+
 }
 
 .ZDAVitrineListItem {
