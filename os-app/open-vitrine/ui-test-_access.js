@@ -11,6 +11,8 @@ Object.entries({
 	ZDAVitrinePrinciplesHeading: '.ZDAVitrinePrinciplesHeading',
 	ZDAVitrinePrinciplesList: '.ZDAVitrinePrinciplesList',
 
+	ZDAVitrineFlowsHeading: '.ZDAVitrineFlowsHeading',
+
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
 	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
 	ZDAVitrineRemoteStorageLink: '.ZDAVitrineRemoteStorageLink',
@@ -64,6 +66,10 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrinePrinciplesList', function () {
 		browser.assert.elements(ZDAVitrinePrinciplesList, 1);
+	});
+
+	it('shows ZDAVitrineFlowsHeading', function () {
+		browser.assert.elements(ZDAVitrineFlowsHeading, 1);
 	});
 
 	it('shows ZDAVitrineInformationHeading', function () {
