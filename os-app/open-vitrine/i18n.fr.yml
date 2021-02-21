@@ -9,8 +9,10 @@ ZDAVitrinePrinciplesListItemText:
   - <em>faites ce que vous voulez</em> avec vos données <em>à tout moment</em>
   - vos données sont <em>accessibles pour toujours</em> même si l'application ne fonctionne plus
 ZDAVitrineFlowsHeadingText: Passages
-ZDAVitrineFlowsTraditionalText: 'Traditionnellement on ''traverse'' des applications pour accéder à nos données - sans l''application, il n''y a aucun moyen d''accéder à ce qui vous appartient.'
-ZDAVitrineFlowsModernText: 'Dans la méthode moderne, on garde nos propres données sous notre contrôle au départ et à autoriser les applications à y accéder quand cela sera nécessaire.'
+ZDAVitrineFlowsTraditionalHeadingText: La façon traditionnelle
+ZDAVitrineFlowsTraditionalBlurbText: '<em>''Traverser'' des applications</em> pour accéder à nos données - sans l''application, il n''y a aucun moyen d''accéder à ce qui vous appartient.'
+ZDAVitrineFlowsModernHeadingText: La facon 0data
+ZDAVitrineFlowsModernBlurbText: Garder nos propres données <em>sous notre contrôle au départ</em> et à autoriser les applications à y accéder quand cela sera nécessaire.
 ZDAVitrineInformationHeadingText: Plus d'info
 ZDAVitrineRepoLinkText: Repositoire
 ZDAVitrineProjectsHeadingText: Projets

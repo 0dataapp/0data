@@ -12,9 +12,11 @@ Object.entries({
 	ZDAVitrinePrinciplesList: '.ZDAVitrinePrinciplesList',
 
 	ZDAVitrineFlowsHeading: '.ZDAVitrineFlowsHeading',
-	ZDAVitrineFlowsTraditional: '.ZDAVitrineFlowsTraditional',
+	ZDAVitrineFlowsTraditionalHeading: '.ZDAVitrineFlowsTraditionalHeading',
+	ZDAVitrineFlowsTraditionalBlurb: '.ZDAVitrineFlowsTraditionalBlurb',
 	ZDAVitrineFlowsTraditionalImage: '.ZDAVitrineFlowsTraditionalImage',
-	ZDAVitrineFlowsModern: '.ZDAVitrineFlowsModern',
+	ZDAVitrineFlowsModernHeading: '.ZDAVitrineFlowsModernHeading',
+	ZDAVitrineFlowsModernBlurb: '.ZDAVitrineFlowsModernBlurb',
 	ZDAVitrineFlowsModernImage: '.ZDAVitrineFlowsModernImage',
 
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
@@ -76,16 +78,24 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrineFlowsHeading, 1);
 	});
 
-	it('shows ZDAVitrineFlowsTraditional', function () {
-		browser.assert.elements(ZDAVitrineFlowsTraditional, 1);
+	it('shows ZDAVitrineFlowsTraditionalHeading', function () {
+		browser.assert.elements(ZDAVitrineFlowsTraditionalHeading, 1);
+	});
+
+	it('shows ZDAVitrineFlowsTraditionalBlurb', function () {
+		browser.assert.elements(ZDAVitrineFlowsTraditionalBlurb, 1);
 	});
 
 	it('shows ZDAVitrineFlowsTraditionalImage', function () {
 		browser.assert.elements(ZDAVitrineFlowsTraditionalImage, 1);
 	});
 
-	it('shows ZDAVitrineFlowsModern', function () {
-		browser.assert.elements(ZDAVitrineFlowsModern, 1);
+	it('shows ZDAVitrineFlowsModernHeading', function () {
+		browser.assert.elements(ZDAVitrineFlowsModernHeading, 1);
+	});
+
+	it('shows ZDAVitrineFlowsModernBlurb', function () {
+		browser.assert.elements(ZDAVitrineFlowsModernBlurb, 1);
 	});
 
 	it('shows ZDAVitrineFlowsModernImage', function () {

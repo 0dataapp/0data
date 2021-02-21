@@ -9,8 +9,10 @@ ZDAVitrinePrinciplesListItemText:
   - <em>haga lo que quieras</em> con tus datos <em>en cualquier momento</em>
   - tus datos son <em>accesibles para siempre</em> incluso si la aplicación deja de funcionar
 ZDAVitrineFlowsHeadingText: Flujos
-ZDAVitrineFlowsTraditionalText: 'La forma tradicional es ''atravesar'' las aplicaciones para acceder a tus datos; sin la aplicación, no tienes como acceder a lo que es tuyo.'
-ZDAVitrineFlowsModernText: La forma moderna es mantener tus propios datos bajo tu control al principio y dar permiso para las aplicaciones acceder cuando sea necesario.
+ZDAVitrineFlowsTraditionalHeadingText: El camino tradicional.
+ZDAVitrineFlowsTraditionalBlurbText: '<em>''Atravesar'' las aplicaciones</em> para acceder a tus datos; sin la aplicación, no tienes como acceder a lo que es tuyo.'
+ZDAVitrineFlowsModernHeadingText: El camino 0data.
+ZDAVitrineFlowsModernBlurbText: Mantener tus propios datos <em>bajo tu control al principio</em> y dar permiso para las aplicaciones acceder cuando sea necesario.
 ZDAVitrineInformationHeadingText: Más información
 ZDAVitrineRepoLinkText: Repositorio
 ZDAVitrineProjectsHeadingText: Proyectos

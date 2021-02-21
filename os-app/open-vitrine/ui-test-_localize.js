@@ -44,12 +44,20 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAVitrineFlowsHeading, uLocalized('ZDAVitrineFlowsHeadingText'));
 		});
 
-		it('localizes ZDAVitrineFlowsTraditional', function () {
-			browser.assert.text(ZDAVitrineFlowsTraditional, uLocalized('ZDAVitrineFlowsTraditionalText'));
+		it('localizes ZDAVitrineFlowsTraditionalHeading', function () {
+			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsTraditionalHeading, uLocalized('ZDAVitrineFlowsTraditionalHeadingText'));
 		});
 
-		it('localizes ZDAVitrineFlowsModern', function () {
-			browser.assert.text(ZDAVitrineFlowsModern, uLocalized('ZDAVitrineFlowsModernText'));
+		it('localizes ZDAVitrineFlowsTraditionalBlurb', function () {
+			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsTraditionalBlurb, uLocalized('ZDAVitrineFlowsTraditionalBlurbText'));
+		});
+
+		it('localizes ZDAVitrineFlowsModernHeading', function () {
+			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsModernHeading, uLocalized('ZDAVitrineFlowsModernHeadingText'));
+		});
+
+		it('localizes ZDAVitrineFlowsModernBlurb', function () {
+			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsModernBlurb, uLocalized('ZDAVitrineFlowsModernBlurbText'));
 		});
 
 		it('localizes ZDAVitrineInformationHeading', function () {

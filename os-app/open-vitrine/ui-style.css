@@ -18,6 +18,14 @@
 	font-style: normal;
 }
 
+.ZDAVitrineFlowsTable tr:first-of-type td {
+	border: none;
+}
+
+.ZDAVitrineFlowsTable img {
+	width: 225px;
+}
+
 .ZDAVitrineListItem {
 	padding: 10px;
 

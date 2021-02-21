@@ -9,8 +9,10 @@ ZDAVitrinePrinciplesListItemText:
   - <em>do what you want</em> with your data at <em>any time</em>
   - your data is <em>accessible forever</em> even if the app stops working
 ZDAVitrineFlowsHeadingText: Flows
-ZDAVitrineFlowsTraditionalText: 'The traditional way is to go ''through'' apps in order to access your data—without the app, you have no way to access what is yours.'
-ZDAVitrineFlowsModernText: The modern way is to keep your own data under your control at the start and give permission for apps to access it as necessary.
+ZDAVitrineFlowsTraditionalHeadingText: The traditional way.
+ZDAVitrineFlowsTraditionalBlurbText: '<em>Go ''through'' apps</em> in order to access your data—without the app, you have no way to access what is yours.'
+ZDAVitrineFlowsModernHeadingText: The 0data way
+ZDAVitrineFlowsModernBlurbText: Keep your own data <em>under your control at the start</em> and give permission for apps to access it as necessary.
 ZDAVitrineInformationHeadingText: More information
 ZDAVitrineRepoLinkText: Repo
 ZDAVitrineProjectsHeadingText: Projects
