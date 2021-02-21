@@ -42,6 +42,30 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineFlowsTraditionalImage', function test_ZDAVitrineFlowsTraditionalImage() {
+		
+		it('sets role', function () {
+			browser.assert.attribute(ZDAVitrineFlowsTraditionalImage, 'role', 'presentation');
+		});
+		
+		it('sets src', function () {
+			browser.assert.attribute(ZDAVitrineFlowsTraditionalImage, 'src', process.env.ZDA_VITRINE_FLOWS_TRADITIONAL_URL);
+		});
+	
+	});
+
+	describe('ZDAVitrineFlowsModernImage', function test_ZDAVitrineFlowsModernImage() {
+		
+		it('sets role', function () {
+			browser.assert.attribute(ZDAVitrineFlowsModernImage, 'role', 'presentation');
+		});
+		
+		it('sets src', function () {
+			browser.assert.attribute(ZDAVitrineFlowsModernImage, 'src', process.env.ZDA_VITRINE_FLOWS_MODERN_URL);
+		});
+	
+	});
+
 	describe('ZDAVitrineAutonomousDataLink', function test_ZDAVitrineAutonomousDataLink () {
 		
 		it('sets href', function () {

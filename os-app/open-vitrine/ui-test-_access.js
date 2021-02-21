@@ -13,7 +13,9 @@ Object.entries({
 
 	ZDAVitrineFlowsHeading: '.ZDAVitrineFlowsHeading',
 	ZDAVitrineFlowsTraditional: '.ZDAVitrineFlowsTraditional',
+	ZDAVitrineFlowsTraditionalImage: '.ZDAVitrineFlowsTraditionalImage',
 	ZDAVitrineFlowsModern: '.ZDAVitrineFlowsModern',
+	ZDAVitrineFlowsModernImage: '.ZDAVitrineFlowsModernImage',
 
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
 	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
@@ -78,8 +80,16 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrineFlowsTraditional, 1);
 	});
 
+	it('shows ZDAVitrineFlowsTraditionalImage', function () {
+		browser.assert.elements(ZDAVitrineFlowsTraditionalImage, 1);
+	});
+
 	it('shows ZDAVitrineFlowsModern', function () {
 		browser.assert.elements(ZDAVitrineFlowsModern, 1);
+	});
+
+	it('shows ZDAVitrineFlowsModernImage', function () {
+		browser.assert.elements(ZDAVitrineFlowsModernImage, 1);
 	});
 
 	it('shows ZDAVitrineInformationHeading', function () {
