@@ -131,8 +131,8 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrineRepoLink, 1);
 	});
 
-	it('shows ZDAVitrineWraptLink', function () {
-		browser.assert.elements(ZDAVitrineWraptLink, 1);
+	it('shows ZDAVitrineWrapLink', function () {
+		browser.assert.elements(ZDAVitrineWrapLink, 1);
 	});
 
 	it('shows ZDAVitrineProjectsHeading', function () {
