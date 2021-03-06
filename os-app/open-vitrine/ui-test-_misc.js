@@ -131,10 +131,6 @@ describe('ZDAVitrine_Misc', function () {
 		it('sets href', function () {
 			browser.assert.attribute(ZDAVitrineRepoLink, 'href', process.env.ZDA_VITRINE_REPO_URL);
 		});
-
-		it('sets text', function () {
-			browser.assert.text(ZDAVitrineFissionLink, 'Fission');
-		});
 	
 	});
 
