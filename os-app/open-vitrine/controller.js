@@ -161,9 +161,9 @@ const mod = {
 						});
 					},
 					[mod.DataListingURLSolidProject()]: function () {
-						return cheerio('article', param2).first().find('ul:not(#historical-solid-apps~ul) li').map(function () {
+						return cheerio('article', param2).first().find('table tbody tr').map(function () {
 							return {
-								ZDAProjectName: cheerio('a:nth-child(1)', this).text(),
+								ZDAProjectName: cheerio('td:nth-child(1) a', this).text(),
 								ZDAProjectBlurb: (function(blurb) {
 									if (blurb.includes('(c) ')) {
 										blurb = blurb.slice(0, blurb.indexOf('(c) '));
@@ -178,8 +178,8 @@ const mod = {
 									}
 
 									return blurb;
-								})(cheerio(this).text()).trim(),
-								ZDAProjectURL: cheerio('a:nth-child(1)', this).attr('href'),
+								})(cheerio('td:nth-child(2)', this).text()).trim(),
+								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href') || '',
 							};
 						});
 					},

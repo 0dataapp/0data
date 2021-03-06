@@ -236,7 +236,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectURL: Math.random().toString(),
 			}, inputData);
 
-			return `<article><p>${ Math.random().toString() }</p><h2>${ Math.random().toString() }</h2><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a> ${ item.ZDAProjectBlurb } <a href="${ item.ZDAProjectExtra }">${ item.ZDAProjectExtra }</a></li></ul><h1 id="historical-solid-apps">${ Math.random().toString() }</h1><ul><li><a href="${ Math.random().toString() }">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id="apps-inclusion-and-exclusion-criteria">Apps inclusion and exclusion criteria</h1><ul><li>${ Math.random().toString() }</li></ul></article>`;
+			return `<article><h1>${ Math.random().toString() }</h1><h2>${ Math.random().toString() }</h2><table><tbody><tr><td><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></td><td>${ item.ZDAProjectBlurb } <a href="${ item.ZDAProjectExtra }">${ item.ZDAProjectExtra }</a></td></tr></tbody></table><h1 id="historical-solid-apps">${ Math.random().toString() }</h1><<ul><li><a href="${ Math.random().toString() }">${ Math.random().toString() }</a> ${ Math.random().toString() }</li></ul><h1 id="apps-inclusion-and-exclusion-criteria">Apps inclusion and exclusion criteria</h1><p>${ Math.random().toString() }</p></article>`;
 		};
 		
 		it('parses article', function () {
@@ -252,7 +252,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectURL,
 			})), [{
 				ZDAProjectName,
-				ZDAProjectBlurb: [ZDAProjectName, ZDAProjectBlurb, ZDAProjectExtra].join(' '),
+				ZDAProjectBlurb: [ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectURL,
 			}]);
 		});
@@ -270,7 +270,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 			})), [{
 				ZDAProjectName,
-				ZDAProjectBlurb: [ZDAProjectName, ZDAProjectBlurb, ZDAProjectExtra].join(' '),
+				ZDAProjectBlurb: [ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectURL,
 			}]);
 		});
@@ -283,7 +283,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
 		});
 		
 		it('hides (c)', function () {
@@ -294,7 +294,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '(c) ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
 		});
 		
 		it('hides . Source', function () {
@@ -305,7 +305,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '. Source ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
 		});
 		
 		it('hides combination ', function () {
@@ -316,7 +316,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectName, ZDAProjectBlurb].join(' '));
+			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
 		});
 		
 	});
