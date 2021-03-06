@@ -134,6 +134,14 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineWrapLink', function test_ZDAVitrineWrapLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineWrapLink, 'href', process.env.ZDA_VITRINE_WRAP_URL);
+		});
+	
+	});
+
 	require('./controller.js').DataListingURLs().forEach(function (e, i) {
 
 		describe('ZDAVitrinePrinciplesListItem', function test_ZDAVitrinePrinciplesListItem () {
