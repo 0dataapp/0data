@@ -44,6 +44,16 @@ describe('DataListingURLRemoteStorage', function test_DataListingURLRemoteStorag
 
 });
 
+describe('DataListingURLFission', function test_DataListingURLFission() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataListingURLFission(), mod.DataListingURLs().filter(function (e) {
+			return e.match(/fission/);
+		}).shift());
+	});
+
+});
+
 describe('DataListingURLUnhosted', function test_DataListingURLUnhosted() {
 
 	it('returns string', function () {
@@ -123,6 +133,52 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
+			}]);
+		});
+	
+	});
+
+	context('fission', function test_fission () {
+
+		const uList = function (inputData = {}) {
+			const item = Object.assign({
+				ZDAProjectName: Math.random().toString(),
+				ZDAProjectURL: Math.random().toString(),
+				ZDAProjectBlurb: Math.random().toString(),
+			}, inputData);
+
+			return `<article class="entry-content"><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a>: ${ item.ZDAProjectBlurb }</li></ul></article>`;
+		};
+		
+		it('parses list', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectURL = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+
+			deepEqual(mod._DataListingObjects(mod.DataListingURLFission(), uList({
+				ZDAProjectName,
+				ZDAProjectURL,
+				ZDAProjectBlurb,
+			})), [{
+				ZDAProjectName,
+				ZDAProjectURL,
+				ZDAProjectBlurb,
+			}]);
+		});
+		
+		it('strips whitespace', function () {
+			const ZDAProjectName = Math.random().toString();
+			const ZDAProjectURL = Math.random().toString();
+			const ZDAProjectBlurb = Math.random().toString();
+
+			deepEqual(mod._DataListingObjects(mod.DataListingURLFission(), uList({
+				ZDAProjectName: ' ' + ZDAProjectName + ' ',
+				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
+				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
+			})), [{
+				ZDAProjectName,
+				ZDAProjectURL,
+				ZDAProjectBlurb
 			}]);
 		});
 	

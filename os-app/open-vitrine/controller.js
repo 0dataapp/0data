@@ -92,6 +92,12 @@ const mod = {
 		}).shift();
 	},
 
+	DataListingURLFission () {
+		return mod.DataListingURLs().filter(function (e) {
+			return e.match(/fission/);
+		}).shift();
+	},
+
 	DataListingURLUnhosted () {
 		return mod.DataListingURLs().filter(function (e) {
 			return e.match(/unhosted/);
@@ -126,6 +132,15 @@ const mod = {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
 								ZDAProjectBlurb: cheerio('td:nth-child(2)', this).text(),
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href'),
+							};
+						});
+					},
+					[mod.DataListingURLFission()]: function () {
+						return cheerio('.entry-content', param2).first().find('li').map(function () {
+							return {
+								ZDAProjectName: cheerio('a', this).text(),
+								ZDAProjectURL: cheerio('a', this).attr('href'),
+								ZDAProjectBlurb: cheerio(this).text().split(':').pop(),
 							};
 						});
 					},
