@@ -381,7 +381,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 		}), [item]);
 	});
 
-	it('passses default value if cache empty', function () {
+	it('passes default value if cache empty', function () {
 		deepEqual(_DataListedProjects({
 			_DataListingObjects: mod._DataListingObjects,
 		}), []);
