@@ -98,6 +98,12 @@ const mod = {
 		}).shift();
 	},
 
+	DataListingURLAwesome () {
+		return mod.DataListingURLs().filter(function (e) {
+			return e.match(/awesome/);
+		}).shift();
+	},
+
 	DataListingURLUnhosted () {
 		return mod.DataListingURLs().filter(function (e) {
 			return e.match(/unhosted/);
@@ -136,6 +142,15 @@ const mod = {
 						});
 					},
 					[mod.DataListingURLFission()]: function () {
+						return cheerio('.entry-content', param2).first().find('li').map(function () {
+							return {
+								ZDAProjectName: cheerio('a', this).text(),
+								ZDAProjectURL: cheerio('a', this).attr('href'),
+								ZDAProjectBlurb: cheerio(this).text().split(':').pop(),
+							};
+						});
+					},
+					[mod.DataListingURLAwesome()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
 								ZDAProjectName: cheerio('a', this).text(),
