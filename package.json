@@ -10,6 +10,7 @@
     "normalize.css": "latest",
     "OLSKDecor": "olsk/OLSKDecor",
     "OLSKLanguageSwitcher": "olsk/OLSKLanguageSwitcher",
+    "OLSKGazette": "olsk/OLSKGazette",
     "ROCORootLink": "rationalcreative/ROCORootLink",
     "OLSKRobots": "olsk/OLSKRobots",
     "cheerio": "latest",
