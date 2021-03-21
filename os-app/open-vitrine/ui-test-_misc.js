@@ -148,7 +148,7 @@ describe('ZDAVitrine_Misc', function () {
 			
 			it('localizes ZDAVitrinePrinciplesListItem', function () {
 				browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
-				browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e);
+				browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e.replace('https://', ''));
 			});
 		
 		});
