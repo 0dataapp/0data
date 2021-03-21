@@ -36,6 +36,10 @@ const uSerial = function (inputData) {
 	}, Promise.resolve([]));
 };
 
+const uDescending = function (a, b) {
+  return (a > b) ? -1 : ((a < b) ? 1 : 0);
+};
+
 const mod = {
 
 	OLSKControllerRoutes () {
@@ -305,11 +309,11 @@ const mod = {
 		});
 
 		if (unmatched.length) {
-			return unmatched.reduce(function (coll, item) {
-				return coll + !!b[item];
-			}, 0) - unmatched.reduce(function (coll, item) {
+			return uDescending(unmatched.reduce(function (coll, item) {
 				return coll + !!a[item];
-			}, 0);
+			}, 0), unmatched.reduce(function (coll, item) {
+				return coll + !!b[item];
+			}, 0));
 		}
 
 		return 0;
