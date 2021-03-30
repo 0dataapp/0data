@@ -374,6 +374,13 @@ const mod = {
 		});
 	},
 
+	SetupQueue () {
+		this._ValueQueue = this._DataFoilQueue({
+			concurrency: 1,
+			autostart: true,
+		});
+	},
+
 	SetupListingsCache () {
 		this._ValueListingsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')) || {};
 	},
@@ -407,18 +414,11 @@ const mod = {
 		this._ValueDetailsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {};
 	},
 
-	SetupDetailsQueue () {
-		this._ValueDetailsQueue = this._DataFoilQueue({
-			concurrency: 1,
-			autostart: true,
-		});
-	},
-
 	_SetupDetailContent (inputData) {
 		const _this = this;
 
 		return new Promise(function (res) {
-			_this._ValueDetailsQueue.push(async function (_queue_callback) {
+			_this._ValueQueue.push(async function (_queue_callback) {
 				try {
 					return _queue_callback(null, res(await _this._DataContentString(inputData)));
 				} catch (error) {
@@ -473,18 +473,11 @@ const mod = {
 		});
 	},
 
-	SetupImagesQueue () {
-		this._ValueImagesQueue = this._DataFoilQueue({
-			concurrency: 1,
-			autostart: true,
-		});
-	},
-
 	_SetupImageContent (param1, param2) {
 		const _this = this;
 
 		return new Promise(function (res) {
-			_this._ValueImagesQueue.push(async function (_queue_callback) {
+			_this._ValueQueue.push(async function (_queue_callback) {
 				try {
 					return _queue_callback(null, res(await _this._DataContentImage(param1, param2)));
 				} catch (error) {

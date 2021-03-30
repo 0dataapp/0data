@@ -924,6 +924,38 @@ describe('_SetupMethods', function test__SetupMethods() {
 
 });
 
+describe('SetupQueue', function test_SetupQueue() {
+
+	const _SetupQueue = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilQueue: (function () {}),
+		}, inputData);
+		return _mod.SetupQueue() || _mod;
+	};
+
+	it('calls _DataFoilQueue', function () {
+		deepEqual(_SetupQueue({
+			_DataFoilQueue: (function () {
+				return [...arguments];
+			}),
+		})._ValueQueue, [{
+			concurrency: 1,
+			autostart: true,
+		}]);
+	});
+
+	it('sets _ValueQueue', function () {
+		const _DataFoilQueue = Math.random().toString();
+
+		deepEqual(_SetupQueue({
+			_DataFoilQueue: (function () {
+				return _DataFoilQueue;
+			}),
+		})._ValueQueue, _DataFoilQueue);
+	});
+
+});
+
 describe('SetupListingsCache', function test_SetupListingsCache() {
 
 	const _SetupListingsCache = function (inputData) {
@@ -1088,43 +1120,11 @@ describe('SetupDetailsCache', function test_SetupDetailsCache() {
 
 });
 
-describe('SetupDetailsQueue', function test_SetupDetailsQueue() {
-
-	const _SetupDetailsQueue = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilQueue: (function () {}),
-		}, inputData);
-		return _mod.SetupDetailsQueue() || _mod;
-	};
-
-	it('calls _DataFoilQueue', function () {
-		deepEqual(_SetupDetailsQueue({
-			_DataFoilQueue: (function () {
-				return [...arguments];
-			}),
-		})._ValueDetailsQueue, [{
-			concurrency: 1,
-			autostart: true,
-		}]);
-	});
-
-	it('sets _ValueDetailsQueue', function () {
-		const _DataFoilQueue = Math.random().toString();
-
-		deepEqual(_SetupDetailsQueue({
-			_DataFoilQueue: (function () {
-				return _DataFoilQueue;
-			}),
-		})._ValueDetailsQueue, _DataFoilQueue);
-	});
-
-});
-
 describe('_SetupDetailContent', function test__SetupDetailContent() {
 
 	const __SetupDetailContent = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueDetailsQueue: {
+			_ValueQueue: {
 				push: (function (callback) {
 					if (inputData._queue_inspect) {
 						inputData._queue_inspect(callback);
@@ -1141,7 +1141,7 @@ describe('_SetupDetailContent', function test__SetupDetailContent() {
 		deepEqual(__SetupDetailContent() instanceof Promise, true);
 	});
 
-	it('calls _ValueDetailsQueue.push', async function () {
+	it('calls _ValueQueue.push', async function () {
 		const item = [];
 
 		await __SetupDetailContent({
@@ -1380,43 +1380,11 @@ describe('SetupProjects', function test_SetupProjects() {
 
 });
 
-describe('SetupImagesQueue', function test_SetupImagesQueue() {
-
-	const _SetupImagesQueue = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilQueue: (function () {}),
-		}, inputData);
-		return _mod.SetupImagesQueue() || _mod;
-	};
-
-	it('calls _DataFoilQueue', function () {
-		deepEqual(_SetupImagesQueue({
-			_DataFoilQueue: (function () {
-				return [...arguments];
-			}),
-		})._ValueImagesQueue, [{
-			concurrency: 1,
-			autostart: true,
-		}]);
-	});
-
-	it('sets _ValueImagesQueue', function () {
-		const _DataFoilQueue = Math.random().toString();
-
-		deepEqual(_SetupImagesQueue({
-			_DataFoilQueue: (function () {
-				return _DataFoilQueue;
-			}),
-		})._ValueImagesQueue, _DataFoilQueue);
-	});
-
-});
-
 describe('_SetupImageContent', function test__SetupImageContent() {
 
 	const __SetupImageContent = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueImagesQueue: {
+			_ValueQueue: {
 				push: (function (callback) {
 					if (inputData._queue_inspect) {
 						inputData._queue_inspect(callback);
@@ -1433,7 +1401,7 @@ describe('_SetupImageContent', function test__SetupImageContent() {
 		deepEqual(__SetupImageContent() instanceof Promise, true);
 	});
 
-	it('calls _ValueImagesQueue.push', async function () {
+	it('calls _ValueQueue.push', async function () {
 		const item = [];
 
 		await __SetupImageContent({
