@@ -348,7 +348,7 @@ const mod = {
 		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectSchema));
 	},
 
-	_DataImageFilenameHash (inputData) {
+	_DataHash (inputData) {
 		return require('crypto').createHash('md5').update(inputData).digest('hex');
 	},
 
@@ -359,7 +359,7 @@ const mod = {
 
 		const extension = require('path').extname(inputData);
 
-		return mod._DataImageFilenameHash(inputData) + extension;
+		return mod._DataHash(inputData) + extension;
 	},
 
 	_DataImageCacheDirectoryPath () {

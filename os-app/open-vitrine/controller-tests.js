@@ -905,7 +905,7 @@ describe('_DataImageFilename', function test__DataImageFilename() {
 		const filename = Date.now().toString();
 		const item = 'https://example.com/' + filename + extension;
 
-		deepEqual(mod._DataImageFilename(item), mod._DataImageFilenameHash(item) + extension);
+		deepEqual(mod._DataImageFilename(item), mod._DataHash(item) + extension);
 	});
 
 });
