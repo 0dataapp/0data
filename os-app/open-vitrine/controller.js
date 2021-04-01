@@ -71,7 +71,7 @@ const mod = {
 	// DATA
 
 	_DataFoilOLSKCache: require('OLSKCache'),
-	_DataFoilQueue: require('queue'),
+	_DataFoilOLSKQueue: require('OLSKQueue'),
 	_DataFoilFS: require('fs'),
 
 	DataCacheNameListings() {
@@ -374,11 +374,8 @@ const mod = {
 		});
 	},
 
-	SetupQueue () {
-		this._ValueQueue = this._DataFoilQueue({
-			concurrency: 1,
-			autostart: true,
-		});
+	SetupFetchQueue () {
+		this._ValueFetchQueue = this._DataFoilOLSKQueue.OLSKQueueAPI();
 	},
 
 	SetupListingsCache () {
@@ -414,20 +411,6 @@ const mod = {
 		this._ValueDetailsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {};
 	},
 
-	_SetupDetailContent (inputData) {
-		const _this = this;
-
-		return new Promise(function (res) {
-			_this._ValueQueue.push(async function (_queue_callback) {
-				try {
-					return _queue_callback(null, res(await _this._DataContentString(inputData)));
-				} catch (error) {
-					// TODO: Handle fetch error, maybe retry
-				}
-			});
-		});
-	},
-
 	_SetupDetail (inputData) {
 		if (!this._DataFoilOLSKCache) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
@@ -438,7 +421,9 @@ const mod = {
 			ParamMap: _this._ValueDetailsCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
-				return Promise.resolve(_this._SetupDetailContent(inputData)).catch(function (error) {
+				return Promise.resolve(_this._ValueFetchQueue.OLSKQueueAdd(function () {
+					return _this._DataContentString(inputData);
+				})).catch(function (error) {
 					// TODO: Handle fetch error, maybe retry
 				});
 			}),
@@ -473,34 +458,18 @@ const mod = {
 		});
 	},
 
-	_SetupImageContent (param1, param2) {
-		const _this = this;
-
-		return new Promise(function (res) {
-			_this._ValueQueue.push(async function (_queue_callback) {
-				try {
-					return _queue_callback(null, res(await _this._DataContentImage(param1, param2)));
-				} catch (error) {
-					// TODO: Handle fetch error, maybe retry
-				}
-			});
-		});
-	},
-
-	_SetupImage (inputData) {
-		if (!this._DataFoilOLSKCache) {
+	SetupImages () {
+		if (!this._DataContentImage) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._SetupImageContent(inputData, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)));
-	},
-
-	SetupImages () {
 		const _this = this;
 		return Promise.all(_this._ValueProjectsCache.filter(function (e) {
 			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
-			return _this._SetupImage(e.ZDAProjectIconURL);
+			return _this._ValueFetchQueue.OLSKQueueAdd(function () {
+				return _this._DataContentImage(e.ZDAProjectIconURL, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(e.ZDAProjectIconURL)));
+			});
 		}));
 	},
 

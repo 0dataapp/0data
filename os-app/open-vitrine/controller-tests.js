@@ -924,34 +924,32 @@ describe('_SetupMethods', function test__SetupMethods() {
 
 });
 
-describe('SetupQueue', function test_SetupQueue() {
+describe('SetupFetchQueue', function test_SetupFetchQueue() {
 
-	const _SetupQueue = function (inputData) {
+	const _SetupFetchQueue = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilQueue: (function () {}),
+			_DataFoilOLSKQueue: inputData,
 		}, inputData);
-		return _mod.SetupQueue() || _mod;
+		return _mod.SetupFetchQueue() || _mod;
 	};
 
-	it('calls _DataFoilQueue', function () {
-		deepEqual(_SetupQueue({
-			_DataFoilQueue: (function () {
-				return [...arguments];
+	it('calls OLSKQueueAPI', function () {
+		const item = Math.random().toString();
+		deepEqual(_SetupFetchQueue({
+			OLSKQueueAPI: (function () {
+				return [...arguments].concat(item);
 			}),
-		})._ValueQueue, [{
-			concurrency: 1,
-			autostart: true,
-		}]);
+		})._ValueFetchQueue, [item]);
 	});
 
-	it('sets _ValueQueue', function () {
-		const _DataFoilQueue = Math.random().toString();
+	it('sets _ValueFetchQueue', function () {
+		const item = Math.random().toString();
 
-		deepEqual(_SetupQueue({
-			_DataFoilQueue: (function () {
-				return _DataFoilQueue;
+		deepEqual(_SetupFetchQueue({
+			OLSKQueueAPI: (function () {
+				return item;
 			}),
-		})._ValueQueue, _DataFoilQueue);
+		})._ValueFetchQueue, item);
 	});
 
 });
@@ -1120,76 +1118,11 @@ describe('SetupDetailsCache', function test_SetupDetailsCache() {
 
 });
 
-describe('_SetupDetailContent', function test__SetupDetailContent() {
-
-	const __SetupDetailContent = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			_ValueQueue: {
-				push: (function (callback) {
-					if (inputData._queue_inspect) {
-						inputData._queue_inspect(callback);
-					}
-
-					return callback(inputData._queue_callback);
-				}),
-			},
-			_DataContentString: (function () {}),
-		}, inputData)._SetupDetailContent(inputData.url || Math.random().toString());
-	};
-
-	it('returns promise', async function () {
-		deepEqual(__SetupDetailContent() instanceof Promise, true);
-	});
-
-	it('calls _ValueQueue.push', async function () {
-		const item = [];
-
-		await __SetupDetailContent({
-			_queue_inspect: (function () {
-				item.push(...arguments);
-			}),
-		});
-
-		deepEqual(typeof item.pop(), 'function');
-	});
-
-	it('calls _DataContentString via function', async function () {
-		const item = [];
-
-		const url = Math.random().toString();
-
-		await __SetupDetailContent({
-			url,
-			_DataContentString: (function () {
-				item.push(...arguments);
-			}),
-		});
-
-		deepEqual(item, [url]);
-	});
-
-	it('calls _queue_callback', async function () {
-		const item = [];
-
-		const _queue_callback = Math.random().toString();
-
-		await __SetupDetailContent({
-			_queue_callback: (function () {
-				item.push(...arguments, _queue_callback);
-			}),
-		});
-
-		deepEqual(item, [null, undefined, _queue_callback]);
-	});
-
-});
-
 describe('_SetupDetail', function test__SetupDetail() {
 
 	const __SetupDetail = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
-			_SetupDetailContent: (function () {}),
-
+			_ValueFetchQueue: Object.assign({}, inputData),
 			_DataFoilOLSKCache: Object.assign({
 				OLSKCacheResultFetchRenew: (function () {}),
 				OLSKCacheWriteFile: (function () {}),
@@ -1222,7 +1155,22 @@ describe('_SetupDetail', function test__SetupDetail() {
 
 	context('ParamCallback', function () {
 
-		it('calls _SetupDetailContent', async function () {
+		it('calls OLSKQueueAdd', async function () {
+			const url = Math.random().toString();
+
+			deepEqual(await __SetupDetail({
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData.ParamCallback();
+				}),
+				OLSKQueueAdd: (function () {
+					return [...arguments].map(function (e) {
+						return typeof e;
+					});
+				}),
+			}), ['function']);
+		});
+
+		it('calls _DataContentString', async function () {
 			const url = Math.random().toString();
 
 			deepEqual(await __SetupDetail({
@@ -1230,7 +1178,10 @@ describe('_SetupDetail', function test__SetupDetail() {
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData.ParamCallback();
 				}),
-				_SetupDetailContent: (function () {
+				OLSKQueueAdd: (function (inputData) {
+					return inputData();
+				}),
+				_DataContentString: (function () {
 					return [...arguments];
 				}),
 			}), [url]);
@@ -1380,111 +1331,45 @@ describe('SetupProjects', function test_SetupProjects() {
 
 });
 
-describe('_SetupImageContent', function test__SetupImageContent() {
-
-	const __SetupImageContent = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			_ValueQueue: {
-				push: (function (callback) {
-					if (inputData._queue_inspect) {
-						inputData._queue_inspect(callback);
-					}
-
-					return callback(inputData._queue_callback);
-				}),
-			},
-			_DataContentImage: (function () {}),
-		}, inputData)._SetupImageContent(inputData.url || Math.random().toString(), inputData.localPath || Math.random().toString());
-	};
-
-	it('returns promise', async function () {
-		deepEqual(__SetupImageContent() instanceof Promise, true);
-	});
-
-	it('calls _ValueQueue.push', async function () {
-		const item = [];
-
-		await __SetupImageContent({
-			_queue_inspect: (function () {
-				item.push(...arguments);
-			}),
-		});
-
-		deepEqual(typeof item.pop(), 'function');
-	});
-
-	it('calls _DataContentImage via function', async function () {
-		const item = [];
-
-		const url = Math.random().toString();
-		const localPath = Math.random().toString();
-
-		await __SetupImageContent({
-			url,
-			localPath,
-			_DataContentImage: (function () {
-				item.push(...arguments);
-			}),
-		});
-
-		deepEqual(item, [url, localPath]);
-	});
-
-	it('calls _queue_callback', async function () {
-		const item = [];
-
-		const _queue_callback = Math.random().toString();
-
-		await __SetupImageContent({
-			_queue_callback: (function () {
-				item.push(...arguments, _queue_callback);
-			}),
-		});
-
-		deepEqual(item, [null, undefined, _queue_callback]);
-	});
-
-});
-
-describe('_SetupImage', function test__SetupImage() {
-
-	const __SetupImage = function (inputData) {
-		return Object.assign(Object.assign({}, mod), {
-			_SetupImageContent: (function () {}),
-		}, inputData)._SetupImage(inputData.url || Math.random().toString());
-	};
-
-	it('calls _SetupImageContent', async function () {
-		const url = Math.random().toString();
-		deepEqual(await __SetupImage({
-			url,
-			_SetupImageContent: (function () {
-				return [...arguments];
-			}),
-		}), [url, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
-	});
-
-});
-
 describe('SetupImages', function test_SetupImages() {
 
 	const _SetupImages = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
+			_ValueFetchQueue: Object.assign({}, inputData),
 			_ValueProjectsCache: [],
-			_SetupImage: (function () {}),
+			_DataContentImage: (function () {}),
 		}, inputData).SetupImages();
 	};
 
-	it('calls _SetupImage', async function () {
+	it('calls OLSKQueueAdd', async function () {
 		const ZDAProjectIconURL = Math.random().toString();
+
 		deepEqual(await _SetupImages({
 			_ValueProjectsCache: [{
 				ZDAProjectIconURL,
 			}],
-			_SetupImage: (function () {
+			OLSKQueueAdd: (function () {
+				return [...arguments].map(function (e) {
+					return typeof e;
+				});
+			}),
+		}), [['function']]);
+	});
+
+	it('calls _DataContentImage', async function () {
+		const ZDAProjectIconURL = Math.random().toString();
+
+		deepEqual(await _SetupImages({
+			_ValueProjectsCache: [{
+				ZDAProjectIconURL,
+			}],
+			OLSKQueueAdd: (function (inputData) {
+				return inputData();
+			}),
+			_DataContentImage: (function () {
 				return [...arguments];
 			}),
-		}), [[ZDAProjectIconURL]]);
+		}), [[ZDAProjectIconURL, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(ZDAProjectIconURL))]]);
 	});
 
 	it('ignores if no ZDAProjectIconURL', async function () {
@@ -1500,7 +1385,7 @@ describe('SetupImages', function test_SetupImages() {
 				ZDAProjectIconURL: Math.random().toString(),
 				_ZDAProjectIconURLCachedPath: Math.random().toString(),
 			}],
-			_SetupImage: (function () {
+			_DataContentImage: (function () {
 				return [...arguments];
 			}),
 		}), []);

@@ -13,8 +13,8 @@
     "OLSKGazette": "olsk/OLSKGazette",
     "ROCORootLink": "rationalcreative/ROCORootLink",
     "OLSKRobots": "olsk/OLSKRobots",
+    "OLSKQueue": "olsk/OLSKQueue",
     "cheerio": "latest",
-    "queue": "latest",
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {
