@@ -892,6 +892,24 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 });
 
+describe('_DataURLCacheFilename', function test__DataURLCacheFilename() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataURLCacheFilename(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const host = uRandomElement('www.example.com', 'www.alfa.bravo');
+		const filename = Date.now().toString();
+		const item = 'https://' + host + '/' + filename;
+
+		deepEqual(mod._DataURLCacheFilename(item), host.replace('www.', '') + '.' + mod._DataHash(item));
+	});
+
+});
+
 describe('_DataImageFilename', function test__DataImageFilename() {
 
 	it('throws if not string', function () {

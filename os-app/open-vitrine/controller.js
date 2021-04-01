@@ -352,6 +352,16 @@ const mod = {
 		return require('crypto').createHash('md5').update(inputData).digest('hex');
 	},
 
+	_DataURLCacheFilename (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const host = (new URL('', inputData)).host.replace('www.', '');
+
+		return host + '.' + mod._DataHash(inputData);
+	},
+
 	_DataImageFilename (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
