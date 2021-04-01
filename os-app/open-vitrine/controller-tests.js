@@ -1085,7 +1085,7 @@ describe('_SetupListing', function test__SetupListing() {
 
 	context('_ParamCallbackDidFinish', function () {
 
-		it('calls writeFileSync', async function () {
+		it('calls OLSKDiskWrite', async function () {
 			const url = 'https://example.com/' + Math.random().toString();
 			const data = Math.random().toString();
 			

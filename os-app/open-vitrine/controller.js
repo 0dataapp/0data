@@ -416,9 +416,7 @@ const mod = {
 			ParamMap: _this._ValueListingsCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
-				return Promise.resolve(_this._DataContentString(inputData)).catch(function (error) {
-					// TODO: Handle fetch error, maybe retry
-				});
+				return _this._DataContentString(inputData);
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
@@ -445,10 +443,8 @@ const mod = {
 			ParamMap: _this._ValueDetailsCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
-				return Promise.resolve(_this._ValueFetchQueue.OLSKQueueAdd(function () {
+				return _this._ValueFetchQueue.OLSKQueueAdd(function () {
 					return _this._DataContentString(inputData);
-				})).catch(function (error) {
-					// TODO: Handle fetch error, maybe retry
 				});
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
@@ -483,7 +479,7 @@ const mod = {
 	},
 
 	_SetupImage (inputData) {
-		if (!this._DataContentImage) {
+		if (!this._ValueFetchQueue) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
