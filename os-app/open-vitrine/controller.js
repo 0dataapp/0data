@@ -464,13 +464,13 @@ const mod = {
 		}
 
 		const _this = this;
-		return Promise.all(_this._ValueProjectsCache.filter(function (e) {
+		return _this._ValueProjectsCache.filter(function (e) {
 			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
 			return _this._ValueFetchQueue.OLSKQueueAdd(function () {
 				return _this._DataContentImage(e.ZDAProjectIconURL, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(e.ZDAProjectIconURL)));
 			});
-		}));
+		});
 	},
 
 	// LIFECYCLE
