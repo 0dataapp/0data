@@ -72,6 +72,7 @@ const mod = {
 
 	_DataFoilOLSKCache: require('OLSKCache'),
 	_DataFoilOLSKQueue: require('OLSKQueue'),
+	_DataFoilOLSKDisk: require('OLSKDisk'),
 	_DataFoilFS: require('fs'),
 
 	DataCacheNameListings() {
@@ -362,6 +363,14 @@ const mod = {
 		return host + '.' + mod._DataHash(inputData);
 	},
 
+	_DataListingURLCachePath (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
+	},
+
 	_DataImageFilename (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -389,7 +398,12 @@ const mod = {
 	},
 
 	SetupListingsCache () {
-		this._ValueListingsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')) || {};
+		const _this = this;
+		this._ValueListingsCache = mod.DataListingURLs().reduce(function (coll, item) {
+			return Object.assign(coll, {
+				[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod._DataListingURLCachePath(mod._DataURLCacheFilename(item))),
+			});
+		}, {});
 	},
 
 	_SetupListing (inputData) {
@@ -408,7 +422,7 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueListingsCache, mod.DataCacheNameListings(), require('path').join(__dirname, '__cached'));
+				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataListingURLCachePath(mod._DataURLCacheFilename(inputData)), _this._ValueListingsCache[inputData]);
 			}),
 		});
 	},

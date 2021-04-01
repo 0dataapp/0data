@@ -910,6 +910,21 @@ describe('_DataURLCacheFilename', function test__DataURLCacheFilename() {
 
 });
 
+describe('_DataListingURLCachePath', function test__DataListingURLCachePath() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataListingURLCachePath(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const item = Math.random().toString();
+		deepEqual(mod._DataListingURLCachePath(item), require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), item));
+	});
+
+});
+
 describe('_DataImageFilename', function test__DataImageFilename() {
 
 	it('throws if not string', function () {
@@ -976,33 +991,37 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 
 	const _SetupListingsCache = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheReadFile: (function () {}),
+			_DataFoilOLSKDisk: Object.assign({
+				OLSKDiskRead: (function () {}),
 			}, inputData),
 		});
 		return _mod.SetupListingsCache() || _mod;
 	};
 
-	it('calls OLSKCacheReadFile', function () {
+	it('calls OLSKDiskRead', function () {
 		const items = [];
 
 		_SetupListingsCache({
-			OLSKCacheReadFile: (function () {
+			OLSKDiskRead: (function () {
 				items.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, [mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
+		deepEqual(items, mod.DataListingURLs().map(mod._DataURLCacheFilename).map(mod._DataListingURLCachePath));
 	});
 
 	it('sets _ValueListingsCache', function () {
-		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
+		const OLSKDiskRead = uRandomElement(Math.random().toString(), null);
 
 		deepEqual(_SetupListingsCache({
-			OLSKCacheReadFile: (function () {
-				return OLSKCacheReadFile;
+			OLSKDiskRead: (function () {
+				return OLSKDiskRead;
 			}),
-		})._ValueListingsCache, OLSKCacheReadFile || {});
+		})._ValueListingsCache, mod.DataListingURLs().reduce(function (coll, item) {
+			return Object.assign(coll, {
+				[item]: OLSKDiskRead,
+			});
+		}, {}));
 	});
 
 });
@@ -1015,7 +1034,10 @@ describe('_SetupListing', function test__SetupListing() {
 
 			_DataFoilOLSKCache: Object.assign({
 				OLSKCacheResultFetchRenew: (function () {}),
-				OLSKCacheWriteFile: (function () {}),
+			}, inputData),
+
+			_DataFoilOLSKDisk: Object.assign({
+				OLSKDiskWrite: (function () {}),
 			}, inputData),
 		}, inputData)._SetupListing(inputData.url || Math.random().toString());
 	};
@@ -1063,20 +1085,22 @@ describe('_SetupListing', function test__SetupListing() {
 
 	context('_ParamCallbackDidFinish', function () {
 
-		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueListingsCache = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
+		it('calls writeFileSync', async function () {
+			const url = 'https://example.com/' + Math.random().toString();
+			const data = Math.random().toString();
+			
 			deepEqual(await __SetupListing({
-				_ValueListingsCache,
+				url,
+				_ValueListingsCache: {
+					[url]: data,
+				},
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData._ParamCallbackDidFinish();
 				}),
-				OLSKCacheWriteFile: (function () {
+				OLSKDiskWrite: (function () {
 					return [...arguments];
 				}),
-			}), [_ValueListingsCache, mod.DataCacheNameListings(), require('path').join(__dirname, '__cached')]);
+			}), [mod._DataListingURLCachePath(mod._DataURLCacheFilename(url)), data]);
 		});
 	
 	});

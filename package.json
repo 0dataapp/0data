@@ -14,12 +14,13 @@
     "ROCORootLink": "rationalcreative/ROCORootLink",
     "OLSKRobots": "olsk/OLSKRobots",
     "OLSKQueue": "olsk/OLSKQueue",
+    "OLSKCache": "olsk/OLSKCache",
+    "OLSKDisk": "olsk/OLSKDisk",
     "cheerio": "latest",
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {
     "livereload": "latest",
-    "OLSKDisk": "olsk/OLSKDisk",
     "OLSKSpec": "olsk/OLSKSpec",
     "OLSKHotfix": "olsk/OLSKHotfix",
     "OLSKBundle": "olsk/OLSKBundle",
