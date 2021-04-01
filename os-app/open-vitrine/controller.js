@@ -468,18 +468,23 @@ const mod = {
 		});
 	},
 
-	SetupImages () {
+	_SetupImage (inputData) {
 		if (!this._DataContentImage) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
 		const _this = this;
+		return _this._ValueFetchQueue.OLSKQueueAdd(function () {
+			return _this._DataContentImage(inputData, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)));
+		});
+	},
+
+	SetupImages () {
+		const _this = this;
 		return _this._ValueProjectsCache.filter(function (e) {
 			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
-			return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-				return _this._DataContentImage(e.ZDAProjectIconURL, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(e.ZDAProjectIconURL)));
-			});
+			return _this._SetupImage(e.ZDAProjectIconURL);
 		});
 	},
 

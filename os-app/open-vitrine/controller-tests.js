@@ -1349,45 +1349,64 @@ describe('SetupProjects', function test_SetupProjects() {
 
 });
 
-describe('SetupImages', function test_SetupImages() {
+describe('_SetupImage', function test__SetupImage() {
 
-	const _SetupImages = function (inputData = {}) {
+	const __SetupImage = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueFetchQueue: Object.assign({}, inputData),
-			_ValueProjectsCache: [],
 			_DataContentImage: (function () {}),
-		}, inputData).SetupImages();
+		}, inputData)._SetupImage(inputData.url);
 	};
 
 	it('calls OLSKQueueAdd', async function () {
-		const ZDAProjectIconURL = Math.random().toString();
+		const url = Math.random().toString();
 
-		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{
-				ZDAProjectIconURL,
-			}],
+		deepEqual(await __SetupImage({
+			url,
 			OLSKQueueAdd: (function () {
 				return [...arguments].map(function (e) {
 					return typeof e;
 				});
 			}),
-		}), [['function']]);
+		}), ['function']);
 	});
 
 	it('calls _DataContentImage', async function () {
-		const ZDAProjectIconURL = Math.random().toString();
+		const url = Math.random().toString();
 
-		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{
-				ZDAProjectIconURL,
-			}],
+		deepEqual(await __SetupImage({
+			url,
 			OLSKQueueAdd: (function (inputData) {
 				return inputData();
 			}),
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),
-		}), [[ZDAProjectIconURL, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(ZDAProjectIconURL))]]);
+		}), [url, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
+	});
+
+});
+
+describe('SetupImages', function test_SetupImages() {
+
+	const _SetupImages = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueProjectsCache: [],
+			_SetupImage: (function () {}),
+		}, inputData).SetupImages();
+	};
+
+	it('calls _SetupImage', async function () {
+		const ZDAProjectIconURL = Math.random().toString();
+
+		deepEqual(await _SetupImages({
+			_ValueProjectsCache: [{
+				ZDAProjectIconURL,
+			}],
+			_SetupImage: (function () {
+				return [...arguments];
+			}),
+		}), [[ZDAProjectIconURL]]);
 	});
 
 	it('ignores if no ZDAProjectIconURL', async function () {
