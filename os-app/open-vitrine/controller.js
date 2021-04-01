@@ -360,7 +360,7 @@ const mod = {
 
 		const host = (new URL('', inputData)).host.replace('www.', '');
 
-		return host + '.' + mod._DataHash(inputData);
+		return host + '.' + mod._DataHash(inputData) + '.html';
 	},
 
 	_DataListingURLCachePath (inputData) {

@@ -905,7 +905,7 @@ describe('_DataURLCacheFilename', function test__DataURLCacheFilename() {
 		const filename = Date.now().toString();
 		const item = 'https://' + host + '/' + filename;
 
-		deepEqual(mod._DataURLCacheFilename(item), host.replace('www.', '') + '.' + mod._DataHash(item));
+		deepEqual(mod._DataURLCacheFilename(item), host.replace('www.', '') + '.' + mod._DataHash(item) + '.html');
 	});
 
 });
