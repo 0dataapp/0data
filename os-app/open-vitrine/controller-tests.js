@@ -34,6 +34,80 @@ describe('DataCacheNameProjects', function test_DataCacheNameProjects() {
 
 });
 
+describe('DataCacheFilenameURL', function test_DataCacheFilenameURL() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCacheFilenameURL(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const host = uRandomElement('www.example.com', 'www.alfa.bravo');
+		const filename = Date.now().toString();
+		const item = 'https://' + host + '/' + filename;
+
+		deepEqual(mod.DataCacheFilenameURL(item), host.replace('www.', '') + '.' + mod._DataHash(item) + '.html');
+	});
+
+});
+
+describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCacheFilenameImage(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
+		const filename = Date.now().toString();
+		const item = 'https://example.com/' + filename + extension;
+
+		deepEqual(mod.DataCacheFilenameImage(item), mod._DataHash(item) + extension);
+	});
+
+});
+
+describe('DataCachePathListings', function test_DataCachePathListings() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCachePathListings(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataCachePathListings(item), require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), item));
+	});
+
+});
+
+describe('DataCachePathInfo', function test_DataCachePathInfo() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCachePathInfo(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataCachePathInfo(item), require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), item));
+	});
+
+});
+
+describe('DataCachePathImages', function test_DataCachePathImages() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataCachePathImages(), require('path').join(__dirname, '__cached', 'ui-assets'));
+	});
+
+});
+
 describe('DataListingURLs', function test_DataListingURLs() {
 
 	it('returns array', function () {
@@ -874,7 +948,7 @@ describe('_DataImageURL', function test__DataImageURL() {
 			}),
 		});
 
-		deepEqual(item, [require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
+		deepEqual(item, [require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url))]);
 	});
 
 	it('returns local URL if existsSync', function () {
@@ -885,7 +959,7 @@ describe('_DataImageURL', function test__DataImageURL() {
 			existsSync: (function () {
 				return true;
 			}),
-		}), require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)).replace(require('path').join(__dirname, '../'), '/'));
+		}), require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url)).replace(require('path').join(__dirname, '../'), '/'));
 	});
 
 	it('returns null', function () {
@@ -1070,72 +1144,6 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 });
 
-describe('_DataURLCacheFilename', function test__DataURLCacheFilename() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataURLCacheFilename(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const host = uRandomElement('www.example.com', 'www.alfa.bravo');
-		const filename = Date.now().toString();
-		const item = 'https://' + host + '/' + filename;
-
-		deepEqual(mod._DataURLCacheFilename(item), host.replace('www.', '') + '.' + mod._DataHash(item) + '.html');
-	});
-
-});
-
-describe('_DataListingURLCachePath', function test__DataListingURLCachePath() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataListingURLCachePath(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const item = Math.random().toString();
-		deepEqual(mod._DataListingURLCachePath(item), require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), item));
-	});
-
-});
-
-describe('_DataInfoURLCachePath', function test__DataInfoURLCachePath() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataInfoURLCachePath(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const item = Math.random().toString();
-		deepEqual(mod._DataInfoURLCachePath(item), require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), item));
-	});
-
-});
-
-describe('_DataImageFilename', function test__DataImageFilename() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataImageFilename(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
-		const filename = Date.now().toString();
-		const item = 'https://example.com/' + filename + extension;
-
-		deepEqual(mod._DataImageFilename(item), mod._DataHash(item) + extension);
-	});
-
-});
-
 describe('_SetupMethods', function test__SetupMethods() {
 
 	it('returns array', function () {
@@ -1200,7 +1208,7 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 			}),
 		});
 
-		deepEqual(items, mod.DataListingURLs().map(mod._DataURLCacheFilename).map(mod._DataListingURLCachePath));
+		deepEqual(items, mod.DataListingURLs().map(mod.DataCacheFilenameURL).map(mod.DataCachePathListings));
 	});
 
 	it('sets _ValueListingsCache', function () {
@@ -1293,7 +1301,7 @@ describe('_SetupListing', function test__SetupListing() {
 				OLSKDiskWrite: (function () {
 					return [...arguments];
 				}),
-			}), [mod._DataListingURLCachePath(mod._DataURLCacheFilename(url)), data]);
+			}), [mod.DataCachePathListings(mod.DataCacheFilenameURL(url)), data]);
 		});
 	
 	});
@@ -1401,7 +1409,7 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 					res([...arguments])
 				}),
 			});
-		}), [mod._DataInfoURLCachePath(mod._DataURLCacheFilename(ParamURL)), ParamHTML]);
+		}), [mod.DataCachePathInfo(mod.DataCacheFilenameURL(ParamURL)), ParamHTML]);
 	});
 
 	it('returns _DataInfoDOMPropertyCandidates', async function () {
@@ -1827,7 +1835,7 @@ describe('_SetupImage', function test__SetupImage() {
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),
-		}), [url, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
+		}), [url, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url))]);
 	});
 
 });

@@ -31,12 +31,6 @@ const uGet = function (inputData, pipePath) {
   });
 };
 
-const uSerial = function (inputData) {
-	return inputData.reduce(async function (coll, e) {
-		return e.then(Array.prototype.concat.bind(await coll));
-	}, Promise.resolve([]));
-};
-
 const uSerial2 = function (inputData) {
 	return inputData.reduce(async function (coll, e) {
 		return (await coll).concat(await new Promise(function (res, rej) {
@@ -92,6 +86,12 @@ const mod = {
 	_DataContentString: uGet,
 	_DataContentImage: uGet,
 
+	_DataHash (inputData) {
+		return require('crypto').createHash('md5').update(inputData).digest('hex');
+	},
+
+	// * CACHE
+
 	DataCacheNameListings() {
 		return 'cache-a-listings';
 	},
@@ -107,6 +107,48 @@ const mod = {
 	DataCacheNameProjects() {
 		return 'cache-c-projects';
 	},
+
+	DataCacheFilenameURL (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const host = (new URL('', inputData)).host.replace('www.', '');
+
+		return host + '.' + mod._DataHash(inputData) + '.html';
+	},
+
+	DataCacheFilenameImage (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const extension = require('path').extname(inputData);
+
+		return mod._DataHash(inputData) + extension;
+	},
+
+	DataCachePathListings (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
+	},
+
+	DataCachePathInfo (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), inputData);
+	},
+
+	DataCachePathImages () {
+		return require('path').join(__dirname, '__cached', 'ui-assets');
+	},
+
+	// * LISTING
 
 	DataListingURLs() {
 		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
@@ -250,6 +292,8 @@ const mod = {
 		}).objects;
 	},
 
+	// * DETAIL
+
 	_DataDetailPropertyCandidatesURL (url, path) {
 		if (typeof url !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -358,8 +402,10 @@ const mod = {
 		return this.DataListingProjects().map(this._DataDetailProperties);
 	},
 
+	// * IMAGE
+
 	_DataImageURL (inputData) {
-		const localURL = require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData));
+		const localURL = require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData));
 		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
 	},
 
@@ -373,6 +419,8 @@ const mod = {
 			return e;
 		});
 	},
+
+	// * PROJECTS
 
 	DataProjectsSort (a, b) {
 		const unmatched = [
@@ -422,50 +470,6 @@ const mod = {
 		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectSchema));
 	},
 
-	_DataHash (inputData) {
-		return require('crypto').createHash('md5').update(inputData).digest('hex');
-	},
-
-	_DataURLCacheFilename (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		const host = (new URL('', inputData)).host.replace('www.', '');
-
-		return host + '.' + mod._DataHash(inputData) + '.html';
-	},
-
-	_DataListingURLCachePath (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
-	},
-
-	_DataInfoURLCachePath (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		return require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), inputData);
-	},
-
-	_DataImageFilename (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		const extension = require('path').extname(inputData);
-
-		return mod._DataHash(inputData) + extension;
-	},
-
-	_DataImageCacheDirectoryPath () {
-		return require('path').join(__dirname, '__cached', 'ui-assets');
-	},
-
 	// SETUP
 
 	_SetupMethods () {
@@ -486,7 +490,7 @@ const mod = {
 		const _this = this;
 		this._ValueListingsCache = mod.DataListingURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
-				[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod._DataListingURLCachePath(mod._DataURLCacheFilename(item))),
+				[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod.DataCachePathListings(mod.DataCacheFilenameURL(item))),
 			});
 		}, {});
 	},
@@ -505,7 +509,7 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataListingURLCachePath(mod._DataURLCacheFilename(inputData)), _this._ValueListingsCache[inputData]);
+				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathListings(mod.DataCacheFilenameURL(inputData)), _this._ValueListingsCache[inputData]);
 			}),
 		});
 	},
@@ -524,7 +528,7 @@ const mod = {
 		}
 
 		return Object.fromEntries(this._DataInfoDOMPropertyCandidates({
-			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataInfoURLCachePath(mod._DataURLCacheFilename(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
+			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathInfo(mod.DataCacheFilenameURL(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
 			ParamURL: inputData,
 		}));
 	},
@@ -613,7 +617,7 @@ const mod = {
 
 		const _this = this;
 		return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-			return _this._DataContentImage(inputData, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)));
+			return _this._DataContentImage(inputData, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData)));
 		});
 	},
 
