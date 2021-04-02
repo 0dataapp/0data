@@ -85,6 +85,15 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 		deepEqual(mod.DataCacheFilenameImage(item), mod._DataHash(item) + extension);
 	});
 
+	it('strips query', function () {
+		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
+		const filename = Date.now().toString();
+		const item = 'https://example.com/' + filename + extension;
+		const query = '?' + Date.now().toString();
+
+		deepEqual(mod.DataCacheFilenameImage(item + query), mod._DataHash(item + query) + extension);
+	});
+
 });
 
 describe('DataCachePathListings', function test_DataCachePathListings() {

@@ -131,7 +131,7 @@ const mod = {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		const extension = require('path').extname(inputData);
+		const extension = require('path').extname(inputData).split('?').shift();
 
 		return mod._DataHash(inputData) + extension;
 	},
