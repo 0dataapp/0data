@@ -1,36 +1,6 @@
 const cheerio = require('cheerio');
 const { JSDOM } = require('JSDOM');
 
-// How to get node.js HTTP request promise without a single dependency https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
-const uGet = function (inputData, pipePath) {
-	const file = pipePath ? require('fs').createWriteStream(pipePath) : null;
-  return new Promise((resolve, reject) => {
-    (inputData.startsWith('https') ? require('https') : require('http')).get(inputData, (response) => {
-    	if (response.statusCode === 301) {
-    		return resolve(uGet(response.headers.location, pipePath))
-    	}
-
-      if (response.statusCode < 200 || response.statusCode > 299) {
-      	return reject(new Error('Error: ' + response.statusCode));
-      }
-
-      const body = [];
-
-      response.on('data', function (chunk) {
-      	return body.push(chunk);
-      });
-
-      response.on('end', function () {
-      	return resolve(body.join(''))
-      });
-
-      if (file) {
-      	return response.pipe(file);
-      }      
-    }).on('error', reject);
-  });
-};
-
 const uSerial2 = function (inputData) {
 	return inputData.reduce(async function (coll, e) {
 		return (await coll).concat(await new Promise(function (res, rej) {
@@ -88,7 +58,21 @@ const mod = {
 	async _DataContentString (inputData) {
 		return (await require('node-fetch')(inputData)).text();
 	},
-	_DataContentImage: uGet,
+	async _DataContentImage (url, file) {
+		const {createWriteStream} = require('fs');
+		const {pipeline} = require('stream');
+		const {promisify} = require('util');
+		const fetch = require('node-fetch');
+
+		const streamPipeline = promisify(pipeline);
+
+		const response = await fetch(url);
+
+		if (!response.ok)
+			throw new Error(`unexpected response ${response.statusText}`);
+
+		await streamPipeline(response.body, createWriteStream(file));
+	},
 
 	_DataHash (inputData) {
 		return require('crypto').createHash('md5').update(inputData).digest('hex');
