@@ -573,37 +573,54 @@ describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
 			_DataInfoDOMPropertyCandidates: (function () {
 				return [];
 			}),
-		}, inputData)._DataInfoDOMProperties(inputData.object || {});
+		}, inputData)._DataInfoDOMProperties(Object.assign({
+			ParamProject: {},
+		}, inputData));
 	};
+
+	it('throws if not object', function () {
+		throws(function () {
+			mod._DataInfoDOMProperties(null);
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('throws if ParamProject not object', function () {
+		throws(function () {
+			__DataInfoDOMProperties({
+				ParamProject: null,
+			});
+		}, /ZDRErrorInputNotValid/);
+	});
 
 	it('returns object', function () {
 		deepEqual(__DataInfoDOMProperties({
-			[Math.random().toString()]: Math.random().toString(),
+			ParamProject: {
+				[Math.random().toString()]: Math.random().toString(),
+			},
 		}), {});
 	});
 
 	it('calls _DataInfoDOMPropertyCandidates', function () {
-		const object = {
-			[Math.random().toString()]: Math.random().toString(),
+		const inputData = {
+			ParamProject: {},
 		};
 
 		deepEqual(uCapture(function (capture) {
-			__DataInfoDOMProperties({
-				object,
+			__DataInfoDOMProperties(Object.assign(inputData, {
 				_DataInfoDOMPropertyCandidates: (function () {
 					capture(...arguments);
 
 					return [];
 				}),
-			});
-		}), [object]);
+			}));
+		}), [inputData]);
 	});
 
 	it('excludes underscore if present', function () {
 		const item = Math.random().toString();
 		
 		deepEqual(__DataInfoDOMProperties({
-			object: {
+			ParamProject: {
 				[item]: item,
 			},
 			_DataInfoDOMPropertyCandidates: (function () {
@@ -1329,34 +1346,39 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 	const __SetupInfoFetch = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
 			_DataFoilNodeFetch: (function () {}),
-		}, inputData)._SetupInfoFetch(inputData.url || Math.random().toString());
+		}, inputData)._SetupInfoFetch(inputData.ParamURL || Math.random().toString());
 	};
 
 	it('calls _DataFoilNodeFetch', function () {
-		const url = Math.random().toString();
+		const ParamURL = Math.random().toString();
 
 		deepEqual(uCapture(function (_DataFoilNodeFetch) {
 			__SetupInfoFetch({
-				url,
+				ParamURL,
 				_DataFoilNodeFetch,
 			});
-		}), [url]);
+		}), [ParamURL]);
 	});
 
-	it('returns _DataInfo', async function () {
-		const item = Math.random().toString();
+	it('returns _DataInfoDOMPropertyCandidates', async function () {
+		const ParamHTML = Math.random().toString();
+		const ParamURL = Math.random().toString();
 		deepEqual(await __SetupInfoFetch({
+			ParamURL,
 			_DataFoilNodeFetch: (function () {
 				return {
 					text: (function () {
-						return item;
+						return ParamHTML;
 					}),
 				};
 			}),
-			_DataInfo: (function () {
+			_DataInfoDOMPropertyCandidates: (function () {
 				return [...arguments];
 			}),
-		}), [item]);
+		}), [{
+			ParamHTML,
+			ParamURL,
+		}]);
 	});
 
 });

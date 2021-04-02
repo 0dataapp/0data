@@ -280,12 +280,20 @@ const mod = {
 	},
 
 	_DataInfoDOMProperties (inputData) {
-		return this._DataInfoDOMPropertyCandidates(inputData).reduce(function (coll, [key, value]) {
-			if (key.startsWith('_')) {
-				if (inputData[key.slice(1)]) {
-					return coll;
-				}
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('ZDRErrorInputNotValid');
+		}
 
+		if (typeof inputData.ParamProject !== 'object' || inputData.ParamProject === null) {
+			throw new Error('ZDRErrorInputNotValid');
+		}
+
+		return this._DataInfoDOMPropertyCandidates(inputData).reduce(function (coll, [key, value]) {
+			if (key.startsWith('_') && inputData.ParamProject[key.slice(1)]) {
+				return coll;
+			}
+
+			if (key.startsWith('_')) {
 				key = key.slice(1);
 			}
 
@@ -488,7 +496,10 @@ const mod = {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._DataInfo(await (await this._DataFoilNodeFetch(inputData).text()));
+		return this._DataInfoDOMPropertyCandidates({
+			ParamHTML: await (await this._DataFoilNodeFetch(inputData).text()),
+			ParamURL: inputData,
+		});
 	},
 
 	_SetupInfo (inputData) {
