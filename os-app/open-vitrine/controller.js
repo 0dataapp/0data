@@ -56,7 +56,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
 				return res.OLSKExpressLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod._ValueProjectsCache,
+					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod.DataProjects2(),
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			}),
@@ -74,6 +74,9 @@ const mod = {
 	OLSKControllerUseLivereload () {
 		return process.env.NODE_ENV === 'development';
 	},
+
+	_ValueListingsCache: {},
+	_ValueInfoCache: {},
 
 	// DATA
 
@@ -338,30 +341,6 @@ const mod = {
 		});
 	},
 
-	_DataInfoDOMProperties (inputData) {
-		if (typeof inputData !== 'object' || inputData === null) {
-			throw new Error('ZDRErrorInputNotValid');
-		}
-
-		if (typeof inputData.ParamProject !== 'object' || inputData.ParamProject === null) {
-			throw new Error('ZDRErrorInputNotValid');
-		}
-
-		return this._DataInfoDOMPropertyCandidates(inputData).reduce(function (coll, [key, value]) {
-			if (key.startsWith('_') && inputData.ParamProject[key.slice(1)]) {
-				return coll;
-			}
-
-			if (key.startsWith('_')) {
-				key = key.slice(1);
-			}
-
-			return Object.assign(coll, {
-				[key]: value,
-			});
-		}, {});
-	},
-
 	_DataDetailPropertyCandidates (inputData) {
 		if (!this._ValueDetailsCache ) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
@@ -449,6 +428,49 @@ const mod = {
 		return this.DataImagedProjects().sort(mod.DataProjectsSort);
 	},
 
+	_DataProjectImageProperty (inputData) {
+		const _this = this;
+
+		if (inputData.ZDAProjectIconURL) {
+			inputData._ZDAProjectIconURLCachedPath = _this._DataImageURL(inputData.ZDAProjectIconURL);
+		}
+
+		return inputData;
+	},
+
+	_DataProjectProperties (inputData) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('ZDRErrorInputNotValid');
+		}
+
+		return Object.entries(this._ValueInfoCache[inputData.ZDAProjectURL] || {}).reduce(function (coll, [key, value]) {
+			if (key.startsWith('_') && coll[key.slice(1)]) {
+				return coll;
+			}
+
+			if (key.startsWith('_')) {
+				key = key.slice(1);
+			}
+
+			return Object.assign(coll, {
+				[key]: value,
+			});
+		}, inputData);
+	},
+
+	DataProjects2 () {
+		if (!this.DataImagedProjects) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		const _this = this;
+		return _this.DataListingProjects().map(function (e) {
+			return _this._DataProjectProperties(e);
+		}).map(function (e) {
+			return _this._DataProjectImageProperty(e);
+		}).sort(mod.DataProjectsSort);
+	},
+
 	// * JSON
 
 	DataProjectJSONSchema (inputData) {
@@ -490,11 +512,13 @@ const mod = {
 
 	SetupListingsCache () {
 		const _this = this;
-		this._ValueListingsCache = mod.DataListingURLs().reduce(function (coll, item) {
-			return Object.assign(coll, {
-				[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod.DataCachePathListings(mod.DataCacheFilenameURL(item))),
-			});
-		}, {});
+		Object.assign(mod, Object.assign(this, {
+			_ValueListingsCache: mod.DataListingURLs().reduce(function (coll, item) {
+				return Object.assign(coll, {
+					[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod.DataCachePathListings(mod.DataCacheFilenameURL(item))),
+				});
+			}, {}),
+		}));
 	},
 
 	_SetupListing (inputData) {
@@ -521,7 +545,9 @@ const mod = {
 	},
 
 	SetupInfoCache () {
-		this._ValueInfoCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {};
+		Object.assign(mod, Object.assign(this, {
+			_ValueInfoCache: this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {},
+		}));
 	},
 
 	async _SetupInfoFetch (inputData) {

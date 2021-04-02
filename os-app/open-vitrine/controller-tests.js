@@ -637,99 +637,6 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 
 });
 
-describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
-	
-	const __DataInfoDOMProperties = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			_DataInfoDOMPropertyCandidates: (function () {
-				return [];
-			}),
-		}, inputData)._DataInfoDOMProperties(Object.assign({
-			ParamProject: {},
-		}, inputData));
-	};
-
-	it('throws if not object', function () {
-		throws(function () {
-			mod._DataInfoDOMProperties(null);
-		}, /ZDRErrorInputNotValid/);
-	});
-
-	it('throws if ParamProject not object', function () {
-		throws(function () {
-			__DataInfoDOMProperties({
-				ParamProject: null,
-			});
-		}, /ZDRErrorInputNotValid/);
-	});
-
-	it('returns object', function () {
-		deepEqual(__DataInfoDOMProperties({
-			ParamProject: {
-				[Math.random().toString()]: Math.random().toString(),
-			},
-		}), {});
-	});
-
-	it('calls _DataInfoDOMPropertyCandidates', function () {
-		const inputData = {
-			ParamProject: {},
-		};
-
-		deepEqual(uCapture(function (capture) {
-			__DataInfoDOMProperties(Object.assign(inputData, {
-				_DataInfoDOMPropertyCandidates: (function () {
-					capture(...arguments);
-
-					return [];
-				}),
-			}));
-		}), [inputData]);
-	});
-
-	it('excludes underscore if present', function () {
-		const item = Math.random().toString();
-		
-		deepEqual(__DataInfoDOMProperties({
-			ParamProject: {
-				[item]: item,
-			},
-			_DataInfoDOMPropertyCandidates: (function () {
-				return Object.entries({
-					['_' + item]: Math.random().toString(),
-				});
-			}),
-		}), {});
-	});
-	
-	it('includes', function () {
-		const item = Math.random().toString();
-		const _DataInfoDOMPropertyCandidates = {
-			[item]: Math.random().toString(),
-		};
-
-		deepEqual(__DataInfoDOMProperties({
-			_DataInfoDOMPropertyCandidates: (function () {
-				return Object.entries(_DataInfoDOMPropertyCandidates);
-			}),
-		}), _DataInfoDOMPropertyCandidates);
-	});
-	
-	it('strips underscore', function () {
-		const item = Math.random().toString();
-		deepEqual(__DataInfoDOMProperties({
-			_DataInfoDOMPropertyCandidates: (function () {
-				return Object.entries({
-					['_' + item]: item,
-				});
-			}),
-		}), {
-			[item]: item,
-		});
-	});
-
-});
-
 describe('_DataDetailPropertyCandidates', function test__DataDetailPropertyCandidates() {
 
 	const __DataDetailPropertyCandidates = function (inputData = {}) {
@@ -1072,6 +979,179 @@ describe('DataProjects', function test_DataProjects() {
 
 		deepEqual(_DataProjects({
 			DataImagedProjects: (function () {
+				return [item1, item2];
+			}),
+		}), [item2, item1]);
+	});
+
+});
+
+describe('_DataProjectImageProperty', function test__DataProjectImageProperty() {
+	
+	const __DataProjectImageProperty = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+		}, inputData)._DataProjectImageProperty(inputData.ParamProject);
+	};
+
+	it('returns inputData', function () {
+		const ParamProject = {
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+		deepEqual(__DataProjectImageProperty({
+			ParamProject,
+		}), ParamProject);
+	});
+
+	it('sets _ZDAProjectIconURLCachedPath if __DataImageURL', function () {
+		const ZDAProjectIconURL = Math.random().toString();
+		const _DataImageURL = Math.random().toString();
+
+		deepEqual(__DataProjectImageProperty({
+			ParamProject: {
+				ZDAProjectIconURL,
+			},
+			_DataImageURL: (function () {
+				return _DataImageURL;
+			}),
+		}), {
+			ZDAProjectIconURL,
+			_ZDAProjectIconURLCachedPath: _DataImageURL,
+		});
+	});
+
+});
+
+describe('_DataProjectProperties', function test__DataProjectProperties() {
+	
+	const __DataProjectProperties = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueInfoCache: {},
+			_DataInfoDOMPropertyCandidates: (function () {
+				return [];
+			}),
+		}, inputData)._DataProjectProperties(inputData.ParamProject);
+	};
+
+	it('throws if not object', function () {
+		throws(function () {
+			mod._DataProjectProperties(null);
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('returns inputData', function () {
+		const ParamProject = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+		}), ParamProject);
+	});
+	
+	it('includes _ValueInfoCache', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const ParamProject = {
+			ZDAProjectURL,
+		};
+		const _ValueInfoCache = {
+			[ZDAProjectURL]: {
+				[Math.random().toString()]: Math.random().toString(),
+			},
+		};
+
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+			_ValueInfoCache,
+		}), Object.assign(ParamProject, _ValueInfoCache));
+	});
+	
+	it('excludes underscore if present', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const item = Math.random().toString();
+		const ParamProject = {
+			ZDAProjectURL,
+			[item]: Math.random().toString(),
+		};
+		const _ValueInfoCache = {
+			[ZDAProjectURL]: {
+				['_' + item]: Math.random().toString(),
+			},
+		};
+
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+			_ValueInfoCache,
+		}), ParamProject);
+	});
+	
+	it('strips underscore', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const item = Math.random().toString();
+		const ParamProject = {
+			ZDAProjectURL,
+		};
+		const _ValueInfoCache = {
+			[ZDAProjectURL]: {
+				['_' + item]: item,
+			},
+		};
+
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+			_ValueInfoCache,
+		}), Object.assign(ParamProject, {
+			[item]: item,
+		}));
+	});
+
+});
+
+describe('DataProjects2', function test_DataProjects2() {
+	
+	const _DataProjects2 = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueInfoCache: {},
+			DataListingProjects: (function () {}),
+		}, inputData).DataProjects2();
+	};
+
+	it('merges sources', function () {
+		const candidates = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		const ZDAProjectURL = Math.random().toString();
+		const _ZDAProjectIconURLCachedPath = Math.random().toString();
+		deepEqual(_DataProjects2({
+			_ValueInfoCache: {
+				[ZDAProjectURL]: candidates,
+			},
+			DataListingProjects: (function () {
+				return [{
+					ZDAProjectURL,
+				}];
+			}),
+			_DataProjectImageProperty: (function (inputData) {
+				return Object.assign(inputData, {
+					_ZDAProjectIconURLCachedPath,
+				});
+			}),
+		}), [Object.assign({
+			ZDAProjectURL,
+		}, candidates, {
+			_ZDAProjectIconURLCachedPath,
+		})]);
+	});
+
+	it('sorts with DataProjects2Sort', function () {
+		const item1 = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		const item2 = {
+			ZDAProjectURL: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+		};
+
+		deepEqual(_DataProjects2({
+			DataListingProjects: (function () {
 				return [item1, item2];
 			}),
 		}), [item2, item1]);
