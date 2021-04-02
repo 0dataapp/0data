@@ -1079,21 +1079,21 @@ describe('DataProjects', function test_DataProjects() {
 
 });
 
-describe('DataProjectSchema', function test_DataProjectSchema() {
+describe('DataProjectJSONSchema', function test_DataProjectJSONSchema() {
 	
 	it('throws if not object', function () {
 		throws(function () {
-			mod.DataProjectSchema(null);
+			mod.DataProjectJSONSchema(null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns object', function () {
-		deepEqual(mod.DataProjectSchema({}), {});
+		deepEqual(mod.DataProjectJSONSchema({}), {});
 	});
 
 	it('maps ZDAProjectName', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectName: item,
 		}), {
 			name: item,
@@ -1102,7 +1102,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 	it('maps ZDAProjectBlurb', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectBlurb: item,
 		}), {
 			description: item,
@@ -1111,7 +1111,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 	it('maps ZDAProjectURL', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectURL: item,
 		}), {
 			url: item,
@@ -1120,7 +1120,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 	it('maps ZDAProjectIconURL', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectIconURL: item,
 		}), {
 			image: item,
@@ -1139,7 +1139,7 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
 			_ValueProjectsCache: [item],
-		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectSchema(item)]));
+		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectJSONSchema(item)]));
 	});
 
 });

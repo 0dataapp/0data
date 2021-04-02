@@ -449,7 +449,7 @@ const mod = {
 		return this.DataImagedProjects().sort(mod.DataProjectsSort);
 	},
 
-	DataProjectSchema (inputData) {
+	DataProjectJSONSchema (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
@@ -467,7 +467,7 @@ const mod = {
 	},
 
 	DataProjectsJSON () {
-		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectSchema));
+		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectJSONSchema));
 	},
 
 	// SETUP
