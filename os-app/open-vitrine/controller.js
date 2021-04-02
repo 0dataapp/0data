@@ -437,6 +437,27 @@ const mod = {
 		this._ValueInfoCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {};
 	},
 
+	_SetupInfo (inputData) {
+		if (!this._DataFoilOLSKCache) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		const _this = this;
+		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
+			ParamMap: _this._ValueInfosCache,
+			ParamKey: inputData,
+			ParamCallback: (function () {
+				return _this._ValueFetchQueue.OLSKQueueAdd(function () {
+					return _this._SetupInfoFetch(inputData);
+				});
+			}),
+			ParamInterval: 1000 * 60 * 60 * 24,
+			_ParamCallbackDidFinish: (function () {
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueInfosCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached'));
+			}),
+		});
+	},
+
 	SetupInfos () {
 		return Promise.all(this.DataListedProjects().map(this._SetupInfo));
 	},

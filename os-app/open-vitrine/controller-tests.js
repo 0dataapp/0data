@@ -1168,6 +1168,100 @@ describe('SetupInfoCache', function test_SetupInfoCache() {
 
 });
 
+describe('_SetupInfo', function test__SetupInfo() {
+
+	const __SetupInfo = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueFetchQueue: Object.assign({}, inputData),
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheResultFetchRenew: (function () {}),
+				OLSKCacheWriteFile: (function () {}),
+			}, inputData),
+			_SetupInfoFetch: (function () {}),
+		}, inputData)._SetupInfo(inputData.url || Math.random().toString());
+	};
+
+	it('calls OLSKCacheResultFetchRenew', function () {
+		const url = Math.random().toString();
+		const _ValueInfosCache = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+
+		const item = __SetupInfo({
+			url,
+			_ValueInfosCache,
+			OLSKCacheResultFetchRenew: (function () {
+				return [...arguments];
+			}),
+		}).pop();
+
+		deepEqual(item, {
+			ParamMap: _ValueInfosCache,
+			ParamKey: url,
+			ParamCallback: item.ParamCallback,
+			ParamInterval: 1000 * 60 * 60 * 24,
+			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
+		});
+	});
+
+	context('ParamCallback', function () {
+
+		it('calls OLSKQueueAdd', async function () {
+			const url = Math.random().toString();
+
+			deepEqual(await __SetupInfo({
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData.ParamCallback();
+				}),
+				OLSKQueueAdd: (function () {
+					return [...arguments].map(function (e) {
+						return typeof e;
+					});
+				}),
+			}), ['function']);
+		});
+
+		it('calls _SetupInfoFetch', async function () {
+			const url = Math.random().toString();
+
+			deepEqual(await __SetupInfo({
+				url,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData.ParamCallback();
+				}),
+				OLSKQueueAdd: (function (inputData) {
+					return inputData();
+				}),
+				_SetupInfoFetch: (function () {
+					return [...arguments];
+				}),
+			}), [url]);
+		});
+	
+	});
+
+	context('_ParamCallbackDidFinish', function () {
+
+		it('calls OLSKCacheWriteFile', async function () {
+			const _ValueInfosCache = {
+				[Math.random().toString()]: Math.random().toString(),
+			};
+
+			deepEqual(await __SetupInfo({
+				_ValueInfosCache,
+				OLSKCacheResultFetchRenew: (function (inputData) {
+					return inputData._ParamCallbackDidFinish();
+				}),
+				OLSKCacheWriteFile: (function () {
+					return [...arguments];
+				}),
+			}), [_ValueInfosCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')]);
+		});
+	
+	});
+
+});
+
 describe('SetupInfos', function test_SetupInfos() {
 
 	const _SetupInfos = function (inputData = {}) {
