@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const { JSDOM } = require('JSDOM');
 
 // How to get node.js HTTP request promise without a single dependency https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
 const uGet = function (inputData, pipePath) {
@@ -33,6 +34,18 @@ const uGet = function (inputData, pipePath) {
 const uSerial = function (inputData) {
 	return inputData.reduce(async function (coll, e) {
 		return e.then(Array.prototype.concat.bind(await coll));
+	}, Promise.resolve([]));
+};
+
+const uSerial2 = function (inputData) {
+	return inputData.reduce(async function (coll, e) {
+		return (await coll).concat(await new Promise(function (res, rej) {
+			try {
+				res(e());
+			} catch (error) {
+				rej(error);
+			}
+		}));
 	}, Promise.resolve([]));
 };
 
@@ -84,7 +97,7 @@ const mod = {
 	},
 
 	DataCacheNameInfo() {
-		return 'cache-b-details';
+		return 'cache-b-info';
 	},
 
 	DataCacheNameDetails() {
@@ -249,7 +262,7 @@ const mod = {
 		return (new URL(path, url)).href;
 	},
 
-	_DataInfoDOMPropertyCandidates (inputData, debug) {
+	_DataInfoDOMPropertyCandidates (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDRErrorInputNotValid');
 		}
@@ -262,7 +275,9 @@ const mod = {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		const metadata = require('OLSKDOM').OLSKDOMMetadata(inputData.ParamHTML, debug);
+		const metadata = require('OLSKDOM').OLSKDOMMetadata(inputData.ParamHTML, {
+			JSDOM: JSDOM.fragment,
+		});
 
 		return [
 			['ZDAProjectIconURL', (function(href) {
@@ -460,6 +475,10 @@ const mod = {
 	},
 
 	SetupFetchQueue () {
+		if (!this._DataFoilOLSKQueue) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
 		this._ValueFetchQueue = this._DataFoilOLSKQueue.OLSKQueueAPI();
 	},
 
@@ -504,10 +523,10 @@ const mod = {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._DataInfoDOMPropertyCandidates({
-			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataInfoURLCachePath(mod._DataURLCacheFilename(inputData)), await (await this._DataFoilNodeFetch(inputData).text())),
+		return Object.fromEntries(this._DataInfoDOMPropertyCandidates({
+			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataInfoURLCachePath(mod._DataURLCacheFilename(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
 			ParamURL: inputData,
-		});
+		}));
 	},
 
 	_SetupInfo (inputData) {
@@ -517,7 +536,7 @@ const mod = {
 
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this._ValueInfosCache,
+			ParamMap: _this._ValueInfoCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
 				return _this._ValueFetchQueue.OLSKQueueAdd(function () {
@@ -526,13 +545,16 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueInfosCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached'));
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueInfoCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached'));
 			}),
 		});
 	},
 
 	SetupInfos () {
-		return Promise.all(this.DataListingProjects().map(this._SetupInfo));
+		const _this = this;
+		return Promise.all(this.DataListingProjects().map(function (e) {
+			return _this._SetupInfo(e.ZDAProjectURL);
+		}));
 	},
 
 	SetupDetailsCache () {
@@ -609,8 +631,8 @@ const mod = {
 	LifecycleModuleDidLoad () {
 		const _this = this;
 		
-		return uSerial(_this._SetupMethods().map(function (e) {
-			return Promise.resolve(_this[e]());
+		return uSerial2(_this._SetupMethods().map(function (e) {
+			return _this[e];
 		}));
 	},
 

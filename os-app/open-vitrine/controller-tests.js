@@ -1,7 +1,6 @@
 const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
-const { JSDOM } = require('JSDOM');
 
 describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
@@ -14,7 +13,7 @@ describe('DataCacheNameListings', function test_DataCacheNameListings() {
 describe('DataCacheNameInfo', function test_DataCacheNameInfo() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNameInfo(), 'cache-b-details');
+		deepEqual(mod.DataCacheNameInfo(), 'cache-b-info');
 	});
 
 });
@@ -493,9 +492,7 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 		return mod._DataInfoDOMPropertyCandidates(Object.assign({
 			ParamHTML: Math.random().toString(),
 			ParamURL: Math.random().toString(),
-		}, inputData), {
-			JSDOM: JSDOM.fragment,
-		});
+		}, inputData));
 	};
 
 	it('throws if not object', function () {
@@ -1414,12 +1411,16 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 			ParamURL,
 			ParamHTML,
 			_DataInfoDOMPropertyCandidates: (function () {
-				return [...arguments];
+				return [
+					['arguments', [...arguments]],
+				];
 			}),
-		}), [{
-			ParamHTML,
-			ParamURL,
-		}]);
+		}), {
+			arguments: [{
+				ParamHTML,
+				ParamURL,
+			}],
+		});
 	});
 
 });
@@ -1439,20 +1440,20 @@ describe('_SetupInfo', function test__SetupInfo() {
 
 	it('calls OLSKCacheResultFetchRenew', function () {
 		const url = Math.random().toString();
-		const _ValueInfosCache = {
+		const _ValueInfoCache = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 
 		const item = __SetupInfo({
 			url,
-			_ValueInfosCache,
+			_ValueInfoCache,
 			OLSKCacheResultFetchRenew: (function () {
 				return [...arguments];
 			}),
 		}).pop();
 
 		deepEqual(item, {
-			ParamMap: _ValueInfosCache,
+			ParamMap: _ValueInfoCache,
 			ParamKey: url,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
@@ -1499,19 +1500,19 @@ describe('_SetupInfo', function test__SetupInfo() {
 	context('_ParamCallbackDidFinish', function () {
 
 		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueInfosCache = {
+			const _ValueInfoCache = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
 			deepEqual(await __SetupInfo({
-				_ValueInfosCache,
+				_ValueInfoCache,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
 					return [...arguments];
 				}),
-			}), [_ValueInfosCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')]);
+			}), [_ValueInfoCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')]);
 		});
 	
 	});
@@ -1540,7 +1541,7 @@ describe('SetupInfos', function test_SetupInfos() {
 			_SetupInfo: (function () {
 				return [...arguments].slice(0, 1);
 			}),
-		}), [[item]]);
+		}), [[item.ZDAProjectURL]]);
 	});
 
 });
