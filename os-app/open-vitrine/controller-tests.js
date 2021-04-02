@@ -1106,6 +1106,21 @@ describe('_DataListingURLCachePath', function test__DataListingURLCachePath() {
 
 });
 
+describe('_DataInfoURLCachePath', function test__DataInfoURLCachePath() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataInfoURLCachePath(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const item = Math.random().toString();
+		deepEqual(mod._DataInfoURLCachePath(item), require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), item));
+	});
+
+});
+
 describe('_DataImageFilename', function test__DataImageFilename() {
 
 	it('throws if not string', function () {
@@ -1345,12 +1360,23 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 
 	const __SetupInfoFetch = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
-			_DataFoilNodeFetch: (function () {}),
+			_DataFoilNodeFetch: (function () {
+				return {
+					text: (function () {
+						return inputData.ParamHTML;
+					}),
+				};
+			}),
+			_DataFoilOLSKDisk: Object.assign({
+				OLSKDiskWrite: (function () {
+					return [...arguments].pop();
+				}),
+			}, inputData),
 		}, inputData)._SetupInfoFetch(inputData.ParamURL || Math.random().toString());
 	};
 
 	it('calls _DataFoilNodeFetch', function () {
-		const ParamURL = Math.random().toString();
+		const ParamURL = 'https://example.com/' + Math.random().toString();
 
 		deepEqual(uCapture(function (_DataFoilNodeFetch) {
 			__SetupInfoFetch({
@@ -1360,18 +1386,33 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 		}), [ParamURL]);
 	});
 
-	it('returns _DataInfoDOMPropertyCandidates', async function () {
+	it('calls OLSKDiskWrite', async function () {
+		const ParamURL = 'https://example.com/' + Math.random().toString();
 		const ParamHTML = Math.random().toString();
-		const ParamURL = Math.random().toString();
+
+		deepEqual(await new Promise(function (res) {
+			return __SetupInfoFetch({
+				ParamURL,
+				_DataFoilNodeFetch: (function () {
+					return {
+						text: (function () {
+							return ParamHTML;
+						}),
+					};
+				}),
+				OLSKDiskWrite: (function () {
+					res([...arguments])
+				}),
+			});
+		}), [mod._DataInfoURLCachePath(mod._DataURLCacheFilename(ParamURL)), ParamHTML]);
+	});
+
+	it('returns _DataInfoDOMPropertyCandidates', async function () {
+		const ParamURL = 'https://example.com/' + Math.random().toString();
+		const ParamHTML = Math.random().toString();
 		deepEqual(await __SetupInfoFetch({
 			ParamURL,
-			_DataFoilNodeFetch: (function () {
-				return {
-					text: (function () {
-						return ParamHTML;
-					}),
-				};
-			}),
+			ParamHTML,
 			_DataInfoDOMPropertyCandidates: (function () {
 				return [...arguments];
 			}),

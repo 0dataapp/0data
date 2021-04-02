@@ -429,6 +429,14 @@ const mod = {
 		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
 	},
 
+	_DataInfoURLCachePath (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), inputData);
+	},
+
 	_DataImageFilename (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -497,7 +505,7 @@ const mod = {
 		}
 
 		return this._DataInfoDOMPropertyCandidates({
-			ParamHTML: await (await this._DataFoilNodeFetch(inputData).text()),
+			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataInfoURLCachePath(mod._DataURLCacheFilename(inputData)), await (await this._DataFoilNodeFetch(inputData).text())),
 			ParamURL: inputData,
 		});
 	},
