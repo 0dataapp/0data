@@ -1158,12 +1158,8 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 
 	const __SetupDetailCandidates = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
-			_DataFoilNodeFetch: (function () {
-				return {
-					text: (function () {
-						return inputData.ParamHTML;
-					}),
-				};
+			_DataContentString: (function () {
+				return inputData.ParamHTML
 			}),
 			_DataFoilOLSKDisk: Object.assign({
 				OLSKDiskWrite: (function () {
@@ -1173,13 +1169,13 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 		}, inputData)._SetupDetailCandidates(inputData.ParamURL || Math.random().toString());
 	};
 
-	it('calls _DataFoilNodeFetch', function () {
+	it('calls _DataContentString', function () {
 		const ParamURL = 'https://example.com/' + Math.random().toString();
 
-		deepEqual(uCapture(function (_DataFoilNodeFetch) {
+		deepEqual(uCapture(function (_DataContentString) {
 			__SetupDetailCandidates({
 				ParamURL,
-				_DataFoilNodeFetch,
+				_DataContentString,
 			});
 		}), [ParamURL]);
 	});
@@ -1191,12 +1187,8 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 		deepEqual(await new Promise(function (res) {
 			return __SetupDetailCandidates({
 				ParamURL,
-				_DataFoilNodeFetch: (function () {
-					return {
-						text: (function () {
-							return ParamHTML;
-						}),
-					};
+				_DataContentString: (function () {
+					return ParamHTML;
 				}),
 				OLSKDiskWrite: (function () {
 					res([...arguments])

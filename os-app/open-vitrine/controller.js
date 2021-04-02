@@ -84,9 +84,10 @@ const mod = {
 	_DataFoilOLSKQueue: require('OLSKQueue'),
 	_DataFoilOLSKDisk: require('OLSKDisk'),
 	_DataFoilFS: require('fs'),
-	_DataFoilNodeFetch: require('node-fetch'),
 
-	_DataContentString: uGet,
+	async _DataContentString (inputData) {
+		return (await require('node-fetch')(inputData)).text();
+	},
 	_DataContentImage: uGet,
 
 	_DataHash (inputData) {
@@ -482,12 +483,12 @@ const mod = {
 	},
 
 	async _SetupDetailCandidates (inputData) {
-		if (!this._DataFoilNodeFetch) {
+		if (!this._DataContentString) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
 		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
-			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
+			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await this._DataContentString(inputData)),
 			ParamURL: inputData,
 		}));
 	},
