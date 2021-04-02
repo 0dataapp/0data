@@ -516,9 +516,9 @@ const mod = {
 
 	SetupDetails () {
 		const _this = this;
-		return Promise.all(this.DataListingProjects().map(function (e) {
+		return this.DataListingProjects().map(function (e) {
 			return _this._SetupDetail(e.ZDAProjectURL);
-		}));
+		})
 	},
 
 	_SetupImage (inputData) {
