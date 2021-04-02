@@ -2,6 +2,39 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
+describe('DataRelativeURL', function test_DataRelativeURL() {
+
+	it('throws if param1 not string', function () {
+		throws(function () {
+			mod.DataRelativeURL(null, Math.random().toString());
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('throws if param2 not string', function () {
+		throws(function () {
+			mod.DataRelativeURL(Math.random().toString(), null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const url = 'https://example.com';
+		const path = Math.random().toString();
+		deepEqual(mod.DataRelativeURL(url, path), url + '/' + path);
+	});
+
+	it('returns param2 if complete', function () {
+		const path = 'https://alfa.bravo/' + Math.random().toString();
+		deepEqual(mod.DataRelativeURL('https://example.com', path), path);
+	});
+
+	it('completes slash', function () {
+		const url = 'https://example.com';
+		const path = '/' + Math.random().toString();
+		deepEqual(mod.DataRelativeURL(url, path), url + path);
+	});
+
+});
+
 describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
 	it('returns string', function () {
@@ -18,10 +51,122 @@ describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 });
 
-describe('DataCacheNameProjects', function test_DataCacheNameProjects() {
+describe('DataCacheFilenameURL', function test_DataCacheFilenameURL() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCacheFilenameURL(null);
+		}, /ZDAErrorInputNotValid/);
+	});
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNameProjects(), 'cache-c-projects');
+		const host = uRandomElement('www.example.com', 'www.alfa.bravo');
+		const filename = Date.now().toString();
+		const item = 'https://' + host + '/' + filename;
+
+		deepEqual(mod.DataCacheFilenameURL(item), host.replace('www.', '') + '.' + mod._DataHash(item) + '.html');
+	});
+
+});
+
+describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCacheFilenameImage(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
+		const filename = Date.now().toString();
+		const item = 'https://example.com/' + filename + extension;
+
+		deepEqual(mod.DataCacheFilenameImage(item), mod._DataHash(item) + extension);
+	});
+
+});
+
+describe('DataCachePathListings', function test_DataCachePathListings() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCachePathListings(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataCachePathListings(item), require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), item));
+	});
+
+});
+
+describe('DataCachePathDetails', function test_DataCachePathDetails() {
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCachePathDetails(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns string', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataCachePathDetails(item), require('path').join(__dirname, '__cached', mod.DataCacheNameDetails(), item));
+	});
+
+});
+
+describe('DataCachePathImages', function test_DataCachePathImages() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataCachePathImages(), require('path').join(__dirname, '__cached', 'ui-assets'));
+	});
+
+});
+
+describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
+
+	const _DataCacheImageLocalPath = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataFoilFS: Object.assign({
+				existsSync: (function () {}),
+			}, inputData),
+		}, inputData).DataCacheImageLocalPath(inputData.url || Math.random().toString());
+	};
+
+	it('calls existsSync', function () {
+		const item = [];
+
+		const url = Math.random().toString();
+
+		_DataCacheImageLocalPath({
+			url,
+			existsSync: (function () {
+				item.push(...arguments);
+			}),
+		});
+
+		deepEqual(item, [require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url))]);
+	});
+
+	it('returns local URL if existsSync', function () {
+		const url = Math.random().toString();
+
+		deepEqual(_DataCacheImageLocalPath({
+			url,
+			existsSync: (function () {
+				return true;
+			}),
+		}), require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url)).replace(require('path').join(__dirname, '../'), '/'));
+	});
+
+	it('returns null', function () {
+		deepEqual(_DataCacheImageLocalPath({
+			existsSync: (function () {
+				return false;
+			}),
+		}), null);
 	});
 
 });
@@ -263,7 +408,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
+				ZDAProjectIconURL: mod.DataRelativeURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		
@@ -379,13 +524,13 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 
 });
 
-describe('DataListedProjects', function test_DataListedProjects() {
+describe('DataListingProjects', function test_DataListingProjects() {
 	
-	const _DataListedProjects = function (inputData = {}) {
+	const _DataListingProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueListingsCache: {},
 			_DataListingObjects: (function () {}),
-		}, inputData).DataListedProjects();
+		}, inputData).DataListingProjects();
 	};
 
 	it('calls _DataListingObjects', function () {
@@ -397,7 +542,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 			});
 		}, {});
 		
-		_DataListedProjects({
+		_DataListingProjects({
 			_ValueListingsCache,
 			_DataListingObjects: (function () {
 				item.push([...arguments]);
@@ -412,7 +557,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 	});
 
 	it('returns _DataListingObjects', function () {
-		deepEqual(_DataListedProjects({
+		deepEqual(_DataListingProjects({
 			_DataListingObjects: (function () {
 				return [{
 					ZDAProjectURL: arguments[0],
@@ -430,7 +575,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 			ZDAProjectURL: Math.random().toString(),
 		};
 
-		deepEqual(_DataListedProjects({
+		deepEqual(_DataListingProjects({
 			_DataListingObjects: (function () {
 				return [item, item];
 			}),
@@ -438,324 +583,86 @@ describe('DataListedProjects', function test_DataListedProjects() {
 	});
 
 	it('passes default value if cache empty', function () {
-		deepEqual(_DataListedProjects({
+		deepEqual(_DataListingProjects({
 			_DataListingObjects: mod._DataListingObjects,
 		}), []);
 	});
 
 });
 
-describe('_DataDetailPropertyCandidatesURL', function test__DataDetailPropertyCandidatesURL() {
+describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPropertyCandidates() {
 
-	it('throws if param1 not string', function () {
-		throws(function () {
-			mod._DataDetailPropertyCandidatesURL(null, Math.random().toString());
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('throws if param2 not string', function () {
-		throws(function () {
-			mod._DataDetailPropertyCandidatesURL(Math.random().toString(), null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const url = 'https://example.com';
-		const path = Math.random().toString();
-		deepEqual(mod._DataDetailPropertyCandidatesURL(url, path), url + '/' + path);
-	});
-
-	it('returns param2 if complete', function () {
-		const path = 'https://alfa.bravo/' + Math.random().toString();
-		deepEqual(mod._DataDetailPropertyCandidatesURL('https://example.com', path), path);
-	});
-
-	it('completes slash', function () {
-		const url = 'https://example.com';
-		const path = '/' + Math.random().toString();
-		deepEqual(mod._DataDetailPropertyCandidatesURL(url, path), url + path);
-	});
-
-});
-
-describe('_DataDetailPropertyCandidates', function test__DataDetailPropertyCandidates() {
-
-	const __DataDetailPropertyCandidates = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			_ValueDetailsCache: {},
-		}, inputData)._DataDetailPropertyCandidates(inputData.url || Math.random().toString());
+	const __DataDetailsDOMPropertyCandidates = function (inputData = {}) {
+		return mod._DataDetailsDOMPropertyCandidates(Object.assign({
+			ParamHTML: Math.random().toString(),
+			ParamURL: Math.random().toString(),
+		}, inputData));
 	};
 
-	it('returns object', function () {
-		deepEqual(__DataDetailPropertyCandidates(), {});
+	it('throws if not object', function () {
+		throws(function () {
+			mod._DataDetailsDOMPropertyCandidates(null);
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('throws if ParamHTML not string', function () {
+		throws(function () {
+			__DataDetailsDOMPropertyCandidates({
+				ParamHTML: null,
+			});
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('throws if ParamURL not string', function () {
+		throws(function () {
+			__DataDetailsDOMPropertyCandidates({
+				ParamURL: null,
+			});
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('returns array', function () {
+		deepEqual(__DataDetailsDOMPropertyCandidates(), []);
 	});
 
 	it('parses apple-touch-icon', function () {
-		const url = 'https://example.com';
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
-		const _ValueDetailsCache = {
-			[url]: `<link rel="apple-touch-icon" href="${ path }"><link rel="apple-touch-icon-precomposed" href="${ Math.random().toString() }">`,
-		};
-		deepEqual(__DataDetailPropertyCandidates({
-			url,
-			_ValueDetailsCache,
-		}), {
-			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(url, path),
-		});
+		const ParamURL = 'https://example.com';
+		deepEqual(__DataDetailsDOMPropertyCandidates({
+			ParamHTML: `<link rel="apple-touch-icon" href="${ path }" />`,
+			ParamURL,
+		}), Object.entries({
+			ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
+		}));
 	});
 
 	it('parses apple-touch-icon-precomposed', function () {
-		const url = 'https://example.com';
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
-		const _ValueDetailsCache = {
-			[url]: `<link rel="apple-touch-icon-precomposed" href="${ path }">`,
-		};
-		deepEqual(__DataDetailPropertyCandidates({
-			url,
-			_ValueDetailsCache,
-		}), {
-			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(url, path),
-		});
+		const ParamURL = 'https://example.com';
+		deepEqual(__DataDetailsDOMPropertyCandidates({
+			ParamHTML: `<link rel="apple-touch-icon-precomposed" href="${ path }" />`,
+			ParamURL,
+		}), Object.entries({
+			ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
+		}));
 	});
 
-	it('parses meta:description', function () {
-		const url = 'https://example.com';
+	it('parses description', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
-		const _ValueDetailsCache = {
-			[url]: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
-		};
-		deepEqual(__DataDetailPropertyCandidates({
-			url,
-			_ValueDetailsCache,
-		}), {
+		deepEqual(__DataDetailsDOMPropertyCandidates({
+			ParamHTML: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
+		}), Object.entries({
 			_ZDAProjectBlurb,
-		});
+		}));
 	});
 
 	it('parses title', function () {
-		const url = 'https://example.com';
 		const _ZDAProjectBlurb = Math.random().toString();
-		const _ValueDetailsCache = {
-			[url]: `<title>${ _ZDAProjectBlurb }</title>`,
-		};
-		deepEqual(__DataDetailPropertyCandidates({
-			url,
-			_ValueDetailsCache,
-		}), {
+		deepEqual(__DataDetailsDOMPropertyCandidates({
+			ParamHTML: `<title>${ _ZDAProjectBlurb }</title>`,
+		}), Object.entries({
 			_ZDAProjectBlurb,
-		});
-	});
-
-});
-
-describe('_DataDetailProperties', function test__DataDetailProperties() {
-	
-	const __DataDetailProperties = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			_DataDetailPropertyCandidates: (function () {
-				return {};
-			}),
-		}, inputData)._DataDetailProperties(inputData.object || {});
-	};
-
-	it('returns inputData', function () {
-		const object = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-		deepEqual(__DataDetailProperties({
-			object,
-		}), object);
-	});
-
-	it('calls _DataDetailPropertyCandidates', function () {
-		const item = [];
-
-		const object = {
-			ZDAProjectURL: Math.random().toString(),
-		};
-
-		__DataDetailProperties({
-			object,
-			_DataDetailPropertyCandidates: (function () {
-				item.push(...arguments);
-
-				return {};
-			}),
-		});
-
-		deepEqual(item, [object.ZDAProjectURL]);
-	});
-
-	context('_DataDetailPropertyCandidates', function () {
-		
-		it('assigns values', function () {
-			const _DataDetailPropertyCandidates = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
-			deepEqual(__DataDetailProperties({
-				_DataDetailPropertyCandidates: (function () {
-					return _DataDetailPropertyCandidates;
-				}),
-			}), _DataDetailPropertyCandidates);
-		});
-
-		it('assigns underscore if not present', function () {
-			const item = Math.random().toString();
-
-			deepEqual(__DataDetailProperties({
-				_DataDetailPropertyCandidates: (function () {
-					return {
-						['_' + item]: item,
-					};
-				}),
-			}), {
-				[item]: item,
-			});
-		});
-
-		it('ignores underscore', function () {
-			const item = Math.random().toString();
-			
-			deepEqual(__DataDetailProperties({
-				object: {
-					[item]: item,
-				},
-				_DataDetailPropertyCandidates: (function () {
-					return {
-						['_' + item]: Math.random().toString(),
-					};
-				}),
-			}), {
-				[item]: item,
-			});
-		});
-	
-	});
-
-});
-
-describe('DataDetailedProjects', function test_DataDetailedProjects() {
-	
-	const _DataDetailedProjects = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			DataListedProjects: (function () {}),
-			_DataDetailProperties: (function () {
-				return [...arguments].shift();
-			}),
-		}, inputData).DataDetailedProjects();
-	};
-
-	it('returns DataListedProjects', function () {
-		const item = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-		deepEqual(_DataDetailedProjects({
-			DataListedProjects: (function () {
-				return [item];
-			}),
-		}), [item]);
-	});
-
-	it('maps _DataDetailProperties', function () {
-		const project = {
-			ZDAProjectURL: Math.random().toString(),
-		};
-
-		deepEqual(_DataDetailedProjects({
-			DataListedProjects: (function () {
-				return [project];
-			}),
-			_DataDetailProperties: (function () {
-				return [...arguments].shift();
-			}),
-		}), [project]);
-	});
-
-});
-
-describe('_DataImageURL', function test__DataImageURL() {
-
-	const __DataImageURL = function (inputData) {
-		return Object.assign(Object.assign({}, mod), {
-			_DataFoilFS: Object.assign({
-				existsSync: (function () {}),
-			}, inputData),
-		}, inputData)._DataImageURL(inputData.url || Math.random().toString());
-	};
-
-	it('calls existsSync', function () {
-		const item = [];
-
-		const url = Math.random().toString();
-
-		__DataImageURL({
-			url,
-			existsSync: (function () {
-				item.push(...arguments);
-			}),
-		});
-
-		deepEqual(item, [require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
-	});
-
-	it('returns local URL if existsSync', function () {
-		const url = Math.random().toString();
-
-		deepEqual(__DataImageURL({
-			url,
-			existsSync: (function () {
-				return true;
-			}),
-		}), require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url)).replace(require('path').join(__dirname, '../'), '/'));
-	});
-
-	it('returns null', function () {
-		deepEqual(__DataImageURL({
-			existsSync: (function () {
-				return false;
-			}),
-		}), null);
-	});
-
-});
-
-describe('DataImagedProjects', function test_DataImagedProjects() {
-	
-	const _DataImagedProjects = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			DataDetailedProjects: (function () {}),
-		}, inputData).DataImagedProjects();
-	};
-
-	it('returns DataDetailedProjects', function () {
-		const item = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-		deepEqual(_DataImagedProjects({
-			DataDetailedProjects: (function () {
-				return [item];
-			}),
-		}), [item]);
-	});
-
-	it('maps _DataImageURL to _ZDAProjectIconURLCachedPath', function () {
-		const ZDAProjectIconURL = Math.random().toString();
-		const _DataImageURL = Math.random().toString();
-
-		deepEqual(_DataImagedProjects({
-			DataDetailedProjects: (function () {
-				return [{
-					ZDAProjectIconURL,
-				}];
-			}),
-			_DataImageURL: (function () {
-				return _DataImageURL;
-			}),
-		}), [{
-			ZDAProjectIconURL,
-			_ZDAProjectIconURLCachedPath: _DataImageURL,
-		}]);
+		}));
 	});
 
 });
@@ -790,26 +697,162 @@ describe('DataProjectsSort', function test_DataProjectsSort() {
 
 });
 
-describe('DataProjects', function test_DataProjects() {
+describe('_DataProjectImageProperty', function test__DataProjectImageProperty() {
 	
-	const _DataProjects = function (inputData = {}) {
+	const __DataProjectImageProperty = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataImagedProjects: (function () {}),
-		}, inputData).DataProjects();
+		}, inputData)._DataProjectImageProperty(inputData.ParamProject);
 	};
 
-	it('returns DataImagedProjects', function () {
-		const item = {
-			[Math.random().toString()]: Math.random().toString(),
+	it('returns inputData', function () {
+		const ParamProject = {
+			ZDAProjectIconURL: Math.random().toString(),
 		};
-		deepEqual(_DataProjects({
-			DataImagedProjects: (function () {
-				return [item];
-			}),
-		}), [item]);
+		deepEqual(__DataProjectImageProperty({
+			ParamProject,
+		}), ParamProject);
 	});
 
-	it('sorts with DataProjectsSort', function () {
+	it('sets _ZDAProjectIconURLCachedPath if _DataCacheImageLocalPath', function () {
+		const ZDAProjectIconURL = Math.random().toString();
+		const DataCacheImageLocalPath = Math.random().toString();
+
+		deepEqual(__DataProjectImageProperty({
+			ParamProject: {
+				ZDAProjectIconURL,
+			},
+			DataCacheImageLocalPath: (function () {
+				return DataCacheImageLocalPath;
+			}),
+		}), {
+			ZDAProjectIconURL,
+			_ZDAProjectIconURLCachedPath: DataCacheImageLocalPath,
+		});
+	});
+
+});
+
+describe('_DataProjectProperties', function test__DataProjectProperties() {
+	
+	const __DataProjectProperties = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueCandidatesCache: {},
+			_DataDetailsDOMPropertyCandidates: (function () {
+				return [];
+			}),
+		}, inputData)._DataProjectProperties(inputData.ParamProject);
+	};
+
+	it('throws if not object', function () {
+		throws(function () {
+			mod._DataProjectProperties(null);
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('returns inputData', function () {
+		const ParamProject = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+		}), ParamProject);
+	});
+	
+	it('includes _ValueCandidatesCache', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const ParamProject = {
+			ZDAProjectURL,
+		};
+		const _ValueCandidatesCache = {
+			[ZDAProjectURL]: {
+				[Math.random().toString()]: Math.random().toString(),
+			},
+		};
+
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+			_ValueCandidatesCache,
+		}), Object.assign(ParamProject, _ValueCandidatesCache));
+	});
+	
+	it('excludes underscore if present', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const item = Math.random().toString();
+		const ParamProject = {
+			ZDAProjectURL,
+			[item]: Math.random().toString(),
+		};
+		const _ValueCandidatesCache = {
+			[ZDAProjectURL]: {
+				['_' + item]: Math.random().toString(),
+			},
+		};
+
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+			_ValueCandidatesCache,
+		}), ParamProject);
+	});
+	
+	it('strips underscore', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const item = Math.random().toString();
+		const ParamProject = {
+			ZDAProjectURL,
+		};
+		const _ValueCandidatesCache = {
+			[ZDAProjectURL]: {
+				['_' + item]: item,
+			},
+		};
+
+		deepEqual(__DataProjectProperties({
+			ParamProject,
+			_ValueCandidatesCache,
+		}), Object.assign(ParamProject, {
+			[item]: item,
+		}));
+	});
+
+});
+
+describe('DataProjects2', function test_DataProjects2() {
+	
+	const _DataProjects2 = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_ValueCandidatesCache: {},
+			DataListingProjects: (function () {}),
+		}, inputData).DataProjects2();
+	};
+
+	it('merges sources', function () {
+		const candidates = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		const ZDAProjectURL = Math.random().toString();
+		const _ZDAProjectIconURLCachedPath = Math.random().toString();
+		deepEqual(_DataProjects2({
+			_ValueCandidatesCache: {
+				[ZDAProjectURL]: candidates,
+			},
+			DataListingProjects: (function () {
+				return [{
+					ZDAProjectURL,
+				}];
+			}),
+			_DataProjectImageProperty: (function (inputData) {
+				return Object.assign(inputData, {
+					_ZDAProjectIconURLCachedPath,
+				});
+			}),
+		}), [Object.assign({
+			ZDAProjectURL,
+		}, candidates, {
+			_ZDAProjectIconURLCachedPath,
+		})]);
+	});
+
+	it('sorts with DataProjects2Sort', function () {
 		const item1 = {
 			ZDAProjectURL: Math.random().toString(),
 		};
@@ -818,8 +861,8 @@ describe('DataProjects', function test_DataProjects() {
 			ZDAProjectIconURL: Math.random().toString(),
 		};
 
-		deepEqual(_DataProjects({
-			DataImagedProjects: (function () {
+		deepEqual(_DataProjects2({
+			DataListingProjects: (function () {
 				return [item1, item2];
 			}),
 		}), [item2, item1]);
@@ -827,21 +870,21 @@ describe('DataProjects', function test_DataProjects() {
 
 });
 
-describe('DataProjectSchema', function test_DataProjectSchema() {
+describe('DataProjectJSONSchema', function test_DataProjectJSONSchema() {
 	
 	it('throws if not object', function () {
 		throws(function () {
-			mod.DataProjectSchema(null);
+			mod.DataProjectJSONSchema(null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns object', function () {
-		deepEqual(mod.DataProjectSchema({}), {});
+		deepEqual(mod.DataProjectJSONSchema({}), {});
 	});
 
 	it('maps ZDAProjectName', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectName: item,
 		}), {
 			name: item,
@@ -850,7 +893,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 	it('maps ZDAProjectBlurb', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectBlurb: item,
 		}), {
 			description: item,
@@ -859,7 +902,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 	it('maps ZDAProjectURL', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectURL: item,
 		}), {
 			url: item,
@@ -868,7 +911,7 @@ describe('DataProjectSchema', function test_DataProjectSchema() {
 
 	it('maps ZDAProjectIconURL', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataProjectSchema({
+		deepEqual(mod.DataProjectJSONSchema({
 			ZDAProjectIconURL: item,
 		}), {
 			image: item,
@@ -886,59 +929,10 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 		};
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
-			_ValueProjectsCache: [item],
-		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectSchema(item)]));
-	});
-
-});
-
-describe('_DataURLCacheFilename', function test__DataURLCacheFilename() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataURLCacheFilename(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const host = uRandomElement('www.example.com', 'www.alfa.bravo');
-		const filename = Date.now().toString();
-		const item = 'https://' + host + '/' + filename;
-
-		deepEqual(mod._DataURLCacheFilename(item), host.replace('www.', '') + '.' + mod._DataHash(item) + '.html');
-	});
-
-});
-
-describe('_DataListingURLCachePath', function test__DataListingURLCachePath() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataListingURLCachePath(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const item = Math.random().toString();
-		deepEqual(mod._DataListingURLCachePath(item), require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), item));
-	});
-
-});
-
-describe('_DataImageFilename', function test__DataImageFilename() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod._DataImageFilename(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
-		const filename = Date.now().toString();
-		const item = 'https://example.com/' + filename + extension;
-
-		deepEqual(mod._DataImageFilename(item), mod._DataHash(item) + extension);
+			DataProjects2: (function () {
+				return [item];
+			}),
+		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectJSONSchema(item)]));
 	});
 
 });
@@ -1007,7 +1001,7 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 			}),
 		});
 
-		deepEqual(items, mod.DataListingURLs().map(mod._DataURLCacheFilename).map(mod._DataListingURLCachePath));
+		deepEqual(items, mod.DataListingURLs().map(mod.DataCacheFilenameURL).map(mod.DataCachePathListings));
 	});
 
 	it('sets _ValueListingsCache', function () {
@@ -1100,7 +1094,7 @@ describe('_SetupListing', function test__SetupListing() {
 				OLSKDiskWrite: (function () {
 					return [...arguments];
 				}),
-			}), [mod._DataListingURLCachePath(mod._DataURLCacheFilename(url)), data]);
+			}), [mod.DataCachePathListings(mod.DataCacheFilenameURL(url)), data]);
 		});
 	
 	});
@@ -1125,9 +1119,9 @@ describe('SetupListings', function test_SetupListings() {
 
 });
 
-describe('SetupDetailsCache', function test_SetupDetailsCache() {
+describe('SetupDetailsCache', function test_SetupDetailCache() {
 
-	const _SetupDetailsCache = function (inputData) {
+	const _SetupDetailCache = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
 			_DataFoilOLSKCache: Object.assign({
 				OLSKCacheReadFile: (function () {}),
@@ -1139,7 +1133,7 @@ describe('SetupDetailsCache', function test_SetupDetailsCache() {
 	it('calls OLSKCacheReadFile', function () {
 		const items = [];
 
-		_SetupDetailsCache({
+		_SetupDetailCache({
 			OLSKCacheReadFile: (function () {
 				items.push(...arguments);
 			}),
@@ -1148,14 +1142,86 @@ describe('SetupDetailsCache', function test_SetupDetailsCache() {
 		deepEqual(items, [mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 	});
 
-	it('sets _ValueDetailsCache', function () {
+	it('sets _ValueCandidatesCache', function () {
 		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
 
-		deepEqual(_SetupDetailsCache({
+		deepEqual(_SetupDetailCache({
 			OLSKCacheReadFile: (function () {
 				return OLSKCacheReadFile;
 			}),
-		})._ValueDetailsCache, OLSKCacheReadFile || {});
+		})._ValueCandidatesCache, OLSKCacheReadFile || {});
+	});
+
+});
+
+describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
+
+	const __SetupDetailCandidates = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataFoilNodeFetch: (function () {
+				return {
+					text: (function () {
+						return inputData.ParamHTML;
+					}),
+				};
+			}),
+			_DataFoilOLSKDisk: Object.assign({
+				OLSKDiskWrite: (function () {
+					return [...arguments].pop();
+				}),
+			}, inputData),
+		}, inputData)._SetupDetailCandidates(inputData.ParamURL || Math.random().toString());
+	};
+
+	it('calls _DataFoilNodeFetch', function () {
+		const ParamURL = 'https://example.com/' + Math.random().toString();
+
+		deepEqual(uCapture(function (_DataFoilNodeFetch) {
+			__SetupDetailCandidates({
+				ParamURL,
+				_DataFoilNodeFetch,
+			});
+		}), [ParamURL]);
+	});
+
+	it('calls OLSKDiskWrite', async function () {
+		const ParamURL = 'https://example.com/' + Math.random().toString();
+		const ParamHTML = Math.random().toString();
+
+		deepEqual(await new Promise(function (res) {
+			return __SetupDetailCandidates({
+				ParamURL,
+				_DataFoilNodeFetch: (function () {
+					return {
+						text: (function () {
+							return ParamHTML;
+						}),
+					};
+				}),
+				OLSKDiskWrite: (function () {
+					res([...arguments])
+				}),
+			});
+		}), [mod.DataCachePathDetails(mod.DataCacheFilenameURL(ParamURL)), ParamHTML]);
+	});
+
+	it('returns _DataDetailsDOMPropertyCandidates', async function () {
+		const ParamURL = 'https://example.com/' + Math.random().toString();
+		const ParamHTML = Math.random().toString();
+		deepEqual(await __SetupDetailCandidates({
+			ParamURL,
+			ParamHTML,
+			_DataDetailsDOMPropertyCandidates: (function () {
+				return [
+					['arguments', [...arguments]],
+				];
+			}),
+		}), {
+			arguments: [{
+				ParamHTML,
+				ParamURL,
+			}],
+		});
 	});
 
 });
@@ -1169,25 +1235,26 @@ describe('_SetupDetail', function test__SetupDetail() {
 				OLSKCacheResultFetchRenew: (function () {}),
 				OLSKCacheWriteFile: (function () {}),
 			}, inputData),
+			_SetupDetailCandidates: (function () {}),
 		}, inputData)._SetupDetail(inputData.url || Math.random().toString());
 	};
 
 	it('calls OLSKCacheResultFetchRenew', function () {
 		const url = Math.random().toString();
-		const _ValueDetailsCache = {
+		const _ValueCandidatesCache = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 
 		const item = __SetupDetail({
 			url,
-			_ValueDetailsCache,
+			_ValueCandidatesCache,
 			OLSKCacheResultFetchRenew: (function () {
 				return [...arguments];
 			}),
 		}).pop();
 
 		deepEqual(item, {
-			ParamMap: _ValueDetailsCache,
+			ParamMap: _ValueCandidatesCache,
 			ParamKey: url,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
@@ -1212,7 +1279,7 @@ describe('_SetupDetail', function test__SetupDetail() {
 			}), ['function']);
 		});
 
-		it('calls _DataContentString', async function () {
+		it('calls _SetupDetailCandidates', async function () {
 			const url = Math.random().toString();
 
 			deepEqual(await __SetupDetail({
@@ -1223,7 +1290,7 @@ describe('_SetupDetail', function test__SetupDetail() {
 				OLSKQueueAdd: (function (inputData) {
 					return inputData();
 				}),
-				_DataContentString: (function () {
+				_SetupDetailCandidates: (function () {
 					return [...arguments];
 				}),
 			}), [url]);
@@ -1234,30 +1301,30 @@ describe('_SetupDetail', function test__SetupDetail() {
 	context('_ParamCallbackDidFinish', function () {
 
 		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueDetailsCache = {
+			const _ValueCandidatesCache = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
 			deepEqual(await __SetupDetail({
-				_ValueDetailsCache,
+				_ValueCandidatesCache,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
 					return [...arguments];
 				}),
-			}), [_ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
+			}), [_ValueCandidatesCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 		});
 	
 	});
 
 });
 
-describe('SetupDetails', function test_SetupDetails() {
+describe('SetupDetails', function test_SetupDetail() {
 
 	const _SetupDetails = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [];
 			}),
 			_SetupDetail: (function () {}),
@@ -1265,110 +1332,17 @@ describe('SetupDetails', function test_SetupDetails() {
 	};
 
 	it('calls _SetupDetail', async function () {
-		const ZDAProjectURL = Math.random().toString();
+		const item = {
+			ZDAProjectURL: Math.random().toString(),
+		};
 		deepEqual(await _SetupDetails({
-			DataListedProjects: (function () {
-				return [{
-					ZDAProjectURL,
-				}];
+			DataListingProjects: (function () {
+				return [item];
 			}),
 			_SetupDetail: (function () {
-				return [...arguments];
+				return [...arguments].slice(0, 1);
 			}),
-		}), [[ZDAProjectURL]]);
-	});
-
-});
-
-describe('SetupProjectsCache', function test_SetupProjectsCache() {
-
-	const _SetupProjectsCache = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheReadFile: (function () {}),
-			}, inputData),
-		});
-		return _mod.SetupProjectsCache() || _mod;
-	};
-
-	it('calls OLSKCacheReadFile', function () {
-		const items = [];
-
-		_SetupProjectsCache({
-			OLSKCacheReadFile: (function () {
-				items.push(...arguments);
-			}),
-		});
-
-		deepEqual(items, [mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
-	});
-
-	it('sets _ValueProjectsCache', function () {
-		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
-
-		deepEqual(_SetupProjectsCache({
-			OLSKCacheReadFile: (function () {
-				return OLSKCacheReadFile;
-			}),
-		})._ValueProjectsCache, OLSKCacheReadFile || []);
-	});
-
-});
-
-describe('SetupProjects', function test_SetupProjects() {
-
-	const _SetupProjects = function (inputData) {
-		return Object.assign(inputData._mod || {}, Object.assign({}, mod), {
-			DataProjects: (function () {}),
-
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheResultFetchRenew: (function () {}),
-				OLSKCacheWriteFile: (function () {}),
-			}, inputData),
-		}, inputData).SetupProjects();
-	};
-
-	it('calls OLSKCacheResultFetchRenew', function () {
-		const _mod = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-		const DataProjects = (function () {});
-
-		const item = _SetupProjects({
-			_mod,
-			DataProjects,
-			OLSKCacheResultFetchRenew: (function () {
-				return [...arguments];
-			}),
-		}).pop();
-
-		deepEqual(item, {
-			ParamMap: _mod,
-			ParamKey: '_ValueProjectsCache',
-			ParamCallback: DataProjects,
-			ParamInterval: 1000 * 60,
-			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
-		});
-	});
-
-	context('_ParamCallbackDidFinish', function () {
-
-		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueProjectsCache = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
-			deepEqual(await _SetupProjects({
-				_ValueProjectsCache,
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData._ParamCallbackDidFinish();
-				}),
-				OLSKCacheWriteFile: (function () {
-					return [...arguments];
-				}),
-			}), [_ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
-		});
-	
+		}), [[item.ZDAProjectURL]]);
 	});
 
 });
@@ -1406,7 +1380,7 @@ describe('_SetupImage', function test__SetupImage() {
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),
-		}), [url, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(url))]);
+		}), [url, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url))]);
 	});
 
 });
@@ -1415,7 +1389,9 @@ describe('SetupImages', function test_SetupImages() {
 
 	const _SetupImages = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueProjectsCache: [],
+			DataProjects2: (function () {
+				return [];
+			}),
 			_SetupImage: (function () {}),
 		}, inputData).SetupImages();
 	};
@@ -1424,9 +1400,11 @@ describe('SetupImages', function test_SetupImages() {
 		const ZDAProjectIconURL = Math.random().toString();
 
 		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{
-				ZDAProjectIconURL,
-			}],
+			DataProjects2: (function () {
+				return [{
+					ZDAProjectIconURL,
+				}];
+			}),
 			_SetupImage: (function () {
 				return [...arguments];
 			}),
@@ -1435,17 +1413,21 @@ describe('SetupImages', function test_SetupImages() {
 
 	it('ignores if no ZDAProjectIconURL', async function () {
 		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{}],
+			DataProjects2: (function () {
+				return [{}];
+			}),
 		}), []);
 	});
 
 	it('ignores if already local', async function () {
 		const ZDAProjectIconURL = Math.random().toString();
 		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{
-				ZDAProjectIconURL: Math.random().toString(),
-				_ZDAProjectIconURLCachedPath: Math.random().toString(),
-			}],
+			DataProjects2: (function () {
+				return [{
+					ZDAProjectIconURL: Math.random().toString(),
+					_ZDAProjectIconURLCachedPath: Math.random().toString(),
+				}];
+			}),
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),

@@ -1,4 +1,5 @@
 const cheerio = require('cheerio');
+const { JSDOM } = require('JSDOM');
 
 // How to get node.js HTTP request promise without a single dependency https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
 const uGet = function (inputData, pipePath) {
@@ -30,9 +31,15 @@ const uGet = function (inputData, pipePath) {
   });
 };
 
-const uSerial = function (inputData) {
+const uSerial2 = function (inputData) {
 	return inputData.reduce(async function (coll, e) {
-		return e.then(Array.prototype.concat.bind(await coll));
+		return (await coll).concat(await new Promise(function (res, rej) {
+			try {
+				res(e());
+			} catch (error) {
+				rej(error);
+			}
+		}));
 	}, Promise.resolve([]));
 };
 
@@ -49,7 +56,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
 				return res.OLSKExpressLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod._ValueProjectsCache,
+					ZDAVitrineListData: res.locals.OLSK_SPEC_UI() ? [] : mod.DataProjects2(),
 					ZDAVitrineProjectsSourceURLs: mod.DataListingURLs(),
 				});
 			}),
@@ -68,12 +75,37 @@ const mod = {
 		return process.env.NODE_ENV === 'development';
 	},
 
+	_ValueListingsCache: {},
+	_ValueCandidatesCache: {},
+
 	// DATA
 
 	_DataFoilOLSKCache: require('OLSKCache'),
 	_DataFoilOLSKQueue: require('OLSKQueue'),
 	_DataFoilOLSKDisk: require('OLSKDisk'),
 	_DataFoilFS: require('fs'),
+	_DataFoilNodeFetch: require('node-fetch'),
+
+	_DataContentString: uGet,
+	_DataContentImage: uGet,
+
+	_DataHash (inputData) {
+		return require('crypto').createHash('md5').update(inputData).digest('hex');
+	},
+
+	DataRelativeURL (url, path) {
+		if (typeof url !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		if (typeof path !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return (new URL(path, url)).href;
+	},
+
+	// * CACHE
 
 	DataCacheNameListings() {
 		return 'cache-a-listings';
@@ -83,9 +115,52 @@ const mod = {
 		return 'cache-b-details';
 	},
 
-	DataCacheNameProjects() {
-		return 'cache-c-projects';
+	DataCacheFilenameURL (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const host = (new URL('', inputData)).host.replace('www.', '');
+
+		return host + '.' + mod._DataHash(inputData) + '.html';
 	},
+
+	DataCacheFilenameImage (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const extension = require('path').extname(inputData);
+
+		return mod._DataHash(inputData) + extension;
+	},
+
+	DataCachePathListings (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
+	},
+
+	DataCachePathDetails (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameDetails(), inputData);
+	},
+
+	DataCachePathImages () {
+		return require('path').join(__dirname, '__cached', 'ui-assets');
+	},
+
+	DataCacheImageLocalPath (inputData) {
+		const localURL = require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData));
+		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
+	},
+
+	// * LISTING
 
 	DataListingURLs() {
 		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
@@ -120,10 +195,6 @@ const mod = {
 			return e.match(/solid/);
 		}).shift();
 	},
-
-	_DataContentString: uGet,
-
-	_DataContentImage: uGet,
 
 	_DataListingObjects (param1, param2) {
 		if (!mod.DataListingURLs().includes(param1)) {
@@ -175,7 +246,7 @@ const mod = {
 									}
 
 									return {
-										ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(item, inputData),
+										ZDAProjectIconURL: mod.DataRelativeURL(item, inputData),
 									};
 								})(cheerio('img', this).attr('src')));
 						});
@@ -214,7 +285,7 @@ const mod = {
 		});
 	},
 
-	DataListedProjects () {
+	DataListingProjects () {
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
 			return coll.concat(_this._DataListingObjects(item, _this._ValueListingsCache[item] || ''));
@@ -233,73 +304,41 @@ const mod = {
 		}).objects;
 	},
 
-	_DataDetailPropertyCandidatesURL (url, path) {
-		if (typeof url !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
+	// * DETAILS
+
+	_DataDetailsDOMPropertyCandidates (inputData) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		if (typeof path !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
+		if (typeof inputData.ParamHTML !== 'string') {
+			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		return (new URL(path, url)).href;
-	},
-
-	_DataDetailPropertyCandidates (inputData) {
-		if (!this._ValueDetailsCache ) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		if (typeof inputData.ParamURL !== 'string') {
+			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		return Object.fromEntries([
+		const metadata = require('OLSKDOM').OLSKDOMMetadata(inputData.ParamHTML, {
+			JSDOM: JSDOM.fragment,
+		});
+
+		return [
 			['ZDAProjectIconURL', (function(href) {
 				if (!href) {
 					return;
 				}
 
-				return !href ? null : mod._DataDetailPropertyCandidatesURL(inputData, href);
-			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href') || cheerio('link[rel="apple-touch-icon-precomposed"]', this._ValueDetailsCache[inputData] || '').attr('href'))],
-			['_ZDAProjectBlurb', cheerio('meta[name="description"]', this._ValueDetailsCache[inputData] || '').attr('content')],
-			['_ZDAProjectBlurb', cheerio('title', this._ValueDetailsCache[inputData] || '').text()],
+				return !href ? null : mod.DataRelativeURL(inputData.ParamURL, href);
+			})(metadata['apple-touch-icon'] || metadata['apple-touch-icon-precomposed'])],
+			['_ZDAProjectBlurb', metadata.description],
+			['_ZDAProjectBlurb', metadata.title],
 		].filter(function ([key, value]) {
 			return !!value;
-		}));
-	},
-
-	_DataDetailProperties (inputData) {
-		return Object.assign(inputData, Object.entries(this._DataDetailPropertyCandidates(inputData.ZDAProjectURL)).reduce(function (coll, [key, value]) {
-			if (key.startsWith('_')) {
-				if (inputData[key.slice(1)]) {
-					return coll;
-				}
-
-				key = key.slice(1);
-			}
-
-			return Object.assign(coll, {
-				[key]: value,
-			});
-		}, {}));
-	},
-
-	DataDetailedProjects () {
-		return this.DataListedProjects().map(this._DataDetailProperties);
-	},
-
-	_DataImageURL (inputData) {
-		const localURL = require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData));
-		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
-	},
-
-	DataImagedProjects () {
-		const _this = this;
-		return _this.DataDetailedProjects().map(function (e) {
-			if (e.ZDAProjectIconURL) {
-				e._ZDAProjectIconURLCachedPath = _this._DataImageURL(e.ZDAProjectIconURL);
-			}
-
-			return e;
 		});
 	},
+
+	// * PROJECTS
 
 	DataProjectsSort (a, b) {
 		const unmatched = [
@@ -320,15 +359,52 @@ const mod = {
 		return 0;
 	},
 
-	DataProjects () {
-		if (!this.DataImagedProjects) {
+	_DataProjectImageProperty (inputData) {
+		const _this = this;
+
+		if (inputData.ZDAProjectIconURL) {
+			inputData._ZDAProjectIconURLCachedPath = _this.DataCacheImageLocalPath(inputData.ZDAProjectIconURL);
+		}
+
+		return inputData;
+	},
+
+	_DataProjectProperties (inputData) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('ZDRErrorInputNotValid');
+		}
+
+		return Object.entries(this._ValueCandidatesCache[inputData.ZDAProjectURL] || {}).reduce(function (coll, [key, value]) {
+			if (key.startsWith('_') && coll[key.slice(1)]) {
+				return coll;
+			}
+
+			if (key.startsWith('_')) {
+				key = key.slice(1);
+			}
+
+			return Object.assign(coll, {
+				[key]: value,
+			});
+		}, inputData);
+	},
+
+	DataProjects2 () {
+		if (!this.DataListingProjects) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this.DataImagedProjects().sort(mod.DataProjectsSort);
+		const _this = this;
+		return _this.DataListingProjects().map(function (e) {
+			return _this._DataProjectProperties(e);
+		}).map(function (e) {
+			return _this._DataProjectImageProperty(e);
+		}).sort(mod.DataProjectsSort);
 	},
 
-	DataProjectSchema (inputData) {
+	// * JSON
+
+	DataProjectJSONSchema (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
@@ -346,43 +422,7 @@ const mod = {
 	},
 
 	DataProjectsJSON () {
-		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectSchema));
-	},
-
-	_DataHash (inputData) {
-		return require('crypto').createHash('md5').update(inputData).digest('hex');
-	},
-
-	_DataURLCacheFilename (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		const host = (new URL('', inputData)).host.replace('www.', '');
-
-		return host + '.' + mod._DataHash(inputData) + '.html';
-	},
-
-	_DataListingURLCachePath (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
-	},
-
-	_DataImageFilename (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		const extension = require('path').extname(inputData);
-
-		return mod._DataHash(inputData) + extension;
-	},
-
-	_DataImageCacheDirectoryPath () {
-		return require('path').join(__dirname, '__cached', 'ui-assets');
+		return JSON.stringify(this.DataProjects2().map(mod.DataProjectJSONSchema));
 	},
 
 	// SETUP
@@ -394,16 +434,22 @@ const mod = {
 	},
 
 	SetupFetchQueue () {
+		if (!this._DataFoilOLSKQueue) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
 		this._ValueFetchQueue = this._DataFoilOLSKQueue.OLSKQueueAPI();
 	},
 
 	SetupListingsCache () {
 		const _this = this;
-		this._ValueListingsCache = mod.DataListingURLs().reduce(function (coll, item) {
-			return Object.assign(coll, {
-				[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod._DataListingURLCachePath(mod._DataURLCacheFilename(item))),
-			});
-		}, {});
+		Object.assign(mod, Object.assign(this, {
+			_ValueListingsCache: mod.DataListingURLs().reduce(function (coll, item) {
+				return Object.assign(coll, {
+					[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod.DataCachePathListings(mod.DataCacheFilenameURL(item))),
+				});
+			}, {}),
+		}));
 	},
 
 	_SetupListing (inputData) {
@@ -420,7 +466,7 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod._DataListingURLCachePath(mod._DataURLCacheFilename(inputData)), _this._ValueListingsCache[inputData]);
+				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathListings(mod.DataCacheFilenameURL(inputData)), _this._ValueListingsCache[inputData]);
 			}),
 		});
 	},
@@ -430,7 +476,20 @@ const mod = {
 	},
 
 	SetupDetailsCache () {
-		this._ValueDetailsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {};
+		Object.assign(mod, Object.assign(this, {
+			_ValueCandidatesCache: this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {},
+		}));
+	},
+
+	async _SetupDetailCandidates (inputData) {
+		if (!this._DataFoilNodeFetch) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
+			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
+			ParamURL: inputData,
+		}));
 	},
 
 	_SetupDetail (inputData) {
@@ -440,42 +499,25 @@ const mod = {
 
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this._ValueDetailsCache,
+			ParamMap: _this._ValueCandidatesCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
 				return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-					return _this._DataContentString(inputData);
+					return _this._SetupDetailCandidates(inputData);
 				});
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCandidatesCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
 			}),
 		});
 	},
 
 	SetupDetails () {
 		const _this = this;
-		return Promise.all(_this.DataListedProjects().map(function (e) {
+		return Promise.all(this.DataListingProjects().map(function (e) {
 			return _this._SetupDetail(e.ZDAProjectURL);
 		}));
-	},
-
-	SetupProjectsCache () {
-		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')) || [];
-	},
-
-	SetupProjects () {
-		const _this = this;
-		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this,
-			ParamKey: '_ValueProjectsCache',
-			ParamCallback: _this.DataProjects,
-			ParamInterval: 1000 * 60,
-			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached'));
-			}),
-		});
 	},
 
 	_SetupImage (inputData) {
@@ -485,13 +527,13 @@ const mod = {
 
 		const _this = this;
 		return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-			return _this._DataContentImage(inputData, require('path').join(mod._DataImageCacheDirectoryPath(), mod._DataImageFilename(inputData)));
+			return _this._DataContentImage(inputData, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData)));
 		});
 	},
 
 	SetupImages () {
 		const _this = this;
-		return _this._ValueProjectsCache.filter(function (e) {
+		return _this.DataProjects2().filter(function (e) {
 			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);
@@ -503,8 +545,8 @@ const mod = {
 	LifecycleModuleDidLoad () {
 		const _this = this;
 		
-		return uSerial(_this._SetupMethods().map(function (e) {
-			return Promise.resolve(_this[e]());
+		return uSerial2(_this._SetupMethods().map(function (e) {
+			return _this[e];
 		}));
 	},
 

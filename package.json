@@ -16,11 +16,14 @@
     "OLSKQueue": "olsk/OLSKQueue",
     "OLSKCache": "olsk/OLSKCache",
     "OLSKDisk": "olsk/OLSKDisk",
+    "OLSKDOM": "olsk/OLSKDOM",
+    "node-fetch": "latest",
     "cheerio": "latest",
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {
     "livereload": "latest",
+    "jsdom": "latest",
     "OLSKSpec": "olsk/OLSKSpec",
     "OLSKHotfix": "olsk/OLSKHotfix",
     "OLSKBundle": "olsk/OLSKBundle",
