@@ -387,13 +387,13 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 
 });
 
-describe('DataListedProjects', function test_DataListedProjects() {
+describe('DataListingProjects', function test_DataListingProjects() {
 	
-	const _DataListedProjects = function (inputData = {}) {
+	const _DataListingProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueListingsCache: {},
 			_DataListingObjects: (function () {}),
-		}, inputData).DataListedProjects();
+		}, inputData).DataListingProjects();
 	};
 
 	it('calls _DataListingObjects', function () {
@@ -405,7 +405,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 			});
 		}, {});
 		
-		_DataListedProjects({
+		_DataListingProjects({
 			_ValueListingsCache,
 			_DataListingObjects: (function () {
 				item.push([...arguments]);
@@ -420,7 +420,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 	});
 
 	it('returns _DataListingObjects', function () {
-		deepEqual(_DataListedProjects({
+		deepEqual(_DataListingProjects({
 			_DataListingObjects: (function () {
 				return [{
 					ZDAProjectURL: arguments[0],
@@ -438,7 +438,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 			ZDAProjectURL: Math.random().toString(),
 		};
 
-		deepEqual(_DataListedProjects({
+		deepEqual(_DataListingProjects({
 			_DataListingObjects: (function () {
 				return [item, item];
 			}),
@@ -446,7 +446,7 @@ describe('DataListedProjects', function test_DataListedProjects() {
 	});
 
 	it('passes default value if cache empty', function () {
-		deepEqual(_DataListedProjects({
+		deepEqual(_DataListingProjects({
 			_DataListingObjects: mod._DataListingObjects,
 		}), []);
 	});
@@ -647,19 +647,19 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 	
 	const _DataDetailedProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataListedProjects: (function () {}),
+			DataListingProjects: (function () {}),
 			_DataDetailProperties: (function () {
 				return [...arguments].shift();
 			}),
 		}, inputData).DataDetailedProjects();
 	};
 
-	it('returns DataListedProjects', function () {
+	it('returns DataListingProjects', function () {
 		const item = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 		deepEqual(_DataDetailedProjects({
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [item];
 			}),
 		}), [item]);
@@ -671,7 +671,7 @@ describe('DataDetailedProjects', function test_DataDetailedProjects() {
 		};
 
 		deepEqual(_DataDetailedProjects({
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [project];
 			}),
 			_DataDetailProperties: (function () {
@@ -1287,7 +1287,7 @@ describe('SetupInfos', function test_SetupInfos() {
 
 	const _SetupInfos = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [];
 			}),
 			_SetupInfo: (function () {}),
@@ -1299,7 +1299,7 @@ describe('SetupInfos', function test_SetupInfos() {
 			ZDAProjectURL: Math.random().toString(),
 		};
 		deepEqual(await _SetupInfos({
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [item];
 			}),
 			_SetupInfo: (function () {
@@ -1442,7 +1442,7 @@ describe('SetupDetails', function test_SetupDetails() {
 
 	const _SetupDetails = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [];
 			}),
 			_SetupDetail: (function () {}),
@@ -1452,7 +1452,7 @@ describe('SetupDetails', function test_SetupDetails() {
 	it('calls _SetupDetail', async function () {
 		const ZDAProjectURL = Math.random().toString();
 		deepEqual(await _SetupDetails({
-			DataListedProjects: (function () {
+			DataListingProjects: (function () {
 				return [{
 					ZDAProjectURL,
 				}];

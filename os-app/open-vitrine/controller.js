@@ -76,6 +76,9 @@ const mod = {
 	_DataFoilFS: require('fs'),
 	_DataFoilNodeFetch: require('node-fetch'),
 
+	_DataContentString: uGet,
+	_DataContentImage: uGet,
+
 	DataCacheNameListings() {
 		return 'cache-a-listings';
 	},
@@ -125,10 +128,6 @@ const mod = {
 			return e.match(/solid/);
 		}).shift();
 	},
-
-	_DataContentString: uGet,
-
-	_DataContentImage: uGet,
 
 	_DataListingObjects (param1, param2) {
 		if (!mod.DataListingURLs().includes(param1)) {
@@ -219,7 +218,7 @@ const mod = {
 		});
 	},
 
-	DataListedProjects () {
+	DataListingProjects () {
 		const _this = this;
 		return mod.DataListingURLs().reduce(function (coll, item) {
 			return coll.concat(_this._DataListingObjects(item, _this._ValueListingsCache[item] || ''));
@@ -287,7 +286,7 @@ const mod = {
 	},
 
 	DataDetailedProjects () {
-		return this.DataListedProjects().map(this._DataDetailProperties);
+		return this.DataListingProjects().map(this._DataDetailProperties);
 	},
 
 	_DataImageURL (inputData) {
@@ -468,7 +467,7 @@ const mod = {
 	},
 
 	SetupInfos () {
-		return Promise.all(this.DataListedProjects().map(this._SetupInfo));
+		return Promise.all(this.DataListingProjects().map(this._SetupInfo));
 	},
 
 	SetupDetailsCache () {
@@ -498,7 +497,7 @@ const mod = {
 
 	SetupDetails () {
 		const _this = this;
-		return Promise.all(_this.DataListedProjects().map(function (e) {
+		return Promise.all(_this.DataListingProjects().map(function (e) {
 			return _this._SetupDetail(e.ZDAProjectURL);
 		}));
 	},
