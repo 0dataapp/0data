@@ -79,6 +79,10 @@ const mod = {
 		return 'cache-a-listings';
 	},
 
+	DataCacheNameInfo() {
+		return 'cache-b-details';
+	},
+
 	DataCacheNameDetails() {
 		return 'cache-b-details';
 	},
@@ -427,6 +431,10 @@ const mod = {
 
 	SetupListings () {
 		return Promise.all(mod.DataListingURLs().map(this._SetupListing));
+	},
+
+	SetupInfoCache () {
+		this._ValueInfoCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {};
 	},
 
 	SetupDetailsCache () {

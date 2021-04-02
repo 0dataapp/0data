@@ -10,6 +10,14 @@ describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
 });
 
+describe('DataCacheNameInfo', function test_DataCacheNameInfo() {
+
+	it('returns string', function () {
+		deepEqual(mod.DataCacheNameInfo(), 'cache-b-details');
+	});
+
+});
+
 describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 	it('returns string', function () {
@@ -1121,6 +1129,41 @@ describe('SetupListings', function test_SetupListings() {
 				return e;
 			}),
 		}), mod.DataListingURLs());
+	});
+
+});
+
+describe('SetupInfoCache', function test_SetupInfoCache() {
+
+	const _SetupInfoCache = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataFoilOLSKCache: Object.assign({
+				OLSKCacheReadFile: (function () {}),
+			}, inputData),
+		});
+		return _mod.SetupInfoCache() || _mod;
+	};
+
+	it('calls OLSKCacheReadFile', function () {
+		const items = [];
+
+		_SetupInfoCache({
+			OLSKCacheReadFile: (function () {
+				items.push(...arguments);
+			}),
+		});
+
+		deepEqual(items, [mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')]);
+	});
+
+	it('sets _ValueInfoCache', function () {
+		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
+
+		deepEqual(_SetupInfoCache({
+			OLSKCacheReadFile: (function () {
+				return OLSKCacheReadFile;
+			}),
+		})._ValueInfoCache, OLSKCacheReadFile || {});
 	});
 
 });
