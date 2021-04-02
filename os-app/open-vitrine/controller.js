@@ -76,7 +76,7 @@ const mod = {
 	},
 
 	_ValueListingsCache: {},
-	_ValueInfoCache: {},
+	_ValueCandidatesCache: {},
 
 	// DATA
 
@@ -111,8 +111,8 @@ const mod = {
 		return 'cache-a-listings';
 	},
 
-	DataCacheNameInfo() {
-		return 'cache-b-info';
+	DataCacheNameDetails() {
+		return 'cache-b-details';
 	},
 
 	DataCacheFilenameURL (inputData) {
@@ -143,12 +143,12 @@ const mod = {
 		return require('path').join(__dirname, '__cached', mod.DataCacheNameListings(), inputData);
 	},
 
-	DataCachePathInfo (inputData) {
+	DataCachePathDetails (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		return require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), inputData);
+		return require('path').join(__dirname, '__cached', mod.DataCacheNameDetails(), inputData);
 	},
 
 	DataCachePathImages () {
@@ -304,9 +304,9 @@ const mod = {
 		}).objects;
 	},
 
-	// * DETAIL
+	// * DETAILS
 
-	_DataInfoDOMPropertyCandidates (inputData) {
+	_DataDetailsDOMPropertyCandidates (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDRErrorInputNotValid');
 		}
@@ -374,7 +374,7 @@ const mod = {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		return Object.entries(this._ValueInfoCache[inputData.ZDAProjectURL] || {}).reduce(function (coll, [key, value]) {
+		return Object.entries(this._ValueCandidatesCache[inputData.ZDAProjectURL] || {}).reduce(function (coll, [key, value]) {
 			if (key.startsWith('_') && coll[key.slice(1)]) {
 				return coll;
 			}
@@ -475,48 +475,48 @@ const mod = {
 		return Promise.all(mod.DataListingURLs().map(this._SetupListing));
 	},
 
-	SetupInfoCache () {
+	SetupDetailsCache () {
 		Object.assign(mod, Object.assign(this, {
-			_ValueInfoCache: this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {},
+			_ValueCandidatesCache: this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {},
 		}));
 	},
 
-	async _SetupInfoFetch (inputData) {
+	async _SetupDetailCandidates (inputData) {
 		if (!this._DataFoilNodeFetch) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return Object.fromEntries(this._DataInfoDOMPropertyCandidates({
-			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathInfo(mod.DataCacheFilenameURL(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
+		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
+			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await (await this._DataFoilNodeFetch(inputData)).text()),
 			ParamURL: inputData,
 		}));
 	},
 
-	_SetupInfo (inputData) {
+	_SetupDetail (inputData) {
 		if (!this._DataFoilOLSKCache) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this._ValueInfoCache,
+			ParamMap: _this._ValueCandidatesCache,
 			ParamKey: inputData,
 			ParamCallback: (function () {
 				return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-					return _this._SetupInfoFetch(inputData);
+					return _this._SetupDetailCandidates(inputData);
 				});
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueInfoCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached'));
+				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueCandidatesCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
 			}),
 		});
 	},
 
-	SetupInfos () {
+	SetupDetails () {
 		const _this = this;
 		return Promise.all(this.DataListingProjects().map(function (e) {
-			return _this._SetupInfo(e.ZDAProjectURL);
+			return _this._SetupDetail(e.ZDAProjectURL);
 		}));
 	},
 

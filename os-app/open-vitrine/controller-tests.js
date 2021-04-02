@@ -43,10 +43,10 @@ describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
 });
 
-describe('DataCacheNameInfo', function test_DataCacheNameInfo() {
+describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataCacheNameInfo(), 'cache-b-info');
+		deepEqual(mod.DataCacheNameDetails(), 'cache-b-details');
 	});
 
 });
@@ -102,17 +102,17 @@ describe('DataCachePathListings', function test_DataCachePathListings() {
 
 });
 
-describe('DataCachePathInfo', function test_DataCachePathInfo() {
+describe('DataCachePathDetails', function test_DataCachePathDetails() {
 
 	it('throws if not string', function () {
 		throws(function () {
-			mod.DataCachePathInfo(null);
+			mod.DataCachePathDetails(null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns string', function () {
 		const item = Math.random().toString();
-		deepEqual(mod.DataCachePathInfo(item), require('path').join(__dirname, '__cached', mod.DataCacheNameInfo(), item));
+		deepEqual(mod.DataCachePathDetails(item), require('path').join(__dirname, '__cached', mod.DataCacheNameDetails(), item));
 	});
 
 });
@@ -590,10 +590,10 @@ describe('DataListingProjects', function test_DataListingProjects() {
 
 });
 
-describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCandidates() {
+describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPropertyCandidates() {
 
-	const __DataInfoDOMPropertyCandidates = function (inputData = {}) {
-		return mod._DataInfoDOMPropertyCandidates(Object.assign({
+	const __DataDetailsDOMPropertyCandidates = function (inputData = {}) {
+		return mod._DataDetailsDOMPropertyCandidates(Object.assign({
 			ParamHTML: Math.random().toString(),
 			ParamURL: Math.random().toString(),
 		}, inputData));
@@ -601,13 +601,13 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 
 	it('throws if not object', function () {
 		throws(function () {
-			mod._DataInfoDOMPropertyCandidates(null);
+			mod._DataDetailsDOMPropertyCandidates(null);
 		}, /ZDRErrorInputNotValid/);
 	});
 
 	it('throws if ParamHTML not string', function () {
 		throws(function () {
-			__DataInfoDOMPropertyCandidates({
+			__DataDetailsDOMPropertyCandidates({
 				ParamHTML: null,
 			});
 		}, /ZDRErrorInputNotValid/);
@@ -615,20 +615,20 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 
 	it('throws if ParamURL not string', function () {
 		throws(function () {
-			__DataInfoDOMPropertyCandidates({
+			__DataDetailsDOMPropertyCandidates({
 				ParamURL: null,
 			});
 		}, /ZDRErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(__DataInfoDOMPropertyCandidates(), []);
+		deepEqual(__DataDetailsDOMPropertyCandidates(), []);
 	});
 
 	it('parses apple-touch-icon', function () {
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const ParamURL = 'https://example.com';
-		deepEqual(__DataInfoDOMPropertyCandidates({
+		deepEqual(__DataDetailsDOMPropertyCandidates({
 			ParamHTML: `<link rel="apple-touch-icon" href="${ path }" />`,
 			ParamURL,
 		}), Object.entries({
@@ -639,7 +639,7 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 	it('parses apple-touch-icon-precomposed', function () {
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const ParamURL = 'https://example.com';
-		deepEqual(__DataInfoDOMPropertyCandidates({
+		deepEqual(__DataDetailsDOMPropertyCandidates({
 			ParamHTML: `<link rel="apple-touch-icon-precomposed" href="${ path }" />`,
 			ParamURL,
 		}), Object.entries({
@@ -649,7 +649,7 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 
 	it('parses description', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
-		deepEqual(__DataInfoDOMPropertyCandidates({
+		deepEqual(__DataDetailsDOMPropertyCandidates({
 			ParamHTML: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
 		}), Object.entries({
 			_ZDAProjectBlurb,
@@ -658,7 +658,7 @@ describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCan
 
 	it('parses title', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
-		deepEqual(__DataInfoDOMPropertyCandidates({
+		deepEqual(__DataDetailsDOMPropertyCandidates({
 			ParamHTML: `<title>${ _ZDAProjectBlurb }</title>`,
 		}), Object.entries({
 			_ZDAProjectBlurb,
@@ -736,8 +736,8 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 	
 	const __DataProjectProperties = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueInfoCache: {},
-			_DataInfoDOMPropertyCandidates: (function () {
+			_ValueCandidatesCache: {},
+			_DataDetailsDOMPropertyCandidates: (function () {
 				return [];
 			}),
 		}, inputData)._DataProjectProperties(inputData.ParamProject);
@@ -758,12 +758,12 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 		}), ParamProject);
 	});
 	
-	it('includes _ValueInfoCache', function () {
+	it('includes _ValueCandidatesCache', function () {
 		const ZDAProjectURL = Math.random().toString();
 		const ParamProject = {
 			ZDAProjectURL,
 		};
-		const _ValueInfoCache = {
+		const _ValueCandidatesCache = {
 			[ZDAProjectURL]: {
 				[Math.random().toString()]: Math.random().toString(),
 			},
@@ -771,8 +771,8 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 
 		deepEqual(__DataProjectProperties({
 			ParamProject,
-			_ValueInfoCache,
-		}), Object.assign(ParamProject, _ValueInfoCache));
+			_ValueCandidatesCache,
+		}), Object.assign(ParamProject, _ValueCandidatesCache));
 	});
 	
 	it('excludes underscore if present', function () {
@@ -782,7 +782,7 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 			ZDAProjectURL,
 			[item]: Math.random().toString(),
 		};
-		const _ValueInfoCache = {
+		const _ValueCandidatesCache = {
 			[ZDAProjectURL]: {
 				['_' + item]: Math.random().toString(),
 			},
@@ -790,7 +790,7 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 
 		deepEqual(__DataProjectProperties({
 			ParamProject,
-			_ValueInfoCache,
+			_ValueCandidatesCache,
 		}), ParamProject);
 	});
 	
@@ -800,7 +800,7 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 		const ParamProject = {
 			ZDAProjectURL,
 		};
-		const _ValueInfoCache = {
+		const _ValueCandidatesCache = {
 			[ZDAProjectURL]: {
 				['_' + item]: item,
 			},
@@ -808,7 +808,7 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 
 		deepEqual(__DataProjectProperties({
 			ParamProject,
-			_ValueInfoCache,
+			_ValueCandidatesCache,
 		}), Object.assign(ParamProject, {
 			[item]: item,
 		}));
@@ -820,7 +820,7 @@ describe('DataProjects2', function test_DataProjects2() {
 	
 	const _DataProjects2 = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueInfoCache: {},
+			_ValueCandidatesCache: {},
 			DataListingProjects: (function () {}),
 		}, inputData).DataProjects2();
 	};
@@ -832,7 +832,7 @@ describe('DataProjects2', function test_DataProjects2() {
 		const ZDAProjectURL = Math.random().toString();
 		const _ZDAProjectIconURLCachedPath = Math.random().toString();
 		deepEqual(_DataProjects2({
-			_ValueInfoCache: {
+			_ValueCandidatesCache: {
 				[ZDAProjectURL]: candidates,
 			},
 			DataListingProjects: (function () {
@@ -1119,44 +1119,44 @@ describe('SetupListings', function test_SetupListings() {
 
 });
 
-describe('SetupInfoCache', function test_SetupInfoCache() {
+describe('SetupDetailsCache', function test_SetupDetailCache() {
 
-	const _SetupInfoCache = function (inputData) {
+	const _SetupDetailCache = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
 			_DataFoilOLSKCache: Object.assign({
 				OLSKCacheReadFile: (function () {}),
 			}, inputData),
 		});
-		return _mod.SetupInfoCache() || _mod;
+		return _mod.SetupDetailsCache() || _mod;
 	};
 
 	it('calls OLSKCacheReadFile', function () {
 		const items = [];
 
-		_SetupInfoCache({
+		_SetupDetailCache({
 			OLSKCacheReadFile: (function () {
 				items.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, [mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')]);
+		deepEqual(items, [mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 	});
 
-	it('sets _ValueInfoCache', function () {
+	it('sets _ValueCandidatesCache', function () {
 		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
 
-		deepEqual(_SetupInfoCache({
+		deepEqual(_SetupDetailCache({
 			OLSKCacheReadFile: (function () {
 				return OLSKCacheReadFile;
 			}),
-		})._ValueInfoCache, OLSKCacheReadFile || {});
+		})._ValueCandidatesCache, OLSKCacheReadFile || {});
 	});
 
 });
 
-describe('_SetupInfoFetch', function test__SetupInfoFetch() {
+describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 
-	const __SetupInfoFetch = function (inputData) {
+	const __SetupDetailCandidates = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
 			_DataFoilNodeFetch: (function () {
 				return {
@@ -1170,14 +1170,14 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 					return [...arguments].pop();
 				}),
 			}, inputData),
-		}, inputData)._SetupInfoFetch(inputData.ParamURL || Math.random().toString());
+		}, inputData)._SetupDetailCandidates(inputData.ParamURL || Math.random().toString());
 	};
 
 	it('calls _DataFoilNodeFetch', function () {
 		const ParamURL = 'https://example.com/' + Math.random().toString();
 
 		deepEqual(uCapture(function (_DataFoilNodeFetch) {
-			__SetupInfoFetch({
+			__SetupDetailCandidates({
 				ParamURL,
 				_DataFoilNodeFetch,
 			});
@@ -1189,7 +1189,7 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 		const ParamHTML = Math.random().toString();
 
 		deepEqual(await new Promise(function (res) {
-			return __SetupInfoFetch({
+			return __SetupDetailCandidates({
 				ParamURL,
 				_DataFoilNodeFetch: (function () {
 					return {
@@ -1202,16 +1202,16 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 					res([...arguments])
 				}),
 			});
-		}), [mod.DataCachePathInfo(mod.DataCacheFilenameURL(ParamURL)), ParamHTML]);
+		}), [mod.DataCachePathDetails(mod.DataCacheFilenameURL(ParamURL)), ParamHTML]);
 	});
 
-	it('returns _DataInfoDOMPropertyCandidates', async function () {
+	it('returns _DataDetailsDOMPropertyCandidates', async function () {
 		const ParamURL = 'https://example.com/' + Math.random().toString();
 		const ParamHTML = Math.random().toString();
-		deepEqual(await __SetupInfoFetch({
+		deepEqual(await __SetupDetailCandidates({
 			ParamURL,
 			ParamHTML,
-			_DataInfoDOMPropertyCandidates: (function () {
+			_DataDetailsDOMPropertyCandidates: (function () {
 				return [
 					['arguments', [...arguments]],
 				];
@@ -1226,35 +1226,35 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 
 });
 
-describe('_SetupInfo', function test__SetupInfo() {
+describe('_SetupDetail', function test__SetupDetail() {
 
-	const __SetupInfo = function (inputData) {
+	const __SetupDetail = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueFetchQueue: Object.assign({}, inputData),
 			_DataFoilOLSKCache: Object.assign({
 				OLSKCacheResultFetchRenew: (function () {}),
 				OLSKCacheWriteFile: (function () {}),
 			}, inputData),
-			_SetupInfoFetch: (function () {}),
-		}, inputData)._SetupInfo(inputData.url || Math.random().toString());
+			_SetupDetailCandidates: (function () {}),
+		}, inputData)._SetupDetail(inputData.url || Math.random().toString());
 	};
 
 	it('calls OLSKCacheResultFetchRenew', function () {
 		const url = Math.random().toString();
-		const _ValueInfoCache = {
+		const _ValueCandidatesCache = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 
-		const item = __SetupInfo({
+		const item = __SetupDetail({
 			url,
-			_ValueInfoCache,
+			_ValueCandidatesCache,
 			OLSKCacheResultFetchRenew: (function () {
 				return [...arguments];
 			}),
 		}).pop();
 
 		deepEqual(item, {
-			ParamMap: _ValueInfoCache,
+			ParamMap: _ValueCandidatesCache,
 			ParamKey: url,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
@@ -1267,7 +1267,7 @@ describe('_SetupInfo', function test__SetupInfo() {
 		it('calls OLSKQueueAdd', async function () {
 			const url = Math.random().toString();
 
-			deepEqual(await __SetupInfo({
+			deepEqual(await __SetupDetail({
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData.ParamCallback();
 				}),
@@ -1279,10 +1279,10 @@ describe('_SetupInfo', function test__SetupInfo() {
 			}), ['function']);
 		});
 
-		it('calls _SetupInfoFetch', async function () {
+		it('calls _SetupDetailCandidates', async function () {
 			const url = Math.random().toString();
 
-			deepEqual(await __SetupInfo({
+			deepEqual(await __SetupDetail({
 				url,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData.ParamCallback();
@@ -1290,7 +1290,7 @@ describe('_SetupInfo', function test__SetupInfo() {
 				OLSKQueueAdd: (function (inputData) {
 					return inputData();
 				}),
-				_SetupInfoFetch: (function () {
+				_SetupDetailCandidates: (function () {
 					return [...arguments];
 				}),
 			}), [url]);
@@ -1301,45 +1301,45 @@ describe('_SetupInfo', function test__SetupInfo() {
 	context('_ParamCallbackDidFinish', function () {
 
 		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueInfoCache = {
+			const _ValueCandidatesCache = {
 				[Math.random().toString()]: Math.random().toString(),
 			};
 
-			deepEqual(await __SetupInfo({
-				_ValueInfoCache,
+			deepEqual(await __SetupDetail({
+				_ValueCandidatesCache,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData._ParamCallbackDidFinish();
 				}),
 				OLSKCacheWriteFile: (function () {
 					return [...arguments];
 				}),
-			}), [_ValueInfoCache, mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')]);
+			}), [_ValueCandidatesCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
 		});
 	
 	});
 
 });
 
-describe('SetupInfos', function test_SetupInfos() {
+describe('SetupDetails', function test_SetupDetail() {
 
-	const _SetupInfos = function (inputData = {}) {
+	const _SetupDetails = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			DataListingProjects: (function () {
 				return [];
 			}),
-			_SetupInfo: (function () {}),
-		}, inputData).SetupInfos();
+			_SetupDetail: (function () {}),
+		}, inputData).SetupDetails();
 	};
 
-	it('calls _SetupInfo', async function () {
+	it('calls _SetupDetail', async function () {
 		const item = {
 			ZDAProjectURL: Math.random().toString(),
 		};
-		deepEqual(await _SetupInfos({
+		deepEqual(await _SetupDetails({
 			DataListingProjects: (function () {
 				return [item];
 			}),
-			_SetupInfo: (function () {
+			_SetupDetail: (function () {
 				return [...arguments].slice(0, 1);
 			}),
 		}), [[item.ZDAProjectURL]]);
