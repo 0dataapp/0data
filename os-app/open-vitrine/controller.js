@@ -449,6 +449,8 @@ const mod = {
 		return this.DataImagedProjects().sort(mod.DataProjectsSort);
 	},
 
+	// * JSON
+
 	DataProjectJSONSchema (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDAErrorInputNotValid');
