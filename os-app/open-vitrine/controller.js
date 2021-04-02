@@ -249,7 +249,7 @@ const mod = {
 		return (new URL(path, url)).href;
 	},
 
-	_DataInfoPropertyCandidates (inputData, debug) {
+	_DataInfoDOMPropertyCandidates (inputData, debug) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDRErrorInputNotValid');
 		}
@@ -264,7 +264,7 @@ const mod = {
 
 		const metadata = require('OLSKDOM').OLSKDOMMetadata(inputData.ParamHTML, debug);
 
-		return Object.fromEntries([
+		return [
 			['ZDAProjectIconURL', (function(href) {
 				if (!href) {
 					return;
@@ -276,11 +276,11 @@ const mod = {
 			['_ZDAProjectBlurb', metadata.title],
 		].filter(function ([key, value]) {
 			return !!value;
-		}));
+		});
 	},
 
 	_DataInfoDOMProperties (inputData) {
-		return Object.entries(this._DataInfoPropertyCandidates(inputData)).reduce(function (coll, [key, value]) {
+		return this._DataInfoDOMPropertyCandidates(inputData).reduce(function (coll, [key, value]) {
 			if (key.startsWith('_')) {
 				if (inputData[key.slice(1)]) {
 					return coll;

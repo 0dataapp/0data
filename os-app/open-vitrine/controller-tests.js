@@ -487,10 +487,10 @@ describe('_DataDetailPropertyCandidatesURL', function test__DataDetailPropertyCa
 
 });
 
-describe('_DataInfoPropertyCandidates', function test__DataInfoPropertyCandidates() {
+describe('_DataInfoDOMPropertyCandidates', function test__DataInfoDOMPropertyCandidates() {
 
-	const __DataInfoPropertyCandidates = function (inputData = {}) {
-		return mod._DataInfoPropertyCandidates(Object.assign({
+	const __DataInfoDOMPropertyCandidates = function (inputData = {}) {
+		return mod._DataInfoDOMPropertyCandidates(Object.assign({
 			ParamHTML: Math.random().toString(),
 			ParamURL: Math.random().toString(),
 		}, inputData), {
@@ -500,13 +500,13 @@ describe('_DataInfoPropertyCandidates', function test__DataInfoPropertyCandidate
 
 	it('throws if not object', function () {
 		throws(function () {
-			mod._DataInfoPropertyCandidates(null);
+			mod._DataInfoDOMPropertyCandidates(null);
 		}, /ZDRErrorInputNotValid/);
 	});
 
 	it('throws if ParamHTML not string', function () {
 		throws(function () {
-			__DataInfoPropertyCandidates({
+			__DataInfoDOMPropertyCandidates({
 				ParamHTML: null,
 			});
 		}, /ZDRErrorInputNotValid/);
@@ -514,54 +514,54 @@ describe('_DataInfoPropertyCandidates', function test__DataInfoPropertyCandidate
 
 	it('throws if ParamURL not string', function () {
 		throws(function () {
-			__DataInfoPropertyCandidates({
+			__DataInfoDOMPropertyCandidates({
 				ParamURL: null,
 			});
 		}, /ZDRErrorInputNotValid/);
 	});
 
-	it('returns object', function () {
-		deepEqual(__DataInfoPropertyCandidates(), {});
+	it('returns array', function () {
+		deepEqual(__DataInfoDOMPropertyCandidates(), []);
 	});
 
 	it('parses apple-touch-icon', function () {
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const ParamURL = 'https://example.com';
-		deepEqual(__DataInfoPropertyCandidates({
+		deepEqual(__DataInfoDOMPropertyCandidates({
 			ParamHTML: `<link rel="apple-touch-icon" href="${ path }" />`,
 			ParamURL,
-		}), {
+		}), Object.entries({
 			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(ParamURL, path),
-		});
+		}));
 	});
 
 	it('parses apple-touch-icon-precomposed', function () {
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const ParamURL = 'https://example.com';
-		deepEqual(__DataInfoPropertyCandidates({
+		deepEqual(__DataInfoDOMPropertyCandidates({
 			ParamHTML: `<link rel="apple-touch-icon-precomposed" href="${ path }" />`,
 			ParamURL,
-		}), {
+		}), Object.entries({
 			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(ParamURL, path),
-		});
+		}));
 	});
 
 	it('parses description', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
-		deepEqual(__DataInfoPropertyCandidates({
+		deepEqual(__DataInfoDOMPropertyCandidates({
 			ParamHTML: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
-		}), {
+		}), Object.entries({
 			_ZDAProjectBlurb,
-		});
+		}));
 	});
 
 	it('parses title', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
-		deepEqual(__DataInfoPropertyCandidates({
+		deepEqual(__DataInfoDOMPropertyCandidates({
 			ParamHTML: `<title>${ _ZDAProjectBlurb }</title>`,
-		}), {
+		}), Object.entries({
 			_ZDAProjectBlurb,
-		});
+		}));
 	});
 
 });
@@ -570,8 +570,8 @@ describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
 	
 	const __DataInfoDOMProperties = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_DataInfoPropertyCandidates: (function () {
-				return {};
+			_DataInfoDOMPropertyCandidates: (function () {
+				return [];
 			}),
 		}, inputData)._DataInfoDOMProperties(inputData.object || {});
 	};
@@ -582,7 +582,7 @@ describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
 		}), {});
 	});
 
-	it('calls _DataInfoPropertyCandidates', function () {
+	it('calls _DataInfoDOMPropertyCandidates', function () {
 		const object = {
 			[Math.random().toString()]: Math.random().toString(),
 		};
@@ -590,10 +590,10 @@ describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
 		deepEqual(uCapture(function (capture) {
 			__DataInfoDOMProperties({
 				object,
-				_DataInfoPropertyCandidates: (function () {
+				_DataInfoDOMPropertyCandidates: (function () {
 					capture(...arguments);
 
-					return {};
+					return [];
 				}),
 			});
 		}), [object]);
@@ -606,25 +606,38 @@ describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
 			object: {
 				[item]: item,
 			},
-			_DataInfoPropertyCandidates: (function () {
-				return {
+			_DataInfoDOMPropertyCandidates: (function () {
+				return Object.entries({
 					['_' + item]: Math.random().toString(),
-				};
+				});
 			}),
 		}), {});
 	});
 	
-	it('assigns values', function () {
-		const item = uRandomElement('_', '') + Math.random().toString();
-		const _DataInfoPropertyCandidates = {
+	it('includes', function () {
+		const item = Math.random().toString();
+		const _DataInfoDOMPropertyCandidates = {
 			[item]: Math.random().toString(),
 		};
 
 		deepEqual(__DataInfoDOMProperties({
-			_DataInfoPropertyCandidates: (function () {
-				return _DataInfoPropertyCandidates;
+			_DataInfoDOMPropertyCandidates: (function () {
+				return Object.entries(_DataInfoDOMPropertyCandidates);
 			}),
-		}), _DataInfoPropertyCandidates);
+		}), _DataInfoDOMPropertyCandidates);
+	});
+	
+	it('strips underscore', function () {
+		const item = Math.random().toString();
+		deepEqual(__DataInfoDOMProperties({
+			_DataInfoDOMPropertyCandidates: (function () {
+				return Object.entries({
+					['_' + item]: item,
+				});
+			}),
+		}), {
+			[item]: item,
+		});
 	});
 
 });
