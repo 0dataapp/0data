@@ -2,6 +2,10 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
+const uLink = function () {
+	return 'https://example.com/' + Math.random().toString();
+};
+
 describe('DataRelativeURL', function test_DataRelativeURL() {
 
 	it('throws if param1 not string', function () {
@@ -64,7 +68,7 @@ describe('DataCacheFilenameURL', function test_DataCacheFilenameURL() {
 		const filename = Date.now().toString();
 		const item = 'https://' + host + '/' + filename;
 
-		deepEqual(mod.DataCacheFilenameURL(item), host.replace('www.', '') + '.' + mod._DataHash(item) + '.html');
+		deepEqual(mod.DataCacheFilenameURL(item), host.replace('www.', '') + '.' + mod._DataHash(item));
 	});
 
 });
@@ -82,7 +86,7 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 		const filename = Date.now().toString();
 		const item = 'https://example.com/' + filename + extension;
 
-		deepEqual(mod.DataCacheFilenameImage(item), mod._DataHash(item) + extension);
+		deepEqual(mod.DataCacheFilenameImage(item), mod.DataCacheFilenameURL(item).replace('.html', '') + extension);
 	});
 
 	it('strips query', function () {
@@ -91,7 +95,7 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 		const item = 'https://example.com/' + filename + extension;
 		const query = '?' + Date.now().toString();
 
-		deepEqual(mod.DataCacheFilenameImage(item + query), mod._DataHash(item + query) + extension);
+		deepEqual(mod.DataCacheFilenameImage(item + query), mod.DataCacheFilenameURL(item + query).replace('.html', '') + extension);
 	});
 
 });
@@ -141,13 +145,13 @@ describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
 			_DataFoilFS: Object.assign({
 				existsSync: (function () {}),
 			}, inputData),
-		}, inputData).DataCacheImageLocalPath(inputData.url || Math.random().toString());
+		}, inputData).DataCacheImageLocalPath(inputData.url || uLink());
 	};
 
 	it('calls existsSync', function () {
 		const item = [];
 
-		const url = Math.random().toString();
+		const url = uLink();
 
 		_DataCacheImageLocalPath({
 			url,
@@ -160,7 +164,7 @@ describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
 	});
 
 	it('returns local URL if existsSync', function () {
-		const url = Math.random().toString();
+		const url = uLink();
 
 		deepEqual(_DataCacheImageLocalPath({
 			url,
@@ -715,7 +719,7 @@ describe('_DataProjectImageProperty', function test__DataProjectImageProperty() 
 
 	it('returns inputData', function () {
 		const ParamProject = {
-			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectIconURL: uLink(),
 		};
 		deepEqual(__DataProjectImageProperty({
 			ParamProject,
@@ -867,7 +871,7 @@ describe('DataProjects2', function test_DataProjects2() {
 		};
 		const item2 = {
 			ZDAProjectURL: Math.random().toString(),
-			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectIconURL: uLink(),
 		};
 
 		deepEqual(_DataProjects2({
@@ -1089,7 +1093,7 @@ describe('_SetupListing', function test__SetupListing() {
 	context('_ParamCallbackDidFinish', function () {
 
 		it('calls OLSKDiskWrite', async function () {
-			const url = 'https://example.com/' + Math.random().toString();
+			const url = uLink();
 			const data = Math.random().toString();
 			
 			deepEqual(await __SetupListing({
@@ -1179,7 +1183,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 	};
 
 	it('calls _DataContentString', function () {
-		const ParamURL = 'https://example.com/' + Math.random().toString();
+		const ParamURL = uLink();
 
 		deepEqual(uCapture(function (_DataContentString) {
 			__SetupDetailCandidates({
@@ -1190,7 +1194,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 	});
 
 	it('calls OLSKDiskWrite', async function () {
-		const ParamURL = 'https://example.com/' + Math.random().toString();
+		const ParamURL = uLink();
 		const ParamHTML = Math.random().toString();
 
 		deepEqual(await new Promise(function (res) {
@@ -1207,7 +1211,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 	});
 
 	it('returns _DataDetailsDOMPropertyCandidates', async function () {
-		const ParamURL = 'https://example.com/' + Math.random().toString();
+		const ParamURL = uLink();
 		const ParamHTML = Math.random().toString();
 		deepEqual(await __SetupDetailCandidates({
 			ParamURL,
@@ -1358,7 +1362,7 @@ describe('_SetupImage', function test__SetupImage() {
 	};
 
 	it('calls OLSKQueueAdd', async function () {
-		const url = Math.random().toString();
+		const url = uLink();
 
 		deepEqual(await __SetupImage({
 			url,
@@ -1371,7 +1375,7 @@ describe('_SetupImage', function test__SetupImage() {
 	});
 
 	it('calls _DataContentImage', async function () {
-		const url = Math.random().toString();
+		const url = uLink();
 
 		deepEqual(await __SetupImage({
 			url,

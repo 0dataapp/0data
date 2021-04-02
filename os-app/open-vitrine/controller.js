@@ -123,7 +123,7 @@ const mod = {
 
 		const host = (new URL('', inputData)).host.replace('www.', '');
 
-		return host + '.' + mod._DataHash(inputData) + '.html';
+		return host + '.' + mod._DataHash(inputData);
 	},
 
 	DataCacheFilenameImage (inputData) {
@@ -133,7 +133,7 @@ const mod = {
 
 		const extension = require('path').extname(inputData).split('?').shift();
 
-		return mod._DataHash(inputData) + extension;
+		return mod.DataCacheFilenameURL(inputData) + extension;
 	},
 
 	DataCachePathListings (inputData) {
