@@ -74,6 +74,7 @@ const mod = {
 	_DataFoilOLSKQueue: require('OLSKQueue'),
 	_DataFoilOLSKDisk: require('OLSKDisk'),
 	_DataFoilFS: require('fs'),
+	_DataFoilNodeFetch: require('node-fetch'),
 
 	DataCacheNameListings() {
 		return 'cache-a-listings';
@@ -435,6 +436,14 @@ const mod = {
 
 	SetupInfoCache () {
 		this._ValueInfoCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {};
+	},
+
+	_SetupInfoFetch (inputData) {
+		if (!this._DataFoilNodeFetch) {
+			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
+		}
+
+		return this._DataFoilNodeFetch(inputData);
 	},
 
 	_SetupInfo (inputData) {

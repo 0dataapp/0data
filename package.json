@@ -16,6 +16,7 @@
     "OLSKQueue": "olsk/OLSKQueue",
     "OLSKCache": "olsk/OLSKCache",
     "OLSKDisk": "olsk/OLSKDisk",
+    "node-fetch": "latest",
     "cheerio": "latest",
     "// I sacrifice myself for the commas of others": null
   },

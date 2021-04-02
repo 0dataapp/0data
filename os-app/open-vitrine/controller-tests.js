@@ -1168,6 +1168,27 @@ describe('SetupInfoCache', function test_SetupInfoCache() {
 
 });
 
+describe('_SetupInfoFetch', function test__SetupInfoFetch() {
+
+	const __SetupInfoFetch = function (inputData) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataFoilNodeFetch: (function () {}),
+		}, inputData)._SetupInfoFetch(inputData.url || Math.random().toString());
+	};
+
+	it('calls _DataFoilNodeFetch', function () {
+		const url = Math.random().toString();
+
+		deepEqual(uCapture(function (_DataFoilNodeFetch) {
+			__SetupInfoFetch({
+				url,
+				_DataFoilNodeFetch,
+			});
+		}), [url]);
+	});
+
+});
+
 describe('_SetupInfo', function test__SetupInfo() {
 
 	const __SetupInfo = function (inputData) {
