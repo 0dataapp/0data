@@ -93,6 +93,18 @@ const mod = {
 		return require('crypto').createHash('md5').update(inputData).digest('hex');
 	},
 
+	DataRelativeURL (url, path) {
+		if (typeof url !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		if (typeof path !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return (new URL(path, url)).href;
+	},
+
 	// * CACHE
 
 	DataCacheNameListings() {
@@ -101,10 +113,6 @@ const mod = {
 
 	DataCacheNameInfo() {
 		return 'cache-b-info';
-	},
-
-	DataCacheNameDetails() {
-		return 'cache-b-details';
 	},
 
 	DataCacheFilenameURL (inputData) {
@@ -145,6 +153,11 @@ const mod = {
 
 	DataCachePathImages () {
 		return require('path').join(__dirname, '__cached', 'ui-assets');
+	},
+
+	DataCacheImageLocalPath (inputData) {
+		const localURL = require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData));
+		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
 	},
 
 	// * LISTING
@@ -233,7 +246,7 @@ const mod = {
 									}
 
 									return {
-										ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(item, inputData),
+										ZDAProjectIconURL: mod.DataRelativeURL(item, inputData),
 									};
 								})(cheerio('img', this).attr('src')));
 						});
@@ -293,18 +306,6 @@ const mod = {
 
 	// * DETAIL
 
-	_DataDetailPropertyCandidatesURL (url, path) {
-		if (typeof url !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		if (typeof path !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		return (new URL(path, url)).href;
-	},
-
 	_DataInfoDOMPropertyCandidates (inputData) {
 		if (typeof inputData !== 'object' || inputData === null) {
 			throw new Error('ZDRErrorInputNotValid');
@@ -328,70 +329,12 @@ const mod = {
 					return;
 				}
 
-				return !href ? null : mod._DataDetailPropertyCandidatesURL(inputData.ParamURL, href);
+				return !href ? null : mod.DataRelativeURL(inputData.ParamURL, href);
 			})(metadata['apple-touch-icon'] || metadata['apple-touch-icon-precomposed'])],
 			['_ZDAProjectBlurb', metadata.description],
 			['_ZDAProjectBlurb', metadata.title],
 		].filter(function ([key, value]) {
 			return !!value;
-		});
-	},
-
-	_DataDetailPropertyCandidates (inputData) {
-		if (!this._ValueDetailsCache ) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
-		return Object.fromEntries([
-			['ZDAProjectIconURL', (function(href) {
-				if (!href) {
-					return;
-				}
-
-				return !href ? null : mod._DataDetailPropertyCandidatesURL(inputData, href);
-			})(cheerio('link[rel="apple-touch-icon"]', this._ValueDetailsCache[inputData] || '').attr('href') || cheerio('link[rel="apple-touch-icon-precomposed"]', this._ValueDetailsCache[inputData] || '').attr('href'))],
-			['_ZDAProjectBlurb', cheerio('meta[name="description"]', this._ValueDetailsCache[inputData] || '').attr('content')],
-			['_ZDAProjectBlurb', cheerio('title', this._ValueDetailsCache[inputData] || '').text()],
-		].filter(function ([key, value]) {
-			return !!value;
-		}));
-	},
-
-	_DataDetailProperties (inputData) {
-		return Object.assign(inputData, Object.entries(this._DataDetailPropertyCandidates(inputData.ZDAProjectURL)).reduce(function (coll, [key, value]) {
-			if (key.startsWith('_')) {
-				if (inputData[key.slice(1)]) {
-					return coll;
-				}
-
-				key = key.slice(1);
-			}
-
-			return Object.assign(coll, {
-				[key]: value,
-			});
-		}, {}));
-	},
-
-	DataDetailedProjects () {
-		return this.DataListingProjects().map(this._DataDetailProperties);
-	},
-
-	// * IMAGE
-
-	_DataImageURL (inputData) {
-		const localURL = require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData));
-		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
-	},
-
-	DataImagedProjects () {
-		const _this = this;
-		return _this.DataDetailedProjects().map(function (e) {
-			if (e.ZDAProjectIconURL) {
-				e._ZDAProjectIconURLCachedPath = _this._DataImageURL(e.ZDAProjectIconURL);
-			}
-
-			return e;
 		});
 	},
 
@@ -416,19 +359,11 @@ const mod = {
 		return 0;
 	},
 
-	DataProjects () {
-		if (!this.DataImagedProjects) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
-		return this.DataImagedProjects().sort(mod.DataProjectsSort);
-	},
-
 	_DataProjectImageProperty (inputData) {
 		const _this = this;
 
 		if (inputData.ZDAProjectIconURL) {
-			inputData._ZDAProjectIconURLCachedPath = _this._DataImageURL(inputData.ZDAProjectIconURL);
+			inputData._ZDAProjectIconURLCachedPath = _this.DataCacheImageLocalPath(inputData.ZDAProjectIconURL);
 		}
 
 		return inputData;
@@ -455,7 +390,7 @@ const mod = {
 	},
 
 	DataProjects2 () {
-		if (!this.DataImagedProjects) {
+		if (!this.DataListingProjects) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
@@ -582,38 +517,6 @@ const mod = {
 		const _this = this;
 		return Promise.all(this.DataListingProjects().map(function (e) {
 			return _this._SetupInfo(e.ZDAProjectURL);
-		}));
-	},
-
-	SetupDetailsCache () {
-		this._ValueDetailsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {};
-	},
-
-	_SetupDetail (inputData) {
-		if (!this._DataFoilOLSKCache) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
-		const _this = this;
-		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this._ValueDetailsCache,
-			ParamKey: inputData,
-			ParamCallback: (function () {
-				return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-					return _this._DataContentString(inputData);
-				});
-			}),
-			ParamInterval: 1000 * 60 * 60 * 24,
-			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached'));
-			}),
-		});
-	},
-
-	SetupDetails () {
-		const _this = this;
-		return Promise.all(_this.DataListingProjects().map(function (e) {
-			return _this._SetupDetail(e.ZDAProjectURL);
 		}));
 	},
 
