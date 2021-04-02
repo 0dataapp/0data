@@ -107,10 +107,6 @@ const mod = {
 		return 'cache-b-details';
 	},
 
-	DataCacheNameProjects() {
-		return 'cache-c-projects';
-	},
-
 	DataCacheFilenameURL (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -491,7 +487,7 @@ const mod = {
 	},
 
 	DataProjectsJSON () {
-		return JSON.stringify(this._ValueProjectsCache.map(mod.DataProjectJSONSchema));
+		return JSON.stringify(this.DataProjects2().map(mod.DataProjectJSONSchema));
 	},
 
 	// SETUP
@@ -621,23 +617,6 @@ const mod = {
 		}));
 	},
 
-	SetupProjectsCache () {
-		this._ValueProjectsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')) || [];
-	},
-
-	SetupProjects () {
-		const _this = this;
-		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _this,
-			ParamKey: '_ValueProjectsCache',
-			ParamCallback: _this.DataProjects,
-			ParamInterval: 1000 * 60,
-			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKCache.OLSKCacheWriteFile(_this._ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached'));
-			}),
-		});
-	},
-
 	_SetupImage (inputData) {
 		if (!this._ValueFetchQueue) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
@@ -651,7 +630,7 @@ const mod = {
 
 	SetupImages () {
 		const _this = this;
-		return _this._ValueProjectsCache.filter(function (e) {
+		return _this.DataProjects2().filter(function (e) {
 			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);

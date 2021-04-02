@@ -26,14 +26,6 @@ describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 });
 
-describe('DataCacheNameProjects', function test_DataCacheNameProjects() {
-
-	it('returns string', function () {
-		deepEqual(mod.DataCacheNameProjects(), 'cache-c-projects');
-	});
-
-});
-
 describe('DataCacheFilenameURL', function test_DataCacheFilenameURL() {
 
 	it('throws if not string', function () {
@@ -1218,7 +1210,9 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 		};
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
-			_ValueProjectsCache: [item],
+			DataProjects2: (function () {
+				return [item];
+			}),
 		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectJSONSchema(item)]));
 	});
 
@@ -1634,254 +1628,6 @@ describe('SetupInfos', function test_SetupInfos() {
 
 });
 
-describe('SetupDetailsCache', function test_SetupDetailsCache() {
-
-	const _SetupDetailsCache = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheReadFile: (function () {}),
-			}, inputData),
-		});
-		return _mod.SetupDetailsCache() || _mod;
-	};
-
-	it('calls OLSKCacheReadFile', function () {
-		const items = [];
-
-		_SetupDetailsCache({
-			OLSKCacheReadFile: (function () {
-				items.push(...arguments);
-			}),
-		});
-
-		deepEqual(items, [mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
-	});
-
-	it('sets _ValueDetailsCache', function () {
-		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
-
-		deepEqual(_SetupDetailsCache({
-			OLSKCacheReadFile: (function () {
-				return OLSKCacheReadFile;
-			}),
-		})._ValueDetailsCache, OLSKCacheReadFile || {});
-	});
-
-});
-
-describe('_SetupDetail', function test__SetupDetail() {
-
-	const __SetupDetail = function (inputData) {
-		return Object.assign(Object.assign({}, mod), {
-			_ValueFetchQueue: Object.assign({}, inputData),
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheResultFetchRenew: (function () {}),
-				OLSKCacheWriteFile: (function () {}),
-			}, inputData),
-		}, inputData)._SetupDetail(inputData.url || Math.random().toString());
-	};
-
-	it('calls OLSKCacheResultFetchRenew', function () {
-		const url = Math.random().toString();
-		const _ValueDetailsCache = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-
-		const item = __SetupDetail({
-			url,
-			_ValueDetailsCache,
-			OLSKCacheResultFetchRenew: (function () {
-				return [...arguments];
-			}),
-		}).pop();
-
-		deepEqual(item, {
-			ParamMap: _ValueDetailsCache,
-			ParamKey: url,
-			ParamCallback: item.ParamCallback,
-			ParamInterval: 1000 * 60 * 60 * 24,
-			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
-		});
-	});
-
-	context('ParamCallback', function () {
-
-		it('calls OLSKQueueAdd', async function () {
-			const url = Math.random().toString();
-
-			deepEqual(await __SetupDetail({
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData.ParamCallback();
-				}),
-				OLSKQueueAdd: (function () {
-					return [...arguments].map(function (e) {
-						return typeof e;
-					});
-				}),
-			}), ['function']);
-		});
-
-		it('calls _DataContentString', async function () {
-			const url = Math.random().toString();
-
-			deepEqual(await __SetupDetail({
-				url,
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData.ParamCallback();
-				}),
-				OLSKQueueAdd: (function (inputData) {
-					return inputData();
-				}),
-				_DataContentString: (function () {
-					return [...arguments];
-				}),
-			}), [url]);
-		});
-	
-	});
-
-	context('_ParamCallbackDidFinish', function () {
-
-		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueDetailsCache = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
-			deepEqual(await __SetupDetail({
-				_ValueDetailsCache,
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData._ParamCallbackDidFinish();
-				}),
-				OLSKCacheWriteFile: (function () {
-					return [...arguments];
-				}),
-			}), [_ValueDetailsCache, mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')]);
-		});
-	
-	});
-
-});
-
-describe('SetupDetails', function test_SetupDetails() {
-
-	const _SetupDetails = function (inputData = {}) {
-		return Object.assign(Object.assign({}, mod), {
-			DataListingProjects: (function () {
-				return [];
-			}),
-			_SetupDetail: (function () {}),
-		}, inputData).SetupDetails();
-	};
-
-	it('calls _SetupDetail', async function () {
-		const ZDAProjectURL = Math.random().toString();
-		deepEqual(await _SetupDetails({
-			DataListingProjects: (function () {
-				return [{
-					ZDAProjectURL,
-				}];
-			}),
-			_SetupDetail: (function () {
-				return [...arguments];
-			}),
-		}), [[ZDAProjectURL]]);
-	});
-
-});
-
-describe('SetupProjectsCache', function test_SetupProjectsCache() {
-
-	const _SetupProjectsCache = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheReadFile: (function () {}),
-			}, inputData),
-		});
-		return _mod.SetupProjectsCache() || _mod;
-	};
-
-	it('calls OLSKCacheReadFile', function () {
-		const items = [];
-
-		_SetupProjectsCache({
-			OLSKCacheReadFile: (function () {
-				items.push(...arguments);
-			}),
-		});
-
-		deepEqual(items, [mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
-	});
-
-	it('sets _ValueProjectsCache', function () {
-		const OLSKCacheReadFile = uRandomElement(Math.random().toString(), null);
-
-		deepEqual(_SetupProjectsCache({
-			OLSKCacheReadFile: (function () {
-				return OLSKCacheReadFile;
-			}),
-		})._ValueProjectsCache, OLSKCacheReadFile || []);
-	});
-
-});
-
-describe('SetupProjects', function test_SetupProjects() {
-
-	const _SetupProjects = function (inputData) {
-		return Object.assign(inputData._mod || {}, Object.assign({}, mod), {
-			DataProjects: (function () {}),
-
-			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheResultFetchRenew: (function () {}),
-				OLSKCacheWriteFile: (function () {}),
-			}, inputData),
-		}, inputData).SetupProjects();
-	};
-
-	it('calls OLSKCacheResultFetchRenew', function () {
-		const _mod = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-		const DataProjects = (function () {});
-
-		const item = _SetupProjects({
-			_mod,
-			DataProjects,
-			OLSKCacheResultFetchRenew: (function () {
-				return [...arguments];
-			}),
-		}).pop();
-
-		deepEqual(item, {
-			ParamMap: _mod,
-			ParamKey: '_ValueProjectsCache',
-			ParamCallback: DataProjects,
-			ParamInterval: 1000 * 60,
-			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
-		});
-	});
-
-	context('_ParamCallbackDidFinish', function () {
-
-		it('calls OLSKCacheWriteFile', async function () {
-			const _ValueProjectsCache = {
-				[Math.random().toString()]: Math.random().toString(),
-			};
-
-			deepEqual(await _SetupProjects({
-				_ValueProjectsCache,
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData._ParamCallbackDidFinish();
-				}),
-				OLSKCacheWriteFile: (function () {
-					return [...arguments];
-				}),
-			}), [_ValueProjectsCache, mod.DataCacheNameProjects(), require('path').join(__dirname, '__cached')]);
-		});
-	
-	});
-
-});
-
 describe('_SetupImage', function test__SetupImage() {
 
 	const __SetupImage = function (inputData = {}) {
@@ -1924,7 +1670,9 @@ describe('SetupImages', function test_SetupImages() {
 
 	const _SetupImages = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueProjectsCache: [],
+			DataProjects2: (function () {
+				return [];
+			}),
 			_SetupImage: (function () {}),
 		}, inputData).SetupImages();
 	};
@@ -1933,9 +1681,11 @@ describe('SetupImages', function test_SetupImages() {
 		const ZDAProjectIconURL = Math.random().toString();
 
 		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{
-				ZDAProjectIconURL,
-			}],
+			DataProjects2: (function () {
+				return [{
+					ZDAProjectIconURL,
+				}];
+			}),
 			_SetupImage: (function () {
 				return [...arguments];
 			}),
@@ -1944,17 +1694,21 @@ describe('SetupImages', function test_SetupImages() {
 
 	it('ignores if no ZDAProjectIconURL', async function () {
 		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{}],
+			DataProjects2: (function () {
+				return [{}];
+			}),
 		}), []);
 	});
 
 	it('ignores if already local', async function () {
 		const ZDAProjectIconURL = Math.random().toString();
 		deepEqual(await _SetupImages({
-			_ValueProjectsCache: [{
-				ZDAProjectIconURL: Math.random().toString(),
-				_ZDAProjectIconURLCachedPath: Math.random().toString(),
-			}],
+			DataProjects2: (function () {
+				return [{
+					ZDAProjectIconURL: Math.random().toString(),
+					_ZDAProjectIconURLCachedPath: Math.random().toString(),
+				}];
+			}),
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),
