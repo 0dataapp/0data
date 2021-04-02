@@ -279,6 +279,22 @@ const mod = {
 		}));
 	},
 
+	_DataInfoDOMProperties (inputData) {
+		return Object.entries(this._DataInfoPropertyCandidates(inputData)).reduce(function (coll, [key, value]) {
+			if (key.startsWith('_')) {
+				if (inputData[key.slice(1)]) {
+					return coll;
+				}
+
+				key = key.slice(1);
+			}
+
+			return Object.assign(coll, {
+				[key]: value,
+			});
+		}, {});
+	},
+
 	_DataDetailPropertyCandidates (inputData) {
 		if (!this._ValueDetailsCache ) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this

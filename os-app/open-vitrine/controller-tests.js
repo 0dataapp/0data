@@ -566,6 +566,69 @@ describe('_DataInfoPropertyCandidates', function test__DataInfoPropertyCandidate
 
 });
 
+describe('_DataInfoDOMProperties', function test__DataInfoDOMProperties() {
+	
+	const __DataInfoDOMProperties = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			_DataInfoPropertyCandidates: (function () {
+				return {};
+			}),
+		}, inputData)._DataInfoDOMProperties(inputData.object || {});
+	};
+
+	it('returns object', function () {
+		deepEqual(__DataInfoDOMProperties({
+			[Math.random().toString()]: Math.random().toString(),
+		}), {});
+	});
+
+	it('calls _DataInfoPropertyCandidates', function () {
+		const object = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+
+		deepEqual(uCapture(function (capture) {
+			__DataInfoDOMProperties({
+				object,
+				_DataInfoPropertyCandidates: (function () {
+					capture(...arguments);
+
+					return {};
+				}),
+			});
+		}), [object]);
+	});
+
+	it('excludes underscore if present', function () {
+		const item = Math.random().toString();
+		
+		deepEqual(__DataInfoDOMProperties({
+			object: {
+				[item]: item,
+			},
+			_DataInfoPropertyCandidates: (function () {
+				return {
+					['_' + item]: Math.random().toString(),
+				};
+			}),
+		}), {});
+	});
+	
+	it('assigns values', function () {
+		const item = uRandomElement('_', '') + Math.random().toString();
+		const _DataInfoPropertyCandidates = {
+			[item]: Math.random().toString(),
+		};
+
+		deepEqual(__DataInfoDOMProperties({
+			_DataInfoPropertyCandidates: (function () {
+				return _DataInfoPropertyCandidates;
+			}),
+		}), _DataInfoPropertyCandidates);
+	});
+
+});
+
 describe('_DataDetailPropertyCandidates', function test__DataDetailPropertyCandidates() {
 
 	const __DataDetailPropertyCandidates = function (inputData = {}) {
