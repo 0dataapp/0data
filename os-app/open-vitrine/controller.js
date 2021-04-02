@@ -437,6 +437,10 @@ const mod = {
 		this._ValueInfoCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {};
 	},
 
+	SetupInfos () {
+		return Promise.all(this.DataListedProjects().map(this._SetupInfo));
+	},
+
 	SetupDetailsCache () {
 		this._ValueDetailsCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameDetails(), require('path').join(__dirname, '__cached')) || {};
 	},

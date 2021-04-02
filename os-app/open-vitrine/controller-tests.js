@@ -1168,6 +1168,33 @@ describe('SetupInfoCache', function test_SetupInfoCache() {
 
 });
 
+describe('SetupInfos', function test_SetupInfos() {
+
+	const _SetupInfos = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			DataListedProjects: (function () {
+				return [];
+			}),
+			_SetupInfo: (function () {}),
+		}, inputData).SetupInfos();
+	};
+
+	it('calls _SetupInfo', async function () {
+		const item = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		deepEqual(await _SetupInfos({
+			DataListedProjects: (function () {
+				return [item];
+			}),
+			_SetupInfo: (function () {
+				return [...arguments].slice(0, 1);
+			}),
+		}), [[item]]);
+	});
+
+});
+
 describe('SetupDetailsCache', function test_SetupDetailsCache() {
 
 	const _SetupDetailsCache = function (inputData) {
