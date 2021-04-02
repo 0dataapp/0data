@@ -249,6 +249,36 @@ const mod = {
 		return (new URL(path, url)).href;
 	},
 
+	_DataInfoPropertyCandidates (inputData, debug) {
+		if (typeof inputData !== 'object' || inputData === null) {
+			throw new Error('ZDRErrorInputNotValid');
+		}
+
+		if (typeof inputData.ParamHTML !== 'string') {
+			throw new Error('ZDRErrorInputNotValid');
+		}
+
+		if (typeof inputData.ParamURL !== 'string') {
+			throw new Error('ZDRErrorInputNotValid');
+		}
+
+		const metadata = require('OLSKDOM').OLSKDOMMetadata(inputData.ParamHTML, debug);
+
+		return Object.fromEntries([
+			['ZDAProjectIconURL', (function(href) {
+				if (!href) {
+					return;
+				}
+
+				return !href ? null : mod._DataDetailPropertyCandidatesURL(inputData.ParamURL, href);
+			})(metadata['apple-touch-icon'] || metadata['apple-touch-icon-precomposed'])],
+			['_ZDAProjectBlurb', metadata.description],
+			['_ZDAProjectBlurb', metadata.title],
+		].filter(function ([key, value]) {
+			return !!value;
+		}));
+	},
+
 	_DataDetailPropertyCandidates (inputData) {
 		if (!this._ValueDetailsCache ) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
@@ -437,12 +467,12 @@ const mod = {
 		this._ValueInfoCache = this._DataFoilOLSKCache.OLSKCacheReadFile(mod.DataCacheNameInfo(), require('path').join(__dirname, '__cached')) || {};
 	},
 
-	_SetupInfoFetch (inputData) {
+	async _SetupInfoFetch (inputData) {
 		if (!this._DataFoilNodeFetch) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
 
-		return this._DataFoilNodeFetch(inputData);
+		return this._DataInfo(await (await this._DataFoilNodeFetch(inputData).text()));
 	},
 
 	_SetupInfo (inputData) {

@@ -1,6 +1,7 @@
 const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
+const { JSDOM } = require('JSDOM');
 
 describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
@@ -482,6 +483,85 @@ describe('_DataDetailPropertyCandidatesURL', function test__DataDetailPropertyCa
 		const url = 'https://example.com';
 		const path = '/' + Math.random().toString();
 		deepEqual(mod._DataDetailPropertyCandidatesURL(url, path), url + path);
+	});
+
+});
+
+describe('_DataInfoPropertyCandidates', function test__DataInfoPropertyCandidates() {
+
+	const __DataInfoPropertyCandidates = function (inputData = {}) {
+		return mod._DataInfoPropertyCandidates(Object.assign({
+			ParamHTML: Math.random().toString(),
+			ParamURL: Math.random().toString(),
+		}, inputData), {
+			JSDOM: JSDOM.fragment,
+		});
+	};
+
+	it('throws if not object', function () {
+		throws(function () {
+			mod._DataInfoPropertyCandidates(null);
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('throws if ParamHTML not string', function () {
+		throws(function () {
+			__DataInfoPropertyCandidates({
+				ParamHTML: null,
+			});
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('throws if ParamURL not string', function () {
+		throws(function () {
+			__DataInfoPropertyCandidates({
+				ParamURL: null,
+			});
+		}, /ZDRErrorInputNotValid/);
+	});
+
+	it('returns object', function () {
+		deepEqual(__DataInfoPropertyCandidates(), {});
+	});
+
+	it('parses apple-touch-icon', function () {
+		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+		const ParamURL = 'https://example.com';
+		deepEqual(__DataInfoPropertyCandidates({
+			ParamHTML: `<link rel="apple-touch-icon" href="${ path }" />`,
+			ParamURL,
+		}), {
+			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(ParamURL, path),
+		});
+	});
+
+	it('parses apple-touch-icon-precomposed', function () {
+		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+		const ParamURL = 'https://example.com';
+		deepEqual(__DataInfoPropertyCandidates({
+			ParamHTML: `<link rel="apple-touch-icon-precomposed" href="${ path }" />`,
+			ParamURL,
+		}), {
+			ZDAProjectIconURL: mod._DataDetailPropertyCandidatesURL(ParamURL, path),
+		});
+	});
+
+	it('parses description', function () {
+		const _ZDAProjectBlurb = Math.random().toString();
+		deepEqual(__DataInfoPropertyCandidates({
+			ParamHTML: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
+		}), {
+			_ZDAProjectBlurb,
+		});
+	});
+
+	it('parses title', function () {
+		const _ZDAProjectBlurb = Math.random().toString();
+		deepEqual(__DataInfoPropertyCandidates({
+			ParamHTML: `<title>${ _ZDAProjectBlurb }</title>`,
+		}), {
+			_ZDAProjectBlurb,
+		});
 	});
 
 });
@@ -1185,6 +1265,22 @@ describe('_SetupInfoFetch', function test__SetupInfoFetch() {
 				_DataFoilNodeFetch,
 			});
 		}), [url]);
+	});
+
+	it('returns _DataInfo', async function () {
+		const item = Math.random().toString();
+		deepEqual(await __SetupInfoFetch({
+			_DataFoilNodeFetch: (function () {
+				return {
+					text: (function () {
+						return item;
+					}),
+				};
+			}),
+			_DataInfo: (function () {
+				return [...arguments];
+			}),
+		}), [item]);
 	});
 
 });
