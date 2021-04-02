@@ -375,10 +375,6 @@ const mod = {
 	},
 
 	DataProjects2 () {
-		if (!this.DataListingProjects) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
 		const _this = this;
 		return _this.DataListingProjects().map(function (e) {
 			return _this._DataProjectProperties(e);
@@ -422,7 +418,7 @@ const mod = {
 		if (!this._DataFoilOLSKQueue) {
 			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
 		}
-
+		
 		this._ValueFetchQueue = this._DataFoilOLSKQueue.OLSKQueueAPI();
 	},
 
@@ -438,10 +434,6 @@ const mod = {
 	},
 
 	_SetupListing (inputData) {
-		if (!this._DataFoilOLSKCache) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
 			ParamMap: _this._ValueListingsCache,
@@ -467,10 +459,6 @@ const mod = {
 	},
 
 	async _SetupDetailCandidates (inputData) {
-		if (!this._DataContentString) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
 		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
 			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await this._DataContentString(inputData)),
 			ParamURL: inputData,
@@ -478,10 +466,6 @@ const mod = {
 	},
 
 	_SetupDetail (inputData) {
-		if (!this._DataFoilOLSKCache) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
 		const _this = this;
 		return _this._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
 			ParamMap: _this._ValueCandidatesCache,
@@ -506,10 +490,6 @@ const mod = {
 	},
 
 	_SetupImage (inputData) {
-		if (!this._ValueFetchQueue) {
-			Object.assign(this, mod); // #hotfix-oldskool-middleware-this
-		}
-
 		const _this = this;
 		return _this._ValueFetchQueue.OLSKQueueAdd(function () {
 			return _this._DataContentImage(inputData, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData)));
