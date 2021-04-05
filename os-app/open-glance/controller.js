@@ -480,9 +480,17 @@ const mod = {
 		const ParamMetadata = require('OLSKDOM').OLSKDOMMetadata(this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await this._DataContentString(inputData)), {
 			JSDOM: JSDOM.fragment,
 		});
+		
 		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
 			ParamURL: inputData,
 			ParamMetadata,
+			ParamManifest: !ParamMetadata.manifest ? undefined : (function(inputData) {
+				try {
+					return JSON.parse(inputData);
+				} catch (error) {
+					return undefined;
+				}
+			})(await this._DataContentString(mod.DataRelativeURL(inputData, ParamMetadata.manifest))),
 		}));
 	},
 

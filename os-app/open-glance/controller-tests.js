@@ -1239,11 +1239,18 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 
 	it('returns _DataDetailsDOMPropertyCandidates', async function () {
 		const ParamURL = uLink();
-		const item = Math.random().toString();
-		const ParamHTML = `<link rel="apple-touch-icon" href="${ item }" /><link rel="apple-touch-icon-precomposed" href="${ item }" /><meta name="description" content="${ item }"><title>${ item }</title>`;
+
+		const manifest = uRandomElement('<link rel="manifest" href="/manifest.json">', '');
+		const manifestJSON = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		const ParamHTML = `<link rel="apple-touch-icon" href="${ Math.random().toString() }" /><link rel="apple-touch-icon-precomposed" href="${ Math.random().toString() }" /><meta name="description" content="${ Math.random().toString() }"><title>${ Math.random().toString() }</title>` + manifest;
 		deepEqual(await __SetupDetailCandidates({
 			ParamURL,
 			ParamHTML,
+			_DataContentString: (function (inputData) {
+				return inputData.match('manifest') ? JSON.stringify(manifestJSON) : ParamHTML;
+			}),
 			_DataDetailsDOMPropertyCandidates: (function () {
 				return [
 					['arguments', [...arguments]],
@@ -1255,6 +1262,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 					JSDOM: JSDOM.fragment,
 				}),
 				ParamURL,
+				ParamManifest: manifest ? manifestJSON : undefined,
 			}],
 		});
 	});
