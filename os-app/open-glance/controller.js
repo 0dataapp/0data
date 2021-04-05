@@ -208,6 +208,7 @@ const mod = {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
 								ZDAProjectBlurb: cheerio('td:nth-child(2)', this).text(),
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href'),
+								_ZDAProjectSupportsRemoteStorage: true,
 							};
 						});
 					},
@@ -273,6 +274,10 @@ const mod = {
 		}, {})[param1]()).map(function (e) {
 			return Object.fromEntries(Object.entries(e).map(function (e) {
 				return e.map(function (e) {
+					if (typeof e !== 'string') {
+						return e;
+					}
+					
 					return e.trim();
 				});
 			}));

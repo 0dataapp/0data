@@ -9,6 +9,7 @@
 		<th></th>
 		<th class="ZDAGlanceListHeadName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
 		<th class="ZDAGlanceListHeadBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
+		<th class="ZDAGlanceListHeadRemoteStorage">remoteStorage</th>
 	</tr>
 <% } -%>
 
@@ -23,6 +24,9 @@
 		<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
 	</td>
 	<td class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></td>
+	<td>
+		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item._ZDAProjectSupportsRemoteStorage ? 'checked' : '' %>>
+	</td>
 </tr>
 <% }) -%>
 

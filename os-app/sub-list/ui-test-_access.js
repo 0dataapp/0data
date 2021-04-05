@@ -8,6 +8,7 @@ Object.entries({
 	ZDAGlanceListHead: '.ZDAGlanceListHead',
 	ZDAGlanceListHeadName: '.ZDAGlanceListHeadName',
 	ZDAGlanceListHeadBlurb: '.ZDAGlanceListHeadBlurb',
+	ZDAGlanceListHeadRemoteStorage: '.ZDAGlanceListHeadRemoteStorage',
 
 	ZDAGlanceListItem: '.ZDAGlanceListItem',
 	
@@ -15,6 +16,7 @@ Object.entries({
 	ZDAGlanceListItemIconImage: '.ZDAGlanceListItemIconImage',
 	ZDAGlanceListItemName: '.ZDAGlanceListItemName',
 	ZDAGlanceListItemBlurb: '.ZDAGlanceListItemBlurb',
+	ZDAGlanceListItemRemoteStorage: '.ZDAGlanceListItemRemoteStorage',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -69,6 +71,10 @@ describe('ZDAGlanceList_Access', function () {
 			browser.assert.elements(ZDAGlanceListHeadBlurb, 1);
 		});
 
+		it('shows ZDAGlanceListHeadRemoteStorage', function () {
+			browser.assert.elements(ZDAGlanceListHeadRemoteStorage, 1);
+		});
+
 		it('shows ZDAGlanceListItem', function () {
 			browser.assert.elements(ZDAGlanceListItem, count);
 		});
@@ -83,6 +89,10 @@ describe('ZDAGlanceList_Access', function () {
 
 		it('shows ZDAGlanceListItemBlurb', function () {
 			browser.assert.elements(ZDAGlanceListItemBlurb, count);
+		});
+
+		it('shows ZDAGlanceListItemRemoteStorage', function () {
+			browser.assert.elements(ZDAGlanceListItemRemoteStorage, count);
 		});
 
 		context('ZDAProjectIconURL', function () {

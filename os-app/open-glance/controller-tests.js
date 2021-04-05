@@ -285,6 +285,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
+				_ZDAProjectSupportsRemoteStorage: true,
 			}]);
 		});
 		
@@ -301,6 +302,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
+				_ZDAProjectSupportsRemoteStorage: true,
 			}]);
 		});
 	

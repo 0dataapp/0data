@@ -8,6 +8,7 @@ describe('ZDAGlanceList_Misc', function  () {
 		ZDAProjectURL: Math.random().toString(),
 		ZDAProjectIconURL: Math.random().toString(),
 		_ZDAProjectIconURLCachedPath: uRandomElement(undefined, Math.random().toString()),
+		_ZDAProjectSupportsRemoteStorage: uRandomElement(true, false),
 	};
 
 	before(function() {
@@ -34,6 +35,14 @@ describe('ZDAGlanceList_Misc', function  () {
 			browser.assert.hasClass(ZDAGlanceListHead, 'OLSKCommonEdgeBottom');
 		});
 	
+	});
+
+	describe('ZDAGlanceListHeadRemoteStorage', function test_ZDAGlanceListHeadRemoteStorage () {
+
+		it('sets text', function () {
+			browser.assert.text(ZDAGlanceListHeadRemoteStorage, 'remoteStorage');
+		});
+
 	});
 
 	describe('ZDAGlanceListItemIcon', function test_ZDAGlanceListItemIcon () {
@@ -76,6 +85,22 @@ describe('ZDAGlanceList_Misc', function  () {
 
 		it('binds ZDAProjectBlurb', function () {
 			browser.assert.text(ZDAGlanceListItemBlurb, item.ZDAProjectBlurb);
+		});
+
+	});
+
+	describe('ZDAGlanceListItemRemoteStorage', function test_ZDAGlanceListItemRemoteStorage () {
+
+		it('sets type', function () {
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'type', 'checkbox');
+		});
+
+		it('sets disabled', function () {
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'disabled', '');
+		});
+
+		it('sets checked', function () {
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'checked', item._ZDAProjectSupportsRemoteStorage ? '' : null);
 		});
 
 	});
