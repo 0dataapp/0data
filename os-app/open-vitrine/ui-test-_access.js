@@ -3,11 +3,6 @@ const kDefaultRoutePath = require('./controller.js').OLSKControllerRoutes().shif
 Object.entries({
 	ZDAVitrine: '.ZDAVitrine',
 	
-	ZDAVitrineCrown: '.ZDAVitrineCrown',
-	ZDAVitrineCrownIcon: '.ZDAVitrineCrownIcon',
-	ZDAVitrineCrownName: '.ZDAVitrineCrownName',
-	ZDAVitrineCrownBlurb: '.ZDAVitrineCrownBlurb',
-
 	ZDAVitrinePrinciplesHeading: '.ZDAVitrinePrinciplesHeading',
 	ZDAVitrinePrinciplesList: '.ZDAVitrinePrinciplesList',
 
@@ -46,26 +41,10 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrine, 1);
 	});
 	
-	it('shows OLSKLanguageSwitcher', function() {
-		browser.assert.elements('.OLSKLanguageSwitcher', 1);
+	it('shows OLSKCrown', function() {
+		browser.assert.elements('.OLSKCrown', 1);
 	});
 	
-	it('shows ZDAVitrineCrown', function() {
-		browser.assert.elements(ZDAVitrineCrown, 1);
-	});
-	
-	it('shows ZDAVitrineCrownIcon', function() {
-		browser.assert.elements(ZDAVitrineCrownIcon, 1);
-	});
-	
-	it('shows ZDAVitrineCrownName', function() {
-		browser.assert.elements(ZDAVitrineCrownName, 1);
-	});
-
-	it('shows ZDAVitrineCrownBlurb', function () {
-		browser.assert.elements(ZDAVitrineCrownBlurb, 1);
-	});
-
 	it('shows ZDAVitrinePrinciplesHeading', function () {
 		browser.assert.elements(ZDAVitrinePrinciplesHeading, 1);
 	});

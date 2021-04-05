@@ -22,14 +22,6 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.attribute('meta[name=description]', 'content', uLocalized('ZDAVitrineDescription'));
 		});
 
-		it('localizes ZDAVitrineCrownName', function () {
-			browser.assert.text(ZDAVitrineCrownName, uLocalized('ZDAVitrineTitle'));
-		});
-
-		it('localizes ZDAVitrineCrownBlurb', function () {
-			browser.assert.text(ZDAVitrineCrownBlurb, uLocalized('ZDAVitrineDescription'));
-		});
-
 		it('localizes ZDAVitrinePrinciplesHeading', function () {
 			browser.assert.text(ZDAVitrinePrinciplesHeading, uLocalized('ZDAVitrinePrinciplesHeadingText'));
 		});
@@ -82,6 +74,14 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 
 		it('localizes ZDAVitrineProjectsSourcesBlurb', function () {
 			browser.assert.text(ZDAVitrineProjectsSourcesBlurb, uLocalized('ZDAVitrineProjectsSourcesBlurbText'));
+		});
+
+		context('OLSKCrown', function test_OLSKCrown () {
+
+			it('localizes OLSKCrownCardName', function () {
+				browser.assert.text('.OLSKCrownCardName', uLocalized('ZDAVitrineTitle'));
+			});
+		
 		});
 
 	});

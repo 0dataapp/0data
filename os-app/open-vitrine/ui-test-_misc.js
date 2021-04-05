@@ -18,26 +18,10 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	describe('ZDAVitrineCrown', function test_ZDAVitrineCrown() {
+	describe('OLSKCrown', function test_OLSKCrown () {
 
-		it('classes OLSKCommonCard', function () {
-			browser.assert.hasClass(ZDAVitrineCrown, 'OLSKCommonCard');
-		});
-
-		it('classes OLSKCommonCrownCard', function () {
-			browser.assert.hasClass(ZDAVitrineCrown, 'OLSKCommonCrownCard');
-		});
-		
-	});
-
-	describe('ZDAVitrineCrownIcon', function test_ZDAVitrineCrownIcon() {
-		
-		it('sets role', function () {
-			browser.assert.attribute(ZDAVitrineCrownIcon, 'role', 'presentation');
-		});
-		
-		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineCrownIcon, 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
+		it('sets OLSKCrownCardImageURL', function () {
+			browser.assert.attribute('.OLSKCrownCardImage', 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
 		});
 	
 	});
