@@ -13,7 +13,7 @@
 
 .ZDAGlance {
 	padding: 0;
-	padding-top: calc(var(--ZDAGlanceToolbarHeight) + 2px);
+	padding-top: calc(var(--ZDAGlanceToolbarHeight) + 1px);
 
 	font-family: Arial;
 	font-size: 9pt;
