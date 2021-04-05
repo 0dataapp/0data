@@ -829,13 +829,13 @@ describe('_DataProjectProperties', function test__DataProjectProperties() {
 
 });
 
-describe('DataProjects2', function test_DataProjects2() {
+describe('DataProjects', function test_DataProjects() {
 	
-	const _DataProjects2 = function (inputData = {}) {
+	const _DataProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueCandidatesCache: {},
 			DataListingProjects: (function () {}),
-		}, inputData).DataProjects2();
+		}, inputData).DataProjects();
 	};
 
 	it('merges sources', function () {
@@ -844,7 +844,7 @@ describe('DataProjects2', function test_DataProjects2() {
 		};
 		const ZDAProjectURL = Math.random().toString();
 		const _ZDAProjectIconURLCachedPath = Math.random().toString();
-		deepEqual(_DataProjects2({
+		deepEqual(_DataProjects({
 			_ValueCandidatesCache: {
 				[ZDAProjectURL]: candidates,
 			},
@@ -865,7 +865,7 @@ describe('DataProjects2', function test_DataProjects2() {
 		})]);
 	});
 
-	it('sorts with DataProjects2Sort', function () {
+	it('sorts with DataProjectsSort', function () {
 		const item1 = {
 			ZDAProjectURL: Math.random().toString(),
 		};
@@ -874,7 +874,7 @@ describe('DataProjects2', function test_DataProjects2() {
 			ZDAProjectIconURL: uLink(),
 		};
 
-		deepEqual(_DataProjects2({
+		deepEqual(_DataProjects({
 			DataListingProjects: (function () {
 				return [item1, item2];
 			}),
@@ -942,7 +942,7 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 		};
 
 		deepEqual(Object.assign(Object.assign({}, mod), {
-			DataProjects2: (function () {
+			DataProjects: (function () {
 				return [item];
 			}),
 		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectJSONSchema(item)]));
@@ -1394,7 +1394,7 @@ describe('SetupImages', function test_SetupImages() {
 
 	const _SetupImages = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataProjects2: (function () {
+			DataProjects: (function () {
 				return [];
 			}),
 			_SetupImage: (function () {}),
@@ -1405,7 +1405,7 @@ describe('SetupImages', function test_SetupImages() {
 		const ZDAProjectIconURL = Math.random().toString();
 
 		deepEqual(await _SetupImages({
-			DataProjects2: (function () {
+			DataProjects: (function () {
 				return [{
 					ZDAProjectIconURL,
 				}];
@@ -1418,7 +1418,7 @@ describe('SetupImages', function test_SetupImages() {
 
 	it('ignores if no ZDAProjectIconURL', async function () {
 		deepEqual(await _SetupImages({
-			DataProjects2: (function () {
+			DataProjects: (function () {
 				return [{}];
 			}),
 		}), []);
@@ -1427,7 +1427,7 @@ describe('SetupImages', function test_SetupImages() {
 	it('ignores if already local', async function () {
 		const ZDAProjectIconURL = Math.random().toString();
 		deepEqual(await _SetupImages({
-			DataProjects2: (function () {
+			DataProjects: (function () {
 				return [{
 					ZDAProjectIconURL: Math.random().toString(),
 					_ZDAProjectIconURLCachedPath: Math.random().toString(),
