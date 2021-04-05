@@ -26,6 +26,18 @@ describe('ZDAGlance_Misc', function () {
 	
 	});
 
+	describe('ZDAGlanceHeader', function test_ZDAGlanceHeader () {
+
+		it('classes OLSKCommonEdgeBottom', function () {
+			browser.assert.hasClass(ZDAGlanceHeader, 'OLSKCommonEdgeBottom');
+		});
+
+		it('classes OLSKDecorFixedHeader', function () {
+			browser.assert.hasClass(ZDAGlanceHeader, 'OLSKDecorFixedHeader');
+		});
+	
+	});
+
 	describe('ZDAGlanceFilterInput', function test_ZDAGlanceFilterInput () {
 
 		it('sets accesskey', function () {

@@ -19,21 +19,25 @@
 	font-size: 9pt;
 }
 
-header {
+.ZDAGlanceHeader {
 	display: flex !important;
+
+	background: white;
+
+	align-items: center;
 }
 
 .ZDAGlanceFilterInput {
 	padding: 0 5px !important;
 	height: var(--ZDAGlanceToolbarHeight);
 	border-radius: 0 !important;
+	border: none !important;
 
 	flex-grow: 1;
-	align-items: center;
 }
 
 .ZDAGlanceProjectsCompilationLink {
-	padding: var(--OLSKSharedPadding);
+	padding: 0 10px;
 }
 
 table {

@@ -3,6 +3,7 @@ const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 Object.entries({
 	ZDAGlance: '.ZDAGlance',
 
+	ZDAGlanceHeader: '.ZDAGlanceHeader',
 	ZDAGlanceFilterInput: '.ZDAGlanceFilterInput',
 	
 	ZDAGlanceProjectsCompilationLink: '.ZDAGlanceProjectsCompilationLink',
@@ -18,6 +19,10 @@ describe('ZDAGlance_Access', function () {
 	
 	it('shows ZDAGlance', function() {
 		browser.assert.elements(ZDAGlance, 1);
+	});
+
+	it('shows ZDAGlanceHeader', function () {
+		browser.assert.elements(ZDAGlanceHeader, 1);
 	});
 
 	it('shows ZDAGlanceFilterInput', function () {
