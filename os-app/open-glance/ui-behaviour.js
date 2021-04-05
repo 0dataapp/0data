@@ -1,5 +1,16 @@
 const mod = {
 
+	// MESSAGE
+
+	WindowDispatchKeyup (event) {
+		if (event.key !== 'Escape') {
+			return;
+		}
+
+		mod._ValueList.search('');
+		document.querySelector('.ZDAGlanceFilterInput').value = '';
+	},
+
 	// LIFECYCLE
 
 	LifecyclePageWillLoad() {
@@ -23,6 +34,8 @@ const mod = {
 				},
 			],
 		});
+
+		window.addEventListener('keyup', mod.WindowDispatchKeyup);
 	},
 
 };

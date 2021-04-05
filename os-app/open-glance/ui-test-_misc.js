@@ -59,9 +59,21 @@ describe('ZDAGlance_Misc', function () {
 			it('filters list', function () {
 				browser.assert.elements('.ZDAGlanceListItem', 1);
 			});
+		
+		});
 
-			after(function () {
-				return browser.fill(ZDAGlanceFilterInput, '');
+		context('Escape', function () {
+			
+			before(function () {
+				return browser.OLSKFireKeyboardEvent(browser.window, 'Escape');
+			});
+
+			it('filters list', function () {
+				browser.assert.elements('.ZDAGlanceListItem', count);
+			});
+
+			it('sets filter text', function () {
+				browser.assert.text(ZDAGlanceFilterInput, '');
 			});
 		
 		});
