@@ -719,12 +719,12 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 
 	context('ParamManifest', function () {
 
-		it('sets _ZDAProjectHasManifest', function () {
+		it('sets ZDAProjectHasManifest', function () {
 			const ZDAProjectIconURL = uLink();
 			deepEqual(__DataDetailsDOMPropertyCandidates({
 				ParamManifest: {},
 			}), Object.entries({
-				_ZDAProjectHasManifest: true,
+				ZDAProjectHasManifest: true,
 			}));
 		});
 
@@ -740,7 +740,7 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 				},
 			}), Object.entries({
 				ZDAProjectIconURL,
-				_ZDAProjectHasManifest: true,
+				ZDAProjectHasManifest: true,
 			}));
 		});
 	
@@ -751,11 +751,8 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 describe('DataProjectsSort', function test_DataProjectsSort() {
 	
 	it('bumps ZDAProjectIconURL', function () {
-		const item1 = {
-			ZDAProjectURL: Math.random().toString(),
-		};
+		const item1 = {};
 		const item2 = {
-			ZDAProjectURL: Math.random().toString(),
 			ZDAProjectIconURL: Math.random().toString(),
 		};
 
@@ -764,13 +761,26 @@ describe('DataProjectsSort', function test_DataProjectsSort() {
 
 	it('bumps ZDAProjectIconURL + ZDAProjectBlurb', function () {
 		const item1 = {
-			ZDAProjectURL: Math.random().toString(),
 			ZDAProjectIconURL: Math.random().toString(),
 		};
 		const item2 = {
-			ZDAProjectURL: Math.random().toString(),
 			ZDAProjectBlurb: Math.random().toString(),
 			ZDAProjectIconURL: Math.random().toString(),
+		};
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps ZDAProjectHasManifest', function () {
+		const item1 = {
+			ZDAProjectBlurb: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectHasManifest: false,
+		};
+		const item2 = {
+			ZDAProjectBlurb: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectHasManifest: true,
 		};
 
 		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
