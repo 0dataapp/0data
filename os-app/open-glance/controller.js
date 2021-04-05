@@ -246,7 +246,7 @@ const mod = {
 						});
 					},
 					[mod.DataListingURLSolidProject()]: function () {
-						return cheerio('article', param2).first().find('table:not(#pod-management~table) tbody tr').map(function () {
+						return cheerio('article', param2).first().find('table:not(#pod-management~table):not(#historical-solid-apps~ul>li>table) tbody tr').map(function () {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1) a', this).text(),
 								ZDAProjectBlurb: (function(blurb) {
