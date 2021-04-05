@@ -1,5 +1,6 @@
 :root {
 	--ZDAGlanceToolbarHeight: 35px;
+	--OLSKStickyHeaderTop: var(--ZDAGlanceToolbarHeight);
 }
 
 @media screen and (max-width: 760px) {
@@ -20,13 +21,19 @@
 
 header {
 	display: flex !important;
-	flex-direction: column;
 }
 
 .ZDAGlanceFilterInput {
 	padding: 0 5px !important;
 	height: var(--ZDAGlanceToolbarHeight);
 	border-radius: 0 !important;
+
+	flex-grow: 1;
+	align-items: center;
+}
+
+.ZDAGlanceProjectsCompilationLink {
+	padding: var(--OLSKSharedPadding);
 }
 
 table {

@@ -15,15 +15,10 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 
 <header class="OLSKDecorFixedHeader">
 	<input class="ZDAGlanceFilterInput" placeholder="<%= OLSKLocalized('ZDAGlanceFilterInputText') %>" accesskey="f" />
+	<a class="ZDAGlanceProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>">JSON</a>
 </header>
 
 <%- include('../sub-list/ui-view.ejs') %>
-
-<hr role="presentation" />
-
-<p>
-	<a class="ZDAGlanceProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>"><%= OLSKLocalized('ZDAVitrineProjectsCompilationLinkText') %></a>
-</p>
 
 </div>
 

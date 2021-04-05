@@ -26,10 +26,6 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.attribute(ZDAGlanceFilterInput, 'placeholder', uLocalized('ZDAGlanceFilterInputText'));
 		});
 
-		it('localizes ZDAGlanceProjectsCompilationLink', function () {
-			browser.assert.text(ZDAGlanceProjectsCompilationLink, uLocalized('ZDAGlanceProjectsCompilationLinkText'));
-		});
-
 	});
 
 });

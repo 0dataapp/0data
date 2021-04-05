@@ -55,6 +55,10 @@ describe('ZDAGlance_Misc', function () {
 		it('sets href', function () {
 			browser.assert.attribute(ZDAGlanceProjectsCompilationLink, 'href', require('./controller.js').OLSKControllerRoutes().pop().OLSKRoutePath);
 		});
+
+		it('sets text', function () {
+			browser.assert.text(ZDAGlanceProjectsCompilationLink, 'JSON');
+		});
 	
 	});
 
