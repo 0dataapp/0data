@@ -1,6 +1,6 @@
 const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 
-describe('ZDAVitrineList_Misc', function  () {
+describe('ZDAGlanceList_Misc', function  () {
 
 	const item = {
 		ZDAProjectName: Math.random().toString(),
@@ -12,62 +12,62 @@ describe('ZDAVitrineList_Misc', function  () {
 
 	before(function() {
 		return browser.OLSKVisit(kDefaultRoute, {
-			ZDAVitrineListData: JSON.stringify([item]),
+			ZDAGlanceListData: JSON.stringify([item]),
 		});
 	});
 
-	describe('ZDAVitrineListItem', function test_ZDAVitrineListItem () {
+	describe('ZDAGlanceListItem', function test_ZDAGlanceListItem () {
 
 		it('classes OLSKCommonCard', function () {
-			browser.assert.hasClass(ZDAVitrineListItem, 'OLSKCommonCard');
+			browser.assert.hasClass(ZDAGlanceListItem, 'OLSKCommonCard');
 		});
 
 		it('sets lang', function () {
-			browser.assert.attribute(ZDAVitrineListItem, 'lang', 'en');
+			browser.assert.attribute(ZDAGlanceListItem, 'lang', 'en');
 		});
 
 	});
 
-	describe('ZDAVitrineListItemIcon', function test_ZDAVitrineListItemIcon () {
+	describe('ZDAGlanceListItemIcon', function test_ZDAGlanceListItemIcon () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineListItemIcon, 'href', item.ZDAProjectURL);
+			browser.assert.attribute(ZDAGlanceListItemIcon, 'href', item.ZDAProjectURL);
 		});
 
 		it('sets aria-hidden', function () {
-			browser.assert.attribute(ZDAVitrineListItemIcon, 'aria-hidden', 'true');
+			browser.assert.attribute(ZDAGlanceListItemIcon, 'aria-hidden', 'true');
 		});
 
 	});
 
-	describe('ZDAVitrineListItemIconImage', function test_ZDAVitrineListItemIconImage () {
+	describe('ZDAGlanceListItemIconImage', function test_ZDAGlanceListItemIconImage () {
 
 		it('sets src', function () {
-			browser.assert.attribute(ZDAVitrineListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL);
+			browser.assert.attribute(ZDAGlanceListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL);
 		});
 
 	});
 
-	describe('ZDAVitrineListItemName', function test_ZDAVitrineListItemName () {
+	describe('ZDAGlanceListItemName', function test_ZDAGlanceListItemName () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineListItemName, 'href', item.ZDAProjectURL);
+			browser.assert.attribute(ZDAGlanceListItemName, 'href', item.ZDAProjectURL);
 		});
 
 		it('sets target', function () {
-			browser.assert.attribute(ZDAVitrineListItemName, 'target', '_blank');
+			browser.assert.attribute(ZDAGlanceListItemName, 'target', '_blank');
 		});
 
 		it('binds ZDAProjectName', function () {
-			browser.assert.text(ZDAVitrineListItemName, item.ZDAProjectName);
+			browser.assert.text(ZDAGlanceListItemName, item.ZDAProjectName);
 		});
 
 	});
 
-	describe('ZDAVitrineListItemBlurb', function test_ZDAVitrineListItemBlurb () {
+	describe('ZDAGlanceListItemBlurb', function test_ZDAGlanceListItemBlurb () {
 
 		it('binds ZDAProjectBlurb', function () {
-			browser.assert.text(ZDAVitrineListItemBlurb, item.ZDAProjectBlurb);
+			browser.assert.text(ZDAGlanceListItemBlurb, item.ZDAProjectBlurb);
 		});
 
 	});

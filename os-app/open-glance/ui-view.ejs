@@ -1,0 +1,22 @@
+<%
+locals.OLSKPageTitle = OLSKLocalized('ZDAVitrineTitle');
+locals.OLSKPageDescription = OLSKLocalized('ZDAVitrineDescription');
+locals.OLSKPageAssets = [
+	'/_shared/__external/normalize.css/normalize.css',
+	'/_shared/__external/OLSKDecor/ui-style.css',
+	'ui-style.css',
+];
+locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
+%>
+
+<div class="ZDAGlance OLSKDecor">
+
+<%- include('../sub-list/ui-view.ejs') %>
+
+<hr role="presentation" />
+
+<p>
+	<a class="ZDAGlanceProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>"><%= OLSKLocalized('ZDAVitrineProjectsCompilationLinkText') %></a>
+</p>
+
+</div>

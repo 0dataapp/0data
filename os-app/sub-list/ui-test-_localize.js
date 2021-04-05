@@ -6,7 +6,7 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		return OLSKTestingLocalized(inputData, OLSKRoutingLanguage);
 	};
 
-	describe(`ZDAVitrineList_Localize-${ OLSKRoutingLanguage }`, function () {
+	describe(`ZDAGlanceList_Localize-${ OLSKRoutingLanguage }`, function () {
 
 		before(function() {
 			return browser.OLSKVisit(kDefaultRoute, {
@@ -14,8 +14,8 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			});
 		});
 
-		it('localizes ZDAVitrineListEmpty', function () {
-			browser.assert.text(ZDAVitrineListEmpty, uLocalized('ZDAVitrineListEmptyText'));
+		it('localizes ZDAGlanceListEmpty', function () {
+			browser.assert.text(ZDAGlanceListEmpty, uLocalized('ZDAGlanceListEmptyText'));
 		});
 
 	});

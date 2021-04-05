@@ -67,11 +67,7 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 	OLSKGazetteProject: 'RP_005',
 }) %>
 
-<h1 class="ZDAVitrineProjectsHeading"><%= OLSKLocalized('ZDAVitrineProjectsHeadingText') %></h1>
-
-<%- include('../sub-list/ui-view.ejs') %>
-
-<h2 class="ZDAVitrineProjectsSourcesHeading"><%= OLSKLocalized('ZDAVitrineProjectsSourcesHeadingText') %></h2>
+<h1 class="ZDAVitrineProjectsSourcesHeading"><%= OLSKLocalized('ZDAVitrineProjectsSourcesHeadingText') %></h1>
 
 <p class="ZDAVitrineProjectsSourcesBlurb"><%= OLSKLocalized('ZDAVitrineProjectsSourcesBlurbText') %></p>
 
@@ -80,12 +76,6 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 		<li><a class="ZDAVitrineProjectsSourcesListItem" href="<%= e %>"><%- e.replace('https://', '') %></a></li>
 	<% }) -%>
 </ul>
-
-<hr role="presentation" />
-
-<p>
-	<a class="ZDAVitrineProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>"><%= OLSKLocalized('ZDAVitrineProjectsCompilationLinkText') %></a>
-</p>
 
 <hr role="presentation" />
 

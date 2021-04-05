@@ -1,75 +1,75 @@
 const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 
 Object.entries({
-	ZDAVitrineList: '.ZDAVitrineList',
+	ZDAGlanceList: '.ZDAGlanceList',
 	
-	ZDAVitrineListEmpty: '.ZDAVitrineListEmpty',
+	ZDAGlanceListEmpty: '.ZDAGlanceListEmpty',
 
-	ZDAVitrineListItem: '.ZDAVitrineListItem',
+	ZDAGlanceListItem: '.ZDAGlanceListItem',
 	
-	ZDAVitrineListItemIcon: '.ZDAVitrineListItemIcon',
-	ZDAVitrineListItemIconImage: '.ZDAVitrineListItemIconImage',
-	ZDAVitrineListItemName: '.ZDAVitrineListItemName',
-	ZDAVitrineListItemBlurb: '.ZDAVitrineListItemBlurb',
+	ZDAGlanceListItemIcon: '.ZDAGlanceListItemIcon',
+	ZDAGlanceListItemIconImage: '.ZDAGlanceListItemIconImage',
+	ZDAGlanceListItemName: '.ZDAGlanceListItemName',
+	ZDAGlanceListItemBlurb: '.ZDAGlanceListItemBlurb',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
 
-describe('ZDAVitrineList_Access', function () {
+describe('ZDAGlanceList_Access', function () {
 
 	before(function() {
 		return browser.OLSKVisit(kDefaultRoute);
 	});
 	
-	it('shows ZDAVitrineList', function() {
-		browser.assert.elements(ZDAVitrineList, 1);
+	it('shows ZDAGlanceList', function() {
+		browser.assert.elements(ZDAGlanceList, 1);
 	});
 
-	it('shows ZDAVitrineListEmpty', function () {
-		browser.assert.elements(ZDAVitrineListEmpty, 1);
+	it('shows ZDAGlanceListEmpty', function () {
+		browser.assert.elements(ZDAGlanceListEmpty, 1);
 	});
 
-	it('hides ZDAVitrineListItem', function () {
-		browser.assert.elements(ZDAVitrineListItem, 0);
+	it('hides ZDAGlanceListItem', function () {
+		browser.assert.elements(ZDAGlanceListItem, 0);
 	});
 
-	context('ZDAVitrineListData', function () {
+	context('ZDAGlanceListData', function () {
 
 		const count = Math.max(1, Date.now() % 10);
 
 		before(function() {
 			return browser.OLSKVisit(kDefaultRoute, {
-				ZDAVitrineListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
+				ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
 					return {};
 				})),
 			});
 		});
 
-		it('hides ZDAVitrineListEmpty', function () {
-			browser.assert.elements(ZDAVitrineListEmpty, 0);
+		it('hides ZDAGlanceListEmpty', function () {
+			browser.assert.elements(ZDAGlanceListEmpty, 0);
 		});
 
-		it('shows ZDAVitrineListItem', function () {
-			browser.assert.elements(ZDAVitrineListItem, count);
+		it('shows ZDAGlanceListItem', function () {
+			browser.assert.elements(ZDAGlanceListItem, count);
 		});
 
-		it('hides ZDAVitrineListItemIcon', function () {
-			browser.assert.elements(ZDAVitrineListItemIcon, 0);
+		it('hides ZDAGlanceListItemIcon', function () {
+			browser.assert.elements(ZDAGlanceListItemIcon, 0);
 		});
 
-		it('shows ZDAVitrineListItemName', function () {
-			browser.assert.elements(ZDAVitrineListItemName, count);
+		it('shows ZDAGlanceListItemName', function () {
+			browser.assert.elements(ZDAGlanceListItemName, count);
 		});
 
-		it('shows ZDAVitrineListItemBlurb', function () {
-			browser.assert.elements(ZDAVitrineListItemBlurb, count);
+		it('shows ZDAGlanceListItemBlurb', function () {
+			browser.assert.elements(ZDAGlanceListItemBlurb, count);
 		});
 
 		context('ZDAProjectIconURL', function () {
 			
 			before(function() {
 				return browser.OLSKVisit(kDefaultRoute, {
-					ZDAVitrineListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
+					ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
 						return {
 							ZDAProjectIconURL: Math.random().toString(),
 						};
@@ -77,12 +77,12 @@ describe('ZDAVitrineList_Access', function () {
 				});
 			});
 
-			it('shows ZDAVitrineListItemIcon', function () {
-				browser.assert.elements(ZDAVitrineListItemIcon, count);
+			it('shows ZDAGlanceListItemIcon', function () {
+				browser.assert.elements(ZDAGlanceListItemIcon, count);
 			});
 
-			it('shows ZDAVitrineListItemIconImage', function () {
-				browser.assert.elements(ZDAVitrineListItemIconImage, count);
+			it('shows ZDAGlanceListItemIconImage', function () {
+				browser.assert.elements(ZDAGlanceListItemIconImage, count);
 			});
 
 		});

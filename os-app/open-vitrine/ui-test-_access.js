@@ -30,11 +30,8 @@ Object.entries({
 
 	ZDAVitrineGazetteHeading: '.ZDAVitrineGazetteHeading',
 
-	ZDAVitrineProjectsHeading: '.ZDAVitrineProjectsHeading',
-
 	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
 	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
-	ZDAVitrineProjectsCompilationLink: '.ZDAVitrineProjectsCompilationLink',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -145,14 +142,6 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements('.OLSKGazette', 1);
 	});
 
-	it('shows ZDAVitrineProjectsHeading', function () {
-		browser.assert.elements(ZDAVitrineProjectsHeading, 1);
-	});
-
-	it('shows ZDAVitrineList', function () {
-		browser.assert.elements('.ZDAVitrineList', 1);
-	});
-
 	it('shows ZDAVitrineProjectsSourcesHeading', function () {
 		browser.assert.elements(ZDAVitrineProjectsSourcesHeading, 1);
 	});
@@ -161,10 +150,6 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements(ZDAVitrineProjectsSourcesBlurb, 1);
 	});
 
-	it('shows ZDAVitrineProjectsCompilationLink', function () {
-		browser.assert.elements(ZDAVitrineProjectsCompilationLink, 1);
-	});
-	
 	it('shows ROCORootLink', function() {
 		browser.assert.elements('.ROCORootLink', 1);
 	});

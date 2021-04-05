@@ -43,33 +43,3 @@
 	}
 
 }
-
-.ZDAVitrineListItem {
-	padding: 10px;
-
-	margin: 10px 0;
-}
-
-.ZDAVitrineListItem > div {
-	overflow: hidden;
-}
-
-.ZDAVitrineListItem a {
-	text-decoration: none;
-	color: black;
-}
-
-.ZDAVitrineListItemIcon {
-	border-radius: 5px;
-	overflow: hidden;
-
-	flex-shrink: 0;
-}
-
-.ZDAVitrineListItemName {
-	font-size: 20pt;
-}
-
-.ZDAVitrineListItemBlurb {
-	font-size: 11pt;
-}

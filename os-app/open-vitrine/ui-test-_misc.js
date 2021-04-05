@@ -142,25 +142,17 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	require('./controller.js').DataListingURLs().forEach(function (e, i) {
+	require('../open-glance/controller.js').DataListingURLs().forEach(function (e, i) {
 
-		describe('ZDAVitrinePrinciplesListItem', function test_ZDAVitrinePrinciplesListItem () {
+		describe('ZDAVitrineProjectsSourcesList', function test_ZDAVitrineProjectsSourcesList () {
 			
-			it('localizes ZDAVitrinePrinciplesListItem', function () {
+			it('localizes ZDAVitrineProjectsSourcesList', function () {
 				browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
 				browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e.replace('https://', ''));
 			});
 		
 		});
 
-	});
-
-	describe('ZDAVitrineProjectsCompilationLink', function test_ZDAVitrineProjectsCompilationLink () {
-		
-		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineProjectsCompilationLink, 'href', require('./controller.js').OLSKControllerRoutes().pop().OLSKRoutePath);
-		});
-	
 	});
 
 	describe('OLSKGazette', function test_OLSKGazette () {

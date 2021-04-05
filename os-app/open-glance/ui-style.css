@@ -1,0 +1,29 @@
+.ZDAGlanceListItem {
+	padding: 10px;
+
+	margin: 10px 0;
+}
+
+.ZDAGlanceListItem > div {
+	overflow: hidden;
+}
+
+.ZDAGlanceListItem a {
+	text-decoration: none;
+	color: black;
+}
+
+.ZDAGlanceListItemIcon {
+	border-radius: 5px;
+	overflow: hidden;
+
+	flex-shrink: 0;
+}
+
+.ZDAGlanceListItemName {
+	font-size: 20pt;
+}
+
+.ZDAGlanceListItemBlurb {
+	font-size: 11pt;
+}

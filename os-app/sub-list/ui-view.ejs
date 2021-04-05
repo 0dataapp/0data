@@ -1,20 +1,20 @@
-<div class="ZDAVitrineList">
+<div class="ZDAGlanceList">
 
-<% if (!locals.ZDAVitrineListData.length) { -%>
-	<p class="ZDAVitrineListEmpty"><%= OLSKLocalized('ZDAVitrineListEmptyText') %></p>
+<% if (!locals.ZDAGlanceListData.length) { -%>
+	<p class="ZDAGlanceListEmpty"><%= OLSKLocalized('ZDAGlanceListEmptyText') %></p>
 <% } -%>
 
-<% locals.ZDAVitrineListData.forEach(function (item) { -%>
-<div class="ZDAVitrineListItem OLSKCommonCard" lang="en">
+<% locals.ZDAGlanceListData.forEach(function (item) { -%>
+<div class="ZDAGlanceListItem OLSKCommonCard" lang="en">
 	<% if (item.ZDAProjectIconURL) { -%>
-		<a class="ZDAVitrineListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true">
-			<img class="ZDAVitrineListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
+		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true">
+			<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
 		</a>
 	<% } -%>
 	<div>
-		<a class="ZDAVitrineListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
+		<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
 
-		<span class="ZDAVitrineListItemBlurb"><%= item.ZDAProjectBlurb %></span>
+		<span class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></span>
 	</div>
 </div>
 <% }) -%>
