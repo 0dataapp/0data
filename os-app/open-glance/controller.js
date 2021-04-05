@@ -342,6 +342,7 @@ const mod = {
 			})((((params.ParamManifest || {}).icons || []).pop() || {}).src || params.ParamMetadata['apple-touch-icon'] || params.ParamMetadata['apple-touch-icon-precomposed'])],
 			['_ZDAProjectBlurb', params.ParamMetadata.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.title],
+			['_ZDAProjectHasManifest', !!params.ParamManifest],
 		].filter(function ([key, value]) {
 			return !!value;
 		});

@@ -719,6 +719,15 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 
 	context('ParamManifest', function () {
 
+		it('sets _ZDAProjectHasManifest', function () {
+			const ZDAProjectIconURL = uLink();
+			deepEqual(__DataDetailsDOMPropertyCandidates({
+				ParamManifest: {},
+			}), Object.entries({
+				_ZDAProjectHasManifest: true,
+			}));
+		});
+
 		it('extracts icons', function () {
 			const ZDAProjectIconURL = uLink();
 			deepEqual(__DataDetailsDOMPropertyCandidates({
@@ -731,6 +740,7 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 				},
 			}), Object.entries({
 				ZDAProjectIconURL,
+				_ZDAProjectHasManifest: true,
 			}));
 		});
 	
