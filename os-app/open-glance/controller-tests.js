@@ -1270,18 +1270,10 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 
 	it('returns _DataDetailsDOMPropertyCandidates', async function () {
 		const ParamURL = uLink();
-
-		const manifest = uRandomElement('<link rel="manifest" href="/manifest.json">', '');
-		const manifestJSON = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-		const ParamHTML = `<link rel="apple-touch-icon" href="${ Math.random().toString() }" /><link rel="apple-touch-icon-precomposed" href="${ Math.random().toString() }" /><meta name="description" content="${ Math.random().toString() }"><title>${ Math.random().toString() }</title>` + manifest;
+		const ParamHTML = `<link rel="apple-touch-icon" href="${ Math.random().toString() }" /><link rel="apple-touch-icon-precomposed" href="${ Math.random().toString() }" /><meta name="description" content="${ Math.random().toString() }"><title>${ Math.random().toString() }</title>`;
 		deepEqual(await __SetupDetailCandidates({
 			ParamURL,
 			ParamHTML,
-			_DataContentString: (function (inputData) {
-				return inputData.match('manifest') ? JSON.stringify(manifestJSON) : ParamHTML;
-			}),
 			_DataDetailsDOMPropertyCandidates: (function () {
 				return [
 					['arguments', [...arguments]],
@@ -1293,9 +1285,79 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 					JSDOM: JSDOM.fragment,
 				}),
 				ParamURL,
-				ParamManifest: manifest ? manifestJSON : undefined,
+				ParamManifest: undefined,
 			}],
 		});
+	});
+
+	context('manifest', function () {
+
+		const ParamURL = uLink();
+		const manifest = '/manifest' + Math.random().toString();
+		const ParamHTML = `<link rel="manifest" href="${ manifest }" />`;
+		const ParamManifest = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		
+		it('calls _DataContentString', async function () {
+			const items = [];
+
+			await __SetupDetailCandidates({
+				ParamURL,
+				_DataContentString: (function () {
+					items.push(...arguments);
+
+					return ParamHTML;
+				}),
+			});
+
+			deepEqual(items, [ParamURL, mod.DataRelativeURL(ParamURL, manifest)]);
+		});
+
+		it('calls OLSKDiskWrite', async function () {
+			const items = [];
+
+			await __SetupDetailCandidates({
+				ParamURL,
+				_DataContentString: (function (inputData) {
+					return inputData === ParamURL ? ParamHTML : JSON.stringify(ParamManifest);
+				}),
+				OLSKDiskWrite: (function (param1, param2) {
+					items.push([...arguments]);
+
+					return param2;
+				}),
+			});
+
+			deepEqual(items, [
+				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(ParamURL)),
+				ParamHTML],
+				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(mod.DataRelativeURL(ParamURL, manifest))), JSON.stringify(ParamManifest)],
+				]);
+		});
+
+		it('returns _DataDetailsDOMPropertyCandidates', async function () {
+			deepEqual(await __SetupDetailCandidates({
+				ParamURL,
+				_DataContentString: (function (inputData) {
+					return inputData === ParamURL ? ParamHTML : JSON.stringify(ParamManifest);
+				}),
+				_DataDetailsDOMPropertyCandidates: (function () {
+					return [
+						['arguments', [...arguments]],
+					];
+				}),
+			}), {
+				arguments: [{
+					ParamMetadata: require('OLSKDOM').OLSKDOMMetadata(ParamHTML, {
+						JSDOM: JSDOM.fragment,
+					}),
+					ParamURL,
+					ParamManifest,
+				}],
+			});
+		});
+	
 	});
 
 });

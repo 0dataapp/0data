@@ -484,20 +484,22 @@ const mod = {
 	},
 
 	async _SetupDetailCandidates (inputData) {
-		const ParamMetadata = require('OLSKDOM').OLSKDOMMetadata(this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await this._DataContentString(inputData)), {
+		const _this = this;
+
+		const ParamMetadata = require('OLSKDOM').OLSKDOMMetadata(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await _this._DataContentString(inputData)), {
 			JSDOM: JSDOM.fragment,
 		});
-		
-		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
+
+		return Object.fromEntries(_this._DataDetailsDOMPropertyCandidates({
 			ParamURL: inputData,
 			ParamMetadata,
-			ParamManifest: !ParamMetadata.manifest ? undefined : (function(inputData) {
+			ParamManifest: !ParamMetadata.manifest ? undefined : (function(body) {
 				try {
-					return JSON.parse(inputData);
+					return JSON.parse(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(mod.DataRelativeURL(inputData, ParamMetadata.manifest))), body));
 				} catch (error) {
 					return undefined;
 				}
-			})(await this._DataContentString(mod.DataRelativeURL(inputData, ParamMetadata.manifest))),
+			})(await _this._DataContentString(mod.DataRelativeURL(inputData, ParamMetadata.manifest))),
 		}));
 	},
 
