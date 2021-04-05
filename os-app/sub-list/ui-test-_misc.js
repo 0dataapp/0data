@@ -24,6 +24,18 @@ describe('ZDAGlanceList_Misc', function  () {
 
 	});
 
+	describe('ZDAGlanceListHead', function test_ZDAGlanceListHead () {
+
+		it('classes OLSKStickyHeader', function () {
+			browser.assert.hasClass(ZDAGlanceListHead, 'OLSKStickyHeader');
+		});
+
+		it('classes OLSKCommonEdgeBottom', function () {
+			browser.assert.hasClass(ZDAGlanceListHead, 'OLSKCommonEdgeBottom');
+		});
+	
+	});
+
 	describe('ZDAGlanceListItemIcon', function test_ZDAGlanceListItemIcon () {
 
 		it('sets href', function () {

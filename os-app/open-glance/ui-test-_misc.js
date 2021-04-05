@@ -3,7 +3,11 @@ const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 describe('ZDAGlance_Misc', function () {
 
 	before(function () {
-		return browser.visit(kDefaultRoute.OLSKRoutePath);
+		return browser.visit(kDefaultRoute.OLSKRoutePath, {
+			ZDAGlanceListData: JSON.stringify(Array.from(Array(uRandomInt())).map(function (e) {
+				return {};
+			})),
+		});
 	});
 
 	describe('ZDAGlance', function () {
