@@ -15,16 +15,16 @@ td, th {
 	padding: 10px;
 }
 
-.ZDAGlanceListItem a {
-	text-decoration: none;
-	color: black;
-	font-weight: bold;
-}
-
 .ZDAGlanceListItemIconImage {
 	width: 36px;
 	border-radius: 5px;
 	overflow: hidden;
+}
+
+.ZDAGlanceListItem a {
+	text-decoration: none;
+	color: black;
+	font-weight: bold;
 }
 
 .ZDAGlanceListItemCheckbox {

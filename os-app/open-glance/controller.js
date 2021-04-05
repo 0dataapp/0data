@@ -313,20 +313,20 @@ const mod = {
 
 	// * DETAILS
 
-	_DataDetailsDOMPropertyCandidates (inputData) {
-		if (typeof inputData !== 'object' || inputData === null) {
+	_DataDetailsDOMPropertyCandidates (params) {
+		if (typeof params !== 'object' || params === null) {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		if (typeof inputData.ParamHTML !== 'string') {
+		if (typeof params.ParamHTML !== 'string') {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		if (typeof inputData.ParamURL !== 'string') {
+		if (typeof params.ParamURL !== 'string') {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		const metadata = require('OLSKDOM').OLSKDOMMetadata(inputData.ParamHTML, {
+		const metadata = require('OLSKDOM').OLSKDOMMetadata(params.ParamHTML, {
 			JSDOM: JSDOM.fragment,
 		});
 
@@ -336,7 +336,7 @@ const mod = {
 					return;
 				}
 
-				return !href ? null : mod.DataRelativeURL(inputData.ParamURL, href);
+				return !href ? null : mod.DataRelativeURL(params.ParamURL, href);
 			})(metadata['apple-touch-icon'] || metadata['apple-touch-icon-precomposed'])],
 			['_ZDAProjectBlurb', metadata.description],
 			['_ZDAProjectBlurb', metadata.title],

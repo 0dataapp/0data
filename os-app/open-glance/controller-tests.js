@@ -1287,8 +1287,6 @@ describe('_SetupDetail', function test__SetupDetail() {
 	context('ParamCallback', function () {
 
 		it('calls OLSKQueueAdd', async function () {
-			const url = Math.random().toString();
-
 			deepEqual(await __SetupDetail({
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData.ParamCallback();
