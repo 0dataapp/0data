@@ -1,22 +1,21 @@
-<div class="ZDAGlanceList">
+<table class="ZDAGlanceList" lang="en">
 
 <% if (!locals.ZDAGlanceListData.length) { -%>
 	<p class="ZDAGlanceListEmpty"><%= OLSKLocalized('ZDAGlanceListEmptyText') %></p>
 <% } -%>
 
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
-<div class="ZDAGlanceListItem OLSKCommonCard" lang="en">
-	<% if (item.ZDAProjectIconURL) { -%>
+<tr class="ZDAGlanceListItem">
+	<td><% if (item.ZDAProjectIconURL) { -%>
 		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true">
 			<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
 		</a>
-	<% } -%>
-	<div>
+	<% } -%></td>
+	<td>
 		<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
-
-		<span class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></span>
-	</div>
-</div>
+	</td>
+	<td class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></td>
+</tr>
 <% }) -%>
 
-</div>
+</table>

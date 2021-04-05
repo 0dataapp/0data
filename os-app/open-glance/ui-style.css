@@ -1,29 +1,20 @@
-.ZDAGlanceListItem {
-	padding: 10px;
-
-	margin: 10px 0;
+.ZDAGlance {
+	font-family: Arial;
+	font-size: 9pt;
 }
 
-.ZDAGlanceListItem > div {
-	overflow: hidden;
+.ZDAGlanceListItem {
+	padding: 10px;
 }
 
 .ZDAGlanceListItem a {
 	text-decoration: none;
 	color: black;
+	font-weight: bold;
 }
 
-.ZDAGlanceListItemIcon {
+.ZDAGlanceListItemIconImage {
+	width: 36px;
 	border-radius: 5px;
 	overflow: hidden;
-
-	flex-shrink: 0;
-}
-
-.ZDAGlanceListItemName {
-	font-size: 20pt;
-}
-
-.ZDAGlanceListItemBlurb {
-	font-size: 11pt;
 }

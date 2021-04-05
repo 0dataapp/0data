@@ -16,14 +16,10 @@ describe('ZDAGlanceList_Misc', function  () {
 		});
 	});
 
-	describe('ZDAGlanceListItem', function test_ZDAGlanceListItem () {
-
-		it('classes OLSKCommonCard', function () {
-			browser.assert.hasClass(ZDAGlanceListItem, 'OLSKCommonCard');
-		});
+	describe('ZDAGlanceList', function test_ZDAGlanceList () {
 
 		it('sets lang', function () {
-			browser.assert.attribute(ZDAGlanceListItem, 'lang', 'en');
+			browser.assert.attribute(ZDAGlanceList, 'lang', 'en');
 		});
 
 	});
