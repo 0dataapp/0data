@@ -326,6 +326,12 @@ const mod = {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
+		if (typeof params.ParamManifest !== 'undefined') {
+			if (typeof params.ParamManifest !== 'object' || params.ParamManifest === null) {
+				throw new Error('ZDRErrorInputNotValid');
+			}
+		}
+
 		return [
 			['ZDAProjectIconURL', (function(href) {
 				if (!href) {
@@ -334,6 +340,7 @@ const mod = {
 
 				return !href ? null : mod.DataRelativeURL(params.ParamURL, href);
 			})(params.ParamMetadata['apple-touch-icon'] || params.ParamMetadata['apple-touch-icon-precomposed'])],
+			['ZDAProjectIconURL', (((params.ParamManifest || {}).icons || []).shift() || {}).src],
 			['_ZDAProjectBlurb', params.ParamMetadata.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.title],
 		].filter(function ([key, value]) {

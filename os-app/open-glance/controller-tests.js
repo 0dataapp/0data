@@ -626,7 +626,7 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 
 	const __DataDetailsDOMPropertyCandidates = function (inputData = {}) {
 		return mod._DataDetailsDOMPropertyCandidates(Object.assign({
-			ParamURL: Math.random().toString(),
+			ParamURL: uLink(),
 			ParamMetadata: {},
 		}, inputData));
 	};
@@ -657,52 +657,83 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 		deepEqual(__DataDetailsDOMPropertyCandidates(), []);
 	});
 
-	it('extracts apple-touch-icon', function () {
-		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
-		const ParamURL = 'https://example.com';
-		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamMetadata: {
-				'apple-touch-icon': path,
-			},
-			ParamURL,
-		}), Object.entries({
-			ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
-		}));
+	it('throws if ParamManifest not object', function () {
+		throws(function () {
+			__DataDetailsDOMPropertyCandidates({
+				ParamManifest: null,
+			});
+		}, /ZDRErrorInputNotValid/);
 	});
 
-	it('extracts apple-touch-icon-precomposed', function () {
-		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
-		const ParamURL = 'https://example.com';
-		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamMetadata: {
-				'apple-touch-icon-precomposed': path,
-			},
-			ParamURL,
-		}), Object.entries({
-			ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
-		}));
+	context('ParamMetadata', function () {
+		
+		it('extracts apple-touch-icon', function () {
+			const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+			const ParamURL = 'https://example.com';
+			deepEqual(__DataDetailsDOMPropertyCandidates({
+				ParamMetadata: {
+					'apple-touch-icon': path,
+				},
+				ParamURL,
+			}), Object.entries({
+				ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
+			}));
+		});
+
+		it('extracts apple-touch-icon-precomposed', function () {
+			const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+			const ParamURL = 'https://example.com';
+			deepEqual(__DataDetailsDOMPropertyCandidates({
+				ParamMetadata: {
+					'apple-touch-icon-precomposed': path,
+				},
+				ParamURL,
+			}), Object.entries({
+				ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
+			}));
+		});
+
+		it('extracts description', function () {
+			const _ZDAProjectBlurb = Math.random().toString();
+			deepEqual(__DataDetailsDOMPropertyCandidates({
+				ParamMetadata: {
+					'description': _ZDAProjectBlurb,
+				},
+			}), Object.entries({
+				_ZDAProjectBlurb,
+			}));
+		});
+
+		it('extracts title', function () {
+			const _ZDAProjectBlurb = Math.random().toString();
+			deepEqual(__DataDetailsDOMPropertyCandidates({
+				ParamMetadata: {
+					'title': _ZDAProjectBlurb,
+				},
+			}), Object.entries({
+				_ZDAProjectBlurb,
+			}));
+		});
+	
 	});
 
-	it('extracts description', function () {
-		const _ZDAProjectBlurb = Math.random().toString();
-		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamMetadata: {
-				'description': _ZDAProjectBlurb,
-			},
-		}), Object.entries({
-			_ZDAProjectBlurb,
-		}));
-	});
+	context('ParamManifest', function () {
 
-	it('extracts title', function () {
-		const _ZDAProjectBlurb = Math.random().toString();
-		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamMetadata: {
-				'title': _ZDAProjectBlurb,
-			},
-		}), Object.entries({
-			_ZDAProjectBlurb,
-		}));
+		it('extracts icons', function () {
+			const ZDAProjectIconURL = uLink();
+			deepEqual(__DataDetailsDOMPropertyCandidates({
+				ParamManifest: {
+					'icons': [{
+						src: ZDAProjectIconURL,
+					}, {
+						src: uLink(),
+					}],
+				},
+			}), Object.entries({
+				ZDAProjectIconURL,
+			}));
+		});
+	
 	});
 
 });
