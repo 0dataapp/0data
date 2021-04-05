@@ -45,6 +45,10 @@ describe('ZDAVitrine_Access', function () {
 		browser.assert.elements('.OLSKCrown', 1);
 	});
 	
+	it('shows OLSKLanding', function() {
+		browser.assert.elements('.OLSKLanding', 1);
+	});
+
 	it('shows ZDAVitrinePrinciplesHeading', function () {
 		browser.assert.elements(ZDAVitrinePrinciplesHeading, 1);
 	});

@@ -84,6 +84,22 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		
 		});
 
+		context('OLSKLanding', function test_OLSKLanding () {
+
+			it('localizes OLSKLandingHeadingText', function () {
+				browser.assert.text('.OLSKLandingHeading', uLocalized('ZDAVitrineDescription'));
+			});
+
+			it('localizes OLSKLandingBlurbText', function () {
+				browser.assert.text('.OLSKLandingBlurb', uLocalized('OLSKLandingBlurbText'));
+			});
+
+			it.skip('localizes OLSKLandingActionText', function () {
+				browser.assert.text('.OLSKLandingAction', OLSKTestingFormatted(uLocalized('OLSKLandingActionTextFormat'), require('../open-glance/controller.js').OLSKControllerSharedLocals().ZDAGlanceProjectsCount()));
+			});
+		
+		});
+
 	});
 
 });

@@ -6,9 +6,7 @@ const mod = {
 			OLSKRouteMethod: 'get',
 			OLSKRouteSignature: 'ZDAVitrineRoute',
 			OLSKRouteFunction: (function ZDAVitrineRoute (req, res, next) {
-				return res.OLSKExpressLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAVitrineProjectsSourceURLs: require('../open-glance/controller.js').DataListingURLs(),
-				});
+				return res.OLSKExpressLayoutRender(require('path').join(__dirname, 'ui-view'));
 			}),
 			OLSKRouteLanguageCodes: ['en', 'fr', 'es', 'pt'],
 		}];

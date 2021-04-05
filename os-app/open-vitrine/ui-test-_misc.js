@@ -26,6 +26,14 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('OLSKLanding', function test_OLSKLanding () {
+
+		it('sets OLSKLandingActionHref', function () {
+			browser.assert.attribute('.OLSKLandingAction', 'href', OLSKTestingCanonical(require('../open-glance/controller.js').OLSKControllerRoutes().shift()));
+		});
+	
+	});
+
 	describe('ZDAVitrineFlowsTraditionalImage', function test_ZDAVitrineFlowsTraditionalImage() {
 		
 		it('sets role', function () {

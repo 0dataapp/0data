@@ -16,6 +16,13 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 	OLSKCrownCardNameText: OLSKLocalized('ZDAVitrineTitle'),
 }) %>
 
+<%- include('../../node_modules/OLSKLanding/main.ejs', {
+	OLSKLandingHeadingText: OLSKLocalized('ZDAVitrineDescription').replace(', all of it', ',<br /> all of it'),
+	OLSKLandingBlurbText: OLSKLocalized('OLSKLandingBlurbText'),
+	OLSKLandingActionText: OLSKFormatted(OLSKLocalized('OLSKLandingActionTextFormat'), ZDAGlanceProjectsCount()),
+	OLSKLandingActionHref: OLSKCanonical('ZDAGlanceRoute'),
+}) %>
+
 <h1 class="ZDAVitrinePrinciplesHeading"><%= OLSKLocalized('ZDAVitrinePrinciplesHeadingText') %></h1>
 
 <ul class="ZDAVitrinePrinciplesList">
@@ -65,7 +72,7 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 <p class="ZDAVitrineProjectsSourcesBlurb"><%= OLSKLocalized('ZDAVitrineProjectsSourcesBlurbText') %></p>
 
 <ul class="ZDAVitrineProjectsSourcesList">
-	<% ZDAVitrineProjectsSourceURLs.forEach(function (e) { -%>
+	<% ZDAGlanceProjectsSourceURLs.forEach(function (e) { -%>
 		<li><a class="ZDAVitrineProjectsSourcesListItem" href="<%= e %>"><%- e.replace('https://', '') %></a></li>
 	<% }) -%>
 </ul>
