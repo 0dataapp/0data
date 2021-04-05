@@ -4,6 +4,14 @@
 	<p class="ZDAGlanceListEmpty"><%= OLSKLocalized('ZDAGlanceListEmptyText') %></p>
 <% } -%>
 
+<% if (locals.ZDAGlanceListData.length) { -%>
+	<tr class="ZDAGlanceListHead">
+		<th></th>
+		<th class="ZDAGlanceListHeadName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
+		<th class="ZDAGlanceListHeadBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
+	</tr>
+<% } -%>
+
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
 <tr class="ZDAGlanceListItem">
 	<td><% if (item.ZDAProjectIconURL) { -%>

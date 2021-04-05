@@ -18,6 +18,27 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAGlanceListEmpty, uLocalized('ZDAGlanceListEmptyText'));
 		});
 
+		context('ZDAGlanceListData', function () {
+
+			before(function() {
+				return browser.OLSKVisit(kDefaultRoute, {
+					ZDAGlanceListData: JSON.stringify(Array.from(Array(uRandomInt())).map(function (e) {
+						return {};
+					})),
+					OLSKRoutingLanguage,
+				});
+			});
+
+			it('localizes ZDAGlanceListHeadName', function () {
+				browser.assert.text(ZDAGlanceListHeadName, uLocalized('ZDAGlanceListHeadNameText'));
+			});
+
+			it('localizes ZDAGlanceListHeadBlurb', function () {
+				browser.assert.text(ZDAGlanceListHeadBlurb, uLocalized('ZDAGlanceListHeadBlurbText'));
+			});
+
+		});
+
 	});
 
 });

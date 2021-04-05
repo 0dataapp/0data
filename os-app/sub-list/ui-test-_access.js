@@ -5,6 +5,10 @@ Object.entries({
 	
 	ZDAGlanceListEmpty: '.ZDAGlanceListEmpty',
 
+	ZDAGlanceListHead: '.ZDAGlanceListHead',
+	ZDAGlanceListHeadName: '.ZDAGlanceListHeadName',
+	ZDAGlanceListHeadBlurb: '.ZDAGlanceListHeadBlurb',
+
 	ZDAGlanceListItem: '.ZDAGlanceListItem',
 	
 	ZDAGlanceListItemIcon: '.ZDAGlanceListItemIcon',
@@ -29,6 +33,10 @@ describe('ZDAGlanceList_Access', function () {
 		browser.assert.elements(ZDAGlanceListEmpty, 1);
 	});
 
+	it('hides ZDAGlanceListHead', function () {
+		browser.assert.elements(ZDAGlanceListHead, 0);
+	});
+
 	it('hides ZDAGlanceListItem', function () {
 		browser.assert.elements(ZDAGlanceListItem, 0);
 	});
@@ -47,6 +55,18 @@ describe('ZDAGlanceList_Access', function () {
 
 		it('hides ZDAGlanceListEmpty', function () {
 			browser.assert.elements(ZDAGlanceListEmpty, 0);
+		});
+
+		it('shows ZDAGlanceListHead', function () {
+			browser.assert.elements(ZDAGlanceListHead, 1);
+		});
+
+		it('shows ZDAGlanceListHeadName', function () {
+			browser.assert.elements(ZDAGlanceListHeadName, 1);
+		});
+
+		it('shows ZDAGlanceListHeadBlurb', function () {
+			browser.assert.elements(ZDAGlanceListHeadBlurb, 1);
 		});
 
 		it('shows ZDAGlanceListItem', function () {
