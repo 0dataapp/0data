@@ -8,11 +8,11 @@
 <thead>
 	<tr class="ZDAGlanceListHead OLSKStickyHeader OLSKCommonEdgeBottom">
 		<th></th>
-		<th class="ZDAGlanceListHeadName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
-		<th class="ZDAGlanceListHeadBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
-		<th class="ZDAGlanceListHeadRemoteStorage">remoteStorage</th>
-		<th class="ZDAGlanceListHeadFission">Fission</th>
-		<th class="ZDAGlanceListHeadSOLID">SOLID</th>
+		<th class="ZDAGlanceListHeadName ZDAGlanceListSort" data-sort="ZDAGlanceListItemName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
+		<th class="ZDAGlanceListHeadBlurb ZDAGlanceListSort" data-sort="ZDAGlanceListItemBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
+		<th class="ZDAGlanceListHeadRemoteStorage ZDAGlanceListSort" data-sort="ZDAGlanceListItemRemoteStorage">remoteStorage</th>
+		<th class="ZDAGlanceListHeadFission ZDAGlanceListSort" data-sort="ZDAGlanceListItemFission">Fission</th>
+		<th class="ZDAGlanceListHeadSOLID ZDAGlanceListSort" data-sort="ZDAGlanceListItemSOLID">SOLID</th>
 	</tr>
 </thead>
 <% } -%>
@@ -31,13 +31,13 @@
 	</td>
 	<td class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></td>
 	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item._ZDAProjectSupportsRemoteStorage ? 'checked' : '' %>>
+		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item._ZDAProjectSupportsRemoteStorage ? 'checked' : '' %> data-boolean="<%= item._ZDAProjectSupportsRemoteStorage ? '0' : '1' %>">
 	</td>
 	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item._ZDAProjectSupportsFission ? 'checked' : '' %>>
+		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item._ZDAProjectSupportsFission ? 'checked' : '' %> data-boolean="<%= item._ZDAProjectSupportsFission ? '0' : '1' %>">
 	</td>
 	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemSOLID" type="checkbox" disabled <%= item._ZDAProjectSupportsSOLID ? 'checked' : '' %>>
+		<input class="ZDAGlanceListItemSOLID" type="checkbox" disabled <%= item._ZDAProjectSupportsSOLID ? 'checked' : '' %> data-boolean="<%= item._ZDAProjectSupportsSOLID ? '0' : '1' %>">
 	</td>
 </tr>
 <% }) -%>

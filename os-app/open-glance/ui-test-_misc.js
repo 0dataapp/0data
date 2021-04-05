@@ -11,9 +11,11 @@ describe('ZDAGlance_Misc', function () {
 	before(function () {
 		return browser.OLSKVisit(kDefaultRoute, {
 			ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e, i) {
-				return i ? {
+				return Object.assign(i ? {
 					ZDAProjectName: Math.random().toString(),
-				} : item;
+				} : item, {
+					ZDAProjectBlurb: i.toString(),
+				});
 			})),
 		});
 	});
@@ -51,11 +53,15 @@ describe('ZDAGlance_Misc', function () {
 			});
 
 			before(function () {
-				return browser.fill(ZDAGlanceFilterInput, item.ZDAProjectName);
+				browser.fill(ZDAGlanceFilterInput, item.ZDAProjectName);
 			});
 
 			it('filters list', function () {
 				browser.assert.elements('.ZDAGlanceListItem', 1);
+			});
+
+			after(function () {
+				return browser.fill(ZDAGlanceFilterInput, '');
 			});
 		
 		});
@@ -70,6 +76,22 @@ describe('ZDAGlance_Misc', function () {
 
 		it('sets text', function () {
 			browser.assert.text(ZDAGlanceProjectsCompilationLink, 'JSON');
+		});
+	
+	});
+
+	describe('ZDAGlanceListSort', function test_ZDAGlanceListSort () {
+
+		before(function () {
+			browser.assert.text('.ZDAGlanceListItem:first-of-type .ZDAGlanceListItemBlurb', '0');
+		});
+
+		before(function () {
+			return browser.click('.ZDAGlanceListHeadBlurb');
+		});
+
+		it.skip('sorts list', function () {
+			browser.assert.text('.ZDAGlanceListItem:first-of-type .ZDAGlanceListItemBlurb', count);
 		});
 	
 	});

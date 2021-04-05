@@ -39,10 +39,42 @@ describe('ZDAGlanceList_Misc', function  () {
 	
 	});
 
+	describe('ZDAGlanceListHeadName', function test_ZDAGlanceListHeadName () {
+
+		it('classes ZDAGlanceListSort', function () {
+			browser.assert.hasClass(ZDAGlanceListHeadName, 'ZDAGlanceListSort');
+		});
+
+		it('sets data-sort', function () {
+			browser.assert.attribute(ZDAGlanceListHeadName, 'data-sort', 'ZDAGlanceListItemName')
+		});
+
+	});
+
+	describe('ZDAGlanceListHeadBlurb', function test_ZDAGlanceListHeadBlurb () {
+
+		it('classes ZDAGlanceListSort', function () {
+			browser.assert.hasClass(ZDAGlanceListHeadBlurb, 'ZDAGlanceListSort');
+		});
+
+		it('sets data-sort', function () {
+			browser.assert.attribute(ZDAGlanceListHeadBlurb, 'data-sort', 'ZDAGlanceListItemBlurb')
+		});
+
+	});
+
 	describe('ZDAGlanceListHeadRemoteStorage', function test_ZDAGlanceListHeadRemoteStorage () {
 
 		it('sets text', function () {
 			browser.assert.text(ZDAGlanceListHeadRemoteStorage, 'remoteStorage');
+		});
+
+		it('classes ZDAGlanceListSort', function () {
+			browser.assert.hasClass(ZDAGlanceListHeadRemoteStorage, 'ZDAGlanceListSort');
+		});
+
+		it('sets data-sort', function () {
+			browser.assert.attribute(ZDAGlanceListHeadRemoteStorage, 'data-sort', 'ZDAGlanceListItemRemoteStorage')
 		});
 
 	});
@@ -53,12 +85,28 @@ describe('ZDAGlanceList_Misc', function  () {
 			browser.assert.text(ZDAGlanceListHeadFission, 'Fission');
 		});
 
+		it('classes ZDAGlanceListSort', function () {
+			browser.assert.hasClass(ZDAGlanceListHeadFission, 'ZDAGlanceListSort');
+		});
+
+		it('sets data-sort', function () {
+			browser.assert.attribute(ZDAGlanceListHeadFission, 'data-sort', 'ZDAGlanceListItemFission')
+		});
+
 	});
 
 	describe('ZDAGlanceListHeadSOLID', function test_ZDAGlanceListHeadSOLID () {
 
 		it('sets text', function () {
 			browser.assert.text(ZDAGlanceListHeadSOLID, 'SOLID');
+		});
+
+		it('classes ZDAGlanceListSort', function () {
+			browser.assert.hasClass(ZDAGlanceListHeadSOLID, 'ZDAGlanceListSort');
+		});
+
+		it('sets data-sort', function () {
+			browser.assert.attribute(ZDAGlanceListHeadSOLID, 'data-sort', 'ZDAGlanceListItemSOLID')
 		});
 
 	});
@@ -121,6 +169,10 @@ describe('ZDAGlanceList_Misc', function  () {
 			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'checked', item._ZDAProjectSupportsRemoteStorage ? '' : null);
 		});
 
+		it('sets data-boolean', function () {
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item._ZDAProjectSupportsRemoteStorage ? '0' : '1');
+		});
+
 	});
 
 	describe('ZDAGlanceListItemFission', function test_ZDAGlanceListItemFission () {
@@ -137,6 +189,10 @@ describe('ZDAGlanceList_Misc', function  () {
 			browser.assert.attribute(ZDAGlanceListItemFission, 'checked', item._ZDAProjectSupportsFission ? '' : null);
 		});
 
+		it('sets data-boolean', function () {
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item._ZDAProjectSupportsFission ? '0' : '1');
+		});
+
 	});
 
 	describe('ZDAGlanceListItemSOLID', function test_ZDAGlanceListItemSOLID () {
@@ -151,6 +207,10 @@ describe('ZDAGlanceList_Misc', function  () {
 
 		it('sets checked', function () {
 			browser.assert.attribute(ZDAGlanceListItemSOLID, 'checked', item._ZDAProjectSupportsSOLID ? '' : null);
+		});
+
+		it('sets data-boolean', function () {
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item._ZDAProjectSupportsSOLID ? '0' : '1');
 		});
 
 	});
