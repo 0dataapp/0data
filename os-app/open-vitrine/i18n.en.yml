@@ -1,7 +1,7 @@
 ZDAVitrineTitle: Zero Data App
 ZDAVitrineDescription: 'Own your data, all of it.'
-OLSKLandingBlurbText: Projects that let you control your data.
-OLSKLandingActionTextFormat: Browse %@ projects
+OLSKLandingBlurbText: Apps that let you control your data.
+OLSKLandingActionTextFormat: Browse %@ apps
 ZDAVitrinePrinciplesHeadingText: Principles
 ZDAVitrinePrinciplesListItemText:
   - an app in which <em>your data stays with you</em>
