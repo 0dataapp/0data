@@ -57,6 +57,7 @@ const mod = {
 	async _DataContentString (inputData) {
 		return (await require('node-fetch')(inputData)).text();
 	},
+	
 	async _DataContentImage (url, file) {
 		const {createWriteStream} = require('fs');
 		const {pipeline} = require('stream');
