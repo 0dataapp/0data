@@ -26,13 +26,13 @@
 		<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
 	</td>
 	<td class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></td>
-	<td>
+	<td class="ZDAGlanceListItemCheckbox">
 		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item._ZDAProjectSupportsRemoteStorage ? 'checked' : '' %>>
 	</td>
-	<td>
+	<td class="ZDAGlanceListItemCheckbox">
 		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item._ZDAProjectSupportsFission ? 'checked' : '' %>>
 	</td>
-	<td>
+	<td class="ZDAGlanceListItemCheckbox">
 		<input class="ZDAGlanceListItemSOLID" type="checkbox" disabled <%= item._ZDAProjectSupportsSOLID ? 'checked' : '' %>>
 	</td>
 </tr>
