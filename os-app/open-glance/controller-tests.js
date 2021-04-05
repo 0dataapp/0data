@@ -589,16 +589,27 @@ describe('DataListingProjects', function test_DataListingProjects() {
 		}, []));
 	});
 
-	it('filters if ZDAProjectURL duplicate', function () {
-		const item = {
-			ZDAProjectURL: Math.random().toString(),
-		};
-
+	it('merges if ZDAProjectURL duplicate', function () {
+		const ZDAProjectURL = Math.random().toString();
+		const alfa = Math.random().toString();
+		const bravo = Math.random().toString();
+		
 		deepEqual(_DataListingProjects({
 			_DataListingObjects: (function () {
-				return [item, item];
+				return [{
+				ZDAProjectURL,
+				alfa: alfa,
+			}, {
+				ZDAProjectURL,
+				alfa: Math.random().toString(),
+				bravo: bravo,
+			}];
 			}),
-		}), [item]);
+		}), [{
+			ZDAProjectURL,
+			alfa: alfa,
+			bravo: bravo,
+		}]);
 	});
 
 	it('passes default value if cache empty', function () {

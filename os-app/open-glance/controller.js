@@ -292,6 +292,12 @@ const mod = {
 			return coll.concat(_this._DataListingObjects(item, _this._ValueListingsCache[item] || ''));
 		}, []).reduce(function (coll, item) {
 			if (coll.urls.includes(item.ZDAProjectURL)) {
+				const e = coll.objects.filter(function (e) {
+					return e.ZDAProjectURL === item.ZDAProjectURL;
+				}).shift();
+				
+				Object.assign(e, Object.assign(item, e));
+
 				return coll;
 			}
 
