@@ -4,6 +4,10 @@ Object.entries({
 	ZDAGlance: '.ZDAGlance',
 
 	ZDAGlanceHeader: '.ZDAGlanceHeader',
+
+	ZDAGlanceRootLink: '.ZDAGlanceRootLink',
+	ZDAGlanceRootLinkImage: '.ZDAGlanceRootLinkImage',
+
 	ZDAGlanceFilterInput: '.ZDAGlanceFilterInput',
 	
 	ZDAGlanceProjectsCompilationLink: '.ZDAGlanceProjectsCompilationLink',
@@ -23,6 +27,14 @@ describe('ZDAGlance_Access', function () {
 
 	it('shows ZDAGlanceHeader', function () {
 		browser.assert.elements(ZDAGlanceHeader, 1);
+	});
+
+	it('shows ZDAGlanceRootLink', function () {
+		browser.assert.elements(ZDAGlanceRootLink, 1);
+	});
+
+	it('shows ZDAGlanceRootLinkImage', function () {
+		browser.assert.elements(ZDAGlanceRootLinkImage, 1);
 	});
 
 	it('shows ZDAGlanceFilterInput', function () {

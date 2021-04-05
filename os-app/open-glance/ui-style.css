@@ -27,6 +27,11 @@
 	align-items: center;
 }
 
+.ZDAGlanceRootLinkImage {
+	width: 24px;
+	padding: 3px;
+}
+
 .ZDAGlanceListSort {
 	cursor: pointer;
 }

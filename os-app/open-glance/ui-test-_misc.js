@@ -40,6 +40,22 @@ describe('ZDAGlance_Misc', function () {
 	
 	});
 
+	describe('ZDAGlanceRootLink', function test_ZDAGlanceRootLink () {
+
+		it('sets href', function () {
+			browser.assert.attribute(ZDAGlanceRootLink, 'href', require('../open-vitrine/controller.js').OLSKControllerRoutes().shift().OLSKRoutePath);
+		});
+	
+	});
+
+	describe('ZDAGlanceRootLinkImage', function test_ZDAGlanceRootLinkImage () {
+
+		it('sets src', function () {
+			browser.assert.attribute(ZDAGlanceRootLinkImage, 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
+		});
+	
+	});
+
 	describe('ZDAGlanceFilterInput', function test_ZDAGlanceFilterInput () {
 
 		it('sets accesskey', function () {

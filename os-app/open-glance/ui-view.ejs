@@ -14,6 +14,9 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 <div class="ZDAGlance OLSKDecor">
 
 <header class="ZDAGlanceHeader OLSKDecorFixedHeader OLSKCommonEdgeBottom">
+	<a class="ZDAGlanceRootLink" href="<%= OLSKCanonical('ZDAVitrineRoute') %>" title="<%= OLSKLocalized('OLSKRootLinkTextHome') %>">
+		<img class="ZDAGlanceRootLinkImage" src="<%= process.env.ZDA_VITRINE_IDENTITY_URL %>">
+	</a>
 	<input class="ZDAGlanceFilterInput" placeholder="<%= OLSKLocalized('ZDAGlanceFilterInputText') %>" accesskey="f" />
 	<a class="ZDAGlanceProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>">JSON</a>
 </header>
