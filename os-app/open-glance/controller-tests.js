@@ -724,9 +724,9 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 			deepEqual(__DataDetailsDOMPropertyCandidates({
 				ParamManifest: {
 					'icons': [{
-						src: ZDAProjectIconURL,
-					}, {
 						src: uLink(),
+					}, {
+						src: ZDAProjectIconURL,
 					}],
 				},
 			}), Object.entries({

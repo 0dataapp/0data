@@ -339,8 +339,7 @@ const mod = {
 				}
 
 				return !href ? null : mod.DataRelativeURL(params.ParamURL, href);
-			})(params.ParamMetadata['apple-touch-icon'] || params.ParamMetadata['apple-touch-icon-precomposed'])],
-			['ZDAProjectIconURL', (((params.ParamManifest || {}).icons || []).shift() || {}).src],
+			})((((params.ParamManifest || {}).icons || []).pop() || {}).src || params.ParamMetadata['apple-touch-icon'] || params.ParamMetadata['apple-touch-icon-precomposed'])],
 			['_ZDAProjectBlurb', params.ParamMetadata.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.title],
 		].filter(function ([key, value]) {
@@ -497,7 +496,7 @@ const mod = {
 				try {
 					return JSON.parse(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(mod.DataRelativeURL(inputData, ParamMetadata.manifest))), body));
 				} catch (error) {
-					return undefined;
+					return;
 				}
 			})(await _this._DataContentString(mod.DataRelativeURL(inputData, ParamMetadata.manifest))),
 		}));
