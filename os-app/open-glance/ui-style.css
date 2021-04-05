@@ -1,10 +1,38 @@
+:root {
+	--ZDAGlanceToolbarHeight: 35px;
+}
+
+@media screen and (max-width: 760px) {
+
+	:root {
+		--ZDAGlanceToolbarHeight: 45px;
+	}
+
+}
+
 .ZDAGlance {
+	padding: 0;
+	padding-top: calc(var(--ZDAGlanceToolbarHeight) + 2px);
+
 	font-family: Arial;
 	font-size: 9pt;
 }
 
+header {
+	display: flex !important;
+	flex-direction: column;
+}
+
+.ZDAGlanceFilterInput {
+	padding: 0 5px !important;
+	height: var(--ZDAGlanceToolbarHeight);
+	border-radius: 0 !important;
+}
+
 table {
 	position: relative;
+
+	margin: 0 !important;
 }
 
 .ZDAGlanceListHead {

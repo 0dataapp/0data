@@ -22,6 +22,10 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.attribute('meta[name=description]', 'content', uLocalized('ZDAVitrineDescription'));
 		});
 
+		it('localizes ZDAGlanceFilterInput', function () {
+			browser.assert.attribute(ZDAGlanceFilterInput, 'placeholder', uLocalized('ZDAGlanceFilterInputText'));
+		});
+
 		it('localizes ZDAGlanceProjectsCompilationLink', function () {
 			browser.assert.text(ZDAGlanceProjectsCompilationLink, uLocalized('ZDAGlanceProjectsCompilationLinkText'));
 		});

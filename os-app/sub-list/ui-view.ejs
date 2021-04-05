@@ -5,6 +5,7 @@
 <% } -%>
 
 <% if (locals.ZDAGlanceListData.length) { -%>
+<thead>
 	<tr class="ZDAGlanceListHead OLSKStickyHeader OLSKCommonEdgeBottom">
 		<th></th>
 		<th class="ZDAGlanceListHeadName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
@@ -13,7 +14,10 @@
 		<th class="ZDAGlanceListHeadFission">Fission</th>
 		<th class="ZDAGlanceListHeadSOLID">SOLID</th>
 	</tr>
+</thead>
 <% } -%>
+
+<tbody class="list">
 
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
 <tr class="ZDAGlanceListItem">
@@ -37,5 +41,7 @@
 	</td>
 </tr>
 <% }) -%>
+
+</tbody>
 
 </table>

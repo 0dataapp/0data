@@ -21,6 +21,7 @@
     "SWARLink": "0dataapp/SWARLink",
     "node-fetch": "latest",
     "cheerio": "latest",
+    "list.js": "latest",
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {

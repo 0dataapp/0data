@@ -4,12 +4,18 @@ locals.OLSKPageDescription = OLSKLocalized('ZDAVitrineDescription');
 locals.OLSKPageAssets = [
 	'/_shared/__external/normalize.css/normalize.css',
 	'/_shared/__external/OLSKDecor/ui-style.css',
+	'/_shared/__external/list.js/dist/list.js',
+	'ui-behaviour.js',
 	'ui-style.css',
 ];
 locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 %>
 
 <div class="ZDAGlance OLSKDecor">
+
+<header class="OLSKDecorFixedHeader">
+	<input class="ZDAGlanceFilterInput" placeholder="<%= OLSKLocalized('ZDAGlanceFilterInputText') %>" accesskey="f" />
+</header>
 
 <%- include('../sub-list/ui-view.ejs') %>
 
@@ -20,3 +26,7 @@ locals.OLSKPageUseLivereload = process.env.NODE_ENV === 'development';
 </p>
 
 </div>
+
+<script type="text/javascript">
+mod.LifecyclePageWillLoad();
+</script>

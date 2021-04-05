@@ -2,10 +2,18 @@ const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 
 describe('ZDAGlance_Misc', function () {
 
+	const count = Math.min(2, uRandomInt(10));
+
+	const item = {
+		ZDAProjectName: Math.random().toString(),
+	};
+
 	before(function () {
-		return browser.visit(kDefaultRoute.OLSKRoutePath, {
-			ZDAGlanceListData: JSON.stringify(Array.from(Array(uRandomInt())).map(function (e) {
-				return {};
+		return browser.OLSKVisit(kDefaultRoute, {
+			ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e, i) {
+				return i ? {
+					ZDAProjectName: Math.random().toString(),
+				} : item;
 			})),
 		});
 	});
@@ -14,6 +22,30 @@ describe('ZDAGlance_Misc', function () {
 		
 		it('classes OLSKDecor', function () {
 			browser.assert.hasClass(ZDAGlance, 'OLSKDecor');
+		});
+	
+	});
+
+	describe('ZDAGlanceFilterInput', function test_ZDAGlanceFilterInput () {
+
+		it('sets accesskey', function () {
+			browser.assert.attribute(ZDAGlanceFilterInput, 'accesskey', 'f');
+		});
+
+		context('input', function () {
+			
+			before(function () {
+				browser.assert.elements('.ZDAGlanceListItem', count);
+			});
+
+			before(function () {
+				return browser.fill(ZDAGlanceFilterInput, item.ZDAProjectName);
+			});
+
+			it('filters list', function () {
+				browser.assert.elements('.ZDAGlanceListItem', 1);
+			});
+		
 		});
 	
 	});
