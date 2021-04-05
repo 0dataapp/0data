@@ -18,6 +18,7 @@
     "OLSKCache": "olsk/OLSKCache",
     "OLSKDisk": "olsk/OLSKDisk",
     "OLSKDOM": "olsk/OLSKDOM",
+    "SWARLink": "0dataapp/SWARLink",
     "node-fetch": "latest",
     "cheerio": "latest",
     "// I sacrifice myself for the commas of others": null
