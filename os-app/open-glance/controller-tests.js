@@ -333,6 +333,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectURL,
 				ZDAProjectBlurb,
+				_ZDAProjectSupportsFission: true,
 			}]);
 		});
 		
@@ -348,7 +349,8 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectBlurb
+				ZDAProjectBlurb,
+				_ZDAProjectSupportsFission: true,
 			}]);
 		});
 	

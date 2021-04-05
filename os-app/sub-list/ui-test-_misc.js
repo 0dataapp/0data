@@ -9,6 +9,7 @@ describe('ZDAGlanceList_Misc', function  () {
 		ZDAProjectIconURL: Math.random().toString(),
 		_ZDAProjectIconURLCachedPath: uRandomElement(undefined, Math.random().toString()),
 		_ZDAProjectSupportsRemoteStorage: uRandomElement(true, false),
+		_ZDAProjectSupportsFission: uRandomElement(true, false),
 	};
 
 	before(function() {
@@ -41,6 +42,14 @@ describe('ZDAGlanceList_Misc', function  () {
 
 		it('sets text', function () {
 			browser.assert.text(ZDAGlanceListHeadRemoteStorage, 'remoteStorage');
+		});
+
+	});
+
+	describe('ZDAGlanceListHeadFission', function test_ZDAGlanceListHeadFission () {
+
+		it('sets text', function () {
+			browser.assert.text(ZDAGlanceListHeadFission, 'Fission');
 		});
 
 	});
@@ -101,6 +110,22 @@ describe('ZDAGlanceList_Misc', function  () {
 
 		it('sets checked', function () {
 			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'checked', item._ZDAProjectSupportsRemoteStorage ? '' : null);
+		});
+
+	});
+
+	describe('ZDAGlanceListItemFission', function test_ZDAGlanceListItemFission () {
+
+		it('sets type', function () {
+			browser.assert.attribute(ZDAGlanceListItemFission, 'type', 'checkbox');
+		});
+
+		it('sets disabled', function () {
+			browser.assert.attribute(ZDAGlanceListItemFission, 'disabled', '');
+		});
+
+		it('sets checked', function () {
+			browser.assert.attribute(ZDAGlanceListItemFission, 'checked', item._ZDAProjectSupportsFission ? '' : null);
 		});
 
 	});

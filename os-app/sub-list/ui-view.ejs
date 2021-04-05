@@ -10,6 +10,7 @@
 		<th class="ZDAGlanceListHeadName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
 		<th class="ZDAGlanceListHeadBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
 		<th class="ZDAGlanceListHeadRemoteStorage">remoteStorage</th>
+		<th class="ZDAGlanceListHeadFission">Fission</th>
 	</tr>
 <% } -%>
 
@@ -26,6 +27,9 @@
 	<td class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></td>
 	<td>
 		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item._ZDAProjectSupportsRemoteStorage ? 'checked' : '' %>>
+	</td>
+	<td>
+		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item._ZDAProjectSupportsFission ? 'checked' : '' %>>
 	</td>
 </tr>
 <% }) -%>

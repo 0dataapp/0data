@@ -218,6 +218,7 @@ const mod = {
 								ZDAProjectName: cheerio('a', this).text(),
 								ZDAProjectURL: cheerio('a', this).attr('href'),
 								ZDAProjectBlurb: cheerio(this).text().split(':').pop(),
+								_ZDAProjectSupportsFission: true,
 							};
 						});
 					},
