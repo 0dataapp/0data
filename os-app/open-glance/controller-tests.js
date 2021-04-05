@@ -472,6 +472,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb: [ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectURL,
+				_ZDAProjectSupportsSOLID: true,
 			}]);
 		});
 		
@@ -490,6 +491,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 				ZDAProjectName,
 				ZDAProjectBlurb: [ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectURL,
+				_ZDAProjectSupportsSOLID: true,
 			}]);
 		});
 		

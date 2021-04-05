@@ -11,6 +11,7 @@
 		<th class="ZDAGlanceListHeadBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
 		<th class="ZDAGlanceListHeadRemoteStorage">remoteStorage</th>
 		<th class="ZDAGlanceListHeadFission">Fission</th>
+		<th class="ZDAGlanceListHeadSOLID">SOLID</th>
 	</tr>
 <% } -%>
 
@@ -30,6 +31,9 @@
 	</td>
 	<td>
 		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item._ZDAProjectSupportsFission ? 'checked' : '' %>>
+	</td>
+	<td>
+		<input class="ZDAGlanceListItemSOLID" type="checkbox" disabled <%= item._ZDAProjectSupportsSOLID ? 'checked' : '' %>>
 	</td>
 </tr>
 <% }) -%>

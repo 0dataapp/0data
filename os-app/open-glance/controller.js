@@ -267,6 +267,7 @@ const mod = {
 									return blurb;
 								})(cheerio('td:nth-child(2)', this).text()).trim(),
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href') || '',
+								_ZDAProjectSupportsSOLID: true,
 							};
 						});
 					},
