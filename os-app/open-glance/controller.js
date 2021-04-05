@@ -318,17 +318,13 @@ const mod = {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		if (typeof params.ParamHTML !== 'string') {
-			throw new Error('ZDRErrorInputNotValid');
-		}
-
 		if (typeof params.ParamURL !== 'string') {
 			throw new Error('ZDRErrorInputNotValid');
 		}
 
-		const metadata = require('OLSKDOM').OLSKDOMMetadata(params.ParamHTML, {
-			JSDOM: JSDOM.fragment,
-		});
+		if (typeof params.ParamMetadata !== 'object' || params.ParamMetadata === null) {
+			throw new Error('ZDRErrorInputNotValid');
+		}
 
 		return [
 			['ZDAProjectIconURL', (function(href) {
@@ -337,9 +333,9 @@ const mod = {
 				}
 
 				return !href ? null : mod.DataRelativeURL(params.ParamURL, href);
-			})(metadata['apple-touch-icon'] || metadata['apple-touch-icon-precomposed'])],
-			['_ZDAProjectBlurb', metadata.description],
-			['_ZDAProjectBlurb', metadata.title],
+			})(params.ParamMetadata['apple-touch-icon'] || params.ParamMetadata['apple-touch-icon-precomposed'])],
+			['_ZDAProjectBlurb', params.ParamMetadata.description],
+			['_ZDAProjectBlurb', params.ParamMetadata.title],
 		].filter(function ([key, value]) {
 			return !!value;
 		});
@@ -481,9 +477,12 @@ const mod = {
 	},
 
 	async _SetupDetailCandidates (inputData) {
+		const ParamMetadata = require('OLSKDOM').OLSKDOMMetadata(this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await this._DataContentString(inputData)), {
+			JSDOM: JSDOM.fragment,
+		});
 		return Object.fromEntries(this._DataDetailsDOMPropertyCandidates({
-			ParamHTML: this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await this._DataContentString(inputData)),
 			ParamURL: inputData,
+			ParamMetadata,
 		}));
 	},
 

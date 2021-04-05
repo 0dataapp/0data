@@ -2,6 +2,8 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
+import { JSDOM } from 'jsdom';
+
 const uLink = function () {
 	return 'https://example.com/' + Math.random().toString();
 };
@@ -624,22 +626,14 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 
 	const __DataDetailsDOMPropertyCandidates = function (inputData = {}) {
 		return mod._DataDetailsDOMPropertyCandidates(Object.assign({
-			ParamHTML: Math.random().toString(),
 			ParamURL: Math.random().toString(),
+			ParamMetadata: {},
 		}, inputData));
 	};
 
 	it('throws if not object', function () {
 		throws(function () {
 			mod._DataDetailsDOMPropertyCandidates(null);
-		}, /ZDRErrorInputNotValid/);
-	});
-
-	it('throws if ParamHTML not string', function () {
-		throws(function () {
-			__DataDetailsDOMPropertyCandidates({
-				ParamHTML: null,
-			});
 		}, /ZDRErrorInputNotValid/);
 	});
 
@@ -651,45 +645,61 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 		}, /ZDRErrorInputNotValid/);
 	});
 
+	it('throws if ParamMetadata not object', function () {
+		throws(function () {
+			__DataDetailsDOMPropertyCandidates({
+				ParamMetadata: null,
+			});
+		}, /ZDRErrorInputNotValid/);
+	});
+
 	it('returns array', function () {
 		deepEqual(__DataDetailsDOMPropertyCandidates(), []);
 	});
 
-	it('parses apple-touch-icon', function () {
+	it('extracts apple-touch-icon', function () {
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const ParamURL = 'https://example.com';
 		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamHTML: `<link rel="apple-touch-icon" href="${ path }" />`,
+			ParamMetadata: {
+				'apple-touch-icon': path,
+			},
 			ParamURL,
 		}), Object.entries({
 			ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
 		}));
 	});
 
-	it('parses apple-touch-icon-precomposed', function () {
+	it('extracts apple-touch-icon-precomposed', function () {
 		const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 		const ParamURL = 'https://example.com';
 		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamHTML: `<link rel="apple-touch-icon-precomposed" href="${ path }" />`,
+			ParamMetadata: {
+				'apple-touch-icon-precomposed': path,
+			},
 			ParamURL,
 		}), Object.entries({
 			ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
 		}));
 	});
 
-	it('parses description', function () {
+	it('extracts description', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
 		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamHTML: `<meta name="description" content="${ _ZDAProjectBlurb }">`,
+			ParamMetadata: {
+				'description': _ZDAProjectBlurb,
+			},
 		}), Object.entries({
 			_ZDAProjectBlurb,
 		}));
 	});
 
-	it('parses title', function () {
+	it('extracts title', function () {
 		const _ZDAProjectBlurb = Math.random().toString();
 		deepEqual(__DataDetailsDOMPropertyCandidates({
-			ParamHTML: `<title>${ _ZDAProjectBlurb }</title>`,
+			ParamMetadata: {
+				'title': _ZDAProjectBlurb,
+			},
 		}), Object.entries({
 			_ZDAProjectBlurb,
 		}));
@@ -1229,7 +1239,8 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 
 	it('returns _DataDetailsDOMPropertyCandidates', async function () {
 		const ParamURL = uLink();
-		const ParamHTML = Math.random().toString();
+		const item = Math.random().toString();
+		const ParamHTML = `<link rel="apple-touch-icon" href="${ item }" /><link rel="apple-touch-icon-precomposed" href="${ item }" /><meta name="description" content="${ item }"><title>${ item }</title>`;
 		deepEqual(await __SetupDetailCandidates({
 			ParamURL,
 			ParamHTML,
@@ -1240,7 +1251,9 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 			}),
 		}), {
 			arguments: [{
-				ParamHTML,
+				ParamMetadata: require('OLSKDOM').OLSKDOMMetadata(ParamHTML, {
+					JSDOM: JSDOM.fragment,
+				}),
 				ParamURL,
 			}],
 		});
