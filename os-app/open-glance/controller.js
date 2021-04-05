@@ -26,7 +26,7 @@ const mod = {
 			OLSKRouteSignature: 'ZDAGlanceRoute',
 			OLSKRouteFunction: (function ZDAGlanceRoute (req, res, next) {
 				return res.OLSKExpressLayoutRender(require('path').join(__dirname, 'ui-view'), {
-					ZDAGlanceListData: res.locals.OLSK_SPEC_UI() ? [] : mod.DataProjects2(),
+					ZDAGlanceListData: res.locals.OLSK_SPEC_UI() ? [] : mod.DataProjects(),
 				});
 			}),
 			OLSKRouteLanguageCodes: ['en'],
@@ -383,7 +383,7 @@ const mod = {
 		}, inputData);
 	},
 
-	DataProjects2 () {
+	DataProjects () {
 		const _this = this;
 		return _this.DataListingProjects().map(function (e) {
 			return _this._DataProjectProperties(e);
@@ -412,7 +412,7 @@ const mod = {
 	},
 
 	DataProjectsJSON () {
-		return JSON.stringify(this.DataProjects2().map(mod.DataProjectJSONSchema));
+		return JSON.stringify(this.DataProjects().map(mod.DataProjectJSONSchema));
 	},
 
 	// SETUP
@@ -507,7 +507,7 @@ const mod = {
 
 	SetupImages () {
 		const _this = this;
-		return _this.DataProjects2().filter(function (e) {
+		return _this.DataProjects().filter(function (e) {
 			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
 		}).map(function (e) {
 			return _this._SetupImage(e.ZDAProjectIconURL);
