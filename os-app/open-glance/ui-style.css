@@ -80,6 +80,12 @@ table {
 	background: #efefef;
 }
 
+.ZDAGlanceListHeadRemoteStorage, .ZDAGlanceListHeadFission, .ZDAGlanceListHeadSOLID {
+	max-width: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 td, th {
 	padding: 10px;
 }
