@@ -66,6 +66,10 @@ describe('ZDAGlance_Misc', function () {
 			browser.assert.attribute(ZDAGlanceFilterInput, 'accesskey', 'f');
 		});
 
+		it('classes OLSKDecorInput', function () {
+			browser.assert.hasClass(ZDAGlanceFilterInput, 'OLSKDecorInput');
+		});
+
 		context('input', function () {
 			
 			before(function () {
