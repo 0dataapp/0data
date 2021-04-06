@@ -7,7 +7,6 @@ Object.entries({
 
 	ZDAGlanceListHead: '.ZDAGlanceListHead',
 	ZDAGlanceListHeadName: '.ZDAGlanceListHeadName',
-	ZDAGlanceListHeadBlurb: '.ZDAGlanceListHeadBlurb',
 	ZDAGlanceListHeadRemoteStorage: '.ZDAGlanceListHeadRemoteStorage',
 	ZDAGlanceListHeadFission: '.ZDAGlanceListHeadFission',
 	ZDAGlanceListHeadSOLID: '.ZDAGlanceListHeadSOLID',
@@ -69,10 +68,6 @@ describe('ZDAGlanceList_Access', function () {
 
 		it('shows ZDAGlanceListHeadName', function () {
 			browser.assert.elements(ZDAGlanceListHeadName, 1);
-		});
-
-		it('shows ZDAGlanceListHeadBlurb', function () {
-			browser.assert.elements(ZDAGlanceListHeadBlurb, 1);
 		});
 
 		it('shows ZDAGlanceListHeadRemoteStorage', function () {

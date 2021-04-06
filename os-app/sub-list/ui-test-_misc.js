@@ -51,18 +51,6 @@ describe('ZDAGlanceList_Misc', function  () {
 
 	});
 
-	describe('ZDAGlanceListHeadBlurb', function test_ZDAGlanceListHeadBlurb () {
-
-		it('classes ZDAGlanceListSort', function () {
-			browser.assert.hasClass(ZDAGlanceListHeadBlurb, 'ZDAGlanceListSort');
-		});
-
-		it('sets data-sort', function () {
-			browser.assert.attribute(ZDAGlanceListHeadBlurb, 'data-sort', 'ZDAGlanceListItemBlurb')
-		});
-
-	});
-
 	describe('ZDAGlanceListHeadRemoteStorage', function test_ZDAGlanceListHeadRemoteStorage () {
 
 		it('sets text', function () {

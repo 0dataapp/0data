@@ -33,10 +33,6 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 				browser.assert.text(ZDAGlanceListHeadName, uLocalized('ZDAGlanceListHeadNameText'));
 			});
 
-			it('localizes ZDAGlanceListHeadBlurb', function () {
-				browser.assert.text(ZDAGlanceListHeadBlurb, uLocalized('ZDAGlanceListHeadBlurbText'));
-			});
-
 		});
 
 	});

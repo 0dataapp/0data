@@ -115,15 +115,15 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceListSort', function test_ZDAGlanceListSort () {
 
 		before(function () {
-			browser.assert.text('.ZDAGlanceListItem:first-of-type .ZDAGlanceListItemBlurb', '0');
+			browser.assert.text('.ZDAGlanceListItem:first-of-type .ZDAGlanceListItemName', item.ZDAProjectName);
 		});
 
 		before(function () {
-			return browser.click('.ZDAGlanceListHeadBlurb');
+			return browser.click('.ZDAGlanceListHeadName');
 		});
 
 		it.skip('sorts list', function () {
-			browser.assert.text('.ZDAGlanceListItem:first-of-type .ZDAGlanceListItemBlurb', count);
+			browser.assert.text('.ZDAGlanceListItem:first-of-type .ZDAGlanceListItemName', count);
 		});
 	
 	});

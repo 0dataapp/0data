@@ -7,9 +7,7 @@
 <% if (locals.ZDAGlanceListData.length) { -%>
 <thead>
 	<tr class="ZDAGlanceListHead OLSKStickyHeader OLSKCommonEdgeBottom">
-		<th></th>
 		<th class="ZDAGlanceListHeadName ZDAGlanceListSort" data-sort="ZDAGlanceListItemName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
-		<th class="ZDAGlanceListHeadBlurb ZDAGlanceListSort" data-sort="ZDAGlanceListItemBlurb"><%= OLSKLocalized('ZDAGlanceListHeadBlurbText') %></th>
 		<th class="ZDAGlanceListHeadRemoteStorage ZDAGlanceListSort" data-sort="ZDAGlanceListItemRemoteStorage">remoteStorage</th>
 		<th class="ZDAGlanceListHeadFission ZDAGlanceListSort" data-sort="ZDAGlanceListItemFission">Fission</th>
 		<th class="ZDAGlanceListHeadSOLID ZDAGlanceListSort" data-sort="ZDAGlanceListItemSOLID">SOLID</th>
@@ -21,15 +19,17 @@
 
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
 <tr class="ZDAGlanceListItem">
-	<td><% if (item.ZDAProjectIconURL) { -%>
-		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true" tabindex="-1">
-			<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
-		</a>
-	<% } -%></td>
-	<td>
-		<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
+	<td class="OLSKCommonCard">
+		<% if (item.ZDAProjectIconURL) { -%>
+			<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true" tabindex="-1">
+				<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
+			</a>
+		<% } -%>
+		<section>
+			<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
+			<span class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></span>
+		</section>
 	</td>
-	<td class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></td>
 	<td class="ZDAGlanceListItemCheckbox">
 		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item._ZDAProjectSupportsRemoteStorage ? 'checked' : '' %> data-boolean="<%= item._ZDAProjectSupportsRemoteStorage ? '0' : '1' %>">
 	</td>
