@@ -20,5 +20,5 @@ ZDAVitrineRepoLinkText: Repo
 ZDAVitrineWrapLinkText: JavaScript API Wrapper
 ZDAVitrineProjectsHeadingText: Apps
 ZDAVitrineProjectsSourcesHeadingText: Sources
-ZDAVitrineProjectsSourcesBlurbText: 'Data compiled from the following locations:'
+ZDAVitrineProjectsSourcesBlurbText: 'Data compiled automatically from the following locations:'
 ZDAVitrineProjectsCompilationLinkText: JSON compilation of app data
