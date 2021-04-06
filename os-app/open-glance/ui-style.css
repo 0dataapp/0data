@@ -84,8 +84,14 @@ td, th {
 	padding: 10px;
 }
 
+td {
+	border-top: none !important;
+	border-bottom: var(--OLSKCommonEdgeBorder);
+}
+
 .ZDAGlanceListItemIconImage {
-	width: 36px;
+	--OLSKCommonCardImageSize: 36px !important;
+	padding: 3px;
 	border-radius: 5px;
 	overflow: hidden;
 }
@@ -94,6 +100,11 @@ td, th {
 	text-decoration: none;
 	color: black;
 	font-weight: bold;
+}
+
+.ZDAGlanceListItemBlurb {
+	display: inline-block;
+	max-width: 400px;
 }
 
 .ZDAGlanceListItemCheckbox {
