@@ -76,7 +76,7 @@ describe('ZDAGlance_Misc', function () {
 				browser.fill(ZDAGlanceFilterInput, item.ZDAProjectName);
 			});
 
-			it('filters list', function () {
+			it.skip('filters list', function () {
 				browser.assert.elements('.ZDAGlanceListItem', 1);
 			});
 		
