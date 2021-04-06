@@ -22,7 +22,7 @@
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
 <tr class="ZDAGlanceListItem">
 	<td><% if (item.ZDAProjectIconURL) { -%>
-		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true">
+		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true" tabindex="-1">
 			<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
 		</a>
 	<% } -%></td>

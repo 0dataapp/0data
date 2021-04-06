@@ -121,6 +121,10 @@ describe('ZDAGlanceList_Misc', function  () {
 			browser.assert.attribute(ZDAGlanceListItemIcon, 'aria-hidden', 'true');
 		});
 
+		it('sets tabindex', function () {
+			browser.assert.attribute(ZDAGlanceListItemIcon, 'tabindex', '-1');
+		});
+
 	});
 
 	describe('ZDAGlanceListItemIconImage', function test_ZDAGlanceListItemIconImage () {
