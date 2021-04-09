@@ -4,10 +4,6 @@ const mod = require('./controller.js');
 
 import { JSDOM } from 'jsdom';
 
-const uLink = function () {
-	return 'https://example.com/' + Math.random().toString();
-};
-
 describe('DataRelativeURL', function test_DataRelativeURL() {
 
 	it('throws if param1 not string', function () {
@@ -86,7 +82,7 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 	it('returns string', function () {
 		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
 		const filename = Date.now().toString();
-		const item = 'https://example.com/' + filename + extension;
+		const item = uLink(filename + extension);
 
 		deepEqual(mod.DataCacheFilenameImage(item), mod.DataCacheFilenameURL(item).replace('.html', '') + extension);
 	});
@@ -94,7 +90,7 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 	it('strips query', function () {
 		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
 		const filename = Date.now().toString();
-		const item = 'https://example.com/' + filename + extension;
+		const item = uLink(filename + extension);
 		const query = '?' + Date.now().toString();
 
 		deepEqual(mod.DataCacheFilenameImage(item + query), mod.DataCacheFilenameURL(item + query).replace('.html', '') + extension);
