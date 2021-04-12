@@ -6,13 +6,7 @@
     "test": "olsk-spec"
   },
   "dependencies": {
-    "OLSKExpress": "olsk/OLSKExpress",
-    "normalize.css": "latest",
-    "OLSKDecor": "olsk/OLSKDecor",
-    "OLSKCrown": "olsk/OLSKCrown",
-    "OLSKLanding": "olsk/OLSKLanding",
-    "OLSKGazette": "olsk/OLSKGazette",
-    "ROCORootLink": "rationalcreative/ROCORootLink",
+    "OLSKPithVitrine": "olsk/OLSKPithVitrine",
     "OLSKRobots": "olsk/OLSKRobots",
     "OLSKQueue": "olsk/OLSKQueue",
     "OLSKCache": "olsk/OLSKCache",
@@ -26,11 +20,8 @@
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {
-    "livereload": "latest",
+    "OLSKPithToolchain": "olsk/OLSKPithToolchain",
     "jsdom": "latest",
-    "OLSKSpec": "olsk/OLSKSpec",
-    "OLSKHotfix": "olsk/OLSKHotfix",
-    "OLSKBundle": "olsk/OLSKBundle",
     "// I sacrifice myself for the commas of others": null
   }
 }
