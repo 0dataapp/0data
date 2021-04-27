@@ -12,10 +12,6 @@ const mod = {
 		}];
 	},
 
-	OLSKControllerUseLivereload () {
-		return process.env.NODE_ENV === 'development';
-	},
-
 };
 
 Object.assign(exports, mod);

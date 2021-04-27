@@ -48,10 +48,6 @@ const mod = {
 		}];
 	},
 
-	OLSKControllerUseLivereload () {
-		return process.env.NODE_ENV === 'development';
-	},
-
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAGlanceProjectsCount () {
