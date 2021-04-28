@@ -6,7 +6,7 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		return OLSKTestingLocalized(inputData, OLSKRoutingLanguage);
 	};
 
-	describe(`ZDAGlanceList_Localize-${ OLSKRoutingLanguage }`, function () {
+	describe('ZDAGlanceList_Localize-' + OLSKRoutingLanguage, function () {
 
 		before(function() {
 			return browser.OLSKVisit(kDefaultRoute, {
