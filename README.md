@@ -1,4 +1,4 @@
-<a href="https://0data.app"><img alt="Project logo" src="https://rosano.s3.amazonaws.com/public/0data/identity.svg" width="64" /></a>
+<a href="https://0data.app"><img alt="Project logo" src="https://static.rosano.ca/0data/identity.svg" width="64" /></a>
 
 # Zero Data App
 
