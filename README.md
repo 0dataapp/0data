@@ -6,7 +6,7 @@ _Own your data, all of it._
 
 ## Architecture
 
-The project is a large collection of mostly small modules and functions. With the exception of a few 'global' or 'magic' things such as the localization function `OLSKLocalized`, most resources used by a module should be in the same folder or referenced by path name.
+The project follows a [Universal folder structure](https://rosano.hmm.garden/01f71kp52knc5nnv08qr9kzj3m) and is a large collection of mostly small modules or functions. With the exception of a few 'global' or 'magic' things such as the localization function `OLSKLocalized`, most resources used by a module should be in the same folder or referenced by path name.
 
 Routing, rendering markdown content, and serving pages is done via a Node.js server (usually configured in the *controller.js* files).
 
