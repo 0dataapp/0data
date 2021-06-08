@@ -80,6 +80,11 @@ locals.OLSKPageAssets = [
 	<% }) -%>
 </ul>
 
+<h1 class="ZDAVitrineLatestHeading"><%= OLSKLocalized('OLSKWordingLatestHeading') %></h1>
+<%- include('../../node_modules/ROCOForum/main.ejs', {
+	ROCOForumTopic: process.env.ROCO_FORUM_TOPIC,
+}) %>
+
 <hr role="presentation" />
 
 <%- include('../../node_modules/SWARLink/main.ejs') %>

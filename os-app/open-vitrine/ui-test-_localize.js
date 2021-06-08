@@ -80,6 +80,10 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAVitrineProjectsSourcesBlurb, uLocalized('ZDAVitrineProjectsSourcesBlurbText'));
 		});
 
+		it('localizes ZDAVitrineLatestHeading', function () {
+			browser.assert.text(ZDAVitrineLatestHeading, uLocalized('OLSKWordingLatestHeading'));
+		});
+
 		context('OLSKCrown', function test_OLSKCrown () {
 
 			it('localizes OLSKCrownCardName', function () {
