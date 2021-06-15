@@ -1,6 +1,7 @@
 const cheerio = require('cheerio');
 const { JSDOM } = require('JSDOM');
 const OLSKLink = require('OLSKLink');
+const OLSKCache = require('OLSKCache');
 
 const uSerial2 = function (inputData) {
 	return inputData.reduce(async function (coll, e) {
@@ -88,10 +89,6 @@ const mod = {
 		await streamPipeline(response.body, createWriteStream(file));
 	},
 
-	_DataHash (inputData) {
-		return require('crypto').createHash('md5').update(inputData).digest('hex');
-	},
-
 	// * CACHE
 
 	DataCacheNameListings() {
@@ -102,16 +99,6 @@ const mod = {
 		return 'cache-b-details';
 	},
 
-	DataCacheFilenameURL (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		const host = (new URL('', inputData)).host.replace('www.', '');
-
-		return host + '.' + mod._DataHash(inputData);
-	},
-
 	DataCacheFilenameImage (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -119,7 +106,7 @@ const mod = {
 
 		const extension = require('path').extname(inputData).split('?').shift();
 
-		return mod.DataCacheFilenameURL(inputData) + extension;
+		return OLSKCache.OLSKCacheURLBasename(inputData) + extension;
 	},
 
 	DataCachePathListings (inputData) {
@@ -446,7 +433,7 @@ const mod = {
 		Object.assign(mod, Object.assign(this, {
 			_ValueListingsCache: mod.DataListingURLs().reduce(function (coll, item) {
 				return Object.assign(coll, {
-					[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod.DataCachePathListings(mod.DataCacheFilenameURL(item))),
+					[item]: _this._DataFoilOLSKDisk.OLSKDiskRead(mod.DataCachePathListings(OLSKCache.OLSKCacheURLBasename(item))),
 				});
 			}, {}),
 		}));
@@ -462,7 +449,7 @@ const mod = {
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
 			_ParamCallbackDidFinish: (function () {
-				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathListings(mod.DataCacheFilenameURL(inputData)), _this._ValueListingsCache[inputData]);
+				return _this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathListings(OLSKCache.OLSKCacheURLBasename(inputData)), _this._ValueListingsCache[inputData]);
 			}),
 		});
 	},
@@ -480,7 +467,7 @@ const mod = {
 	async _SetupDetailCandidates (inputData) {
 		const _this = this;
 
-		const ParamMetadata = require('OLSKDOM').OLSKDOMMetadata(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(inputData)), await _this._DataContentString(inputData)), {
+		const ParamMetadata = require('OLSKDOM').OLSKDOMMetadata(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(OLSKCache.OLSKCacheURLBasename(inputData)), await _this._DataContentString(inputData)), {
 			JSDOM: JSDOM.fragment,
 		});
 
@@ -489,7 +476,7 @@ const mod = {
 			ParamMetadata,
 			ParamManifest: !ParamMetadata.manifest ? undefined : (function(body) {
 				try {
-					return JSON.parse(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(mod.DataCacheFilenameURL(OLSKLink.OLSKLinkRelativeURL(inputData, ParamMetadata.manifest))), body));
+					return JSON.parse(_this._DataFoilOLSKDisk.OLSKDiskWrite(mod.DataCachePathDetails(OLSKCache.OLSKCacheURLBasename(OLSKLink.OLSKLinkRelativeURL(inputData, ParamMetadata.manifest))), body));
 				} catch (error) {
 					return;
 				}

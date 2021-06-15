@@ -4,6 +4,7 @@ const mod = require('./controller.js');
 
 import { JSDOM } from 'jsdom';
 import OLSKLink from 'OLSKLink';
+import OLSKCache from 'OLSKCache';
 
 describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
@@ -21,24 +22,6 @@ describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 });
 
-describe('DataCacheFilenameURL', function test_DataCacheFilenameURL() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod.DataCacheFilenameURL(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const host = uRandomElement('www.example.com', 'www.alfa.bravo');
-		const filename = Date.now().toString();
-		const item = 'https://' + host + '/' + filename;
-
-		deepEqual(mod.DataCacheFilenameURL(item), host.replace('www.', '') + '.' + mod._DataHash(item));
-	});
-
-});
-
 describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 
 	it('throws if not string', function () {
@@ -52,7 +35,7 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 		const filename = Date.now().toString();
 		const item = uLink(filename + extension);
 
-		deepEqual(mod.DataCacheFilenameImage(item), mod.DataCacheFilenameURL(item).replace('.html', '') + extension);
+		deepEqual(mod.DataCacheFilenameImage(item), OLSKCache.OLSKCacheURLBasename(item).replace('.html', '') + extension);
 	});
 
 	it('strips query', function () {
@@ -61,7 +44,7 @@ describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
 		const item = uLink(filename + extension);
 		const query = '?' + Date.now().toString();
 
-		deepEqual(mod.DataCacheFilenameImage(item + query), mod.DataCacheFilenameURL(item + query).replace('.html', '') + extension);
+		deepEqual(mod.DataCacheFilenameImage(item + query), OLSKCache.OLSKCacheURLBasename(item + query).replace('.html', '') + extension);
 	});
 
 });
@@ -1056,7 +1039,7 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 			}),
 		});
 
-		deepEqual(items, mod.DataListingURLs().map(mod.DataCacheFilenameURL).map(mod.DataCachePathListings));
+		deepEqual(items, mod.DataListingURLs().map(OLSKCache.OLSKCacheURLBasename).map(mod.DataCachePathListings));
 	});
 
 	it('sets _ValueListingsCache', function () {
@@ -1149,7 +1132,7 @@ describe('_SetupListing', function test__SetupListing() {
 				OLSKDiskWrite: (function () {
 					return [...arguments];
 				}),
-			}), [mod.DataCachePathListings(mod.DataCacheFilenameURL(url)), data]);
+			}), [mod.DataCachePathListings(OLSKCache.OLSKCacheURLBasename(url)), data]);
 		});
 	
 	});
@@ -1249,7 +1232,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 					res([...arguments])
 				}),
 			});
-		}), [mod.DataCachePathDetails(mod.DataCacheFilenameURL(ParamURL)), ParamHTML]);
+		}), [mod.DataCachePathDetails(OLSKCache.OLSKCacheURLBasename(ParamURL)), ParamHTML]);
 	});
 
 	it('returns _DataDetailsDOMPropertyCandidates', async function () {
@@ -1314,9 +1297,9 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 			});
 
 			deepEqual(items, [
-				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(ParamURL)),
+				[mod.DataCachePathDetails(OLSKCache.OLSKCacheURLBasename(ParamURL)),
 				ParamHTML],
-				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(OLSKLink.OLSKLinkRelativeURL(ParamURL, manifest))), JSON.stringify(ParamManifest)],
+				[mod.DataCachePathDetails(OLSKCache.OLSKCacheURLBasename(OLSKLink.OLSKLinkRelativeURL(ParamURL, manifest))), JSON.stringify(ParamManifest)],
 				]);
 		});
 
