@@ -115,12 +115,16 @@ const mod = {
 		return require('path').join(__dirname, '__cached', mod.DataCacheNameDetails(), inputData);
 	},
 
-	DataCachePathImages () {
-		return require('path').join(__dirname, '__cached', 'ui-assets');
+	DataCachePathImages (inputData = '') {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return require('path').join(__dirname, '__cached', 'ui-assets', inputData);
 	},
 
 	DataCacheImageLocalPath (inputData) {
-		const localURL = require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(inputData));
+		const localURL = mod.DataCachePathImages(OLSKCache.OLSKCacheURLFilename(inputData));
 		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
 	},
 
@@ -501,7 +505,7 @@ const mod = {
 	_SetupImage (inputData) {
 		const _this = this;
 		return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-			return _this._DataContentImage(inputData, require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(inputData)));
+			return _this._DataContentImage(inputData, mod.DataCachePathImages(OLSKCache.OLSKCacheURLFilename(inputData)));
 		});
 	},
 

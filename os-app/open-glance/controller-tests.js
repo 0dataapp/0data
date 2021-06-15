@@ -58,6 +58,17 @@ describe('DataCachePathImages', function test_DataCachePathImages() {
 		deepEqual(mod.DataCachePathImages(), require('path').join(__dirname, '__cached', 'ui-assets'));
 	});
 
+	it('throws if not string', function () {
+		throws(function () {
+			mod.DataCachePathImages(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('joins inputData', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataCachePathImages(item), require('path').join(__dirname, '__cached', 'ui-assets', item));
+	});
+
 });
 
 describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
@@ -82,7 +93,7 @@ describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
 			}),
 		});
 
-		deepEqual(item, [require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(url))]);
+		deepEqual(item, [mod.DataCachePathImages(OLSKCache.OLSKCacheURLFilename(url))]);
 	});
 
 	it('returns local URL if existsSync', function () {
@@ -93,7 +104,7 @@ describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
 			existsSync: (function () {
 				return true;
 			}),
-		}), require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(url)).replace(require('path').join(__dirname, '../'), '/'));
+		}), mod.DataCachePathImages(OLSKCache.OLSKCacheURLFilename(url)).replace(require('path').join(__dirname, '../'), '/'));
 	});
 
 	it('returns null', function () {
@@ -1454,7 +1465,7 @@ describe('_SetupImage', function test__SetupImage() {
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),
-		}), [url, require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(url))]);
+		}), [url, mod.DataCachePathImages(OLSKCache.OLSKCacheURLFilename(url))]);
 	});
 
 });
