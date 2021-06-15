@@ -3,39 +3,7 @@ const { throws, rejects, deepEqual } = require('assert');
 const mod = require('./controller.js');
 
 import { JSDOM } from 'jsdom';
-
-describe('DataRelativeURL', function test_DataRelativeURL() {
-
-	it('throws if param1 not string', function () {
-		throws(function () {
-			mod.DataRelativeURL(null, Math.random().toString());
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('throws if param2 not string', function () {
-		throws(function () {
-			mod.DataRelativeURL(Math.random().toString(), null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const url = 'https://example.com';
-		const path = Math.random().toString();
-		deepEqual(mod.DataRelativeURL(url, path), url + '/' + path);
-	});
-
-	it('returns param2 if complete', function () {
-		const path = 'https://alfa.bravo/' + Math.random().toString();
-		deepEqual(mod.DataRelativeURL('https://example.com', path), path);
-	});
-
-	it('completes slash', function () {
-		const url = 'https://example.com';
-		const path = '/' + Math.random().toString();
-		deepEqual(mod.DataRelativeURL(url, path), url + path);
-	});
-
-});
+import OLSKLink from 'OLSKLink';
 
 describe('DataCacheNameListings', function test_DataCacheNameListings() {
 
@@ -423,7 +391,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: mod.DataRelativeURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
+				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		
@@ -672,7 +640,7 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 				},
 				ParamURL,
 			}), Object.entries({
-				ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
+				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ParamURL, path),
 			}));
 		});
 
@@ -685,7 +653,7 @@ describe('_DataDetailsDOMPropertyCandidates', function test__DataDetailsDOMPrope
 				},
 				ParamURL,
 			}), Object.entries({
-				ZDAProjectIconURL: mod.DataRelativeURL(ParamURL, path),
+				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ParamURL, path),
 			}));
 		});
 
@@ -1327,7 +1295,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 				}),
 			});
 
-			deepEqual(items, [ParamURL, mod.DataRelativeURL(ParamURL, manifest)]);
+			deepEqual(items, [ParamURL, OLSKLink.OLSKLinkRelativeURL(ParamURL, manifest)]);
 		});
 
 		it('calls OLSKDiskWrite', async function () {
@@ -1348,7 +1316,7 @@ describe('_SetupDetailCandidates', function test__SetupDetailCandidates() {
 			deepEqual(items, [
 				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(ParamURL)),
 				ParamHTML],
-				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(mod.DataRelativeURL(ParamURL, manifest))), JSON.stringify(ParamManifest)],
+				[mod.DataCachePathDetails(mod.DataCacheFilenameURL(OLSKLink.OLSKLinkRelativeURL(ParamURL, manifest))), JSON.stringify(ParamManifest)],
 				]);
 		});
 
