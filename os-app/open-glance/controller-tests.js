@@ -22,33 +22,6 @@ describe('DataCacheNameDetails', function test_DataCacheNameDetails() {
 
 });
 
-describe('DataCacheFilenameImage', function test_DataCacheFilenameImage() {
-
-	it('throws if not string', function () {
-		throws(function () {
-			mod.DataCacheFilenameImage(null);
-		}, /ZDAErrorInputNotValid/);
-	});
-
-	it('returns string', function () {
-		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
-		const filename = Date.now().toString();
-		const item = uLink(filename + extension);
-
-		deepEqual(mod.DataCacheFilenameImage(item), OLSKCache.OLSKCacheURLBasename(item).replace('.html', '') + extension);
-	});
-
-	it('strips query', function () {
-		const extension = '.' + uRandomElement('png', 'jpg', 'gif');
-		const filename = Date.now().toString();
-		const item = uLink(filename + extension);
-		const query = '?' + Date.now().toString();
-
-		deepEqual(mod.DataCacheFilenameImage(item + query), OLSKCache.OLSKCacheURLBasename(item + query).replace('.html', '') + extension);
-	});
-
-});
-
 describe('DataCachePathListings', function test_DataCachePathListings() {
 
 	it('throws if not string', function () {
@@ -109,7 +82,7 @@ describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
 			}),
 		});
 
-		deepEqual(item, [require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url))]);
+		deepEqual(item, [require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(url))]);
 	});
 
 	it('returns local URL if existsSync', function () {
@@ -120,7 +93,7 @@ describe('DataCacheImageLocalPath', function test_DataCacheImageLocalPath() {
 			existsSync: (function () {
 				return true;
 			}),
-		}), require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url)).replace(require('path').join(__dirname, '../'), '/'));
+		}), require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(url)).replace(require('path').join(__dirname, '../'), '/'));
 	});
 
 	it('returns null', function () {
@@ -1481,7 +1454,7 @@ describe('_SetupImage', function test__SetupImage() {
 			_DataContentImage: (function () {
 				return [...arguments];
 			}),
-		}), [url, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(url))]);
+		}), [url, require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(url))]);
 	});
 
 });

@@ -99,16 +99,6 @@ const mod = {
 		return 'cache-b-details';
 	},
 
-	DataCacheFilenameImage (inputData) {
-		if (typeof inputData !== 'string') {
-			throw new Error('ZDAErrorInputNotValid');
-		}
-
-		const extension = require('path').extname(inputData).split('?').shift();
-
-		return OLSKCache.OLSKCacheURLBasename(inputData) + extension;
-	},
-
 	DataCachePathListings (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
@@ -130,7 +120,7 @@ const mod = {
 	},
 
 	DataCacheImageLocalPath (inputData) {
-		const localURL = require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData));
+		const localURL = require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(inputData));
 		return this._DataFoilFS.existsSync(localURL) ? localURL.replace(require('path').join(__dirname, '../'), '/') : null;
 	},
 
@@ -511,7 +501,7 @@ const mod = {
 	_SetupImage (inputData) {
 		const _this = this;
 		return _this._ValueFetchQueue.OLSKQueueAdd(function () {
-			return _this._DataContentImage(inputData, require('path').join(mod.DataCachePathImages(), mod.DataCacheFilenameImage(inputData)));
+			return _this._DataContentImage(inputData, require('path').join(mod.DataCachePathImages(), OLSKCache.OLSKCacheURLFilename(inputData)));
 		});
 	},
 
