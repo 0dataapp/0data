@@ -134,7 +134,7 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	require('../open-glance/controller.js').DataListingURLs().forEach(function (e, i) {
+	require('../task-a-listings/controller.js').DataListingURLs().forEach(function (e, i) {
 
 		describe('ZDAVitrineProjectsSourcesList', function test_ZDAVitrineProjectsSourcesList () {
 			

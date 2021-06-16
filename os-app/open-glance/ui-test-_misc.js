@@ -107,7 +107,7 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceProjectsCompilationLink', function test_ZDAGlanceProjectsCompilationLink () {
 		
 		it('sets href', function () {
-			browser.assert.attribute(ZDAGlanceProjectsCompilationLink, 'href', require('./controller.js').OLSKControllerRoutes().pop().OLSKRoutePath);
+			browser.assert.attribute(ZDAGlanceProjectsCompilationLink, 'href', require('../api-projects/controller.js').OLSKControllerRoutes().shift().OLSKRoutePath);
 		});
 
 		it('sets text', function () {

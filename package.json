@@ -13,6 +13,8 @@
     "OLSKDisk": "olsk/OLSKDisk",
     "OLSKDOM": "olsk/OLSKDOM",
     "OLSKLink": "olsk/OLSKLink",
+    "OLSKObject": "olsk/OLSKObject",
+    "OLSKModule": "olsk/OLSKModule",
     "OLSKRootLink": "olsk/OLSKRootLink",
     "SWARLink": "0dataapp/SWARLink",
     "node-fetch": "latest",
