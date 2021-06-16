@@ -27,7 +27,7 @@ const mod = {
 			'ZDAProjectBlurb',
 			'ZDAProjectHasManifest',
 		].filter(function (e) {
-			return a[e] !== b[e];
+			return !a[e] || !b[e];
 		});
 
 		if (unmatched.length) {
@@ -38,7 +38,11 @@ const mod = {
 			}, 0));
 		}
 
-		return 0;
+		return uDescending(...[a, b].map(function (e) {
+			return Object.keys(e).filter(function (e) {
+				return e.match('_ZDAProjectSupports');
+			}).length;
+		}));
 	},
 
 	_DataProjectImageProperty (inputData) {

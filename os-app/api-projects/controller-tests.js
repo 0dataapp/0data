@@ -44,6 +44,22 @@ describe('DataProjectsSort', function test_DataProjectsSort() {
 		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
 	});
 
+	it('bumps _ZDAProjectSupports', function () {
+		const item1 = {
+			ZDAProjectBlurb: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectHasManifest: true,
+		};
+		const item2 = {
+			ZDAProjectBlurb: Math.random().toString(),
+			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectHasManifest: true,
+			['_ZDAProjectSupports' + Math.random().toString()]: true
+		};
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
 });
 
 describe('_DataProjectImageProperty', function test__DataProjectImageProperty() {
