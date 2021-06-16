@@ -4,7 +4,7 @@ const mod = {
 
 	OLSKControllerTasks () {
 		return [{
-			OLSKTaskName: 'RCSWikiCacheTask',
+			OLSKTaskName: 'ZDAImagesTask',
 			OLSKTaskFireTimeInterval: 1,
 			OLSKTaskShouldBePerformed () {
 				return true;
