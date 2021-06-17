@@ -15,6 +15,7 @@
 	require('./node_modules/OLSKExpress/modules/OLSKAssets/main.js').OLSKAssetsCopyAssetsFromTo([
 		'normalize.css',
 		'OLSKDecor',
+		'OLSKBanner',
 		'OLSKRootLink',
 		'ROCORootLink',
 		'list.js',
