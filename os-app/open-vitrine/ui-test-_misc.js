@@ -147,10 +147,10 @@ describe('ZDAVitrine_Misc', function () {
 
 	});
 
-	describe('OLSKGazette', function test_OLSKGazette () {
+	describe('ROCOBulletin', function test_ROCOBulletin () {
 
 		it('sets src', function () {
-			browser.assert.attribute('.OLSKGazetteProjectField', 'value', 'RP_005');
+			browser.assert.attribute('.ROCOBulletinProjectField', 'value', 'RP_005');
 		});
 
 	});
