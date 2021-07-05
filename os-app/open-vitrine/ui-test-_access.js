@@ -23,8 +23,6 @@ Object.entries({
 	ZDAVitrineRepoLink: '.ZDAVitrineRepoLink',
 	ZDAVitrineWrapLink: '.ZDAVitrineWrapLink',
 
-	ZDAVitrineJarHeading: '.ZDAVitrineJarHeading',
-
 	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
 	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
 
@@ -121,10 +119,6 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ROCOGazette', function () {
 		browser.assert.elements('.ROCOGazette', 1);
-	});
-
-	it('shows ZDAVitrineJarHeading', function () {
-		browser.assert.elements(ZDAVitrineJarHeading, 1);
 	});
 
 	it('shows OLSKJar', function () {
