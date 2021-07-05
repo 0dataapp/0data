@@ -25,8 +25,6 @@ Object.entries({
 
 	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
 	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
-
-	ZDAVitrineLatestHeading: '.ZDAVitrineLatestHeading',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -131,10 +129,6 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineProjectsSourcesBlurb', function () {
 		browser.assert.elements(ZDAVitrineProjectsSourcesBlurb, 1);
-	});
-
-	it('shows ZDAVitrineLatestHeading', function () {
-		browser.assert.elements(ZDAVitrineLatestHeading, 1);
 	});
 
 	it('shows ROCOForum', function () {
