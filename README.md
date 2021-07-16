@@ -1,6 +1,6 @@
 <a href="https://0data.app"><img alt="Project logo" src="https://static.rosano.ca/0data/identity.svg" width="64" /></a>
 
-# Zero Data App
+# [Zero Data App](https://0data.app)
 
 _Own your data, all of it._
 
