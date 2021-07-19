@@ -126,6 +126,14 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
+	describe('ZDAVitrineStorageStackLink', function test_ZDAVitrineStorageStackLink () {
+		
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineStorageStackLink, 'href', process.env.ZDA_VITRINE_STORAGESTACK_URL);
+		});
+	
+	});
+
 	describe('ZDAVitrineWrapLink', function test_ZDAVitrineWrapLink () {
 		
 		it('sets href', function () {
