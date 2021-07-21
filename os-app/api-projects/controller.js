@@ -80,6 +80,9 @@ const mod = {
 	DataProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
+		// require('OLSKDisk').OLSKDiskWrite(require('OLSKDisk').OLSKDiskOpen(require('OLSKCache').OLSKCachePath(__dirname, '1-banks.json')), JSON.stringify(_mod._DataFoilBanks.DataBankProjects(), null, ' '));
+		// require('OLSKDisk').OLSKDiskWrite(require('OLSKDisk').OLSKDiskOpen(require('OLSKCache').OLSKCachePath(__dirname, '2-details.json')), JSON.stringify(_mod._DataFoilBanks.DataBankProjects().map(function (e) { return _mod._DataProjectProperties(e) }), null, ' '));
+
 		return _mod._DataFoilBanks.DataBankProjects().map(function (e) {
 			return _mod._DataProjectProperties(e);
 		}).map(function (e) {
