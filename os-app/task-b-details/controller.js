@@ -6,12 +6,14 @@ const mod = {
 
 	OLSKControllerTasks () {
 		return [{
-			OLSKTaskName: 'ZDADetailsCacheTask',
-			OLSKTaskFireTimeInterval: 1,
+			OLSKTaskName: 'ZDADetailsStartFetch',
+			OLSKTaskFireTimeInterval: 5,
 			OLSKTaskShouldBePerformed () {
 				return true;
 			},
-			OLSKTaskCallback: mod.SetupDetails,
+			OLSKTaskCallback: (function () {
+				require('OLSKModule').OLSKModuleLifecycleSetup(mod);
+			}),
 			OLSKTaskFireLimit: 1,
 		}];
 	},
