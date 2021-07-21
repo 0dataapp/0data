@@ -4,7 +4,6 @@ const mod = require('./controller.js');
 
 const ZDABank = require('../_shared/ZDABank/main.js');
 import OLSKCache from 'OLSKCache';
-import OLSKLink from 'OLSKLink';
 
 describe('_DataBankObjects', function test__DataBankObjects() {
 
@@ -24,7 +23,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 		deepEqual(mod._DataBankObjects(uRandomElement(ZDABank.ZDABankURLs()), ''), []);
 	});
 
-	context('remotestorage', function tost_remotestorage () {
+	context('RemoteStorage', function test_RemoteStorage () {
 
 		const uTable = function (inputData = {}) {
 			const item = Object.assign({
@@ -72,7 +71,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 	
 	});
 
-	context('fission', function test_fission () {
+	context('Fission', function test_Fission () {
 
 		const uList = function (inputData = {}) {
 			const item = Object.assign({
@@ -120,7 +119,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 	
 	});
 
-	context('awesome', function test_awesome () {
+	context('Awesome', function test_Awesome () {
 
 		const uList = function (inputData = {}) {
 			const item = Object.assign({
@@ -166,7 +165,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 	
 	});
 
-	context('unhosted', function test_unhosted () {
+	context('Unhosted', function test_Unhosted () {
 
 		const uList = function (inputData = {}) {
 			const item = Object.assign({
@@ -189,7 +188,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDAProjectImageHREF),
+				ZDAProjectIconURL: require('OLSKLink').OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		
@@ -208,7 +207,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 	
 	});
 
-	context('solidproject', function test_solidproject () {
+	context('SolidProject', function test_SolidProject () {
 
 		const uArticle = function (inputData = {}) {
 			const item = Object.assign({

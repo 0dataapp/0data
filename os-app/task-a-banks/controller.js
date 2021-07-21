@@ -1,7 +1,6 @@
 const cheerio = require('cheerio');
 const OLSKCache = require('OLSKCache');
 const ZDABank = require('../_shared/ZDABank/main.js');
-const OLSKLink = require('OLSKLink');
 
 const mod = {
 
@@ -79,7 +78,7 @@ const mod = {
 									}
 
 									return {
-										ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(item, inputData),
+										ZDAProjectIconURL: require('OLSKLink').OLSKLinkRelativeURL(item, inputData),
 									};
 								})(cheerio('img', this).attr('src')));
 						});
