@@ -92,7 +92,7 @@ const mod = {
 										}
 
 										return {
-											ZDABankIconURL: require('OLSKLink').OLSKLinkRelativeURL(item, inputData),
+											ZDABankImageURL: require('OLSKLink').OLSKLinkRelativeURL(item, inputData),
 										};
 									})(cheerio('img', this).attr('src'))),
 								},

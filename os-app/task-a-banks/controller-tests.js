@@ -152,7 +152,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 				ZDAProjectBanks: {
 					ZDABankUnhosted: {
 						ZDABankName,
-						ZDABankIconURL: require('OLSKLink').OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDABankImageHREF),
+						ZDABankImageURL: require('OLSKLink').OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDABankImageHREF),
 					},
 				},
 			}]);
