@@ -293,6 +293,33 @@ describe('_DataFilterProject', function test__DataFilterProject() {
 
 });
 
+describe('_DataHotfixProject', function test__DataHotfixProject() {
+
+	it('returns input', function () {
+		const item = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(mod._DataHotfixProject(item), item);
+	});
+
+	context('ZDAProjectURL', function () {
+		
+		Object.entries({}).forEach(function ([key, value]) {
+			
+			it(`hotfixes ${ key }`, function () {
+				deepEqual(mod._DataHotfixProject({
+					EASProjectURL: key,
+				}), {
+					EASProjectURL: value,
+				});
+			});
+
+		});
+	
+	});
+
+});
+
 describe('DataBankProjects', function test_DataBankProjects() {
 	
 	const _DataBankProjects = function (inputData = {}) {

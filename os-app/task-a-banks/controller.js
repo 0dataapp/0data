@@ -162,6 +162,20 @@ const mod = {
 		return true;
 	},
 
+	_DataHotfixProject (e) {
+		Object.entries({
+			EASProjectURL: {},
+		}).forEach(function ([key, changes]) {
+			Object.entries(changes).forEach(function ([source, destination]) {
+				if (e[key] === source) {
+					e[key] = destination;
+				}
+			});
+		});
+		
+		return e;
+	},
+
 	DataBankProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
