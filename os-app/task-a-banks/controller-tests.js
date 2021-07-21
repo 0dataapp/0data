@@ -2,70 +2,13 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
+const ZDABank = require('../_shared/ZDABank/main.js');
 import OLSKCache from 'OLSKCache';
 import OLSKLink from 'OLSKLink';
 
-describe('DataBankURLs', function test_DataBankURLs() {
-
-	it('returns array', function () {
-		deepEqual(mod.DataBankURLs(), process.env.ZDA_TASK_BANKS_URLS.split(','));
-	});
-
-});
-
-describe('DataBankURLRemoteStorage', function test_DataBankURLRemoteStorage() {
-
-	it('returns string', function () {
-		deepEqual(mod.DataBankURLRemoteStorage(), mod.DataBankURLs().filter(function (e) {
-			return e.match(/remotestorage/);
-		}).shift());
-	});
-
-});
-
-describe('DataBankURLFission', function test_DataBankURLFission() {
-
-	it('returns string', function () {
-		deepEqual(mod.DataBankURLFission(), mod.DataBankURLs().filter(function (e) {
-			return e.match(/fission/);
-		}).shift());
-	});
-
-});
-
-describe('DataBankURLAwesome', function test_DataBankURLAwesome() {
-
-	it('returns string', function () {
-		deepEqual(mod.DataBankURLAwesome(), mod.DataBankURLs().filter(function (e) {
-			return e.match(/awesome/);
-		}).shift());
-	});
-
-});
-
-describe('DataBankURLUnhosted', function test_DataBankURLUnhosted() {
-
-	it('returns string', function () {
-		deepEqual(mod.DataBankURLUnhosted(), mod.DataBankURLs().filter(function (e) {
-			return e.match(/unhosted/);
-		}).shift());
-	});
-
-});
-
-describe('DataBankURLSolidProject', function test_DataBankURLSolidProject() {
-
-	it('returns string', function () {
-		deepEqual(mod.DataBankURLSolidProject(), mod.DataBankURLs().filter(function (e) {
-			return e.match(/solid/);
-		}).shift());
-	});
-
-});
-
 describe('_DataBankObjects', function test__DataBankObjects() {
 
-	it('throws if param1 not in DataBankURLs', function () {
+	it('throws if param1 not in ZDABankURLs', function () {
 		throws(function () {
 			mod._DataBankObjects(Math.random().toString(), Math.random().toString());
 		}, /ZDAErrorInputNotValid/);
@@ -73,12 +16,12 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 	it('throws if param2 not string', function () {
 		throws(function () {
-			mod._DataBankObjects(uRandomElement(mod.DataBankURLs()), null);
+			mod._DataBankObjects(uRandomElement(ZDABank.ZDABankURLs()), null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(mod._DataBankObjects(uRandomElement(mod.DataBankURLs()), ''), []);
+		deepEqual(mod._DataBankObjects(uRandomElement(ZDABank.ZDABankURLs()), ''), []);
 	});
 
 	context('remotestorage', function tost_remotestorage () {
@@ -98,7 +41,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLRemoteStorage(), uTable({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLRemoteStorage(), uTable({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
@@ -115,7 +58,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLRemoteStorage(), uTable({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLRemoteStorage(), uTable({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
@@ -146,7 +89,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLFission(), uList({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLFission(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
 				ZDAProjectBlurb,
@@ -163,7 +106,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLFission(), uList({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLFission(), uList({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
@@ -194,7 +137,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLAwesome(), uList({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLAwesome(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
 				ZDAProjectBlurb,
@@ -210,7 +153,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLAwesome(), uList({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLAwesome(), uList({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
@@ -239,14 +182,14 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const _ZDAProjectImageHREF = '/' + Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLUnhosted(), uList({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLUnhosted(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
 				_ZDAProjectImageHREF,
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(mod.DataBankURLUnhosted(), _ZDAProjectImageHREF),
+				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		
@@ -254,7 +197,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLUnhosted(), uList({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLUnhosted(), uList({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 			})), [{
@@ -284,7 +227,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra,
@@ -303,7 +246,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
 				ZDAProjectName: ' ' + ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: ZDAProjectExtra + ' ',
@@ -320,7 +263,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
@@ -331,7 +274,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '(c) ' + Math.random().toString(),
@@ -342,7 +285,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '. Source ' + Math.random().toString(),
@@ -353,7 +296,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
@@ -376,7 +319,7 @@ describe('DataBankProjects', function test_DataBankProjects() {
 	it('calls _DataBankObjects', function () {
 		const item = [];
 
-		const _ValueCacheObject = mod.DataBankURLs().reduce(function (coll, item) {
+		const _ValueCacheObject = ZDABank.ZDABankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: Math.random().toString(),
 			});
@@ -391,7 +334,7 @@ describe('DataBankProjects', function test_DataBankProjects() {
 			}),
 		});
 
-		deepEqual(item, mod.DataBankURLs().map(function (e) {
+		deepEqual(item, ZDABank.ZDABankURLs().map(function (e) {
 			return [e, _ValueCacheObject[e]];
 		}));
 	});
@@ -403,7 +346,7 @@ describe('DataBankProjects', function test_DataBankProjects() {
 					ZDAProjectURL: arguments[0],
 				}];
 			}),
-		}), mod.DataBankURLs().reduce(function (coll, item) {
+		}), ZDABank.ZDABankURLs().reduce(function (coll, item) {
 			return coll.concat({
 				ZDAProjectURL: item,
 			});
@@ -491,7 +434,7 @@ describe('SetupBanksCache', function test_SetupBanksCache() {
 			}),
 		});
 
-		deepEqual(items, mod.DataBankURLs().map(OLSKCache.OLSKCacheURLBasename).map(function (e) {
+		deepEqual(items, ZDABank.ZDABankURLs().map(OLSKCache.OLSKCacheURLBasename).map(function (e) {
 			return OLSKCache.OLSKCachePath(__dirname, e);
 		}));
 	});
@@ -503,7 +446,7 @@ describe('SetupBanksCache', function test_SetupBanksCache() {
 			OLSKDiskRead: (function () {
 				return OLSKDiskRead;
 			}),
-		})._ValueCacheObject, mod.DataBankURLs().reduce(function (coll, item) {
+		})._ValueCacheObject, ZDABank.ZDABankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: OLSKDiskRead,
 			});
@@ -606,7 +549,7 @@ describe('SetupBanks', function test_SetupBanks() {
 			_SetupBank: (function (e) {
 				return e;
 			}),
-		}), mod.DataBankURLs());
+		}), ZDABank.ZDABankURLs());
 	});
 
 });

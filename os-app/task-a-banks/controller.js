@@ -1,5 +1,6 @@
 const cheerio = require('cheerio');
 const OLSKCache = require('OLSKCache');
+const ZDABank = require('../_shared/ZDABank/main.js');
 const OLSKLink = require('OLSKLink');
 
 const mod = {
@@ -9,7 +10,7 @@ const mod = {
 			ZDAGlanceProjectsCount () {
 				return mod.DataBankProjects().length;
 			},
-			ZDAGlanceProjectsSourceURLs: mod.DataBankURLs(),
+			ZDAGlanceProjectsSourceURLs: ZDABank.ZDABankURLs(),
 		}
 	},
 
@@ -26,42 +27,8 @@ const mod = {
 		return (await require('node-fetch')(inputData)).text();
 	},
 
-	DataBankURLs() {
-		return process.env.ZDA_TASK_BANKS_URLS.split(',');
-	},
-
-	DataBankURLRemoteStorage () {
-		return mod.DataBankURLs().filter(function (e) {
-			return e.match(/remotestorage/);
-		}).shift();
-	},
-
-	DataBankURLFission () {
-		return mod.DataBankURLs().filter(function (e) {
-			return e.match(/fission/);
-		}).shift();
-	},
-
-	DataBankURLAwesome () {
-		return mod.DataBankURLs().filter(function (e) {
-			return e.match(/awesome/);
-		}).shift();
-	},
-
-	DataBankURLUnhosted () {
-		return mod.DataBankURLs().filter(function (e) {
-			return e.match(/unhosted/);
-		}).shift();
-	},
-
-	DataBankURLSolidProject () {
-		return mod.DataBankURLs().filter(function (e) {
-			return e.match(/solid/);
-		}).shift();
-	},
-
 	_DataBankObjects (param1, param2) {
-		if (!mod.DataBankURLs().includes(param1)) {
+		if (!ZDABank.ZDABankURLs().includes(param1)) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
@@ -69,10 +36,10 @@ const mod = {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		return Array.from(mod.DataBankURLs().reduce(function (coll, item) {
+		return Array.from(ZDABank.ZDABankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: {
-					[mod.DataBankURLRemoteStorage()]: function () {
+					[ZDABank.ZDABankURLRemoteStorage()]: function () {
 						return cheerio('table', param2).first().find('tr:not(tr:first-of-type)').map(function () {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
@@ -82,7 +49,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataBankURLFission()]: function () {
+					[ZDABank.ZDABankURLFission()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
 								ZDAProjectName: cheerio('a', this).text(),
@@ -92,7 +59,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataBankURLAwesome()]: function () {
+					[ZDABank.ZDABankURLAwesome()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
 								ZDAProjectName: cheerio('a', this).text(),
@@ -101,7 +68,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataBankURLUnhosted()]: function () {
+					[ZDABank.ZDABankURLUnhosted()]: function () {
 						return cheerio('.icons', param2).first().find('li').map(function () {
 							return Object.assign({
 								ZDAProjectName: cheerio('a', this).text(),
@@ -117,7 +84,7 @@ const mod = {
 								})(cheerio('img', this).attr('src')));
 						});
 					},
-					[mod.DataBankURLSolidProject()]: function () {
+					[ZDABank.ZDABankURLSolidProject()]: function () {
 						return cheerio('article', param2).first().find('table:not(#pod-management~table):not(#historical-solid-apps~ul>li>table) tbody tr').map(function () {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1) a', this).text(),
@@ -159,7 +126,7 @@ const mod = {
 	DataBankProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
-		return mod.DataBankURLs().reduce(function (coll, item) {
+		return ZDABank.ZDABankURLs().reduce(function (coll, item) {
 			return coll.concat(_mod._DataBankObjects(item, _mod._ValueCacheObject[item] || ''));
 		}, []).reduce(function (coll, item) {
 			if (coll.urls.includes(item.ZDAProjectURL)) {
@@ -193,7 +160,7 @@ const mod = {
 	SetupBanksCache () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 		Object.assign(mod, Object.assign(_mod, {
-			_ValueCacheObject: mod.DataBankURLs().reduce(function (coll, item) {
+			_ValueCacheObject: ZDABank.ZDABankURLs().reduce(function (coll, item) {
 				return Object.assign(coll, {
 					[item]: _mod._DataFoilOLSKDisk.OLSKDiskRead(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(item))),
 				});
@@ -219,7 +186,7 @@ const mod = {
 	SetupBanks () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 		
-		return Promise.all(mod.DataBankURLs().map(_mod._SetupBank));
+		return Promise.all(ZDABank.ZDABankURLs().map(_mod._SetupBank));
 	},
 
 };
