@@ -10,7 +10,7 @@
 		<th class="ZDAGlanceListHeadName ZDAGlanceListSort" data-sort="ZDAGlanceListItemName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
 		<th class="ZDAGlanceListHeadRemoteStorage ZDAGlanceListSort" data-sort="ZDAGlanceListItemRemoteStorage">remoteStorage</th>
 		<th class="ZDAGlanceListHeadFission ZDAGlanceListSort" data-sort="ZDAGlanceListItemFission">Fission</th>
-		<th class="ZDAGlanceListHeadSOLID ZDAGlanceListSort" data-sort="ZDAGlanceListItemSOLID">SOLID</th>
+		<th class="ZDAGlanceListHeadSolidProject ZDAGlanceListSort" data-sort="ZDAGlanceListItemSolidProject">SOLID</th>
 	</tr>
 </thead>
 <% } -%>
@@ -37,7 +37,7 @@
 		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item.ZDAProjectBanks.ZDABankFission ? 'checked' : '' %> data-boolean="<%= item.ZDAProjectBanks.ZDABankFission ? '0' : '1' %>">
 	</td>
 	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemSOLID" type="checkbox" disabled <%= item.ZDAProjectBanks.ZDABankSolidProject ? 'checked' : '' %> data-boolean="<%= item.ZDAProjectBanks.ZDABankSolidProject ? '0' : '1' %>">
+		<input class="ZDAGlanceListItemSolidProject" type="checkbox" disabled <%= item.ZDAProjectBanks.ZDABankSolidProject ? 'checked' : '' %> data-boolean="<%= item.ZDAProjectBanks.ZDABankSolidProject ? '0' : '1' %>">
 	</td>
 </tr>
 <% }) -%>

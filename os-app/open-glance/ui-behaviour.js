@@ -29,7 +29,7 @@ const mod = {
 					attr: 'data-boolean',
 				},
 				{
-					name: 'ZDAGlanceListItemSOLID',
+					name: 'ZDAGlanceListItemSolidProject',
 					attr: 'data-boolean',
 				},
 			],

@@ -80,7 +80,7 @@ table {
 	background: #efefef;
 }
 
-.ZDAGlanceListHeadRemoteStorage, .ZDAGlanceListHeadFission, .ZDAGlanceListHeadSOLID {
+.ZDAGlanceListHeadRemoteStorage, .ZDAGlanceListHeadFission, .ZDAGlanceListHeadSolidProject {
 	max-width: 36px;
 	overflow: hidden;
 	text-overflow: ellipsis;

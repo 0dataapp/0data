@@ -11,7 +11,7 @@ describe('ZDAGlanceList_Misc', function  () {
 		ZDAProjectIconURL: Math.random().toString(),
 		_ZDAProjectIconURLCachedPath: uRandomElement(undefined, Math.random().toString()),
 		ZDAProjectBanks: Object.fromEntries(Object.entries(ZDABank.ZDABankProtocolProperties()).filter(function () {
-			return uRandomElement(true, false)
+			return uRandomElement(true, false);
 		})),
 	};
 
@@ -85,18 +85,18 @@ describe('ZDAGlanceList_Misc', function  () {
 
 	});
 
-	describe('ZDAGlanceListHeadSOLID', function test_ZDAGlanceListHeadSOLID () {
+	describe('ZDAGlanceListHeadSolidProject', function test_ZDAGlanceListHeadSolidProject () {
 
 		it('sets text', function () {
-			browser.assert.text(ZDAGlanceListHeadSOLID, 'SOLID');
+			browser.assert.text(ZDAGlanceListHeadSolidProject, 'SOLID');
 		});
 
 		it('classes ZDAGlanceListSort', function () {
-			browser.assert.hasClass(ZDAGlanceListHeadSOLID, 'ZDAGlanceListSort');
+			browser.assert.hasClass(ZDAGlanceListHeadSolidProject, 'ZDAGlanceListSort');
 		});
 
 		it('sets data-sort', function () {
-			browser.assert.attribute(ZDAGlanceListHeadSOLID, 'data-sort', 'ZDAGlanceListItemSOLID')
+			browser.assert.attribute(ZDAGlanceListHeadSolidProject, 'data-sort', 'ZDAGlanceListItemSolidProject')
 		});
 
 	});
@@ -189,22 +189,22 @@ describe('ZDAGlanceList_Misc', function  () {
 
 	});
 
-	describe('ZDAGlanceListItemSOLID', function test_ZDAGlanceListItemSOLID () {
+	describe('ZDAGlanceListItemSolidProject', function test_ZDAGlanceListItemSolidProject () {
 
 		it('sets type', function () {
-			browser.assert.attribute(ZDAGlanceListItemSOLID, 'type', 'checkbox');
+			browser.assert.attribute(ZDAGlanceListItemSolidProject, 'type', 'checkbox');
 		});
 
 		it('sets disabled', function () {
-			browser.assert.attribute(ZDAGlanceListItemSOLID, 'disabled', '');
+			browser.assert.attribute(ZDAGlanceListItemSolidProject, 'disabled', '');
 		});
 
 		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemSOLID, 'checked', item.ZDAProjectBanks.ZDABankSOLID ? '' : null);
+			browser.assert.attribute(ZDAGlanceListItemSolidProject, 'checked', item.ZDAProjectBanks.ZDABankSolidProject ? '' : null);
 		});
 
 		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankSOLID ? '0' : '1');
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankSolidProject ? '0' : '1');
 		});
 
 	});
