@@ -25,47 +25,34 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 	context('RemoteStorage', function test_RemoteStorage () {
 
-		const uTable = function (inputData = {}) {
+		const uBank = function (inputData = {}) {
 			const item = Object.assign({
-				ZDAProjectName: Math.random().toString(),
-				ZDAProjectBlurb: Math.random().toString(),
 				ZDAProjectURL: Math.random().toString(),
+				ZDABankName: Math.random().toString(),
+				ZDABankBlurb: Math.random().toString(),
 			}, inputData);
 
-			return `<table><tr><th></th></tr><tr><td><a rel="nofollow" class="external text" href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></td><td>${ item.ZDAProjectBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel="nofollow" class="external text" href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`;
+			return `<table><tr><th></th></tr><tr><td><a rel="nofollow" class="external text" href="${ item.ZDAProjectURL }">${ item.ZDABankName }</a></td><td>${ item.ZDABankBlurb }</td><td>${ Math.random().toString() }</td><td> <a rel="nofollow" class="external text" href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td></td><td><ul><li>${ Math.random().toString() }</li></ul></td></tr></table><table><tr><td>${ Math.random().toString() }</td></tr></table>`;
 		};
 		
-		it('parses table', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+		it('parses data', function () {
 			const ZDAProjectURL = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLRemoteStorage(), uTable({
-				ZDAProjectName,
-				ZDAProjectBlurb,
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLRemoteStorage(), uBank({
 				ZDAProjectURL,
+				ZDABankName,
+				ZDABankBlurb,
 			})), [{
-				ZDAProjectName,
-				ZDAProjectBlurb,
 				ZDAProjectURL,
-				_ZDAProjectSupportsRemoteStorage: true,
-			}]);
-		});
-		
-		it('strips whitespace', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
-			const ZDAProjectURL = Math.random().toString();
-
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLRemoteStorage(), uTable({
-				ZDAProjectName: ' ' + ZDAProjectName + ' ',
-				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
-				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
-			})), [{
-				ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectURL,
-				_ZDAProjectSupportsRemoteStorage: true,
+				ZDAProjectBanks: {
+					ZDABankRemoteStorage: {
+						ZDABankName,
+						ZDABankBlurb,
+						ZDABankProtocol: ZDABank.ZDABankProtocolProperties().ZDABankRemoteStorage,
+					},
+				},
 			}]);
 		});
 	
@@ -73,47 +60,34 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 	context('Fission', function test_Fission () {
 
-		const uList = function (inputData = {}) {
+		const uBank = function (inputData = {}) {
 			const item = Object.assign({
-				ZDAProjectName: Math.random().toString(),
 				ZDAProjectURL: Math.random().toString(),
-				ZDAProjectBlurb: Math.random().toString(),
+				ZDABankName: Math.random().toString(),
+				ZDABankBlurb: Math.random().toString(),
 			}, inputData);
 
-			return `<article class="entry-content"><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a>: ${ item.ZDAProjectBlurb }</li></ul></article>`;
+			return `<article class="entry-content"><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDABankName }</a>: ${ item.ZDABankBlurb }</li></ul></article>`;
 		};
 		
-		it('parses list', function () {
-			const ZDAProjectName = Math.random().toString();
+		it('parses data', function () {
 			const ZDAProjectURL = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLFission(), uList({
-				ZDAProjectName,
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLFission(), uBank({
 				ZDAProjectURL,
-				ZDAProjectBlurb,
+				ZDABankName,
+				ZDABankBlurb,
 			})), [{
-				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectBlurb,
-				_ZDAProjectSupportsFission: true,
-			}]);
-		});
-		
-		it('strips whitespace', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectURL = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
-
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLFission(), uList({
-				ZDAProjectName: ' ' + ZDAProjectName + ' ',
-				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
-				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
-			})), [{
-				ZDAProjectName,
-				ZDAProjectURL,
-				ZDAProjectBlurb,
-				_ZDAProjectSupportsFission: true,
+				ZDAProjectBanks: {
+					ZDABankFission: {
+						ZDABankName,
+						ZDABankBlurb,
+						ZDABankProtocol: ZDABank.ZDABankProtocolProperties().ZDABankFission,
+					},
+				},
 			}]);
 		});
 	
@@ -121,45 +95,33 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 	context('Awesome', function test_Awesome () {
 
-		const uList = function (inputData = {}) {
+		const uBank = function (inputData = {}) {
 			const item = Object.assign({
-				ZDAProjectName: Math.random().toString(),
 				ZDAProjectURL: Math.random().toString(),
-				ZDAProjectBlurb: Math.random().toString(),
+				ZDABankName: Math.random().toString(),
+				ZDABankBlurb: Math.random().toString(),
 			}, inputData);
 
-			return `<article class="entry-content"><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a>: ${ item.ZDAProjectBlurb }</li></ul></article>`;
+			return `<article class="entry-content"><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDABankName }</a>: ${ item.ZDABankBlurb }</li></ul></article>`;
 		};
 		
-		it('parses list', function () {
-			const ZDAProjectName = Math.random().toString();
+		it('parses data', function () {
 			const ZDAProjectURL = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLAwesome(), uList({
-				ZDAProjectName,
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLAwesome(), uBank({
 				ZDAProjectURL,
-				ZDAProjectBlurb,
+				ZDABankName,
+				ZDABankBlurb,
 			})), [{
-				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectBlurb,
-			}]);
-		});
-		
-		it('strips whitespace', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectURL = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
-
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLAwesome(), uList({
-				ZDAProjectName: ' ' + ZDAProjectName + ' ',
-				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
-				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
-			})), [{
-				ZDAProjectName,
-				ZDAProjectURL,
-				ZDAProjectBlurb
+				ZDAProjectBanks: {
+					ZDABankAwesome: {
+						ZDABankName,
+						ZDABankBlurb,
+					},
+				},
 			}]);
 		});
 	
@@ -167,41 +129,32 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 	context('Unhosted', function test_Unhosted () {
 
-		const uList = function (inputData = {}) {
+		const uBank = function (inputData = {}) {
 			const item = Object.assign({
-				ZDAProjectName: Math.random().toString(),
 				ZDAProjectURL: Math.random().toString(),
+				ZDABankName: Math.random().toString(),
 			}, inputData);
 
-			return `<ul class="icons"><li>${ item._ZDAProjectImageHREF ? `<a href="${ item.ZDAProjectURL }"><img src="${ item._ZDAProjectImageHREF }" /></a>` : '' }<p><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></p></li></ul>`;
+			return `<ul class="icons"><li>${ item._ZDABankImageHREF ? `<a href="${ item.ZDAProjectURL }"><img src="${ item._ZDABankImageHREF }" /></a>` : '' }<p><a href="${ item.ZDAProjectURL }">${ item.ZDABankName }</a></p></li></ul>`;
 		};
 		
-		it('parses list', function () {
-			const ZDAProjectName = Math.random().toString();
+		it('parses data', function () {
 			const ZDAProjectURL = Math.random().toString();
-			const _ZDAProjectImageHREF = '/' + Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const _ZDABankImageHREF = '/' + Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLUnhosted(), uList({
-				ZDAProjectName,
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLUnhosted(), uBank({
 				ZDAProjectURL,
-				_ZDAProjectImageHREF,
+				ZDABankName,
+				_ZDABankImageHREF,
 			})), [{
-				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: require('OLSKLink').OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDAProjectImageHREF),
-			}]);
-		});
-		
-		it('strips whitespace', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectURL = Math.random().toString();
-
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLUnhosted(), uList({
-				ZDAProjectName: ' ' + ZDAProjectName + ' ',
-				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
-			})), [{
-				ZDAProjectName,
-				ZDAProjectURL,
+				ZDAProjectBanks: {
+					ZDABankUnhosted: {
+						ZDABankName,
+						ZDABankIconURL: require('OLSKLink').OLSKLinkRelativeURL(ZDABank.ZDABankURLUnhosted(), _ZDABankImageHREF),
+					},
+				},
 			}]);
 		});
 	
@@ -209,97 +162,82 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 	context('SolidProject', function test_SolidProject () {
 
-		const uArticle = function (inputData = {}) {
+		const uBank = function (inputData = {}) {
 			const item = Object.assign({
-				ZDAProjectName: Math.random().toString(),
-				ZDAProjectBlurb: Math.random().toString(),
-				ZDAProjectExtra: Math.random().toString(),
 				ZDAProjectURL: Math.random().toString(),
+				ZDABankName: Math.random().toString(),
+				ZDABankBlurb: Math.random().toString(),
+				ZDABankExtra: Math.random().toString(),
 			}, inputData);
 
-			return `<article><h1>${ Math.random().toString() }</h1><h2>${ Math.random().toString() }</h2><table><tbody><tr><td><a href="${ item.ZDAProjectURL }">${ item.ZDAProjectName }</a></td><td>${ item.ZDAProjectBlurb } <a href="${ item.ZDAProjectExtra }">${ item.ZDAProjectExtra }</a></td></tr></tbody></table><h2 id="pod-management">${ Math.random().toString() }</h2><table><tbody><tr><td><a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td>${ Math.random().toString() } <a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td></tr></tbody></table><h1 id="historical-solid-apps">${ Math.random().toString() }</h1><ul><li><table><tbody><tr><td><a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td>${ Math.random().toString() } <a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td></tr></tbody></table></li></ul><h1 id="apps-inclusion-and-exclusion-criteria">Apps inclusion and exclusion criteria</h1><p>${ Math.random().toString() }</p></article>`;
+			return `<article><h1>${ Math.random().toString() }</h1><h2>${ Math.random().toString() }</h2><table><tbody><tr><td><a href="${ item.ZDAProjectURL }">${ item.ZDABankName }</a></td><td>${ item.ZDABankBlurb } <a href="${ item.ZDABankExtra }">${ item.ZDABankExtra }</a></td></tr></tbody></table><h2 id="pod-management">${ Math.random().toString() }</h2><table><tbody><tr><td><a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td>${ Math.random().toString() } <a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td></tr></tbody></table><h1 id="historical-solid-apps">${ Math.random().toString() }</h1><ul><li><table><tbody><tr><td><a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td><td>${ Math.random().toString() } <a href="${ Math.random().toString() }">${ Math.random().toString() }</a></td></tr></tbody></table></li></ul><h1 id="apps-inclusion-and-exclusion-criteria">Apps inclusion and exclusion criteria</h1><p>${ Math.random().toString() }</p></article>`;
 		};
 		
-		it('parses article', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
-			const ZDAProjectExtra = Math.random().toString();
+		it('parses data', function () {
 			const ZDAProjectURL = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
+			const ZDABankExtra = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
-				ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectExtra,
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uBank({
 				ZDAProjectURL,
+				ZDABankName,
+				ZDABankBlurb,
+				ZDABankExtra,
 			})), [{
-				ZDAProjectName,
-				ZDAProjectBlurb: [ZDAProjectBlurb, ZDAProjectExtra].join(' '),
 				ZDAProjectURL,
-				_ZDAProjectSupportsSOLID: true,
-			}]);
-		});
-		
-		it('strips whitespace', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
-			const ZDAProjectExtra = Math.random().toString();
-			const ZDAProjectURL = Math.random().toString();
-
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
-				ZDAProjectName: ' ' + ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectExtra: ZDAProjectExtra + ' ',
-				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
-			})), [{
-				ZDAProjectName,
-				ZDAProjectBlurb: [ZDAProjectBlurb, ZDAProjectExtra].join(' '),
-				ZDAProjectURL,
-				_ZDAProjectSupportsSOLID: true,
+				ZDAProjectBanks: {
+					ZDABankSolidProject: {
+						ZDABankName,
+						ZDABankBlurb: [ZDABankBlurb, ZDABankExtra].join(' '),
+						ZDABankProtocol: ZDABank.ZDABankProtocolProperties().ZDABankSolidProject,
+					},
+				},
 			}]);
 		});
 		
 		it('hides Copyright', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
-				ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uBank({
+				ZDABankName,
+				ZDABankBlurb,
+				ZDABankExtra: 'Copyright ' + Math.random().toString(),
+			})).shift().ZDAProjectBanks.ZDABankSolidProject.ZDABankBlurb, [ZDABankBlurb].join(' '));
 		});
 		
 		it('hides (c)', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
-				ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectExtra: '(c) ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uBank({
+				ZDABankName,
+				ZDABankBlurb,
+				ZDABankExtra: '(c) ' + Math.random().toString(),
+			})).shift().ZDAProjectBanks.ZDABankSolidProject.ZDABankBlurb, [ZDABankBlurb].join(' '));
 		});
 		
 		it('hides . Source', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
-				ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectExtra: '. Source ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uBank({
+				ZDABankName,
+				ZDABankBlurb,
+				ZDABankExtra: '. Source ' + Math.random().toString(),
+			})).shift().ZDAProjectBanks.ZDABankSolidProject.ZDABankBlurb, [ZDABankBlurb].join(' '));
 		});
 		
 		it('hides combination ', function () {
-			const ZDAProjectName = Math.random().toString();
-			const ZDAProjectBlurb = Math.random().toString();
+			const ZDABankName = Math.random().toString();
+			const ZDABankBlurb = Math.random().toString();
 
-			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uArticle({
-				ZDAProjectName,
-				ZDAProjectBlurb,
-				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
-			})).shift().ZDAProjectBlurb, [ZDAProjectBlurb].join(' '));
+			deepEqual(mod._DataBankObjects(ZDABank.ZDABankURLSolidProject(), uBank({
+				ZDABankName,
+				ZDABankBlurb,
+				ZDABankExtra: 'Copyright (c) ' + Math.random().toString(),
+			})).shift().ZDAProjectBanks.ZDABankSolidProject.ZDABankBlurb, [ZDABankBlurb].join(' '));
 		});
 		
 	});

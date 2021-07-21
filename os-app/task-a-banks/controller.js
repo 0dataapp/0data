@@ -41,69 +41,89 @@ const mod = {
 					[ZDABank.ZDABankURLRemoteStorage()]: function () {
 						return cheerio('table', param2).first().find('tr:not(tr:first-of-type)').map(function () {
 							return {
-								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
-								ZDAProjectBlurb: cheerio('td:nth-child(2)', this).text(),
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href'),
-								_ZDAProjectSupportsRemoteStorage: true,
+								ZDAProjectBanks: {
+									ZDABankRemoteStorage: {
+										ZDABankName: cheerio('td:nth-child(1)', this).text(),
+										ZDABankBlurb: cheerio('td:nth-child(2)', this).text(),
+										ZDABankProtocol: ZDABank.ZDABankProtocolProperties().ZDABankRemoteStorage,
+									},
+								},
 							};
 						});
 					},
 					[ZDABank.ZDABankURLFission()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
-								ZDAProjectName: cheerio('a', this).text(),
 								ZDAProjectURL: cheerio('a', this).attr('href'),
-								ZDAProjectBlurb: cheerio(this).text().split(':').pop(),
-								_ZDAProjectSupportsFission: true,
+								ZDAProjectBanks: {
+									ZDABankFission: {
+										ZDABankName: cheerio('a', this).text(),
+										ZDABankBlurb: cheerio(this).text().split(': ').pop(),
+										ZDABankProtocol: ZDABank.ZDABankProtocolProperties().ZDABankFission,
+									},
+								},
 							};
 						});
 					},
 					[ZDABank.ZDABankURLAwesome()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
-								ZDAProjectName: cheerio('a', this).text(),
 								ZDAProjectURL: cheerio('a', this).attr('href'),
-								ZDAProjectBlurb: cheerio(this).text().split(':').pop(),
+								ZDAProjectBanks: {
+									ZDABankAwesome: {
+										ZDABankName: cheerio('a', this).text(),
+										ZDABankBlurb: cheerio(this).text().split(': ').pop(),
+									},
+								},
 							};
 						});
 					},
 					[ZDABank.ZDABankURLUnhosted()]: function () {
 						return cheerio('.icons', param2).first().find('li').map(function () {
-							return Object.assign({
-								ZDAProjectName: cheerio('a', this).text(),
+							return {
 								ZDAProjectURL: cheerio('a', this).attr('href'),
-							}, (function(inputData) {
-									if (!inputData) {
-										return {};
-									}
+								ZDAProjectBanks: {
+									ZDABankUnhosted: Object.assign({
+										ZDABankName: cheerio('a', this).text(),
+									}, (function(inputData) {
+										if (!inputData) {
+											return {};
+										}
 
-									return {
-										ZDAProjectIconURL: require('OLSKLink').OLSKLinkRelativeURL(item, inputData),
-									};
-								})(cheerio('img', this).attr('src')));
+										return {
+											ZDABankIconURL: require('OLSKLink').OLSKLinkRelativeURL(item, inputData),
+										};
+									})(cheerio('img', this).attr('src'))),
+								},
+							};
 						});
 					},
 					[ZDABank.ZDABankURLSolidProject()]: function () {
 						return cheerio('article', param2).first().find('table:not(#pod-management~table):not(#historical-solid-apps~ul>li>table) tbody tr').map(function () {
 							return {
-								ZDAProjectName: cheerio('td:nth-child(1) a', this).text(),
-								ZDAProjectBlurb: (function(blurb) {
-									if (blurb.includes('(c) ')) {
-										blurb = blurb.slice(0, blurb.indexOf('(c) '));
-									}
-
-									if (blurb.includes('Copyright ')) {
-										blurb = blurb.slice(0, blurb.indexOf('Copyright '));
-									}
-
-									if (blurb.includes('. Source ')) {
-										blurb = blurb.slice(0, blurb.indexOf('. Source '));
-									}
-
-									return blurb;
-								})(cheerio('td:nth-child(2)', this).text()).trim(),
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href') || '',
-								_ZDAProjectSupportsSOLID: true,
+								ZDAProjectBanks: {
+									ZDABankSolidProject: {
+										ZDABankName: cheerio('td:nth-child(1) a', this).text(),
+										ZDABankBlurb: (function(blurb) {
+											if (blurb.includes('(c) ')) {
+												blurb = blurb.slice(0, blurb.indexOf('(c) '));
+											}
+
+											if (blurb.includes('Copyright ')) {
+												blurb = blurb.slice(0, blurb.indexOf('Copyright '));
+											}
+
+											if (blurb.includes('. Source ')) {
+												blurb = blurb.slice(0, blurb.indexOf('. Source '));
+											}
+
+											return blurb;
+										})(cheerio('td:nth-child(2)', this).text()).trim(),
+										ZDABankProtocol: ZDABank.ZDABankProtocolProperties().ZDABankSolidProject,
+									},
+								},
 							};
 						});
 					},
