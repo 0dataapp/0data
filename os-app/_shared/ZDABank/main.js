@@ -28,7 +28,7 @@ const mod = {
 		}).shift();
 	},
 
-	ZDABankURLSolid () {
+	ZDABankURLSolidProject () {
 		return mod.ZDABankURLs().filter(function (e) {
 			return e.match(/Solid/i);
 		}).shift();
@@ -42,7 +42,7 @@ const mod = {
 					[mod.ZDABankURLFission()]: 'ZDABankFission',
 					[mod.ZDABankURLAwesome()]: 'ZDABankAwesome',
 					[mod.ZDABankURLUnhosted()]: 'ZDABankUnhosted',
-					[mod.ZDABankURLSolid()]: 'ZDABankSolid',
+					[mod.ZDABankURLSolidProject()]: 'ZDABankSolid',
 				}[item]]: {
 					[mod.ZDABankURLRemoteStorage()]: {
 						ZDAProtocolName: 'RemoteStorage',
@@ -52,7 +52,7 @@ const mod = {
 					},
 					[mod.ZDABankURLAwesome()]: {},
 					[mod.ZDABankURLUnhosted()]: {},
-					[mod.ZDABankURLSolid()]: {
+					[mod.ZDABankURLSolidProject()]: {
 						ZDAProtocolName: 'Solid',
 					},
 				}[item],

@@ -50,10 +50,10 @@ describe('ZDABankURLUnhosted', function test_ZDABankURLUnhosted() {
 
 });
 
-describe('ZDABankURLSolid', function test_ZDABankURLSolid() {
+describe('ZDABankURLSolidProject', function test_ZDABankURLSolidProject() {
 
 	it('returns string', function () {
-		deepEqual(mod.ZDABankURLSolid(), mod.ZDABankURLs().filter(function (e) {
+		deepEqual(mod.ZDABankURLSolidProject(), mod.ZDABankURLs().filter(function (e) {
 			return e.match(/Solid/i);
 		}).shift());
 	});
