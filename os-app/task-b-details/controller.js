@@ -32,6 +32,10 @@ const mod = {
 	_DataFoilBanks: require('../task-a-banks/controller.js'),
 
 	async _DataContentString (inputData) {
+		if (inputData.match('nullboard.io')) {
+			return '';
+		}
+
 		return (await require('node-fetch')(inputData)).text();
 	},
 
