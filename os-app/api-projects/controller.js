@@ -39,8 +39,8 @@ const mod = {
 		}
 
 		return uDescending(...[a, b].map(function (e) {
-			return Object.keys(e).filter(function (e) {
-				return e.match('_ZDAProjectSupports');
+			return Object.values(e.ZDAProjectBanks || {}).filter(function (e) {
+				return e.ZDABankProtocol;
 			}).length;
 		}));
 	},

@@ -44,17 +44,24 @@ describe('DataProjectsSort', function test_DataProjectsSort() {
 		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
 	});
 
-	it('bumps _ZDAProjectSupports', function () {
+	it('bumps ZDABankProtocol', function () {
 		const item1 = {
 			ZDAProjectBlurb: Math.random().toString(),
 			ZDAProjectIconURL: Math.random().toString(),
 			ZDAProjectHasManifest: true,
+			ZDAProjectBanks: {
+				[Math.random().toString()]: {},
+			},
 		};
 		const item2 = {
 			ZDAProjectBlurb: Math.random().toString(),
 			ZDAProjectIconURL: Math.random().toString(),
 			ZDAProjectHasManifest: true,
-			['_ZDAProjectSupports' + Math.random().toString()]: true
+			ZDAProjectBanks: {
+				[Math.random().toString()]: {
+					ZDABankProtocol: {}
+				},
+			},
 		};
 
 		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
