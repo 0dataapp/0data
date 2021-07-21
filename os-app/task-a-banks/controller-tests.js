@@ -387,19 +387,19 @@ describe('_DataMergeProjects', function test__DataMergeProjects() {
 		}]);
 	});
 
-	it('copies ZDAProjectPlatforms', function () {
+	it('copies ZDAProjectBanks', function () {
 		const alfa = Math.random().toString();
 		const bravo = Math.random().toString();
 		deepEqual(__DataMergeProjects({
-			ZDAProjectPlatforms: {
+			ZDAProjectBanks: {
 				alfa,
 			},
 		}, {
-			ZDAProjectPlatforms: {
+			ZDAProjectBanks: {
 				bravo,
 			},
 		}), [{
-			ZDAProjectPlatforms: {
+			ZDAProjectBanks: {
 				alfa,
 				bravo,
 			},
@@ -428,7 +428,7 @@ describe('_DataFillProjects', function test__DataFillProjects() {
 		it('copies ZDABankName', function () {
 			const ZDABankName = Math.random().toString();
 			deepEqual(mod._DataFillProjects([{
-				ZDAProjectPlatforms: {
+				ZDAProjectBanks: {
 					[Math.random().toString()]: {
 						ZDABankName,
 					},
@@ -439,7 +439,7 @@ describe('_DataFillProjects', function test__DataFillProjects() {
 		it('select first ZDABankName', function () {
 			const ZDABankName = Math.random().toString();
 			deepEqual(mod._DataFillProjects([{
-				ZDAProjectPlatforms: {
+				ZDAProjectBanks: {
 					[Math.random().toString()]: {
 						ZDABankName,
 					},
@@ -494,7 +494,7 @@ describe('_DataFillProjects', function test__DataFillProjects() {
 		it('copies ZDABankBlurb', function () {
 			const ZDABankBlurb = Math.random().toString();
 			deepEqual(mod._DataFillProjects([{
-				ZDAProjectPlatforms: {
+				ZDAProjectBanks: {
 					[Math.random().toString()]: {
 						ZDABankBlurb,
 					},
@@ -505,7 +505,7 @@ describe('_DataFillProjects', function test__DataFillProjects() {
 		it('select first ZDABankBlurb', function () {
 			const ZDABankBlurb = Math.random().toString();
 			deepEqual(mod._DataFillProjects([{
-				ZDAProjectPlatforms: {
+				ZDAProjectBanks: {
 					[Math.random().toString()]: {
 						ZDABankBlurb,
 					},
@@ -523,7 +523,7 @@ describe('_DataFillProjects', function test__DataFillProjects() {
 		it('copies ZDABankImageURL', function () {
 			const ZDABankImageURL = Math.random().toString();
 			deepEqual(mod._DataFillProjects([{
-				ZDAProjectPlatforms: {
+				ZDAProjectBanks: {
 					[Math.random().toString()]: {
 						ZDABankImageURL,
 					},
@@ -534,7 +534,7 @@ describe('_DataFillProjects', function test__DataFillProjects() {
 		it('select first ZDABankImageURL', function () {
 			const ZDABankImageURL = Math.random().toString();
 			deepEqual(mod._DataFillProjects([{
-				ZDAProjectPlatforms: {
+				ZDAProjectBanks: {
 					[Math.random().toString()]: {
 						ZDABankImageURL,
 					},

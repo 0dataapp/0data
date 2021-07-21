@@ -196,11 +196,11 @@ const mod = {
 				return coll;
 			}
 
-			const ZDAProjectPlatforms = Object.assign(match.ZDAProjectPlatforms || {}, item.ZDAProjectPlatforms || {});
+			const ZDAProjectBanks = Object.assign(match.ZDAProjectBanks || {}, item.ZDAProjectBanks || {});
 			
 			return Object.assign(coll, {
-				[id]: Object.assign(item, Object.assign(match, item), match.ZDAProjectPlatforms ? {
-					ZDAProjectPlatforms,
+				[id]: Object.assign(item, Object.assign(match, item), match.ZDAProjectBanks ? {
+					ZDAProjectBanks,
 				} : {}),
 			});
 		}, {}));
@@ -219,7 +219,7 @@ const mod = {
 				ZDABankBlurb: 'ZDAProjectBlurb',
 				ZDABankImageURL: 'ZDAProjectIconURL',
 			}).reduce(function (coll, [source, destination]) {
-				const raw = Object.values(e.ZDAProjectPlatforms || {}).map(function (e) {
+				const raw = Object.values(e.ZDAProjectBanks || {}).map(function (e) {
 					return e[source];
 				}).filter(function (e) {
 					return !!e;
