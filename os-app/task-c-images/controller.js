@@ -4,12 +4,14 @@ const mod = {
 
 	OLSKControllerTasks () {
 		return [{
-			OLSKTaskName: 'ZDAImagesTask',
-			OLSKTaskFireTimeInterval: 1,
+			OLSKTaskName: 'ZDAImagesStartFetch',
+			OLSKTaskFireTimeInterval: 10,
 			OLSKTaskShouldBePerformed () {
 				return true;
 			},
-			OLSKTaskCallback: mod.SetupImages,
+			OLSKTaskCallback: (function () {
+				require('OLSKModule').OLSKModuleLifecycleSetup(mod);
+			}),
 			OLSKTaskFireLimit: 1,
 		}];
 	},
@@ -89,9 +91,5 @@ const mod = {
 	},
 
 };
-
-if (process.env.NODE_ENV === 'production' || process.env.npm_lifecycle_script === 'olsk-express') {
-	require('OLSKModule').OLSKModuleLifecycleSetup(mod);
-}
 
 Object.assign(exports, mod);
