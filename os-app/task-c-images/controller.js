@@ -13,6 +13,13 @@ const mod = {
 				require('OLSKModule').OLSKModuleLifecycleSetup(mod);
 			}),
 			OLSKTaskFireLimit: 1,
+		}, {
+			OLSKTaskName: 'ZDAImagesFetchIncoming',
+			OLSKTaskFireTimeInterval: 60 * 60,
+			OLSKTaskShouldBePerformed () {
+				return true;
+			},
+			OLSKTaskCallback: mod.SetupImages,
 		}];
 	},
 
