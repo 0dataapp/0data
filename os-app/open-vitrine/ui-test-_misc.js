@@ -142,7 +142,7 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	require('../task-a-banks/controller.js').DataBankURLs().forEach(function (e, i) {
+	require('../_shared/ZDABank/main.js').ZDABankURLs().forEach(function (e, i) {
 
 		describe('ZDAVitrineProjectsSourcesList', function test_ZDAVitrineProjectsSourcesList () {
 			
