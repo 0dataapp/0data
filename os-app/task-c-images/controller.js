@@ -28,6 +28,14 @@ const mod = {
 
 		const streamPipeline = promisify(pipeline);
 
+		Object.entries({
+			'https://laverna.cc/apple-touch-icon.png': 'https://laverna.cc/app/images/icon/icon-152x152.png',
+		}).forEach(function ([source, destination]) {
+			if (url === source) {
+				url = destination;
+			}
+		});
+
 		const response = await fetch(url);
 
 		if (!response.ok) {
