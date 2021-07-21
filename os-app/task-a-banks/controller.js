@@ -250,27 +250,9 @@ const mod = {
 	DataBankProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
-		return ZDABank.ZDABankURLs().reduce(function (coll, item) {
-			return coll.concat(_mod._DataBankObjects(item, _mod._ValueCacheObject[item] || ''));
-		}, []).reduce(function (coll, item) {
-			if (coll.urls.includes(item.ZDAProjectURL)) {
-				const e = coll.objects.filter(function (e) {
-					return e.ZDAProjectURL === item.ZDAProjectURL;
-				}).shift();
-				
-				Object.assign(e, Object.assign(item, e));
-
-				return coll;
-			}
-
-			coll.urls.push(item.ZDAProjectURL);
-			coll.objects.push(item);
-
-			return coll;
-		}, {
-			urls: [],
-			objects: [],
-		}).objects;
+		return _mod._DataFillProjects(_mod._DataMergeProjects(ZDABank.ZDABankURLs().reduce(function (coll, item) {
+			return coll.concat(_mod._DataBankObjects(item, _mod._ValueCacheObject[item] || '').map(require('OLSKObject').OLSKObjectTrim));
+		}, [])));
 	},
 
 	// SETUP

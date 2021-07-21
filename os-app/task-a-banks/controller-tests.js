@@ -554,7 +554,9 @@ describe('DataBankProjects', function test_DataBankProjects() {
 	const _DataBankProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueCacheObject: {},
-			_DataBankObjects: (function () {}),
+			_DataBankObjects: (function () {
+				return [];
+			}),
 		}, inputData).DataBankProjects();
 	};
 
@@ -581,47 +583,61 @@ describe('DataBankProjects', function test_DataBankProjects() {
 		}));
 	});
 
-	it('returns _DataBankObjects', function () {
+	it('trims properties', function () {
+		const item = Math.random().toString();
 		deepEqual(_DataBankProjects({
 			_DataBankObjects: (function () {
 				return [{
 					ZDAProjectURL: arguments[0],
+					[item]: ' ' + item + ' ',
 				}];
 			}),
-		}), ZDABank.ZDABankURLs().reduce(function (coll, item) {
+		}), ZDABank.ZDABankURLs().reduce(function (coll, ZDAProjectURL) {
 			return coll.concat({
-				ZDAProjectURL: item,
+				ZDAProjectURL,
+				[item]: item,
 			});
 		}, []));
-	});
-
-	it('merges if ZDAProjectURL duplicate', function () {
-		const ZDAProjectURL = Math.random().toString();
-		const alfa = Math.random().toString();
-		const bravo = Math.random().toString();
-		
-		deepEqual(_DataBankProjects({
-			_DataBankObjects: (function () {
-				return [{
-				ZDAProjectURL,
-				alfa: alfa,
-			}, {
-				ZDAProjectURL,
-				alfa: Math.random().toString(),
-				bravo: bravo,
-			}];
-			}),
-		}), [{
-			ZDAProjectURL,
-			alfa: alfa,
-			bravo: bravo,
-		}]);
 	});
 
 	it('passes default value if cache empty', function () {
 		deepEqual(_DataBankProjects({
 			_DataBankObjects: mod._DataBankObjects,
 		}), []);
+	});
+
+	it('calls _DataMergeProjects', function () {
+		const item = Math.random().toString();
+		deepEqual(_DataBankProjects({
+			_DataBankObjects: (function () {
+				return [{
+					ZDAProjectURL: arguments[0],
+					item,
+				}];
+			}),
+			_DataMergeProjects: (function () {
+				return [...arguments];
+			}),
+		}), [ZDABank.ZDABankURLs().reduce(function (coll, ZDAProjectURL) {
+			return coll.concat({
+				ZDAProjectURL,
+				item,
+			});
+		}, [])]);
+	});
+
+	it('returns _DataFillProjects', function () {
+		const item = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(_DataBankProjects({
+			_DataMergeProjects: (function () {
+				return [item];
+			}),
+			_DataFillProjects: (function () {
+				return [...arguments].concat(item);
+			}),
+		}), [[item], item]);
 	});
 
 });
