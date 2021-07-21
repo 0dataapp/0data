@@ -438,7 +438,7 @@ describe('SetupDetails', function test_SetupDetail() {
 
 	const _SetupDetails = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			DataListingProjects: (function () {
+			DataBankProjects: (function () {
 				return [];
 			}),
 			_SetupDetail: (function () {}),
@@ -450,8 +450,8 @@ describe('SetupDetails', function test_SetupDetail() {
 			ZDAProjectURL: Math.random().toString(),
 		};
 		deepEqual(await _SetupDetails({
-			_DataFoilListings: {
-				DataListingProjects: (function () {
+			_DataFoilBanks: {
+				DataBankProjects: (function () {
 					return [item];
 				}),
 			},

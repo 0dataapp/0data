@@ -7,9 +7,9 @@ const mod = {
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAGlanceProjectsCount () {
-				return mod.DataListingProjects().length;
+				return mod.DataBankProjects().length;
 			},
-			ZDAGlanceProjectsSourceURLs: mod.DataListingURLs(),
+			ZDAGlanceProjectsSourceURLs: mod.DataBankURLs(),
 		}
 	},
 
@@ -26,42 +26,42 @@ const mod = {
 		return (await require('node-fetch')(inputData)).text();
 	},
 
-	DataListingURLs() {
-		return process.env.ZDA_VITRINE_LISTING_URLS.split(',');
+	DataBankURLs() {
+		return process.env.ZDA_TASK_BANKS_URLS.split(',');
 	},
 
-	DataListingURLRemoteStorage () {
-		return mod.DataListingURLs().filter(function (e) {
+	DataBankURLRemoteStorage () {
+		return mod.DataBankURLs().filter(function (e) {
 			return e.match(/remotestorage/);
 		}).shift();
 	},
 
-	DataListingURLFission () {
-		return mod.DataListingURLs().filter(function (e) {
+	DataBankURLFission () {
+		return mod.DataBankURLs().filter(function (e) {
 			return e.match(/fission/);
 		}).shift();
 	},
 
-	DataListingURLAwesome () {
-		return mod.DataListingURLs().filter(function (e) {
+	DataBankURLAwesome () {
+		return mod.DataBankURLs().filter(function (e) {
 			return e.match(/awesome/);
 		}).shift();
 	},
 
-	DataListingURLUnhosted () {
-		return mod.DataListingURLs().filter(function (e) {
+	DataBankURLUnhosted () {
+		return mod.DataBankURLs().filter(function (e) {
 			return e.match(/unhosted/);
 		}).shift();
 	},
 
-	DataListingURLSolidProject () {
-		return mod.DataListingURLs().filter(function (e) {
+	DataBankURLSolidProject () {
+		return mod.DataBankURLs().filter(function (e) {
 			return e.match(/solid/);
 		}).shift();
 	},
 
-	_DataListingObjects (param1, param2) {
-		if (!mod.DataListingURLs().includes(param1)) {
+	_DataBankObjects (param1, param2) {
+		if (!mod.DataBankURLs().includes(param1)) {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
@@ -69,10 +69,10 @@ const mod = {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		return Array.from(mod.DataListingURLs().reduce(function (coll, item) {
+		return Array.from(mod.DataBankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: {
-					[mod.DataListingURLRemoteStorage()]: function () {
+					[mod.DataBankURLRemoteStorage()]: function () {
 						return cheerio('table', param2).first().find('tr:not(tr:first-of-type)').map(function () {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1)', this).text(),
@@ -82,7 +82,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataListingURLFission()]: function () {
+					[mod.DataBankURLFission()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
 								ZDAProjectName: cheerio('a', this).text(),
@@ -92,7 +92,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataListingURLAwesome()]: function () {
+					[mod.DataBankURLAwesome()]: function () {
 						return cheerio('.entry-content', param2).first().find('li').map(function () {
 							return {
 								ZDAProjectName: cheerio('a', this).text(),
@@ -101,7 +101,7 @@ const mod = {
 							};
 						});
 					},
-					[mod.DataListingURLUnhosted()]: function () {
+					[mod.DataBankURLUnhosted()]: function () {
 						return cheerio('.icons', param2).first().find('li').map(function () {
 							return Object.assign({
 								ZDAProjectName: cheerio('a', this).text(),
@@ -117,7 +117,7 @@ const mod = {
 								})(cheerio('img', this).attr('src')));
 						});
 					},
-					[mod.DataListingURLSolidProject()]: function () {
+					[mod.DataBankURLSolidProject()]: function () {
 						return cheerio('article', param2).first().find('table:not(#pod-management~table):not(#historical-solid-apps~ul>li>table) tbody tr').map(function () {
 							return {
 								ZDAProjectName: cheerio('td:nth-child(1) a', this).text(),
@@ -156,11 +156,11 @@ const mod = {
 		});
 	},
 
-	DataListingProjects () {
+	DataBankProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
-		return mod.DataListingURLs().reduce(function (coll, item) {
-			return coll.concat(_mod._DataListingObjects(item, _mod._ValueCacheObject[item] || ''));
+		return mod.DataBankURLs().reduce(function (coll, item) {
+			return coll.concat(_mod._DataBankObjects(item, _mod._ValueCacheObject[item] || ''));
 		}, []).reduce(function (coll, item) {
 			if (coll.urls.includes(item.ZDAProjectURL)) {
 				const e = coll.objects.filter(function (e) {
@@ -190,10 +190,10 @@ const mod = {
 		_mod._ValueFetchQueue = _mod._DataFoilOLSKQueue.OLSKQueueAPI();
 	},
 
-	SetupListingsCache () {
+	SetupBanksCache () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 		Object.assign(mod, Object.assign(_mod, {
-			_ValueCacheObject: mod.DataListingURLs().reduce(function (coll, item) {
+			_ValueCacheObject: mod.DataBankURLs().reduce(function (coll, item) {
 				return Object.assign(coll, {
 					[item]: _mod._DataFoilOLSKDisk.OLSKDiskRead(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(item))),
 				});
@@ -201,7 +201,7 @@ const mod = {
 		}));
 	},
 
-	_SetupListing (inputData) {
+	_SetupBank (inputData) {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 		return _mod._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
 			ParamMap: _mod._ValueCacheObject,
@@ -216,10 +216,10 @@ const mod = {
 		});
 	},
 
-	SetupListings () {
+	SetupBanks () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 		
-		return Promise.all(mod.DataListingURLs().map(_mod._SetupListing));
+		return Promise.all(mod.DataBankURLs().map(_mod._SetupBank));
 	},
 
 };

@@ -196,8 +196,8 @@ describe('DataProjects', function test_DataProjects() {
 					return inputData._ValueCandidatesCache || {};
 				},
 			}, inputData),
-			_DataFoilListings: Object.assign({
-				DataListingProjects: (function () {}),
+			_DataFoilBanks: Object.assign({
+				DataBankProjects: (function () {}),
 			}, inputData),
 		}, inputData).DataProjects();
 	};
@@ -212,7 +212,7 @@ describe('DataProjects', function test_DataProjects() {
 			_ValueCandidatesCache: {
 				[ZDAProjectURL]: candidates,
 			},
-			DataListingProjects: (function () {
+			DataBankProjects: (function () {
 				return [{
 					ZDAProjectURL,
 				}];
@@ -239,7 +239,7 @@ describe('DataProjects', function test_DataProjects() {
 		};
 
 		deepEqual(_DataProjects({
-			DataListingProjects: (function () {
+			DataBankProjects: (function () {
 				return [item1, item2];
 			}),
 		}), [item2, item1]);

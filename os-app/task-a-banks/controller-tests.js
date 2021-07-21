@@ -5,80 +5,80 @@ const mod = require('./controller.js');
 import OLSKCache from 'OLSKCache';
 import OLSKLink from 'OLSKLink';
 
-describe('DataListingURLs', function test_DataListingURLs() {
+describe('DataBankURLs', function test_DataBankURLs() {
 
 	it('returns array', function () {
-		deepEqual(mod.DataListingURLs(), process.env.ZDA_VITRINE_LISTING_URLS.split(','));
+		deepEqual(mod.DataBankURLs(), process.env.ZDA_TASK_BANKS_URLS.split(','));
 	});
 
 });
 
-describe('DataListingURLRemoteStorage', function test_DataListingURLRemoteStorage() {
+describe('DataBankURLRemoteStorage', function test_DataBankURLRemoteStorage() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataListingURLRemoteStorage(), mod.DataListingURLs().filter(function (e) {
+		deepEqual(mod.DataBankURLRemoteStorage(), mod.DataBankURLs().filter(function (e) {
 			return e.match(/remotestorage/);
 		}).shift());
 	});
 
 });
 
-describe('DataListingURLFission', function test_DataListingURLFission() {
+describe('DataBankURLFission', function test_DataBankURLFission() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataListingURLFission(), mod.DataListingURLs().filter(function (e) {
+		deepEqual(mod.DataBankURLFission(), mod.DataBankURLs().filter(function (e) {
 			return e.match(/fission/);
 		}).shift());
 	});
 
 });
 
-describe('DataListingURLAwesome', function test_DataListingURLAwesome() {
+describe('DataBankURLAwesome', function test_DataBankURLAwesome() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataListingURLAwesome(), mod.DataListingURLs().filter(function (e) {
+		deepEqual(mod.DataBankURLAwesome(), mod.DataBankURLs().filter(function (e) {
 			return e.match(/awesome/);
 		}).shift());
 	});
 
 });
 
-describe('DataListingURLUnhosted', function test_DataListingURLUnhosted() {
+describe('DataBankURLUnhosted', function test_DataBankURLUnhosted() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataListingURLUnhosted(), mod.DataListingURLs().filter(function (e) {
+		deepEqual(mod.DataBankURLUnhosted(), mod.DataBankURLs().filter(function (e) {
 			return e.match(/unhosted/);
 		}).shift());
 	});
 
 });
 
-describe('DataListingURLSolidProject', function test_DataListingURLSolidProject() {
+describe('DataBankURLSolidProject', function test_DataBankURLSolidProject() {
 
 	it('returns string', function () {
-		deepEqual(mod.DataListingURLSolidProject(), mod.DataListingURLs().filter(function (e) {
+		deepEqual(mod.DataBankURLSolidProject(), mod.DataBankURLs().filter(function (e) {
 			return e.match(/solid/);
 		}).shift());
 	});
 
 });
 
-describe('_DataListingObjects', function test__DataListingObjects() {
+describe('_DataBankObjects', function test__DataBankObjects() {
 
-	it('throws if param1 not in DataListingURLs', function () {
+	it('throws if param1 not in DataBankURLs', function () {
 		throws(function () {
-			mod._DataListingObjects(Math.random().toString(), Math.random().toString());
+			mod._DataBankObjects(Math.random().toString(), Math.random().toString());
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('throws if param2 not string', function () {
 		throws(function () {
-			mod._DataListingObjects(uRandomElement(mod.DataListingURLs()), null);
+			mod._DataBankObjects(uRandomElement(mod.DataBankURLs()), null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(mod._DataListingObjects(uRandomElement(mod.DataListingURLs()), ''), []);
+		deepEqual(mod._DataBankObjects(uRandomElement(mod.DataBankURLs()), ''), []);
 	});
 
 	context('remotestorage', function tost_remotestorage () {
@@ -98,7 +98,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLRemoteStorage(), uTable({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLRemoteStorage(), uTable({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectURL,
@@ -115,7 +115,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectBlurb = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLRemoteStorage(), uTable({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLRemoteStorage(), uTable({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
@@ -146,7 +146,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLFission(), uList({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLFission(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
 				ZDAProjectBlurb,
@@ -163,7 +163,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLFission(), uList({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLFission(), uList({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
@@ -194,7 +194,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLAwesome(), uList({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLAwesome(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
 				ZDAProjectBlurb,
@@ -210,7 +210,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLAwesome(), uList({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLAwesome(), uList({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 				ZDAProjectBlurb: ' ' + ZDAProjectBlurb + ' ',
@@ -239,14 +239,14 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectURL = Math.random().toString();
 			const _ZDAProjectImageHREF = '/' + Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLUnhosted(), uList({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLUnhosted(), uList({
 				ZDAProjectName,
 				ZDAProjectURL,
 				_ZDAProjectImageHREF,
 			})), [{
 				ZDAProjectName,
 				ZDAProjectURL,
-				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(mod.DataListingURLUnhosted(), _ZDAProjectImageHREF),
+				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(mod.DataBankURLUnhosted(), _ZDAProjectImageHREF),
 			}]);
 		});
 		
@@ -254,7 +254,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLUnhosted(), uList({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLUnhosted(), uList({
 				ZDAProjectName: ' ' + ZDAProjectName + ' ',
 				ZDAProjectURL: ' ' + ZDAProjectURL + ' ',
 			})), [{
@@ -284,7 +284,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra,
@@ -303,7 +303,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectExtra = Math.random().toString();
 			const ZDAProjectURL = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
 				ZDAProjectName: ' ' + ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: ZDAProjectExtra + ' ',
@@ -320,7 +320,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright ' + Math.random().toString(),
@@ -331,7 +331,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '(c) ' + Math.random().toString(),
@@ -342,7 +342,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: '. Source ' + Math.random().toString(),
@@ -353,7 +353,7 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 			const ZDAProjectName = Math.random().toString();
 			const ZDAProjectBlurb = Math.random().toString();
 
-			deepEqual(mod._DataListingObjects(mod.DataListingURLSolidProject(), uArticle({
+			deepEqual(mod._DataBankObjects(mod.DataBankURLSolidProject(), uArticle({
 				ZDAProjectName,
 				ZDAProjectBlurb,
 				ZDAProjectExtra: 'Copyright (c) ' + Math.random().toString(),
@@ -364,46 +364,46 @@ describe('_DataListingObjects', function test__DataListingObjects() {
 
 });
 
-describe('DataListingProjects', function test_DataListingProjects() {
+describe('DataBankProjects', function test_DataBankProjects() {
 	
-	const _DataListingProjects = function (inputData = {}) {
+	const _DataBankProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
 			_ValueCacheObject: {},
-			_DataListingObjects: (function () {}),
-		}, inputData).DataListingProjects();
+			_DataBankObjects: (function () {}),
+		}, inputData).DataBankProjects();
 	};
 
-	it('calls _DataListingObjects', function () {
+	it('calls _DataBankObjects', function () {
 		const item = [];
 
-		const _ValueCacheObject = mod.DataListingURLs().reduce(function (coll, item) {
+		const _ValueCacheObject = mod.DataBankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: Math.random().toString(),
 			});
 		}, {});
 		
-		_DataListingProjects({
+		_DataBankProjects({
 			_ValueCacheObject,
-			_DataListingObjects: (function () {
+			_DataBankObjects: (function () {
 				item.push([...arguments]);
 
 				return [];
 			}),
 		});
 
-		deepEqual(item, mod.DataListingURLs().map(function (e) {
+		deepEqual(item, mod.DataBankURLs().map(function (e) {
 			return [e, _ValueCacheObject[e]];
 		}));
 	});
 
-	it('returns _DataListingObjects', function () {
-		deepEqual(_DataListingProjects({
-			_DataListingObjects: (function () {
+	it('returns _DataBankObjects', function () {
+		deepEqual(_DataBankProjects({
+			_DataBankObjects: (function () {
 				return [{
 					ZDAProjectURL: arguments[0],
 				}];
 			}),
-		}), mod.DataListingURLs().reduce(function (coll, item) {
+		}), mod.DataBankURLs().reduce(function (coll, item) {
 			return coll.concat({
 				ZDAProjectURL: item,
 			});
@@ -415,8 +415,8 @@ describe('DataListingProjects', function test_DataListingProjects() {
 		const alfa = Math.random().toString();
 		const bravo = Math.random().toString();
 		
-		deepEqual(_DataListingProjects({
-			_DataListingObjects: (function () {
+		deepEqual(_DataBankProjects({
+			_DataBankObjects: (function () {
 				return [{
 				ZDAProjectURL,
 				alfa: alfa,
@@ -434,8 +434,8 @@ describe('DataListingProjects', function test_DataListingProjects() {
 	});
 
 	it('passes default value if cache empty', function () {
-		deepEqual(_DataListingProjects({
-			_DataListingObjects: mod._DataListingObjects,
+		deepEqual(_DataBankProjects({
+			_DataBankObjects: mod._DataBankObjects,
 		}), []);
 	});
 
@@ -471,27 +471,27 @@ describe('SetupFetchQueue', function test_SetupFetchQueue() {
 
 });
 
-describe('SetupListingsCache', function test_SetupListingsCache() {
+describe('SetupBanksCache', function test_SetupBanksCache() {
 
-	const _SetupListingsCache = function (inputData) {
+	const _SetupBanksCache = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
 			_DataFoilOLSKDisk: Object.assign({
 				OLSKDiskRead: (function () {}),
 			}, inputData),
 		});
-		return _mod.SetupListingsCache() || _mod;
+		return _mod.SetupBanksCache() || _mod;
 	};
 
 	it('calls OLSKDiskRead', function () {
 		const items = [];
 
-		_SetupListingsCache({
+		_SetupBanksCache({
 			OLSKDiskRead: (function () {
 				items.push(...arguments);
 			}),
 		});
 
-		deepEqual(items, mod.DataListingURLs().map(OLSKCache.OLSKCacheURLBasename).map(function (e) {
+		deepEqual(items, mod.DataBankURLs().map(OLSKCache.OLSKCacheURLBasename).map(function (e) {
 			return OLSKCache.OLSKCachePath(__dirname, e);
 		}));
 	});
@@ -499,11 +499,11 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 	it('sets _ValueCacheObject', function () {
 		const OLSKDiskRead = uRandomElement(Math.random().toString(), null);
 
-		deepEqual(_SetupListingsCache({
+		deepEqual(_SetupBanksCache({
 			OLSKDiskRead: (function () {
 				return OLSKDiskRead;
 			}),
-		})._ValueCacheObject, mod.DataListingURLs().reduce(function (coll, item) {
+		})._ValueCacheObject, mod.DataBankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: OLSKDiskRead,
 			});
@@ -512,9 +512,9 @@ describe('SetupListingsCache', function test_SetupListingsCache() {
 
 });
 
-describe('_SetupListing', function test__SetupListing() {
+describe('_SetupBank', function test__SetupBank() {
 
-	const __SetupListing = function (inputData) {
+	const __SetupBank = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
 			_DataContentString: (function () {}),
 
@@ -525,7 +525,7 @@ describe('_SetupListing', function test__SetupListing() {
 			_DataFoilOLSKDisk: Object.assign({
 				OLSKDiskWrite: (function () {}),
 			}, inputData),
-		}, inputData)._SetupListing(inputData.url || Math.random().toString());
+		}, inputData)._SetupBank(inputData.url || Math.random().toString());
 	};
 
 	it('calls OLSKCacheResultFetchRenew', function () {
@@ -534,7 +534,7 @@ describe('_SetupListing', function test__SetupListing() {
 			[Math.random().toString()]: Math.random().toString(),
 		};
 
-		const item = __SetupListing({
+		const item = __SetupBank({
 			url,
 			_ValueCacheObject,
 			OLSKCacheResultFetchRenew: (function () {
@@ -556,7 +556,7 @@ describe('_SetupListing', function test__SetupListing() {
 		it('calls _DataContentString', async function () {
 			const url = Math.random().toString();
 
-			deepEqual(await __SetupListing({
+			deepEqual(await __SetupBank({
 				url,
 				OLSKCacheResultFetchRenew: (function (inputData) {
 					return inputData.ParamCallback();
@@ -575,7 +575,7 @@ describe('_SetupListing', function test__SetupListing() {
 			const url = uLink();
 			const data = Math.random().toString();
 			
-			deepEqual(await __SetupListing({
+			deepEqual(await __SetupBank({
 				url,
 				_ValueCacheObject: {
 					[url]: data,
@@ -593,20 +593,20 @@ describe('_SetupListing', function test__SetupListing() {
 
 });
 
-describe('SetupListings', function test_SetupListings() {
+describe('SetupBanks', function test_SetupBanks() {
 
-	const _SetupListings = function (inputData = {}) {
+	const _SetupBanks = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_SetupListing: (function () {}),
-		}, inputData).SetupListings();
+			_SetupBank: (function () {}),
+		}, inputData).SetupBanks();
 	};
 
-	it('calls _SetupListing', async function () {
-		deepEqual(await _SetupListings({
-			_SetupListing: (function (e) {
+	it('calls _SetupBank', async function () {
+		deepEqual(await _SetupBanks({
+			_SetupBank: (function (e) {
 				return e;
 			}),
-		}), mod.DataListingURLs());
+		}), mod.DataBankURLs());
 	});
 
 });
