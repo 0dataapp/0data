@@ -146,6 +146,7 @@ const mod = {
 		if (e.ZDAProjectBanks && Object.values(e.ZDAProjectBanks).filter(function (e) {
 			return [
 				'Hello World',
+				'Cesium',
 			].includes(e.ZDABankName);
 		}).length) {
 			return false;

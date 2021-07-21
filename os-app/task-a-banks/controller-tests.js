@@ -275,6 +275,7 @@ describe('_DataFilterProject', function test__DataFilterProject() {
 		
 		[
 			'Hello World',
+			'Cesium',
 		].forEach(function (ZDABankName) {
 			
 			it(`filters ${ ZDABankName }`, function () {
