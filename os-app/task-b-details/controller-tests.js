@@ -462,3 +462,51 @@ describe('SetupDetails', function test_SetupDetail() {
 	});
 
 });
+
+describe('_SetupDetailsIncoming', function test__SetupDetailsIncoming() {
+
+	const __SetupDetailsIncoming = function (inputData = {}) {
+		return Object.assign(Object.assign({}, mod), {
+			DataBankProjects: (function () {
+				return [];
+			}),
+			_SetupDetail: (function () {}),
+		}, inputData)._SetupDetailsIncoming();
+	};
+
+	it('calls _SetupDetail', async function () {
+		const item = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		deepEqual(await __SetupDetailsIncoming({
+			_DataFoilBanks: {
+				DataBankProjects: (function () {
+					return [item];
+				}),
+			},
+			_SetupDetail: (function () {
+				return [...arguments].slice(0, 1);
+			}),
+		}), [[item.ZDAProjectURL]]);
+	});
+
+	it('skips if _ValueCandidatesCache', async function () {
+		const item = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		deepEqual(await __SetupDetailsIncoming({
+			_ValueCandidatesCache: {
+				[item.ZDAProjectURL]: {},
+			},
+			_DataFoilBanks: {
+				DataBankProjects: (function () {
+					return [item];
+				}),
+			},
+			_SetupDetail: (function () {
+				return [...arguments].slice(0, 1);
+			}),
+		}), []);
+	});
+
+});

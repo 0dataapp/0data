@@ -140,10 +140,16 @@ const mod = {
 		})
 	},
 
-};
+	_SetupDetailsIncoming () {
+		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
-if (process.env.NODE_ENV === 'production' || process.env.npm_lifecycle_script === 'olsk-express') {
-	require('OLSKModule').OLSKModuleLifecycleSetup(mod);
-}
+		return _mod._DataFoilBanks.DataBankProjects().filter(function (e) {
+			return !_mod._ValueCandidatesCache[e.ZDAProjectURL];
+		}).map(function (e) {
+			return _mod._SetupDetail(e.ZDAProjectURL);
+		})
+	},
+
+};
 
 Object.assign(exports, mod);
