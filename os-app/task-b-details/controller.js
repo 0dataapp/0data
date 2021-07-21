@@ -15,6 +15,13 @@ const mod = {
 				require('OLSKModule').OLSKModuleLifecycleSetup(mod);
 			}),
 			OLSKTaskFireLimit: 1,
+		}, {
+			OLSKTaskName: 'ZDADetailsCheckNewBankListings',
+			OLSKTaskFireTimeInterval: 60 * 60 * 24,
+			OLSKTaskShouldBePerformed () {
+				return true;
+			},
+			OLSKTaskCallback: mod._SetupDetailsIncoming,
 		}];
 	},
 	
