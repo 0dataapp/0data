@@ -22,8 +22,10 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 
 			before(function() {
 				return browser.OLSKVisit(kDefaultRoute, {
-					ZDAGlanceListData: JSON.stringify(Array.from(Array(uRandomInt())).map(function (e) {
-						return {};
+					ZDAGlanceListData: JSON.stringify(Array.from(Array(uRandomInt(10))).map(function (e) {
+						return {
+							ZDAProjectBanks: {},
+						};
 					})),
 					OLSKRoutingLanguage,
 				});

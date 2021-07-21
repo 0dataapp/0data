@@ -1,5 +1,7 @@
 const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 
+const ZDABank = require('../_shared/ZDABank/main.js');
+
 describe('ZDAGlanceList_Misc', function  () {
 
 	const item = {
@@ -8,9 +10,9 @@ describe('ZDAGlanceList_Misc', function  () {
 		ZDAProjectURL: Math.random().toString(),
 		ZDAProjectIconURL: Math.random().toString(),
 		_ZDAProjectIconURLCachedPath: uRandomElement(undefined, Math.random().toString()),
-		_ZDAProjectSupportsRemoteStorage: uRandomElement(true, false),
-		_ZDAProjectSupportsFission: uRandomElement(true, false),
-		_ZDAProjectSupportsSOLID: uRandomElement(true, false),
+		ZDAProjectBanks: Object.fromEntries(Object.entries(ZDABank.ZDABankProtocolProperties()).filter(function () {
+			return uRandomElement(true, false)
+		})),
 	};
 
 	before(function() {
@@ -158,11 +160,11 @@ describe('ZDAGlanceList_Misc', function  () {
 		});
 
 		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'checked', item._ZDAProjectSupportsRemoteStorage ? '' : null);
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'checked', item.ZDAProjectBanks.ZDABankRemoteStorage ? '' : null);
 		});
 
 		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item._ZDAProjectSupportsRemoteStorage ? '0' : '1');
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankRemoteStorage ? '0' : '1');
 		});
 
 	});
@@ -178,11 +180,11 @@ describe('ZDAGlanceList_Misc', function  () {
 		});
 
 		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemFission, 'checked', item._ZDAProjectSupportsFission ? '' : null);
+			browser.assert.attribute(ZDAGlanceListItemFission, 'checked', item.ZDAProjectBanks.ZDABankFission ? '' : null);
 		});
 
 		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item._ZDAProjectSupportsFission ? '0' : '1');
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankFission ? '0' : '1');
 		});
 
 	});
@@ -198,11 +200,11 @@ describe('ZDAGlanceList_Misc', function  () {
 		});
 
 		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemSOLID, 'checked', item._ZDAProjectSupportsSOLID ? '' : null);
+			browser.assert.attribute(ZDAGlanceListItemSOLID, 'checked', item.ZDAProjectBanks.ZDABankSOLID ? '' : null);
 		});
 
 		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item._ZDAProjectSupportsSOLID ? '0' : '1');
+			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankSOLID ? '0' : '1');
 		});
 
 	});

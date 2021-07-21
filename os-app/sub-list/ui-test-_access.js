@@ -53,7 +53,9 @@ describe('ZDAGlanceList_Access', function () {
 		before(function() {
 			return browser.OLSKVisit(kDefaultRoute, {
 				ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
-					return {};
+					return {
+						ZDAProjectBanks: {},
+					};
 				})),
 			});
 		});
@@ -116,6 +118,7 @@ describe('ZDAGlanceList_Access', function () {
 				return browser.OLSKVisit(kDefaultRoute, {
 					ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
 						return {
+							ZDAProjectBanks: {},
 							ZDAProjectIconURL: Math.random().toString(),
 						};
 					})),

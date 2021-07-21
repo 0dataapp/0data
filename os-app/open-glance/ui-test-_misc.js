@@ -13,8 +13,10 @@ describe('ZDAGlance_Misc', function () {
 			ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e, i) {
 				return Object.assign(i ? {
 					ZDAProjectName: Math.random().toString(),
+					ZDAProjectBanks: {},
 				} : item, {
 					ZDAProjectBlurb: i.toString(),
+					ZDAProjectBanks: {},
 				});
 			})),
 		});
