@@ -308,14 +308,102 @@ describe('_DataHotfixProject', function test__DataHotfixProject() {
 			
 			it(`hotfixes ${ key }`, function () {
 				deepEqual(mod._DataHotfixProject({
-					EASProjectURL: key,
+					ZDAProjectURL: key,
 				}), {
-					EASProjectURL: value,
+					ZDAProjectURL: value,
 				});
 			});
 
 		});
 	
+	});
+
+});
+
+describe('_DataMergeProjects', function test__DataMergeProjects() {
+
+	const __DataMergeProjects = function (param1, param2) {
+		const ZDAProjectURL = Math.random().toString();
+		return mod._DataMergeProjects([Object.assign({
+			ZDAProjectURL,
+		}, param1), Object.assign({
+			ZDAProjectURL,
+		}, param2)]).map(function (e) {
+			delete e.ZDAProjectURL;
+
+			return e
+		});
+	};
+
+	it('throws if not array', function () {
+		throws(function () {
+			mod._DataMergeProjects(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns input', function () {
+		const item = {
+			ZDAProjectURL: Math.random().toString(),
+		};
+		deepEqual(mod._DataMergeProjects([item]), [item]);
+	});
+
+	it('excludes if no ZDAProjectURL', function () {
+		deepEqual(mod._DataMergeProjects([{}]), []);
+	});
+
+	it('merges if ZDAProjectURL exact', function () {
+		const ZDAProjectURL = Math.random().toString();
+		deepEqual(mod._DataMergeProjects([{
+			ZDAProjectURL,
+		}, {
+			ZDAProjectURL,
+		}]), [{
+			ZDAProjectURL,
+		}]);
+	});
+
+	it('merges if ZDAProjectURL trailing slash', function () {
+		const ZDAProjectURL = Math.random().toString();
+		deepEqual(mod._DataMergeProjects([{
+			ZDAProjectURL,
+		}, {
+			ZDAProjectURL: ZDAProjectURL + '/',
+		}]), [{
+			ZDAProjectURL,
+		}]);
+	});
+
+	it('copies properties', function () {
+		const alfa = Math.random().toString();
+		const bravo = Math.random().toString();
+		deepEqual(__DataMergeProjects({
+			alfa
+		}, {
+			bravo
+		}), [{
+			alfa,
+			bravo
+		}]);
+	});
+
+	it('copies ZDAProjectPlatforms', function () {
+		const alfa = Math.random().toString();
+		const bravo = Math.random().toString();
+		deepEqual(__DataMergeProjects({
+			ZDAProjectPlatforms: {
+				alfa,
+			},
+		}, {
+			ZDAProjectPlatforms: {
+				bravo,
+			},
+		}), [{
+			ZDAProjectPlatforms: {
+				alfa,
+				bravo,
+			},
+		}]);
 	});
 
 });

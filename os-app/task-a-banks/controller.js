@@ -164,7 +164,7 @@ const mod = {
 
 	_DataHotfixProject (e) {
 		Object.entries({
-			EASProjectURL: {},
+			ZDAProjectURL: {},
 		}).forEach(function ([key, changes]) {
 			Object.entries(changes).forEach(function ([source, destination]) {
 				if (e[key] === source) {
@@ -174,6 +174,36 @@ const mod = {
 		});
 		
 		return e;
+	},
+
+	_DataMergeProjects (inputData) {
+		if (!Array.isArray(inputData)) {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return Object.values(inputData.filter(mod._DataFilterProject).reduce(function (coll, item) {
+			mod._DataHotfixProject(item);
+
+			let id = require('OLSKLink').OLSKLinkCompareURL(item.ZDAProjectURL || '');
+
+			const match = coll[id || Math.random().toString()] || {};
+
+			if (match.ZDAProjectURL) {
+				id = require('OLSKLink').OLSKLinkCompareURL(item.ZDAProjectURL = match.ZDAProjectURL);
+			}
+
+			if (!id) {
+				return coll;
+			}
+
+			const ZDAProjectPlatforms = Object.assign(match.ZDAProjectPlatforms || {}, item.ZDAProjectPlatforms || {});
+			
+			return Object.assign(coll, {
+				[id]: Object.assign(item, Object.assign(match, item), match.ZDAProjectPlatforms ? {
+					ZDAProjectPlatforms,
+				} : {}),
+			});
+		}, {}));
 	},
 
 	DataBankProjects () {
