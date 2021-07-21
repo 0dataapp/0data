@@ -142,6 +142,26 @@ const mod = {
 		});
 	},
 
+	_DataFilterProject (e) {
+		if (e.ZDAProjectBanks && Object.values(e.ZDAProjectBanks).filter(function (e) {
+			return [
+				'Hello World',
+			].includes(e.ZDABankName);
+		}).length) {
+			return false;
+		}
+
+		if ([
+			'http://crypton.io/',
+			'https://peercdn.com/',
+			'http://cryptosphere.org/',
+		].includes(e.ZDAProjectURL)) {
+			return false;
+		}
+
+		return true;
+	},
+
 	DataBankProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 

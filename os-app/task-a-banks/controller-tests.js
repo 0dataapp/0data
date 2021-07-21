@@ -244,6 +244,55 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 
 });
 
+describe('_DataFilterProject', function test__DataFilterProject() {
+
+	it('returns true', function () {
+		const item = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(mod._DataFilterProject(item), true);
+	});
+
+	context('ZDAProjectURL', function () {
+		
+		[
+			'http://crypton.io/',
+			'https://peercdn.com/',
+			'http://cryptosphere.org/',
+		].forEach(function (ZDAProjectURL) {
+			
+			it(`filters ${ ZDAProjectURL }`, function () {
+				deepEqual(mod._DataFilterProject({
+					ZDAProjectURL,
+				}), false);
+			});
+
+		});
+	
+	});
+
+	context('ZDABankName', function () {
+		
+		[
+			'Hello World',
+		].forEach(function (ZDABankName) {
+			
+			it(`filters ${ ZDABankName }`, function () {
+				deepEqual(mod._DataFilterProject({
+					ZDAProjectBanks: {
+						[Math.random().toString()]: {
+							ZDABankName,
+						},
+					},
+				}), false);
+			});
+
+		});
+	
+	});
+
+});
+
 describe('DataBankProjects', function test_DataBankProjects() {
 	
 	const _DataBankProjects = function (inputData = {}) {
