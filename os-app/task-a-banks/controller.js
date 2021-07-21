@@ -206,6 +206,47 @@ const mod = {
 		}, {}));
 	},
 
+	_DataFillProjects (inputData) {
+		if (!Array.isArray(inputData)) {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		const ids = [];
+		
+		return inputData.map(function (e) {
+			return Object.assign(e, Object.entries({
+				ZDABankName: 'ZDAProjectName',
+				ZDABankBlurb: 'ZDAProjectBlurb',
+				ZDABankImageURL: 'ZDAProjectIconURL',
+			}).reduce(function (coll, [source, destination]) {
+				const raw = Object.values(e.ZDAProjectPlatforms || {}).map(function (e) {
+					return e[source];
+				}).filter(function (e) {
+					return !!e;
+				});
+				const data = raw[0];
+
+				if (data) {
+					coll[destination] = destination === 'ZDAProjectTags' ? mod.__DataTidyTags((coll[destination] || []).concat(...raw)) : data;
+				}
+				
+				return coll;
+			}, {}));
+		}).map(function (e) {
+			return Object.assign(e, e.ZDAProjectName ? {
+				ZDAProjectID: (function(inputData) {
+					if (ids.includes(inputData)) {
+						throw new Error('ZDAErrorInputNotValid');
+					}
+
+					ids.push(inputData);
+
+					return inputData;
+				})(e.ZDAProjectName.toLowerCase().split(' ').join('-')),
+			} : {});
+		});
+	},
+
 	DataBankProjects () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 

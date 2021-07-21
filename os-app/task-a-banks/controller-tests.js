@@ -408,6 +408,147 @@ describe('_DataMergeProjects', function test__DataMergeProjects() {
 
 });
 
+describe('_DataFillProjects', function test__DataFillProjects() {
+
+	it('throws if not array', function () {
+		throws(function () {
+			mod._DataFillProjects(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns input', function () {
+		const item = {
+			[Math.random().toString()]: Math.random().toString(),
+		};
+		deepEqual(mod._DataFillProjects([item]), [item]);
+	});
+
+	context('ZDAProjectName', function () {
+		
+		it('copies ZDABankName', function () {
+			const ZDABankName = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectPlatforms: {
+					[Math.random().toString()]: {
+						ZDABankName,
+					},
+				},
+			}])[0].ZDAProjectName, ZDABankName);
+		});
+
+		it('select first ZDABankName', function () {
+			const ZDABankName = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectPlatforms: {
+					[Math.random().toString()]: {
+						ZDABankName,
+					},
+					[Math.random().toString()]: {
+						ZDABankName: Math.random().toString(),
+					},
+				},
+			}])[0].ZDAProjectName, ZDABankName);
+		});
+	
+	});
+
+	context('ZDAProjectID', function () {
+		
+		it('copies ZDAProjectName', function () {
+			const ZDAProjectID = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectName: ZDAProjectID,
+			}])[0].ZDAProjectID, ZDAProjectID);
+		});
+
+		it('converts to lower case', function () {
+			const ZDAProjectID = 'ALFA' + Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectName: ZDAProjectID,
+			}])[0].ZDAProjectID, ZDAProjectID.toLowerCase());
+		});
+
+		it('replaces spaces', function () {
+			const ZDAProjectID = 'alfa ' + Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectName: ZDAProjectID,
+			}])[0].ZDAProjectID, ZDAProjectID.split(' ').join('-'));
+		});
+
+
+		it('throws if duplicate', function () {
+			const ZDAProjectName = Math.random().toString();
+			throws(function () {
+				mod._DataFillProjects(mod._DataFillProjects([{
+					ZDAProjectName,
+				}, {
+					ZDAProjectName,
+				}]));
+			}, /ZDAErrorInputNotValid/);
+		});
+	
+	});
+
+	context('ZDAProjectBlurb', function () {
+		
+		it('copies ZDABankBlurb', function () {
+			const ZDABankBlurb = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectPlatforms: {
+					[Math.random().toString()]: {
+						ZDABankBlurb,
+					},
+				},
+			}])[0].ZDAProjectBlurb, ZDABankBlurb);
+		});
+
+		it('select first ZDABankBlurb', function () {
+			const ZDABankBlurb = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectPlatforms: {
+					[Math.random().toString()]: {
+						ZDABankBlurb,
+					},
+					[Math.random().toString()]: {
+						ZDABankBlurb: Math.random().toString(),
+					},
+				},
+			}])[0].ZDAProjectBlurb, ZDABankBlurb);
+		});
+	
+	});
+
+	context('ZDAProjectIconURL', function () {
+		
+		it('copies ZDABankImageURL', function () {
+			const ZDABankImageURL = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectPlatforms: {
+					[Math.random().toString()]: {
+						ZDABankImageURL,
+					},
+				},
+			}])[0].ZDAProjectIconURL, ZDABankImageURL);
+		});
+
+		it('select first ZDABankImageURL', function () {
+			const ZDABankImageURL = Math.random().toString();
+			deepEqual(mod._DataFillProjects([{
+				ZDAProjectPlatforms: {
+					[Math.random().toString()]: {
+						ZDABankImageURL,
+					},
+					[Math.random().toString()]: {
+						ZDABankImageURL: Math.random().toString(),
+					},
+				},
+			}])[0].ZDAProjectIconURL, ZDABankImageURL);
+		});
+	
+	});
+
+});
+
 describe('DataBankProjects', function test_DataBankProjects() {
 	
 	const _DataBankProjects = function (inputData = {}) {
