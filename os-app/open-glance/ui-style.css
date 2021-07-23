@@ -22,7 +22,7 @@
 .ZDAGlanceHeader {
 	display: flex !important;
 
-	background: white;
+	background: var(--OLSKCommonBackground);
 
 	align-items: center;
 }
