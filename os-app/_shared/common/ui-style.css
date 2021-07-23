@@ -1,0 +1,35 @@
+:root {
+	--ZDAContrast: #131037;
+	--OLSKCommonBackground: #f4f1e3;
+	--OLSKCommonForeground: var(--ZDAContrast);
+	--OLSKCommonEdgeColor: var(--ZDAContrast);
+}
+
+html, body, .OLSKDecorCapped {
+	min-height: 100vh;
+}
+
+body {
+	background: var(--OLSKCommonBackground);
+}
+
+*:not(h1, .OLSKLandingHeading, .OLSKDecorModule, .OLSKBanner, .OLSKBanner *) {
+	--OLSKCommonForeground: var(--ZDAContrast) ;
+	--OLSKCommonEdgeColor: var(--ZDAContrast) ;
+	border-color: var(--ZDAContrast)  !important;
+}
+
+a.OLSKDecorPress {
+	color: var(--ZDAContrast);
+}
+
+h1, .OLSKLandingHeading {
+	--OLSKCommonForeground: var(--ZDAContrast) !important;
+	--OLSKCommonEdgeColor: var(--ZDAContrast) !important;
+}
+
+.OLSKDecorCapped {
+	--OLSKDecorCappedBorder: 1px solid #f2efdd !important;
+	border-right: var(--OLSKDecorCappedBorder) !important;
+	border-left: var(--OLSKDecorCappedBorder) !important;
+}
