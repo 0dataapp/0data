@@ -11,9 +11,6 @@ Object.entries({
 	ZDAGlanceListItemIconImage: '.ZDAGlanceListItemIconImage',
 	ZDAGlanceListItemName: '.ZDAGlanceListItemName',
 	ZDAGlanceListItemBlurb: '.ZDAGlanceListItemBlurb',
-	ZDAGlanceListItemRemoteStorage: '.ZDAGlanceListItemRemoteStorage',
-	ZDAGlanceListItemFission: '.ZDAGlanceListItemFission',
-	ZDAGlanceListItemSolidProject: '.ZDAGlanceListItemSolidProject',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -58,8 +55,12 @@ describe('ZDAGlanceList_Access', function () {
 			browser.assert.elements(ZDAGlanceListItem, count);
 		});
 
-		it('hides ZDAGlanceListItemIcon', function () {
-			browser.assert.elements(ZDAGlanceListItemIcon, 0);
+		it('shows ZDAGlanceListItemIcon', function () {
+			browser.assert.elements(ZDAGlanceListItemIcon, count);
+		});
+
+		it('shows ZDAGlanceListItemIconImage', function () {
+			browser.assert.elements(ZDAGlanceListItemIconImage, count);
 		});
 
 		it('shows ZDAGlanceListItemName', function () {
@@ -68,41 +69,6 @@ describe('ZDAGlanceList_Access', function () {
 
 		it('shows ZDAGlanceListItemBlurb', function () {
 			browser.assert.elements(ZDAGlanceListItemBlurb, count);
-		});
-
-		it('shows ZDAGlanceListItemRemoteStorage', function () {
-			browser.assert.elements(ZDAGlanceListItemRemoteStorage, count);
-		});
-
-		it('shows ZDAGlanceListItemFission', function () {
-			browser.assert.elements(ZDAGlanceListItemFission, count);
-		});
-
-		it('shows ZDAGlanceListItemSolidProject', function () {
-			browser.assert.elements(ZDAGlanceListItemSolidProject, count);
-		});
-
-		context('ZDAProjectIconURL', function () {
-			
-			before(function() {
-				return browser.OLSKVisit(kDefaultRoute, {
-					ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e) {
-						return {
-							ZDAProjectBanks: {},
-							ZDAProjectIconURL: Math.random().toString(),
-						};
-					})),
-				});
-			});
-
-			it('shows ZDAGlanceListItemIcon', function () {
-				browser.assert.elements(ZDAGlanceListItemIcon, count);
-			});
-
-			it('shows ZDAGlanceListItemIconImage', function () {
-				browser.assert.elements(ZDAGlanceListItemIconImage, count);
-			});
-
 		});
 
 	});

@@ -20,18 +20,6 @@ const mod = {
 			valueNames: [
 				'ZDAGlanceListItemName',
 				'ZDAGlanceListItemBlurb',
-				{
-					name: 'ZDAGlanceListItemRemoteStorage',
-					attr: 'data-boolean',
-				},
-				{
-					name: 'ZDAGlanceListItemFission',
-					attr: 'data-boolean',
-				},
-				{
-					name: 'ZDAGlanceListItemSolidProject',
-					attr: 'data-boolean',
-				},
 			],
 		});
 

@@ -1,36 +1,23 @@
-<table class="ZDAGlanceList" lang="en">
+<div class="ZDAGlanceList" lang="en">
 
 <% if (!locals.ZDAGlanceListData.length) { -%>
 	<p class="ZDAGlanceListEmpty"><%= OLSKLocalized('ZDAGlanceListEmptyText') %></p>
 <% } -%>
 
-<tbody class="list">
+<div class="list">
 
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
-<tr class="ZDAGlanceListItem">
-	<td class="OLSKCommonCard">
-		<% if (item.ZDAProjectIconURL) { -%>
-			<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true" tabindex="-1">
-				<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL %>" />
-			</a>
-		<% } -%>
+	<div class="ZDAGlanceListItem OLSKCommonCard">
+		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true" tabindex="-1">
+			<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL || '/_shared/__external/OLSKUIAssets/_OLSKSharedIconPlaceholder.svg' %>" />
+		</a>
 		<section>
 			<a class="ZDAGlanceListItemName" href="<%= item.ZDAProjectURL %>" target="_blank"><%= item.ZDAProjectName %></a>
 			<span class="ZDAGlanceListItemBlurb"><%= item.ZDAProjectBlurb %></span>
 		</section>
-	</td>
-	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemRemoteStorage" type="checkbox" disabled <%= item.ZDAProjectBanks.ZDABankRemoteStorage ? 'checked' : '' %> data-boolean="<%= item.ZDAProjectBanks.ZDABankRemoteStorage ? '0' : '1' %>">
-	</td>
-	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemFission" type="checkbox" disabled <%= item.ZDAProjectBanks.ZDABankFission ? 'checked' : '' %> data-boolean="<%= item.ZDAProjectBanks.ZDABankFission ? '0' : '1' %>">
-	</td>
-	<td class="ZDAGlanceListItemCheckbox">
-		<input class="ZDAGlanceListItemSolidProject" type="checkbox" disabled <%= item.ZDAProjectBanks.ZDABankSolidProject ? 'checked' : '' %> data-boolean="<%= item.ZDAProjectBanks.ZDABankSolidProject ? '0' : '1' %>">
-	</td>
-</tr>
+	</div>
 <% }) -%>
 
-</tbody>
+</div>
 
-</table>
+</div>

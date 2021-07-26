@@ -70,36 +70,40 @@
 	padding: 0 10px;
 }
 
-table {
-	position: relative;
+.ZDAGlanceList .list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.ZDAGlanceListItem {
+	padding: 10px;
+	width: 220px;
+
+	font-size: 120%;
+}
+
+@media screen and (max-width: 760px) {
+
+	.ZDAGlanceListItem {
+		width: 100%;
+	}
+
+}
+
+.ZDAGlanceListItemIconImage {
+	width: 100%;
+	padding: 10px;
+	border-radius: 15px;
 
 	margin: 0 !important;
 }
 
-td {
-	padding: 10px;
-	
-	border-top: none !important;
-	border-bottom: var(--OLSKCommonEdgeBorder);
-}
-
-.ZDAGlanceListItemIconImage {
-	--OLSKCommonCardImageSize: 36px !important;
-	padding: 3px;
-	border-radius: 5px;
-	overflow: hidden;
-}
-
-.ZDAGlanceListItem a {
+.ZDAGlanceListItemName {
+	font-size: 140%;
 	text-decoration: none;
-	font-weight: bold;
 }
 
 .ZDAGlanceListItemBlurb {
-	display: inline-block;
-	max-width: 400px;
-}
-
-.ZDAGlanceListItemCheckbox {
-	text-align: center;
+	opacity: 0.5;
 }

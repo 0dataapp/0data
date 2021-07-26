@@ -8,7 +8,7 @@ describe('ZDAGlanceList_Misc', function  () {
 		ZDAProjectName: Math.random().toString(),
 		ZDAProjectBlurb: Math.random().toString(),
 		ZDAProjectURL: Math.random().toString(),
-		ZDAProjectIconURL: Math.random().toString(),
+		ZDAProjectIconURL: uRandomElement(undefined, Math.random().toString()),
 		_ZDAProjectIconURLCachedPath: uRandomElement(undefined, Math.random().toString()),
 		ZDAProjectBanks: Object.fromEntries(Object.entries(ZDABank.ZDABankProtocolProperties()).filter(function () {
 			return uRandomElement(true, false);
@@ -48,7 +48,7 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceListItemIconImage', function test_ZDAGlanceListItemIconImage () {
 
 		it('sets src', function () {
-			browser.assert.attribute(ZDAGlanceListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL);
+			browser.assert.attribute(ZDAGlanceListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL || '/_shared/__external/OLSKUIAssets/_OLSKSharedIconPlaceholder.svg');
 		});
 
 	});
@@ -73,66 +73,6 @@ describe('ZDAGlanceList_Misc', function  () {
 
 		it('binds ZDAProjectBlurb', function () {
 			browser.assert.text(ZDAGlanceListItemBlurb, item.ZDAProjectBlurb);
-		});
-
-	});
-
-	describe('ZDAGlanceListItemRemoteStorage', function test_ZDAGlanceListItemRemoteStorage () {
-
-		it('sets type', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'type', 'checkbox');
-		});
-
-		it('sets disabled', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'disabled', '');
-		});
-
-		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'checked', item.ZDAProjectBanks.ZDABankRemoteStorage ? '' : null);
-		});
-
-		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankRemoteStorage ? '0' : '1');
-		});
-
-	});
-
-	describe('ZDAGlanceListItemFission', function test_ZDAGlanceListItemFission () {
-
-		it('sets type', function () {
-			browser.assert.attribute(ZDAGlanceListItemFission, 'type', 'checkbox');
-		});
-
-		it('sets disabled', function () {
-			browser.assert.attribute(ZDAGlanceListItemFission, 'disabled', '');
-		});
-
-		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemFission, 'checked', item.ZDAProjectBanks.ZDABankFission ? '' : null);
-		});
-
-		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankFission ? '0' : '1');
-		});
-
-	});
-
-	describe('ZDAGlanceListItemSolidProject', function test_ZDAGlanceListItemSolidProject () {
-
-		it('sets type', function () {
-			browser.assert.attribute(ZDAGlanceListItemSolidProject, 'type', 'checkbox');
-		});
-
-		it('sets disabled', function () {
-			browser.assert.attribute(ZDAGlanceListItemSolidProject, 'disabled', '');
-		});
-
-		it('sets checked', function () {
-			browser.assert.attribute(ZDAGlanceListItemSolidProject, 'checked', item.ZDAProjectBanks.ZDABankSolidProject ? '' : null);
-		});
-
-		it('sets data-boolean', function () {
-			browser.assert.attribute(ZDAGlanceListItemRemoteStorage, 'data-boolean', item.ZDAProjectBanks.ZDABankSolidProject ? '0' : '1');
 		});
 
 	});
