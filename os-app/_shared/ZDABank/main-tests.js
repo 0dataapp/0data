@@ -72,7 +72,7 @@ describe('ZDABankProtocolProperties', function test_ZDABankProtocolProperties() 
 			},
 			ZDABankAwesome: {},
 			ZDABankUnhosted: {},
-			ZDABankSolid: {
+			ZDABankSolidProject: {
 				ZDAProtocolName: 'Solid',
 			},
 		});

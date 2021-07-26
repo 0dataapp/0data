@@ -42,7 +42,7 @@ const mod = {
 					[mod.ZDABankURLFission()]: 'ZDABankFission',
 					[mod.ZDABankURLAwesome()]: 'ZDABankAwesome',
 					[mod.ZDABankURLUnhosted()]: 'ZDABankUnhosted',
-					[mod.ZDABankURLSolidProject()]: 'ZDABankSolid',
+					[mod.ZDABankURLSolidProject()]: 'ZDABankSolidProject',
 				}[item]]: {
 					[mod.ZDABankURLRemoteStorage()]: {
 						ZDAProtocolName: 'RemoteStorage',
