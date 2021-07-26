@@ -156,7 +156,7 @@ const mod = {
 			'http://crypton.io/',
 			'https://peercdn.com/',
 			'http://cryptosphere.org/',
-			'http://app.solidbase.info/',
+			'https://app.solidbase.info/',
 		].includes(e.ZDAProjectURL)) {
 			return false;
 		}
