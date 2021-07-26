@@ -259,6 +259,20 @@ const mod = {
 		}, [])));
 	},
 
+	_DataBankProtocolObjects (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return Array.from(cheerio('table', inputData.split('# Protocols').pop().split('#').shift().trim()).first().find('tr').map(function () {
+			return {
+				ZDAProtocolURL: cheerio('a', this).attr('href'),
+				ZDAProtocolName: cheerio('td:nth-child(2)', this).text(),
+				ZDAProtocolIconURL: cheerio('img', this).attr('src'),
+			};
+		}));
+	},
+
 	// SETUP
 
 	SetupFetchQueue () {

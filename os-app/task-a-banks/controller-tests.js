@@ -644,6 +644,46 @@ describe('DataBankProjects', function test_DataBankProjects() {
 
 });
 
+describe('_DataBankProtocolObjects', function test__DataBankProtocolObjects() {
+
+	const uBank = function (inputData = {}) {
+		const item = Object.assign({
+			ZDAProtocolURL: Math.random().toString(),
+			ZDAProtocolName: Math.random().toString(),
+			ZDAProtocolIconURL: Math.random().toString(),
+		}, inputData);
+
+		return `# Protocols\n<table><tr><td><a href="${ item.ZDAProtocolURL }"><img src="${ item.ZDAProtocolIconURL }" /></a></td><td>${ item.ZDAProtocolName }</td></tr></table>\n#`;
+	};
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataBankProtocolObjects(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns array', function () {
+		deepEqual(mod._DataBankProtocolObjects(''), []);
+	});
+
+	it('parses data', function () {
+		const ZDAProtocolURL = Math.random().toString();
+		const ZDAProtocolName = Math.random().toString();
+		const ZDAProtocolIconURL = Math.random().toString();
+
+		deepEqual(mod._DataBankProtocolObjects(uBank({
+			ZDAProtocolURL,
+			ZDAProtocolName,
+			ZDAProtocolIconURL,
+		})), [{
+			ZDAProtocolURL,
+			ZDAProtocolName,
+			ZDAProtocolIconURL,
+		}]);
+	});
+
+});
+
 describe('SetupFetchQueue', function test_SetupFetchQueue() {
 
 	const _SetupFetchQueue = function (inputData) {
