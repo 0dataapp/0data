@@ -273,6 +273,12 @@ const mod = {
 		}));
 	},
 
+	DataBankProtocols () {
+		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
+
+		return _mod._DataBankProtocolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]);
+	},
+
 	// SETUP
 
 	SetupFetchQueue () {

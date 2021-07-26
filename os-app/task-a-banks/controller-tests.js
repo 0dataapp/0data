@@ -684,6 +684,29 @@ describe('_DataBankProtocolObjects', function test__DataBankProtocolObjects() {
 
 });
 
+describe('DataBankProtocols', function test_DataBankProtocols() {
+
+	const _DataBankProtocols = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataBankProtocolObjects: (function () {}),
+		}, inputData);
+		return _mod.DataBankProtocols() || _mod;
+	};
+
+	it('calls _DataBankProtocolObjects', function () {
+		const item = Math.random().toString();
+		deepEqual(uCapture(function (_DataBankProtocolObjects) {
+			_DataBankProtocols({
+				_ValueCacheObject: {
+					[ZDABank.ZDABankURLAwesome()]: item,
+				},
+				_DataBankProtocolObjects,
+			})
+		}), [item]);
+	});
+
+});
+
 describe('SetupFetchQueue', function test_SetupFetchQueue() {
 
 	const _SetupFetchQueue = function (inputData) {
