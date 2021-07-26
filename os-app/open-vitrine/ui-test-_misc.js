@@ -118,14 +118,6 @@ describe('ZDAVitrine_Misc', function () {
 	
 	});
 
-	describe('ZDAVitrineRepoLink', function test_ZDAVitrineRepoLink () {
-		
-		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineRepoLink, 'href', process.env.OLSK_REPO_URL);
-		});
-	
-	});
-
 	describe('ZDAVitrineStorageStackLink', function test_ZDAVitrineStorageStackLink () {
 		
 		it('sets href', function () {

@@ -20,7 +20,6 @@ Object.entries({
 	ZDAVitrineSolidProjectLink: '.ZDAVitrineSolidProjectLink',
 	ZDAVitrineUnhostedLink: '.ZDAVitrineUnhostedLink',
 	ZDAVitrineFissionLink: '.ZDAVitrineFissionLink',
-	ZDAVitrineRepoLink: '.ZDAVitrineRepoLink',
 	ZDAVitrineStorageStackLink: '.ZDAVitrineStorageStackLink',
 	ZDAVitrineWrapLink: '.ZDAVitrineWrapLink',
 
@@ -106,10 +105,6 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineFissionLink', function () {
 		browser.assert.elements(ZDAVitrineFissionLink, 1);
-	});
-
-	it('shows ZDAVitrineRepoLink', function () {
-		browser.assert.elements(ZDAVitrineRepoLink, 1);
 	});
 
 	it('shows ZDAVitrineStorageStackLink', function () {
