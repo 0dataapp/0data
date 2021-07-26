@@ -1,5 +1,12 @@
 const mod = {
 
+	// CONTROL
+
+	ControlSearch (inputData) {
+		mod._ValueList.search(inputData);
+		document.querySelector('.ZDAGlanceFilterInput').value = inputData;
+	},
+
 	// MESSAGE
 
 	WindowDispatchKeyup (event) {

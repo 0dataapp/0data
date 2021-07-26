@@ -1,14 +1,6 @@
 :root {
-	--ZDAGlanceToolbarHeight: 35px;
+	--ZDAGlanceToolbarHeight: 70px;
 	--OLSKStickyHeaderTop: var(--ZDAGlanceToolbarHeight);
-}
-
-@media screen and (max-width: 760px) {
-
-	:root {
-		--ZDAGlanceToolbarHeight: 45px;
-	}
-
 }
 
 .ZDAGlance {
@@ -25,6 +17,14 @@
 	background: var(--OLSKCommonBackground);
 
 	align-items: center;
+}
+
+.ZDAGlanceHeaderTwo {
+	padding: 5px;
+}
+
+.ZDAGlanceHeaderTwo * {
+	margin-right: 4px;
 }
 
 .ZDAGlanceRootLinkImage {
@@ -59,7 +59,7 @@
 
 .ZDAGlanceFilterInput {
 	padding: 0 5px !important;
-	height: var(--ZDAGlanceToolbarHeight);
+	height: 100%;
 	border-radius: 0 !important;
 	border: none !important;
 

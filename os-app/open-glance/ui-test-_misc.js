@@ -8,15 +8,23 @@ describe('ZDAGlance_Misc', function () {
 		ZDAProjectName: Math.random().toString(),
 	};
 
+	const banks = Array.from(Array(uRandomInt(3))).map(function () {
+		return [Math.random().toString(), {
+			ZDABankProtocol: {
+				ZDAProtocolName: Math.random().toString()
+			},
+		}];
+	});
+
 	before(function () {
 		return browser.OLSKVisit(kDefaultRoute, {
 			ZDAGlanceListData: JSON.stringify(Array.from(Array(count)).map(function (e, i) {
 				return Object.assign(i ? {
 					ZDAProjectName: Math.random().toString(),
-					ZDAProjectBanks: {},
 				} : item, {
 					ZDAProjectBlurb: i.toString(),
-					ZDAProjectBanks: {},
+				}, {
+					ZDAProjectBanks: Object.fromEntries(banks),
 				});
 			})),
 		});
@@ -36,12 +44,24 @@ describe('ZDAGlance_Misc', function () {
 
 	describe('ZDAGlanceHeader', function test_ZDAGlanceHeader () {
 
-		it('classes OLSKCommonEdgeBottom', function () {
-			browser.assert.hasClass(ZDAGlanceHeader, 'OLSKCommonEdgeBottom');
-		});
-
 		it('classes OLSKDecorFixedHeader', function () {
 			browser.assert.hasClass(ZDAGlanceHeader, 'OLSKDecorFixedHeader');
+		});
+	
+	});
+
+	describe('ZDAGlanceHeaderOne', function test_ZDAGlanceHeaderOne () {
+
+		it('classes OLSKCommonEdgeBottom', function () {
+			browser.assert.hasClass(ZDAGlanceHeaderOne, 'OLSKCommonEdgeBottom');
+		});
+	
+	});
+
+	describe('ZDAGlanceHeaderTwo', function test_ZDAGlanceHeaderTwo () {
+
+		it('classes OLSKCommonEdgeBottom', function () {
+			browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKCommonEdgeBottom');
 		});
 	
 	});
@@ -116,6 +136,38 @@ describe('ZDAGlance_Misc', function () {
 			browser.assert.text(ZDAGlanceProjectsCompilationLink, 'JSON');
 		});
 	
+	});
+
+	banks.forEach(function (e, i) {
+
+		let text = '';
+
+		describe('ZDAGlanceProtocolButton', function test_ZDAGlanceProtocolButton () {
+
+			const selector = `${ ZDAGlanceProtocolButton }:nth-child(${ i + 1 })`;
+			
+			it('binds ZDAProtocolName', function () {
+				browser.assert.text(selector, e[1].ZDABankProtocol.ZDAProtocolName);
+			});
+
+			context('click', function () {
+				
+				before(function () {
+					browser.assert.input(ZDAGlanceFilterInput, text);
+				});
+
+				before(function () {
+					browser.pressButton(selector, item.ZDAProjectName);
+				});
+
+				it('sets ZDAGlanceFilterInput text', function () {
+					browser.assert.input(ZDAGlanceFilterInput, e[1].ZDABankProtocol.ZDAProtocolName);
+				});
+			
+			});
+		
+		});
+
 	});
 
 });

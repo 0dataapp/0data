@@ -14,14 +14,25 @@ locals.OLSKPageMetaViewport = 'width=device-width, initial-scale=1.0, maximum-sc
 
 <div class="ZDAGlance OLSKDecor">
 
-<header class="ZDAGlanceHeader OLSKDecorFixedHeader OLSKCommonEdgeBottom">
+<header class="ZDAGlanceHeader OLSKDecorFixedHeader">
 
-<div>
+<div class="ZDAGlanceHeaderOne OLSKCommonEdgeBottom">
 	<a class="ZDAGlanceRootLink" href="<%= OLSKCanonical('ZDAVitrineRoute') %>" title="<%= OLSKLocalized('OLSKRootLinkTextHome') %>">
 		<img class="ZDAGlanceRootLinkImage" src="<%= process.env.ZDA_VITRINE_IDENTITY_URL %>">
 	</a>
 	<input class="ZDAGlanceFilterInput OLSKDecorInput" placeholder="<%= OLSKLocalized('ZDAGlanceFilterInputText') %>" accesskey="f" />
 	<a class="ZDAGlanceProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>">JSON</a>
+</div>
+
+<div class="ZDAGlanceHeaderTwo OLSKCommonEdgeBottom">
+	<% locals.ZDAGlanceListData.reduce(function (coll, item) {
+		return coll.concat(Object.values(item.ZDAProjectBanks || {}).reduce(function (array, bank) {
+			const name = (bank.ZDABankProtocol || {}).ZDAProtocolName;
+			return array.concat((name && !coll.includes(name)) ? name : []);
+		}, []));
+	}, []).forEach(function (item) { -%>
+		<button class="ZDAGlanceProtocolButton" onclick="mod.ControlSearch('<%= item %>')"><%= item %></button>
+	<% }) -%>
 </div>
 
 </header>
