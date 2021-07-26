@@ -14,6 +14,8 @@ Object.entries({
 	ZDAVitrineFlowsModernBlurb: '.ZDAVitrineFlowsModernBlurb',
 	ZDAVitrineFlowsModernImage: '.ZDAVitrineFlowsModernImage',
 
+	ZDAVitrineProtocolsHeading: '.ZDAVitrineProtocolsHeading',
+
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
 	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
 	ZDAVitrineRemoteStorageLink: '.ZDAVitrineRemoteStorageLink',
@@ -81,6 +83,10 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineFlowsModernImage', function () {
 		browser.assert.elements(ZDAVitrineFlowsModernImage, 1);
+	});
+
+	it('shows ZDAVitrineProtocolsHeading', function () {
+		browser.assert.elements(ZDAVitrineProtocolsHeading, 1);
 	});
 
 	it('shows ZDAVitrineInformationHeading', function () {
