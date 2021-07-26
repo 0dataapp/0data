@@ -150,7 +150,7 @@ describe('ZDAGlance_Misc', function () {
 				browser.assert.text(selector, e[1].ZDABankProtocol.ZDAProtocolName);
 			});
 
-			context('click', function () {
+			context.skip('click', function () {
 				
 				before(function () {
 					browser.assert.input(ZDAGlanceFilterInput, text);
