@@ -20,6 +20,7 @@ const mod = {
 			valueNames: [
 				'ZDAGlanceListItemName',
 				'ZDAGlanceListItemBlurb',
+				{ data: ['protocols'] },
 			],
 		});
 

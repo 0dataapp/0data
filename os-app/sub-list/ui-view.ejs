@@ -7,7 +7,11 @@
 <div class="list">
 
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>
-	<div class="ZDAGlanceListItem OLSKCommonCard">
+	<div class="ZDAGlanceListItem OLSKCommonCard" data-protocols="<%= Object.values(item.ZDAProjectBanks || {}).filter(function (e) {
+		return e.ZDABankProtocol;
+	}).map(function (e) {
+		return e.ZDABankProtocol.ZDAProtocolName;
+	}).join(', ') %>">
 		<a class="ZDAGlanceListItemIcon" href="<%= item.ZDAProjectURL %>" aria-hidden="true" tabindex="-1">
 			<img class="ZDAGlanceListItemIconImage" src="<%= item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL || '/_shared/__external/OLSKUIAssets/_OLSKSharedIconPlaceholder.svg' %>" />
 		</a>

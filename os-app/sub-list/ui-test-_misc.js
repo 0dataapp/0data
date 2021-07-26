@@ -29,6 +29,22 @@ describe('ZDAGlanceList_Misc', function  () {
 
 	});
 
+	describe('ZDAGlanceListItem', function test_ZDAGlanceListItem () {
+
+		it('classes OLSKCommonCard', function () {
+			browser.assert.hasClass(ZDAGlanceListItem, 'OLSKCommonCard');
+		});
+
+		it('sets data-protocols', function () {
+			browser.assert.attribute('.ZDAGlanceListItem', 'data-protocols', Object.values(item.ZDAProjectBanks).filter(function (e) {
+				return e.ZDABankProtocol;
+			}).map(function (e) {
+				return e.ZDABankProtocol.ZDAProtocolName;
+			}).join(', '));
+		});
+
+	});
+
 	describe('ZDAGlanceListItemIcon', function test_ZDAGlanceListItemIcon () {
 
 		it('sets href', function () {
