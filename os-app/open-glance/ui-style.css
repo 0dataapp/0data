@@ -19,7 +19,7 @@
 	font-size: 9pt;
 }
 
-.ZDAGlanceHeader {
+.ZDAGlanceHeader div {
 	display: flex !important;
 
 	background: var(--OLSKCommonBackground);
