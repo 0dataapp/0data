@@ -67,13 +67,15 @@ const mod = {
 						});
 					},
 					[ZDABank.ZDABankURLAwesome()]: function () {
-						return cheerio('.entry-content', param2).first().find('li').map(function () {
+						return param2.split('# Apps').pop().trim().split('\n-').filter(function (e) {
+							return !!e;
+						}).map(function (e) {
 							return {
-								ZDAProjectURL: cheerio('a', this).attr('href'),
+								ZDAProjectURL: e.match(/\(.*\)/)[0].slice(1, -1),
 								ZDAProjectBanks: {
 									ZDABankAwesome: {
-										ZDABankName: cheerio('a', this).text(),
-										ZDABankBlurb: cheerio(this).text().split(': ').pop(),
+										ZDABankName: e.match(/\[.*\]/)[0].slice(1, -1),
+										ZDABankBlurb: e.split(': ').pop(),
 									},
 								},
 							};

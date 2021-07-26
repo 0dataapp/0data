@@ -102,7 +102,7 @@ describe('_DataBankObjects', function test__DataBankObjects() {
 				ZDABankBlurb: Math.random().toString(),
 			}, inputData);
 
-			return `<article class="entry-content"><ul><li><a href="${ item.ZDAProjectURL }">${ item.ZDABankName }</a>: ${ item.ZDABankBlurb }</li></ul></article>`;
+			return `# Apps\n- [${ item.ZDABankName }](${ item.ZDAProjectURL }): ${ item.ZDABankBlurb }`;
 		};
 		
 		it('parses data', function () {
