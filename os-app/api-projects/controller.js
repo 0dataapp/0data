@@ -100,9 +100,14 @@ const mod = {
 			ZDAProjectBlurb: 'description',
 			ZDAProjectURL: 'url',
 			ZDAProjectIconURL: 'image',
+			ZDAProjectBanks: 'protocols',
 		}).reduce(function (coll, item) {
-			return !inputData[item[0]] ? coll : Object.assign(coll, {
-				[item[1]]: inputData[item[0]],
+			return Object.assign(coll, !inputData[item[0]] ? {} : {
+				[item[1]]: item[0] === 'ZDAProjectBanks' ? Object.values(inputData[item[0]]).filter(function (e) {
+					return (e.ZDABankProtocol || {}).ZDAProtocolName;
+				}).map(function (e) {
+					return e.ZDABankProtocol.ZDAProtocolName.toLowerCase();
+				}) : inputData[item[0]],
 			});
 		}, {});
 	},

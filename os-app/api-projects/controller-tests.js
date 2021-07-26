@@ -5,6 +5,7 @@ const mod = require('./controller.js');
 import { JSDOM } from 'jsdom';
 import OLSKLink from 'OLSKLink';
 import OLSKCache from 'OLSKCache';
+const ZDABank = require('../_shared/ZDABank/main.js');
 
 describe('DataProjectsSort', function test_DataProjectsSort() {
 	
@@ -300,6 +301,43 @@ describe('DataProjectJSONSchema', function test_DataProjectJSONSchema() {
 		}), {
 			image: item,
 		});
+	});
+
+	context('ZDAProjectBanks', function () {
+		
+		it('maps ZDAProtocolName', function () {
+			deepEqual(mod.DataProjectJSONSchema({
+				ZDAProjectBanks: {
+					[Math.random().toString()]: {
+						ZDABankProtocol: {},
+					},
+				},
+			}), {
+				protocols: [],
+			});
+		});
+
+		it('maps ZDAProtocolName', function () {
+			const items = Array.from(Array(Math.max(1, uRandomInt(10)))).map(function () {
+				return 'ALFA' + Math.random().toString();
+			});
+			deepEqual(mod.DataProjectJSONSchema({
+				ZDAProjectBanks: items.reduce(function (coll, ZDAProtocolName) {
+					return Object.assign(coll, {
+						[Math.random().toString()]: {
+							ZDABankProtocol: {
+								ZDAProtocolName,
+							},
+						},
+					});
+				}, {}),
+			}), {
+				protocols: items.map(function (e) {
+					return e.toLowerCase();
+				}),
+			});
+		});
+	
 	});
 
 });
