@@ -707,6 +707,69 @@ describe('DataBankProtocols', function test_DataBankProtocols() {
 
 });
 
+describe('_DataBankToolObjects', function test__DataBankToolObjects() {
+
+	const uBank = function (inputData = {}) {
+		const item = Object.assign({
+			ZDAToolURL: Math.random().toString(),
+			ZDAToolName: Math.random().toString(),
+			ZDAToolBlurb: Math.random().toString(),
+		}, inputData);
+
+		return `# Tools\n- [${ item.ZDAToolName }](${ item.ZDAToolURL }): ${ item.ZDAToolBlurb }\n#`;
+	};
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataBankToolObjects(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns array', function () {
+		deepEqual(mod._DataBankToolObjects(''), []);
+	});
+
+	it('parses data', function () {
+		const ZDAToolURL = Math.random().toString();
+		const ZDAToolName = Math.random().toString();
+		const ZDAToolBlurb = Math.random().toString();
+
+		deepEqual(mod._DataBankToolObjects(uBank({
+			ZDAToolURL,
+			ZDAToolName,
+			ZDAToolBlurb,
+		})), [{
+			ZDAToolURL,
+			ZDAToolName,
+			ZDAToolBlurb,
+		}]);
+	});
+
+});
+
+describe('DataBankTools', function test_DataBankTools() {
+
+	const _DataBankTools = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataBankToolObjects: (function () {}),
+		}, inputData);
+		return _mod.DataBankTools() || _mod;
+	};
+
+	it('calls _DataBankToolObjects', function () {
+		const item = Math.random().toString();
+		deepEqual(uCapture(function (_DataBankToolObjects) {
+			_DataBankTools({
+				_ValueCacheObject: {
+					[ZDABank.ZDABankURLAwesome()]: item,
+				},
+				_DataBankToolObjects,
+			})
+		}), [item]);
+	});
+
+});
+
 describe('SetupFetchQueue', function test_SetupFetchQueue() {
 
 	const _SetupFetchQueue = function (inputData) {

@@ -283,6 +283,32 @@ const mod = {
 		return _mod._DataBankProtocolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]);
 	},
 
+	_DataBankToolObjects (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return inputData.split('# Tools').pop().split('#').shift().trim().split('\n-').filter(function (e) {
+			return !!e;
+		}).map(function (e) {
+			return {
+				ZDAToolURL: e.match(/\(.*\)/)[0].slice(1, -1),
+				ZDAToolName: e.match(/\[.*\]/)[0].slice(1, -1),
+				ZDAToolBlurb: e.split(': ').pop(),
+			};
+		});
+	},
+
+	DataBankTools () {
+		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
+
+		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
+			mod.SetupBanksCache();
+		}
+
+		return _mod._DataBankToolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]);
+	},
+
 	// SETUP
 
 	SetupFetchQueue () {
