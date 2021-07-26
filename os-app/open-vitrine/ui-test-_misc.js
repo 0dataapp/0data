@@ -121,7 +121,7 @@ describe('ZDAVitrine_Misc', function () {
 	describe('ZDAVitrineRepoLink', function test_ZDAVitrineRepoLink () {
 		
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineRepoLink, 'href', process.env.ZDA_VITRINE_REPO_URL);
+			browser.assert.attribute(ZDAVitrineRepoLink, 'href', process.env.OLSK_REPO_URL);
 		});
 	
 	});
@@ -159,6 +159,14 @@ describe('ZDAVitrine_Misc', function () {
 
 		it('sets ROCOBulletinProject', function () {
 			browser.assert.attribute('.ROCOBulletinProjectField', 'value', 'RP_005');
+		});
+
+	});
+
+	describe('OLSKEdit', function test_OLSKEdit () {
+
+		it('sets OLSKEditURL', function () {
+			browser.assert.attribute('.OLSKEdit', 'href', process.env.OLSK_REPO_URL);
 		});
 
 	});
