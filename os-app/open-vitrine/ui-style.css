@@ -64,3 +64,12 @@
 	font-size: 120%;
 	font-family: var(--OLSKCommonHeadingFontFamily);
 }
+
+.OLSKDecorGlossary {
+	margin: unset;
+	background: #e3e0d4;
+}
+
+.OLSKDecorGlossary dd {
+	margin: 4px 0 10px 0;
+}

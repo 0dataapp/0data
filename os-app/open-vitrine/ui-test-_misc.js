@@ -3,6 +3,7 @@ const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 describe('ZDAVitrine_Misc', function () {
 
 	const protocols = require('../task-a-banks/controller.js').DataBankProtocols();
+	const tools = require('../task-a-banks/controller.js').DataBankTools();
 
 	before(function () {
 		return browser.visit(kDefaultRoute.OLSKRoutePath);
@@ -82,6 +83,34 @@ describe('ZDAVitrine_Misc', function () {
 			
 			it('sets text', function () {
 				browser.assert.text(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 }) ${ ZDAVitrineProtocolsLinkText}`, e.ZDAProtocolName);
+			});
+		
+		});
+
+	});
+
+	tools.forEach(function (e, i) {
+		
+		context(e.ZDAToolURL, function () {
+			
+			describe('ZDAVitrineToolsLink', function test_ZDAVitrineToolsLink() {
+				
+				it('sets href', function () {
+					browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineToolsLink }`, 'href', e.ZDAToolURL);
+				});
+
+				it('sets text', function () {
+					browser.assert.text(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineToolsLink }`, e.ZDAToolName);
+				});
+			
+			});
+
+			describe('ZDAVitrineToolsBlurb', function test_ZDAVitrineToolsBlurb() {
+				
+				it('sets text', function () {
+					browser.assert.text(`${ ZDAVitrineToolsBlurb }:nth-of-type(${ i + 1 })`, e.ZDAToolBlurb);
+				});
+			
 			});
 		
 		});

@@ -19,6 +19,10 @@ Object.entries({
 	ZDAVitrineProtocolsLinkImage: '.ZDAVitrineProtocolsLinkImage',
 	ZDAVitrineProtocolsLinkText: '.ZDAVitrineProtocolsLinkText',
 
+	ZDAVitrineToolsHeading: '.ZDAVitrineToolsHeading',
+	ZDAVitrineToolsLink: '.ZDAVitrineToolsLink',
+	ZDAVitrineToolsBlurb: '.ZDAVitrineToolsBlurb',
+
 	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
 	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
 	ZDAVitrineRemoteStorageLink: '.ZDAVitrineRemoteStorageLink',
@@ -37,6 +41,7 @@ Object.entries({
 describe('ZDAVitrine_Access', function () {
 
 	const protocols = require('../task-a-banks/controller.js').DataBankProtocols().length;
+	const tools = require('../task-a-banks/controller.js').DataBankTools().length;
 
 	before(function() {
 		return browser.visit(kDefaultRoutePath);
@@ -104,6 +109,18 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineProtocolsLinkText', function () {
 		browser.assert.elements(ZDAVitrineProtocolsLinkText, protocols);
+	});
+
+	it('shows ZDAVitrineToolsHeading', function () {
+		browser.assert.elements(ZDAVitrineToolsHeading, 1);
+	});
+
+	it('shows ZDAVitrineToolsLink', function () {
+		browser.assert.elements(ZDAVitrineToolsLink, tools);
+	});
+
+	it('shows ZDAVitrineToolsBlurb', function () {
+		browser.assert.elements(ZDAVitrineToolsBlurb, tools);
 	});
 
 	it('shows ZDAVitrineInformationHeading', function () {

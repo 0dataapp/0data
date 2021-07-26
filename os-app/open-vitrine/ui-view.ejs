@@ -58,6 +58,15 @@ locals.OLSKPageAssets = [
 	</a>
 <% }) -%>
 
+<h1 class="ZDAVitrineToolsHeading"><%= OLSKLocalized('ZDAVitrineToolsHeadingText') %></h1>
+
+<dl class="OLSKDecorGlossary">
+	<% ZDAVitrineTools.forEach(function (item) { -%>
+	<dt><a class="ZDAVitrineToolsLink" href="<%= item.ZDAToolURL %>"><%= item.ZDAToolName %></a></dt>
+	<dd class="ZDAVitrineToolsBlurb"><%= item.ZDAToolBlurb %></dd>
+	<% }) -%>
+</dl>
+
 <h1 class="ZDAVitrineInformationHeading"><%= OLSKLocalized('ZDAVitrineInformationHeadingText') %></h1>
 
 <ul>
