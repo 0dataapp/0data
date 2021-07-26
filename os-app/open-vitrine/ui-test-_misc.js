@@ -2,6 +2,8 @@ const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 
 describe('ZDAVitrine_Misc', function () {
 
+	const protocols = require('../task-a-banks/controller.js').DataBankProtocols();
+
 	before(function () {
 		return browser.visit(kDefaultRoute.OLSKRoutePath);
 	});
@@ -56,6 +58,34 @@ describe('ZDAVitrine_Misc', function () {
 			browser.assert.attribute(ZDAVitrineFlowsModernImage, 'src', process.env.ZDA_VITRINE_FLOWS_MODERN_URL);
 		});
 	
+	});
+
+	protocols.forEach(function (e, i) {
+		
+		describe('ZDAVitrineProtocolsLink', function test_ZDAVitrineProtocolsLink() {
+			
+			it('sets href', function () {
+				browser.assert.attribute(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 })`, 'href', e.ZDAProtocolURL);
+			});
+		
+		});
+
+		describe('ZDAVitrineProtocolsLinkImage', function test_ZDAVitrineProtocolsLinkImage() {
+			
+			it('sets src', function () {
+				browser.assert.attribute(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 }) ${ ZDAVitrineProtocolsLinkImage}`, 'src', e.ZDAProtocolIconURL);
+			});
+		
+		});
+
+		describe('ZDAVitrineProtocolsLinkText', function test_ZDAVitrineProtocolsLinkText() {
+			
+			it('sets text', function () {
+				browser.assert.text(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 }) ${ ZDAVitrineProtocolsLinkText}`, e.ZDAProtocolName);
+			});
+		
+		});
+
 	});
 
 	describe('ZDAVitrineAutonomousDataLink', function test_ZDAVitrineAutonomousDataLink () {

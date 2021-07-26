@@ -43,3 +43,24 @@
 	}
 
 }
+
+.ZDAVitrineProtocolsLink {
+	display: flex;
+
+	text-decoration: none;
+
+	align-items: center;
+}
+
+.ZDAVitrineProtocolsLinkImage {
+	--ZDAVitrineProtocolsLinkImageSize: 32px;
+	
+	padding: 8px;
+	width: var(--ZDAVitrineProtocolsLinkImageSize);
+	max-height: var(--ZDAVitrineProtocolsLinkImageSize);
+}
+
+.ZDAVitrineProtocolsLinkText {
+	font-size: 120%;
+	font-family: var(--OLSKCommonHeadingFontFamily);
+}
