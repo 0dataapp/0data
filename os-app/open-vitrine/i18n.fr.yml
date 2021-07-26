@@ -17,9 +17,6 @@ ZDAVitrineFlowsModernHeadingText: La façon 0data.
 ZDAVitrineFlowsModernBlurbText: Garder nos données <em>sous notre contrôle au départ</em> et à autoriser les applications à y accéder quand cela sera nécessaire.
 ZDAVitrineProtocolsHeadingText: Les protocoles
 ZDAVitrineToolsHeadingText: Des outils
-ZDAVitrineInformationHeadingText: Plus d'info
-ZDAVitrineStorageStackLinkText: Cadre middleware de stockage décentralisé
-ZDAVitrineWrapLinkText: JavaScript API Wrapper
 ZDAVitrineProjectsHeadingText: applications
 ZDAVitrineProjectsSourcesHeadingText: Sources
 ZDAVitrineProjectsSourcesBlurbText: 'Données compilées automatiquement à partir des lieux suivants :'

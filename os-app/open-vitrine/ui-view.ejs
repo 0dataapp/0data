@@ -67,18 +67,6 @@ locals.OLSKPageAssets = [
 	<% }) -%>
 </dl>
 
-<h1 class="ZDAVitrineInformationHeading"><%= OLSKLocalized('ZDAVitrineInformationHeadingText') %></h1>
-
-<ul>
-	<li><a class="ZDAVitrineAutonomousDataLink" href="<%= process.env.ZDA_VITRINE_AUTONOMOUS_DATA_URL %>">Autonomous Data</a></li>
-	<li><a class="ZDAVitrineRemoteStorageLink" href="<%= process.env.ZDA_VITRINE_REMOTE_STORAGE_URL %>">remoteStorage</a></li>
-	<li><a class="ZDAVitrineSolidProjectLink" href="<%= process.env.ZDA_VITRINE_SOLID_PROJECT_URL %>">Solid Project</a></li>
-	<li><a class="ZDAVitrineUnhostedLink" href="<%= process.env.ZDA_VITRINE_UNHOSTED_URL %>">Unhosted</a></li>
-	<li><a class="ZDAVitrineFissionLink" href="<%= process.env.ZDA_VITRINE_FISSION_URL %>">Fission</a></li>
-	<li><a class="ZDAVitrineStorageStackLink" href="<%= process.env.ZDA_VITRINE_STORAGESTACK_URL %>"><%= OLSKLocalized('ZDAVitrineStorageStackLinkText') %></a></li>
-	<li><a class="ZDAVitrineWrapLink" href="<%= process.env.ZDA_VITRINE_WRAP_URL %>"><%= OLSKLocalized('ZDAVitrineWrapLinkText') %></a></li>
-</ul>
-
 <%- include('../../node_modules/ROCOGazette/main.ejs', {
 	_OLSKModulesDirPrefix: '../.',
 	ROCOBulletinProject: 'RP_005',

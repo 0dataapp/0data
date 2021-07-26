@@ -23,15 +23,6 @@ Object.entries({
 	ZDAVitrineToolsLink: '.ZDAVitrineToolsLink',
 	ZDAVitrineToolsBlurb: '.ZDAVitrineToolsBlurb',
 
-	ZDAVitrineInformationHeading: '.ZDAVitrineInformationHeading',
-	ZDAVitrineAutonomousDataLink: '.ZDAVitrineAutonomousDataLink',
-	ZDAVitrineRemoteStorageLink: '.ZDAVitrineRemoteStorageLink',
-	ZDAVitrineSolidProjectLink: '.ZDAVitrineSolidProjectLink',
-	ZDAVitrineUnhostedLink: '.ZDAVitrineUnhostedLink',
-	ZDAVitrineFissionLink: '.ZDAVitrineFissionLink',
-	ZDAVitrineStorageStackLink: '.ZDAVitrineStorageStackLink',
-	ZDAVitrineWrapLink: '.ZDAVitrineWrapLink',
-
 	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
 	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
 }).map(function (e) {
@@ -122,38 +113,6 @@ describe('ZDAVitrine_Access', function () {
 	it('shows ZDAVitrineToolsBlurb', function () {
 		browser.assert.elements(ZDAVitrineToolsBlurb, tools);
 	});
-
-	it('shows ZDAVitrineInformationHeading', function () {
-		browser.assert.elements(ZDAVitrineInformationHeading, 1);
-	});
-
-	it('shows ZDAVitrineAutonomousDataLink', function () {
-		browser.assert.elements(ZDAVitrineAutonomousDataLink, 1);
-	});
-
-	it('shows ZDAVitrineRemoteStorageLink', function () {
-		browser.assert.elements(ZDAVitrineRemoteStorageLink, 1);
-	});
-
-	it('shows ZDAVitrineSolidProjectLink', function () {
-		browser.assert.elements(ZDAVitrineSolidProjectLink, 1);
-	});
-
-	it('shows ZDAVitrineUnhostedLink', function () {
-		browser.assert.elements(ZDAVitrineUnhostedLink, 1);
-	});
-
-	it('shows ZDAVitrineFissionLink', function () {
-		browser.assert.elements(ZDAVitrineFissionLink, 1);
-	});
-
-	it('shows ZDAVitrineStorageStackLink', function () {
-		browser.assert.elements(ZDAVitrineStorageStackLink, 1);
-	});
-
-	it('shows ZDAVitrineWrapLink', function () {
-		browser.assert.elements(ZDAVitrineWrapLink, 1);
-	});	
 
 	it('shows ROCOGazette', function () {
 		browser.assert.elements('.ROCOGazette', 1);
