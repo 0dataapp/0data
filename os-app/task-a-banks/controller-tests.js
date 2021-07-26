@@ -653,7 +653,7 @@ describe('_DataBankProtocolObjects', function test__DataBankProtocolObjects() {
 			ZDAProtocolIconURL: Math.random().toString(),
 		}, inputData);
 
-		return `# Protocols\n<table><tr><td><a href="${ item.ZDAProtocolURL }"><img src="${ item.ZDAProtocolIconURL }" /></a></td><td>${ item.ZDAProtocolName }</td></tr></table>\n#`;
+		return `# Protocols\n<table><tr><td><a href="${ item.ZDAProtocolURL }"><img src="${ item.ZDAProtocolIconURL }" /></a></td><td>\n${ item.ZDAProtocolName }\n</td></tr></table>\n#`;
 	};
 
 	it('throws if not string', function () {

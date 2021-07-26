@@ -267,7 +267,7 @@ const mod = {
 		return Array.from(cheerio('table', inputData.split('# Protocols').pop().split('#').shift().trim()).first().find('tr').map(function () {
 			return {
 				ZDAProtocolURL: cheerio('a', this).attr('href'),
-				ZDAProtocolName: cheerio('td:nth-child(2)', this).text(),
+				ZDAProtocolName: cheerio('td:nth-child(2)', this).text().trim(),
 				ZDAProtocolIconURL: cheerio('img', this).attr('src'),
 			};
 		}));
@@ -275,6 +275,10 @@ const mod = {
 
 	DataBankProtocols () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
+
+		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
+			mod.SetupBanksCache();
+		}
 
 		return _mod._DataBankProtocolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]);
 	},
