@@ -76,21 +76,9 @@ table {
 	margin: 0 !important;
 }
 
-.ZDAGlanceListHead {
-	background: #efefef;
-}
-
-.ZDAGlanceListHeadRemoteStorage, .ZDAGlanceListHeadFission, .ZDAGlanceListHeadSolidProject {
-	max-width: 36px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-
-td, th {
-	padding: 10px;
-}
-
 td {
+	padding: 10px;
+	
 	border-top: none !important;
 	border-bottom: var(--OLSKCommonEdgeBorder);
 }

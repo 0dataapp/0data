@@ -4,17 +4,6 @@
 	<p class="ZDAGlanceListEmpty"><%= OLSKLocalized('ZDAGlanceListEmptyText') %></p>
 <% } -%>
 
-<% if (locals.ZDAGlanceListData.length) { -%>
-<thead>
-	<tr class="ZDAGlanceListHead OLSKStickyHeader OLSKCommonEdgeBottom">
-		<th class="ZDAGlanceListHeadName ZDAGlanceListSort" data-sort="ZDAGlanceListItemName"><%= OLSKLocalized('ZDAGlanceListHeadNameText') %></th>
-		<th class="ZDAGlanceListHeadRemoteStorage ZDAGlanceListSort" data-sort="ZDAGlanceListItemRemoteStorage">remoteStorage</th>
-		<th class="ZDAGlanceListHeadFission ZDAGlanceListSort" data-sort="ZDAGlanceListItemFission">Fission</th>
-		<th class="ZDAGlanceListHeadSolidProject ZDAGlanceListSort" data-sort="ZDAGlanceListItemSolidProject">SOLID</th>
-	</tr>
-</thead>
-<% } -%>
-
 <tbody class="list">
 
 <% locals.ZDAGlanceListData.forEach(function (item) { -%>

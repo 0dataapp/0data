@@ -18,25 +18,6 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAGlanceListEmpty, uLocalized('ZDAGlanceListEmptyText'));
 		});
 
-		context('ZDAGlanceListData', function () {
-
-			before(function() {
-				return browser.OLSKVisit(kDefaultRoute, {
-					ZDAGlanceListData: JSON.stringify(Array.from(Array(uRandomInt(10))).map(function (e) {
-						return {
-							ZDAProjectBanks: {},
-						};
-					})),
-					OLSKRoutingLanguage,
-				});
-			});
-
-			it('localizes ZDAGlanceListHeadName', function () {
-				browser.assert.text(ZDAGlanceListHeadName, uLocalized('ZDAGlanceListHeadNameText'));
-			});
-
-		});
-
 	});
 
 });
