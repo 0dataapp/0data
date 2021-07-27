@@ -100,6 +100,7 @@ const mod = {
 
 				return !href ? null : OLSKLink.OLSKLinkRelativeURL(params.ParamURL, href);
 			})(params.ParamMetadata['og:image'])],
+			['ZDAProjectBlurb', params.ParamManifest?.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.title],
 			['ZDAProjectHasManifest', !!params.ParamManifest],

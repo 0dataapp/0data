@@ -101,6 +101,18 @@ describe('_DataDOMPropertyCandidates', function test__DataDOMPropertyCandidates(
 			}));
 		});
 
+		it('extracts ParamManifest.description', function () {
+			const ZDAProjectBlurb = Math.random().toString();
+			deepEqual(__DataDOMPropertyCandidates({
+				ParamManifest: {
+					'description': ZDAProjectBlurb,
+				},
+			}), Object.entries({
+				ZDAProjectBlurb,
+				ZDAProjectHasManifest: true,
+			}));
+		});
+
 		it('extracts description', function () {
 			const _ZDAProjectBlurb = Math.random().toString();
 			deepEqual(__DataDOMPropertyCandidates({
