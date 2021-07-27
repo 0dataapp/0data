@@ -49,6 +49,7 @@ const mod = {
 		const response = await fetch(url);
 
 		if (!response.ok) {
+			console.log(url);
 			throw new Error(`unexpected response ${response.statusText}`);
 		}
 
