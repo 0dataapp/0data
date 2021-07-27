@@ -89,6 +89,18 @@ describe('ZDAVitrine_Misc', function () {
 
 	});
 
+	describe('ZDAVitrineToolsContainer', function test_ZDAVitrineToolsContainer() {
+		
+		it('classes OLSKDecorGlossary', function () {
+			browser.assert.hasClass(ZDAVitrineToolsContainer, 'OLSKDecorGlossary');
+		});
+
+		it('sets lang', function () {
+			browser.assert.attribute(ZDAVitrineToolsContainer, 'lang', 'en');
+		});
+	
+	});
+
 	tools.forEach(function (e, i) {
 		
 		context(e.ZDAToolURL, function () {

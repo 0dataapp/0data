@@ -20,6 +20,7 @@ Object.entries({
 	ZDAVitrineProtocolsLinkText: '.ZDAVitrineProtocolsLinkText',
 
 	ZDAVitrineToolsHeading: '.ZDAVitrineToolsHeading',
+	ZDAVitrineToolsContainer: '.ZDAVitrineToolsContainer',
 	ZDAVitrineToolsLink: '.ZDAVitrineToolsLink',
 	ZDAVitrineToolsBlurb: '.ZDAVitrineToolsBlurb',
 
@@ -106,6 +107,10 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineToolsHeading', function () {
 		browser.assert.elements(ZDAVitrineToolsHeading, 1);
+	});
+
+	it('shows ZDAVitrineToolsContainer', function () {
+		browser.assert.elements(ZDAVitrineToolsContainer, 1);
 	});
 
 	it('shows ZDAVitrineToolsLink', function () {
