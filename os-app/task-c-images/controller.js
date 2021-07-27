@@ -42,6 +42,7 @@ const mod = {
 			'https://noeldemartin.github.io/media-kraken/img/icons/android-chrome-maskable-512x512.png': 'https://noeldemartin.github.io/media-kraken/img/icons/android-chrome-512x512.png',
 			'https://thewebalyst.solidcommunity.net/plume/img/favicon.png': 'https://thewebalyst.solidcommunity.net/plume/favicon.png',
 			'https://madelinemiller.dev/apps/emojify/icons/icon-512x512.png': 'https://madelinemiller.dev/static/ff435ace25032a4f5a8b09bb98a28dbc/emojify-icon.png',
+			'https://jeremyckahn.github.io/logoMaskable.png': 'https://jeremyckahn.github.io/farmhand/app-icons/ios-appicon-180-180.png',
 		}).forEach(function ([source, destination]) {
 			if (url.match(source)) {
 				url = destination;
