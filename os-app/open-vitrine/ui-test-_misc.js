@@ -74,7 +74,7 @@ describe('ZDAVitrine_Misc', function () {
 		describe('ZDAVitrineProtocolsLinkImage', function test_ZDAVitrineProtocolsLinkImage() {
 			
 			it('sets src', function () {
-				browser.assert.attribute(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 }) ${ ZDAVitrineProtocolsLinkImage }`, 'src', e.ZDAProtocolIconURL);
+				browser.assert.attribute(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 }) ${ ZDAVitrineProtocolsLinkImage }`, 'src', e._ZDAProtocolIconURLCachedPath || e.ZDAProtocolIconURL);
 			});
 		
 		});

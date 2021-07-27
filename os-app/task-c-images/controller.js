@@ -28,6 +28,7 @@ const mod = {
 	_DataFoilOLSKQueue: require('OLSKQueue'),
 	_DataFoilFS: require('fs'),
 	_DataFoilProjects: require('../api-projects/controller.js'),
+	_DataFoilBanks: require('../task-a-banks/controller.js'),
 
 	async _DataImagePipe (url, file) {
 		const {createWriteStream} = require('fs');
@@ -96,10 +97,10 @@ const mod = {
 	SetupImages () {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
-		return _mod._DataFoilProjects.DataProjects().filter(function (e) {
-			return e.ZDAProjectIconURL && !e._ZDAProjectIconURLCachedPath;
-		}).map(function (e) {
-			return _mod._SetupImage(e.ZDAProjectIconURL);
+		return _mod._DataFoilProjects.DataProjects().concat(_mod._DataFoilBanks.DataBankProtocols()).reduce(function (coll, item) {
+			return coll.concat(item.ZDAProjectIconURL && !item._ZDAProjectIconURLCachedPath ? item.ZDAProjectIconURL : (item.ZDAProtocolIconURL && !item._ZDAProtocolIconURLCachedPath ? item.ZDAProtocolIconURL : []));
+		}, []).map(function (e) {
+			return _mod._SetupImage(e);
 		});
 	},
 

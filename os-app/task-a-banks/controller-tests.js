@@ -695,12 +695,16 @@ describe('DataBankProtocols', function test_DataBankProtocols() {
 
 	it('calls _DataBankProtocolObjects', function () {
 		const item = Math.random().toString();
-		deepEqual(uCapture(function (_DataBankProtocolObjects) {
+		deepEqual(uCapture(function (capture) {
 			_DataBankProtocols({
 				_ValueCacheObject: {
 					[ZDABank.ZDABankURLAwesome()]: item,
 				},
-				_DataBankProtocolObjects,
+				_DataBankProtocolObjects: (function () {
+					capture(...arguments);
+					
+					return []
+				}),
 			})
 		}), [item]);
 	});

@@ -53,7 +53,7 @@ locals.OLSKPageAssets = [
 
 <% ZDAVitrineProtocols.forEach(function (item) { -%>
 	<a class="ZDAVitrineProtocolsLink" href="<%= item.ZDAProtocolURL %>">
-		<img class="ZDAVitrineProtocolsLinkImage" src="<%= item.ZDAProtocolIconURL %>" />
+		<img class="ZDAVitrineProtocolsLinkImage" src="<%= item._ZDAProtocolIconURLCachedPath || item.ZDAProtocolIconURL %>" />
 		<span class="ZDAVitrineProtocolsLinkText"><%= item.ZDAProtocolName %></span>
 	</a>
 <% }) -%>

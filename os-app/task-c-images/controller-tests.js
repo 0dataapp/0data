@@ -146,6 +146,11 @@ describe('SetupImages', function test_SetupImages() {
 					return [];
 				}),
 			}, inputData),
+			_DataFoilBanks: Object.assign({
+				DataBankProtocols: (function () {
+					return [];
+				}),
+			}, inputData),
 			_SetupImage: (function () {}),
 		}, inputData).SetupImages();
 	};
@@ -186,6 +191,48 @@ describe('SetupImages', function test_SetupImages() {
 				return [...arguments];
 			}),
 		}), []);
+	});
+
+	context('DataBankProtocols', function () {
+		
+		it('calls _SetupImage', async function () {
+			const ZDAProtocolIconURL = Math.random().toString();
+
+			deepEqual(await _SetupImages({
+				DataBankProtocols: (function () {
+					return [{
+						ZDAProtocolIconURL,
+					}];
+				}),
+				_SetupImage: (function () {
+					return [...arguments];
+				}),
+			}), [[ZDAProtocolIconURL]]);
+		});
+
+		it('ignores if no ZDAProtocolIconURL', async function () {
+			deepEqual(await _SetupImages({
+				DataBankProtocols: (function () {
+					return [{}];
+				}),
+			}), []);
+		});
+
+		it('ignores if already local', async function () {
+			const ZDAProtocolIconURL = Math.random().toString();
+			deepEqual(await _SetupImages({
+				DataBankProtocols: (function () {
+					return [{
+						ZDAProtocolIconURL: Math.random().toString(),
+						_ZDAProtocolIconURLCachedPath: Math.random().toString(),
+					}];
+				}),
+				_DataImagePipe: (function () {
+					return [...arguments];
+				}),
+			}), []);
+		});
+	
 	});
 
 });

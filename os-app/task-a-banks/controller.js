@@ -21,6 +21,7 @@ const mod = {
 	_DataFoilOLSKQueue: require('OLSKQueue'),
 	_DataFoilOLSKDisk: require('OLSKDisk'),
 	_DataFoilFS: require('fs'),
+	_DataFoilImages: require('../task-c-images/controller.js'),
 
 	async _DataContentString (inputData) {
 		return (await require('node-fetch')(inputData)).text();
@@ -280,7 +281,11 @@ const mod = {
 			mod.SetupBanksCache();
 		}
 
-		return _mod._DataBankProtocolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]);
+		return _mod._DataBankProtocolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]).map(function (e) {
+			return Object.assign(e, {
+				_ZDAProtocolIconURLCachedPath: _mod._DataFoilImages.DataCacheLocalPath(e.ZDAProtocolIconURL),
+			});
+		});
 	},
 
 	_DataBankToolObjects (inputData) {
