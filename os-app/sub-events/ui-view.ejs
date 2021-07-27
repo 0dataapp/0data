@@ -1,0 +1,14 @@
+<div class="ZDAGlanceEventsList" lang="en">
+
+<% if (!locals.ZDAGlanceEventsListData.length) { -%>
+	<p class="ZDAGlanceEventsListEmpty"><%= OLSKLocalized('ZDAGlanceEventsListEmptyText') %></p>
+<% } -%>
+
+<% locals.ZDAGlanceEventsListData.forEach(function (item) { -%>
+	<div class="ZDAGlanceEventsListItem">
+		<span class="ZDAGlanceEventsListItemStart"><%= ZDAGlanceEventsListDateFormat(item.ZDAEventStart) %></span>
+		<a class="ZDAGlanceEventsListItemLink" href="<%= item.ZDAEventURL %>" target="_blank"><%= item.ZDAEventName %></a>
+	</div>
+<% }) -%>
+
+</div>
