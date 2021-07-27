@@ -211,7 +211,6 @@ describe('DataEvents', function test_DataEvents() {
 	});
 
 	it('filters if past', function () {
-		const item = Math.random().toString();
 		deepEqual(_DataEvents({
 			_DataEventObjects: (function () {
 				return [{
@@ -220,6 +219,23 @@ describe('DataEvents', function test_DataEvents() {
 				}];
 			}),
 		}), []);
+	});
+
+	it('sorts by ZDAEventStart', function () {
+		const item = Date.now() + 1000;
+		deepEqual(_DataEvents({
+			_DataEventObjects: (function () {
+				return [{
+					ZDAEventURL: arguments[0],
+					ZDAEventStart: new Date(item + mod.ZDAEventURLs().length - mod.ZDAEventURLs().indexOf(arguments[0])),
+				}];
+			}),
+		}), mod.ZDAEventURLs().reverse().map(function (ZDAEventURL, i) {
+			return {
+				ZDAEventURL,
+				ZDAEventStart: new Date(item + 1 + i),
+			};
+		}, []));
 	});
 
 });

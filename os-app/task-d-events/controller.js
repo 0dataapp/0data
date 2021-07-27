@@ -1,6 +1,10 @@
 const cheerio = require('cheerio');
 const OLSKCache = require('OLSKCache');
 
+const uAscending = function (a, b) {
+  return (a < b) ? -1 : ((a > b) ? 1 : 0);
+};
+
 const mod = {
 
 	_ValueCacheObject: {},
@@ -103,6 +107,8 @@ const mod = {
 			return coll.concat(_mod._DataEventObjects(item, _mod._ValueCacheObject[item] || '').map(require('OLSKObject').OLSKObjectTrim));
 		}, []).filter(function (e) {
 			return e.ZDAEventStart > new Date();
+		}).sort(function (a, b) {
+			return uAscending(a.ZDAEventStart, b.ZDAEventStart);
 		});
 	},
 
