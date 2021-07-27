@@ -7,6 +7,8 @@ const uAscending = function (a, b) {
 
 const mod = {
 
+	// VALUE
+
 	_ValueCacheObject: {},
 
 	// DATA
@@ -65,11 +67,11 @@ const mod = {
 						});
 					},
 					[mod.ZDAEventURLFission()]: function () {
-						return cheerio('.event-list', param2).first().find('.profile-event-wrapper').map(function () {
+						return (param2 ? JSON.parse(param2.split('<script id="__NEXT_DATA__" type="application/json">').pop().split('</script>').shift()).props.pageProps.initialData.events : []).map(function (e) {
 							return {
-								ZDAEventURL: cheerio('a.profile-event', this).attr('href'),
-								ZDAEventName: cheerio('span.event-name', this).text(),
-								ZDAEventStart: new Date(cheerio('.event-time', this).text().split(' - ').shift() + ' UTC'),
+								ZDAEventURL: require('OLSKLink').OLSKLinkRelativeURL(param1, '/' + e.url),
+								ZDAEventName: e.name,
+								ZDAEventStart: new Date(e.start_at),
 							};
 						});
 					},
@@ -78,7 +80,7 @@ const mod = {
 							return {
 								ZDAEventURL: cheerio(':nth-child(2) a', this).attr('href') || '',
 								ZDAEventName: cheerio(':nth-child(2) a', this).text(),
-								ZDAEventStart: require('luxon').DateTime.fromISO('2021-07-27T16:00:00', {
+								ZDAEventStart: require('luxon').DateTime.fromISO(cheerio('td:nth-child(1)', this).text() + 'T16:00:00', {
 									setZone: true,
 									zone: 'Europe/Rome',
 								}).toJSDate(),

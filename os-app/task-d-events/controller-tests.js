@@ -99,7 +99,7 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventStart: new Date(),
 			}, inputData);
 
-			return `<div class="event-list"><div class="profile-event-wrapper"><a href="${ item.ZDAEventURL }" class="profile-event"><div class="event-time-left"><div class="event-month">Jul</div><div class="event-date">29</div></div><div class="event-cover-wrapper"><div style="background-image:url(&quot;https://cdn.lu.ma/cdn-cgi/image/format=auto,fit=cover,dpr=2,quality=85,width=400/event-covers/ev/f2fc044d-28af-4170-9bc9-036ea40aca0e&quot;)" class="event-cover"></div><div class="event-cover-hover-overlay"></div></div><div class="event-info"><div class=""><span class="event-name">${ item.ZDAEventName }</span></div><div class="mt-1 flex-center event-meta"><div class="event-time-wrapper"><div class="event-time">${ item.ZDAEventStart.toString() } - 5:30 PM Coordinated Universal Time<!-- Jul 29 (Thu), 4:00 PM - 5:30 PM Coordinated Universal Time --> </div></div></div></div></a></div></div>`;
+			return `<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps": {"initialData": {"events": [{"name": "${ item.ZDAEventName }","url": "${ item.ZDAEventURL }","start_at": "${ item.ZDAEventStart.toJSON() }","duration_minutes": 90,"visibility": "public","cover_url": "https://cdn.lu.ma/event-covers/se/3ec890e2-f604-4e76-ad7b-69996063b386","event_type": "independent","recurrence_id": null,"api_id": "evt-nHhXeNbXYwW4DW1","session_count_total": null,"session_count_future": null}]}}}}</script>`;
 		};
 		
 		it('parses data', function () {
@@ -112,9 +112,9 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventName,
 				ZDAEventStart,
 			})), [{
-				ZDAEventURL,
+				ZDAEventURL: require('OLSKLink').OLSKLinkRelativeURL(mod.ZDAEventURLFission(), '/' + ZDAEventURL),
 				ZDAEventName,
-				ZDAEventStart: new Date(ZDAEventStart.toString() + ' UTC'),
+				ZDAEventStart,
 			}]);
 		});
 	
