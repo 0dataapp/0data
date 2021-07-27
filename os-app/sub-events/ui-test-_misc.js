@@ -27,7 +27,7 @@ describe('ZDAVitrineEventsList_Misc', function  () {
 	describe('ZDAVitrineEventsListItemStart', function test_ZDAVitrineEventsListItemStart () {
 
 		it('binds ZDAEventStart', function () {
-			browser.assert.text(ZDAVitrineEventsListItemStart, require('luxon').DateTime.fromJSDate(item.ZDAEventStart).toFormat('yyyy.dd'));
+			browser.assert.text(ZDAVitrineEventsListItemStart, require('luxon').DateTime.fromJSDate(item.ZDAEventStart).toFormat('MMM dd'));
 		});
 
 	});

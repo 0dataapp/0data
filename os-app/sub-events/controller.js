@@ -3,7 +3,7 @@ const mod = {
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAVitrineEventsListDateFormat (inputData) {
-				return require('luxon').DateTime.fromJSDate(inputData).toFormat('yyyy.dd')
+				return require('luxon').DateTime.fromJSDate(inputData).toFormat('MMM dd')
 			},
 		}
 	},

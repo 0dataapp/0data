@@ -4,11 +4,13 @@
 	<p class="ZDAVitrineEventsListEmpty"><%= OLSKLocalized('ZDAVitrineEventsListEmptyText') %></p>
 <% } -%>
 
+<table>
 <% ZDAVitrineEventsListData.forEach(function (item) { -%>
-	<div class="ZDAVitrineEventsListItem">
-		<span class="ZDAVitrineEventsListItemStart"><%= ZDAVitrineEventsListDateFormat(item.ZDAEventStart) %></span>
-		<a class="ZDAVitrineEventsListItemLink" href="<%= item.ZDAEventURL %>" target="_blank"><%= item.ZDAEventName %></a>
-	</div>
+	<tr class="ZDAVitrineEventsListItem">
+		<td class="ZDAVitrineEventsListItemStart"><%= ZDAVitrineEventsListDateFormat(item.ZDAEventStart) %></td>
+		<td><a class="ZDAVitrineEventsListItemLink" href="<%= item.ZDAEventURL %>" target="_blank"><%= item.ZDAEventName %></a></td>
+	</tr>
 <% }) -%>
+</table>
 
 </div>
