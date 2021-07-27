@@ -40,6 +40,7 @@ const mod = {
 		Object.entries({
 			'https://laverna.cc/apple-touch-icon.png': 'https://laverna.cc/app/images/icon/icon-152x152.png',
 			'https://noeldemartin.github.io/media-kraken/img/icons/android-chrome-maskable-512x512.png': 'https://noeldemartin.github.io/media-kraken/img/icons/android-chrome-512x512.png',
+			'https://thewebalyst.solidcommunity.net/plume/img/favicon.png': 'https://thewebalyst.solidcommunity.net/plume/favicon.png',
 		}).forEach(function ([source, destination]) {
 			if (url === source) {
 				url = destination;
