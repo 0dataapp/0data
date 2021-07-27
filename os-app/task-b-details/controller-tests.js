@@ -14,6 +14,18 @@ describe('DataCacheAggregateBasename', function test_DataCacheAggregateBasename(
 
 });
 
+describe('DataCacheImageAttributeCandidates', function test_DataCacheImageAttributeCandidates() {
+
+	it('returns array', function () {
+		deepEqual(mod.DataCacheImageAttributeCandidates(), [
+			'apple-touch-icon',
+			'apple-touch-icon-precomposed',
+			'mask-icon',
+			]);
+	});
+
+});
+
 describe('_DataDOMPropertyCandidates', function test__DataDOMPropertyCandidates() {
 
 	const __DataDOMPropertyCandidates = function (inputData = {}) {

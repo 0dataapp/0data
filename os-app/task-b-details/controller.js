@@ -52,6 +52,14 @@ const mod = {
 		return '_aggregate';
 	},
 
+	DataCacheImageAttributeCandidates () {
+		return [
+			'apple-touch-icon',
+			'apple-touch-icon-precomposed',
+			'mask-icon',
+		];
+	},
+
 	_DataDOMPropertyCandidates (params) {
 		if (typeof params !== 'object' || params === null) {
 			throw new Error('ZDRErrorInputNotValid');
