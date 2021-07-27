@@ -45,7 +45,7 @@ const mod = {
 					[mod.ZDABankURLSolidProject()]: 'ZDABankSolidProject',
 				}[item]]: {
 					[mod.ZDABankURLRemoteStorage()]: {
-						ZDAProtocolName: 'RemoteStorage',
+						ZDAProtocolName: 'remoteStorage',
 					},
 					[mod.ZDABankURLFission()]: {
 						ZDAProtocolName: 'Fission',

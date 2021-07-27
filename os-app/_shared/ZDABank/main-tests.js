@@ -65,7 +65,7 @@ describe('ZDABankProtocolProperties', function test_ZDABankProtocolProperties() 
 	it('returns object', function () {
 		deepEqual(mod.ZDABankProtocolProperties(), {
 			ZDABankRemoteStorage: {
-				ZDAProtocolName: 'RemoteStorage',
+				ZDAProtocolName: 'remoteStorage',
 			},
 			ZDABankFission: {
 				ZDAProtocolName: 'Fission',
