@@ -84,14 +84,25 @@ const mod = {
 						});
 					},
 					[mod.ZDAEventURLSolidProject()]: function () {
-						return cheerio('article.content table', param2).first().find('tr').map(function () {
+						// return cheerio('article.content table', param2).first().find('tr').map(function () {
+						// 	return {
+						// 		ZDAEventURL: cheerio(':nth-child(2) a', this).attr('href') || '',
+						// 		ZDAEventName: cheerio(':nth-child(2) a', this).text(),
+						// 		ZDAEventStart: require('luxon').DateTime.fromISO(cheerio('td:nth-child(1)', this).text() + 'T16:00:00', {
+						// 			setZone: true,
+						// 			zone: 'Europe/Rome',
+						// 		}).toJSDate(),
+						// 	};
+						// });
+						return (param2 ? JSON.parse(param2.split('<script type="application/ld+json">').pop().split('</script>').shift()) : []).map(function (e) {
 							return {
-								ZDAEventURL: cheerio(':nth-child(2) a', this).attr('href') || '',
-								ZDAEventName: cheerio(':nth-child(2) a', this).text(),
-								ZDAEventStart: require('luxon').DateTime.fromISO(cheerio('td:nth-child(1)', this).text() + 'T16:00:00', {
-									setZone: true,
-									zone: 'Europe/Rome',
-								}).toJSDate(),
+								ZDAEventURL: e.url,
+								ZDAEventName: e.name,
+								// ZDAEventStart: require('luxon').DateTime.fromISO(ZDAEventStart.toJSON().slice(0, 10) + 'T16:00:00', {
+								// 	setZone: true,
+								// 	zone: 'Europe/Rome',
+								// }).toJSDate(),
+								ZDAEventStart: new Date(e.startDate),
 							};
 						});
 					},

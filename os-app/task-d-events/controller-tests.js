@@ -129,7 +129,8 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventStart: new Date(),
 			}, inputData);
 
-			return `<article class="section content"><h2 id="2021-events">2021 Events</h2><table><tr><td>${ item.ZDAEventStart.toJSON().slice(0, 10) }</td><td><a href="${ item.ZDAEventURL }">${ item.ZDAEventName }</a></td><td><a href="https://solidproject.org/team">Solid Team</a></td><td><em>Solid over the Interplanetary File System</em><br>Fabrizio Parrillo (U. Basel, Switzerland), Christian F Tschudin (U. Basel, Switzerland)</td></tr></table><table><tr><td>2021-07-01</td><td><a href="https://www.eventbrite.com/e/158443820733">Solid World</a></td><td><a href="https://solidproject.org/team">Solid Team</a></td><td><em>Solid over the Interplanetary File System</em><br>Fabrizio Parrillo (U. Basel, Switzerland), Christian F Tschudin (U. Basel, Switzerland)</td></tr></table></article>`;
+			// return `<article class="section content"><h2 id="2021-events">2021 Events</h2><table><tr><td>${ item.ZDAEventStart.toJSON().slice(0, 10) }</td><td><a href="${ item.ZDAEventURL }">${ item.ZDAEventName }</a></td><td><a href="https://solidproject.org/team">Solid Team</a></td><td><em>Solid over the Interplanetary File System</em><br>Fabrizio Parrillo (U. Basel, Switzerland), Christian F Tschudin (U. Basel, Switzerland)</td></tr></table><table><tr><td>2021-07-01</td><td><a href="https://www.eventbrite.com/e/158443820733">Solid World</a></td><td><a href="https://solidproject.org/team">Solid Team</a></td><td><em>Solid over the Interplanetary File System</em><br>Fabrizio Parrillo (U. Basel, Switzerland), Christian F Tschudin (U. Basel, Switzerland)</td></tr></table></article>`;
+			return `<script type="application/ld+json"></script><script type="application/ld+json">[{"startDate":"${ item.ZDAEventStart.toJSON() }","endDate":"2021-08-05T11:30:00-0400","name":"${ item.ZDAEventName }","url":"${ item.ZDAEventURL }","image":"https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F137878953%2F430856625158%2F1%2Foriginal.20210607-160111?h=230\u0026w=460\u0026auto=format%2Ccompress\u0026q=75\u0026sharp=10\u0026rect=0%2C0%2C1080%2C540\u0026s=46a33d7d72582393582937817840ba34","offers":{"url":"https://www.eventbrite.co.uk/e/solid-world-august-2021-tickets-158445927033","lowPrice":"0.00","highPrice":"0.00","@type":"AggregateOffer","priceCurrency":"USD"},"location":{"url":"https://www.eventbrite.co.uk/e/solid-world-august-2021-tickets-158445927033","@type":"VirtualLocation"},"eventAttendanceMode":"https://schema.org/OnlineEventAttendanceMode","@context":"http://schema.org","organizer":{"url":"https://www.eventbrite.co.uk/o/solid-project-30026804546","@type":"Organization","name":"Solid Project"},"@type":"Event","description":"Solid World is an opportunity to meet people who are working on or interested in working on"}]</script>`;
 		};
 		
 		it('parses data', function () {
@@ -144,10 +145,7 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 			})), [{
 				ZDAEventURL,
 				ZDAEventName,
-				ZDAEventStart: require('luxon').DateTime.fromISO(ZDAEventStart.toJSON().slice(0, 10) + 'T16:00:00', {
-					setZone: true,
-					zone: 'Europe/Rome',
-				}).toJSDate(),
+				ZDAEventStart,
 			}]);
 		});
 		
