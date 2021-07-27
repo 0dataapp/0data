@@ -2,7 +2,7 @@ const kDefaultRoute = require('./controller.js').OLSKControllerRoutes().shift();
 
 const ZDABank = require('../_shared/ZDABank/main.js');
 
-describe('ZDAGlanceEventsList_Misc', function  () {
+describe('ZDAVitrineEventsList_Misc', function  () {
 
 	const item = {
 		ZDAEventURL: Math.random().toString(),
@@ -12,38 +12,38 @@ describe('ZDAGlanceEventsList_Misc', function  () {
 
 	before(function() {
 		return browser.OLSKVisit(kDefaultRoute, {
-			ZDAGlanceEventsListData: JSON.stringify([item]),
+			ZDAVitrineEventsListData: JSON.stringify([item]),
 		});
 	});
 
-	describe('ZDAGlanceEventsList', function test_ZDAGlanceEventsList () {
+	describe('ZDAVitrineEventsList', function test_ZDAVitrineEventsList () {
 
 		it('sets lang', function () {
-			browser.assert.attribute(ZDAGlanceEventsList, 'lang', 'en');
+			browser.assert.attribute(ZDAVitrineEventsList, 'lang', 'en');
 		});
 
 	});
 
-	describe('ZDAGlanceEventsListItemStart', function test_ZDAGlanceEventsListItemStart () {
+	describe('ZDAVitrineEventsListItemStart', function test_ZDAVitrineEventsListItemStart () {
 
 		it('binds ZDAEventStart', function () {
-			browser.assert.text(ZDAGlanceEventsListItemStart, require('luxon').DateTime.fromJSDate(item.ZDAEventStart).toFormat('yyyy.dd'));
+			browser.assert.text(ZDAVitrineEventsListItemStart, require('luxon').DateTime.fromJSDate(item.ZDAEventStart).toFormat('yyyy.dd'));
 		});
 
 	});
 
-	describe('ZDAGlanceEventsListItemLink', function test_ZDAGlanceEventsListItemLink () {
+	describe('ZDAVitrineEventsListItemLink', function test_ZDAVitrineEventsListItemLink () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAGlanceEventsListItemLink, 'href', item.ZDAEventURL);
+			browser.assert.attribute(ZDAVitrineEventsListItemLink, 'href', item.ZDAEventURL);
 		});
 
 		it('sets target', function () {
-			browser.assert.attribute(ZDAGlanceEventsListItemLink, 'target', '_blank');
+			browser.assert.attribute(ZDAVitrineEventsListItemLink, 'target', '_blank');
 		});
 
 		it('binds ZDAEventName', function () {
-			browser.assert.text(ZDAGlanceEventsListItemLink, item.ZDAEventName);
+			browser.assert.text(ZDAVitrineEventsListItemLink, item.ZDAEventName);
 		});
 
 	});

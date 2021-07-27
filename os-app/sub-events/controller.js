@@ -2,7 +2,7 @@ const mod = {
 
 	OLSKControllerSharedLocals () {
 		return {
-			ZDAGlanceEventsListDateFormat (inputData) {
+			ZDAVitrineEventsListDateFormat (inputData) {
 				return require('luxon').DateTime.fromJSDate(inputData).toFormat('yyyy.dd')
 			},
 		}
@@ -10,13 +10,13 @@ const mod = {
 
 	OLSKControllerRoutes () {
 		return [{
-			OLSKRoutePath: '/stub/ZDAGlanceEventsList',
+			OLSKRoutePath: '/stub/ZDAVitrineEventsList',
 			OLSKRouteMethod: 'get',
-			OLSKRouteFunction: (function ZDAGlanceEventsListStubRoute (req, res, next) {
+			OLSKRouteFunction: (function ZDAVitrineEventsListStubRoute (req, res, next) {
 				return res.OLSKExpressLayoutRender(require('path').join(__dirname, 'ui-view'), Object.assign({
-					ZDAGlanceEventsListData: [],
+					ZDAVitrineEventsListData: [],
 				}, Object.fromEntries(Array.from((new URLSearchParams(req.query)).entries()).map(function (e) {
-					if (e[0] === 'ZDAGlanceEventsListData') {
+					if (e[0] === 'ZDAVitrineEventsListData') {
 						(e[1] = JSON.parse(e[1])).forEach(function (e) {
 							e.ZDAEventStart = new Date(e.ZDAEventStart);
 						});
@@ -25,7 +25,7 @@ const mod = {
 					return e;
 				}))));
 			}),
-			OLSKRouteSignature: 'ZDAGlanceEventsListStubRoute',
+			OLSKRouteSignature: 'ZDAVitrineEventsListStubRoute',
 			OLSKRouteLanguageCodes: ['en', 'fr', 'es', 'pt'],
 			OLSKRouteIsHidden: process.env.NODE_ENV === 'production',
 		}];

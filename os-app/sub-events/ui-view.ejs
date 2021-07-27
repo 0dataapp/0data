@@ -1,13 +1,13 @@
-<div class="ZDAGlanceEventsList" lang="en">
+<div class="ZDAVitrineEventsList" lang="en">
 
-<% if (!locals.ZDAGlanceEventsListData.length) { -%>
-	<p class="ZDAGlanceEventsListEmpty"><%= OLSKLocalized('ZDAGlanceEventsListEmptyText') %></p>
+<% if (!ZDAVitrineEventsListData.length) { -%>
+	<p class="ZDAVitrineEventsListEmpty"><%= OLSKLocalized('ZDAVitrineEventsListEmptyText') %></p>
 <% } -%>
 
-<% locals.ZDAGlanceEventsListData.forEach(function (item) { -%>
-	<div class="ZDAGlanceEventsListItem">
-		<span class="ZDAGlanceEventsListItemStart"><%= ZDAGlanceEventsListDateFormat(item.ZDAEventStart) %></span>
-		<a class="ZDAGlanceEventsListItemLink" href="<%= item.ZDAEventURL %>" target="_blank"><%= item.ZDAEventName %></a>
+<% ZDAVitrineEventsListData.forEach(function (item) { -%>
+	<div class="ZDAVitrineEventsListItem">
+		<span class="ZDAVitrineEventsListItemStart"><%= ZDAVitrineEventsListDateFormat(item.ZDAEventStart) %></span>
+		<a class="ZDAVitrineEventsListItemLink" href="<%= item.ZDAEventURL %>" target="_blank"><%= item.ZDAEventName %></a>
 	</div>
 <% }) -%>
 
