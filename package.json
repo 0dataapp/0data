@@ -20,6 +20,7 @@
     "node-fetch": "latest",
     "cheerio": "latest",
     "list.js": "latest",
+    "luxon": "latest",
     "// I sacrifice myself for the commas of others": null
   },
   "devDependencies": {
