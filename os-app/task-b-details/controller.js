@@ -103,6 +103,7 @@ const mod = {
 			['_ZDAProjectBlurb', params.ParamMetadata.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.title],
 			['ZDAProjectHasManifest', !!params.ParamManifest],
+			['ZDAProjectFunding', params.ParamMetadata._OLSKDOMMetadataFunding],
 		].filter(function ([key, value]) {
 			return !!value;
 		});
