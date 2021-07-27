@@ -3,6 +3,8 @@ const OLSKCache = require('OLSKCache');
 
 const mod = {
 
+	_ValueCacheObject: {},
+
 	// DATA
 
 	_DataFoilOLSKCache: OLSKCache,
