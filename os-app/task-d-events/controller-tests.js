@@ -191,19 +191,35 @@ describe('DataEvents', function test_DataEvents() {
 
 	it('trims properties', function () {
 		const item = Math.random().toString();
+		const ZDAEventStart = new Date(Date.now() + 1000);
+
 		deepEqual(_DataEvents({
 			_DataEventObjects: (function () {
 				return [{
 					ZDAEventURL: arguments[0],
+					ZDAEventStart,
 					[item]: ' ' + item + ' ',
 				}];
 			}),
 		}), mod.ZDAEventURLs().reduce(function (coll, ZDAEventURL) {
 			return coll.concat({
 				ZDAEventURL,
+				ZDAEventStart,
 				[item]: item,
 			});
 		}, []));
+	});
+
+	it('filters if past', function () {
+		const item = Math.random().toString();
+		deepEqual(_DataEvents({
+			_DataEventObjects: (function () {
+				return [{
+					ZDAEventURL: arguments[0],
+					ZDAEventStart: new Date(Date.now() - 1000),
+				}];
+			}),
+		}), []);
 	});
 
 });

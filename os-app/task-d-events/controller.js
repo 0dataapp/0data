@@ -99,7 +99,9 @@ const mod = {
 
 		return _mod.ZDAEventURLs().reduce(function (coll, item) {
 			return coll.concat(_mod._DataEventObjects(item, _mod._ValueCacheObject[item] || '').map(require('OLSKObject').OLSKObjectTrim));
-		}, []);
+		}, []).filter(function (e) {
+			return e.ZDAEventStart > new Date();
+		});
 	},
 
 	// SETUP
