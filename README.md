@@ -4,6 +4,23 @@
 
 _Own your data, all of it._
 
+## Data compiled automatically from the following locations:
+
+### Apps
+- https://wiki.remotestorage.io/Apps
+- https://github.com/0dataapp/unofficial-fission-apps-list
+- https://github.com/0dataapp/awesome-0data
+- https://unhosted.org/apps
+- https://solidproject.org/apps
+
+### Tools
+- https://github.com/0dataapp/awesome-0data
+
+### Events
+- https://community.remotestorage.io/c/events/12
+- https://lu.ma/embed-events/usr-q0wId4DZFlx7LCP
+- https://www.eventbrite.co.uk/o/solid-project-30026804546
+
 ## Architecture
 
 The project follows a [Universal folder structure](https://rosano.hmm.garden/01f71kp52knc5nnv08qr9kzj3m) and is a large collection of mostly small modules or functions. With the exception of a few 'global' or 'magic' things such as the localization function `OLSKLocalized`, most resources used by a module should be in the same folder or referenced by path name.
