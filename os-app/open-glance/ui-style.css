@@ -87,6 +87,9 @@
 
 	.ZDAGlanceListItem {
 		width: 100%;
+		padding: unset;
+
+		font-size: 100%;
 	}
 
 }
@@ -97,6 +100,14 @@
 	border-radius: 15px;
 
 	margin: 0 !important;
+}
+
+@media screen and (max-width: 760px) {
+
+	.ZDAGlanceListItemIconImage {
+		--OLSKCommonCardImageSize: 48px !important;
+	}
+
 }
 
 .ZDAGlanceListItemName {
