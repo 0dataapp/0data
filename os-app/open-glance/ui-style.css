@@ -1,6 +1,15 @@
 :root {
-	--ZDAGlanceToolbarHeight: 70px;
+	--ZDAGlanceToolbarHeight: 78px;
 	--OLSKStickyHeaderTop: var(--ZDAGlanceToolbarHeight);
+}
+
+
+@media screen and (max-width: 760px) {
+
+	:root {
+		--ZDAGlanceToolbarHeight: 88px;
+	}
+
 }
 
 .ZDAGlance {
@@ -28,8 +37,16 @@
 }
 
 .ZDAGlanceRootLinkImage {
-	width: 24px;
+	width: 32px;
 	padding: 3px;
+}
+
+@media screen and (max-width: 760px) {
+
+	.ZDAGlanceRootLinkImage {
+		width: 42px;
+	}
+
 }
 
 .ZDAGlanceListSort {
@@ -64,6 +81,7 @@
 	border: none !important;
 
 	flex-grow: 1;
+	font-size: 140%;
 }
 
 .ZDAGlanceProjectsCompilationLink {
