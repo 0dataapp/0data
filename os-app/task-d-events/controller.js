@@ -7,6 +7,14 @@ const uAscending = function (a, b) {
 
 const mod = {
 
+	OLSKControllerSharedLocals () {
+		return {
+			ZDAEvents () {
+				return mod.DataEvents();
+			},
+		}
+	},
+
 	// VALUE
 
 	_ValueCacheObject: {},

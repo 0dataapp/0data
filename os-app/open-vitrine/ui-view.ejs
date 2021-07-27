@@ -67,6 +67,12 @@ locals.OLSKPageAssets = [
 	<% }) -%>
 </dl>
 
+<h1 class="ZDAVitrineEventsHeading"><%= OLSKLocalized('ZDAVitrineEventsHeadingText') %></h1>
+
+<%- include('../sub-events/ui-view.ejs', {
+	ZDAVitrineEventsListData: ZDAEvents(),
+}) %>
+
 <%- include('../../node_modules/ROCOGazette/main.ejs', {
 	_OLSKModulesDirPrefix: '../.',
 	ROCOBulletinProject: 'RP_005',

@@ -23,6 +23,8 @@ Object.entries({
 	ZDAVitrineToolsLink: '.ZDAVitrineToolsLink',
 	ZDAVitrineToolsBlurb: '.ZDAVitrineToolsBlurb',
 
+	ZDAVitrineEventsHeading: '.ZDAVitrineEventsHeading',
+	
 	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
 	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
 }).map(function (e) {
@@ -112,6 +114,14 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineToolsBlurb', function () {
 		browser.assert.elements(ZDAVitrineToolsBlurb, tools);
+	});
+
+	it('shows ZDAVitrineEventsHeading', function () {
+		browser.assert.elements(ZDAVitrineEventsHeading, 1);
+	});
+
+	it('shows ZDAVitrineEventsList', function () {
+		browser.assert.elements('.ZDAVitrineEventsList', 1);
 	});
 
 	it('shows ROCOGazette', function () {
