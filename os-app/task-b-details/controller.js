@@ -45,7 +45,7 @@ const mod = {
 			return '';
 		}
 
-		return (await require('node-fetch')(inputData)).text();
+		return mod._DataFoilOLSKDisk.OLSKDiskRead(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(inputData))) || (await require('node-fetch')(inputData)).text();
 	},
 
 	DataCacheAggregateBasename() {
