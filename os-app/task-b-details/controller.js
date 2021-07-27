@@ -86,7 +86,20 @@ const mod = {
 				}
 
 				return !href ? null : OLSKLink.OLSKLinkRelativeURL(params.ParamURL, href);
-			})((((params.ParamManifest || {}).icons || []).pop() || {}).src || params.ParamMetadata['apple-touch-icon'] || params.ParamMetadata['apple-touch-icon-precomposed'])],
+			})((((params.ParamManifest || {}).icons || []).pop() || {}).src || mod.DataCacheImageAttributeCandidates().reduce(function (coll, item) {
+				if (params.ParamMetadata[item]) {
+					coll.push(params.ParamMetadata[item]);
+				}
+
+				return coll;
+			}, []).shift())],
+			['_ZDAProjectIconURL', (function(href) {
+				if (!href) {
+					return;
+				}
+
+				return !href ? null : OLSKLink.OLSKLinkRelativeURL(params.ParamURL, href);
+			})(params.ParamMetadata['og:image'])],
 			['_ZDAProjectBlurb', params.ParamMetadata.description],
 			['_ZDAProjectBlurb', params.ParamMetadata.title],
 			['ZDAProjectHasManifest', !!params.ParamManifest],

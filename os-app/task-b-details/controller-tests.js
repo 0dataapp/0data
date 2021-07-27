@@ -71,29 +71,33 @@ describe('_DataDOMPropertyCandidates', function test__DataDOMPropertyCandidates(
 
 	context('ParamMetadata', function () {
 		
-		it('extracts apple-touch-icon', function () {
-			const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
-			const ParamURL = 'https://example.com';
-			deepEqual(__DataDOMPropertyCandidates({
-				ParamMetadata: {
-					'apple-touch-icon': path,
-				},
-				ParamURL,
-			}), Object.entries({
-				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ParamURL, path),
-			}));
+		mod.DataCacheImageAttributeCandidates().forEach(function (e) {
+			
+			it(`extracts ${ e }`, function () {
+				const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
+				const ParamURL = 'https://example.com';
+				deepEqual(__DataDOMPropertyCandidates({
+					ParamMetadata: {
+						[e]: path,
+					},
+					ParamURL,
+				}), Object.entries({
+					ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ParamURL, path),
+				}));
+			});
+
 		});
 
-		it('extracts apple-touch-icon-precomposed', function () {
+		it('extracts og:image', function () {
 			const path = uRandomElement('https://alfa.bravo/', Math.random().toString());
 			const ParamURL = 'https://example.com';
 			deepEqual(__DataDOMPropertyCandidates({
 				ParamMetadata: {
-					'apple-touch-icon-precomposed': path,
+					'og:image': path,
 				},
 				ParamURL,
 			}), Object.entries({
-				ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ParamURL, path),
+				_ZDAProjectIconURL: OLSKLink.OLSKLinkRelativeURL(ParamURL, path),
 			}));
 		});
 
