@@ -69,7 +69,13 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventStart: new Date(),
 			}, inputData);
 
-			return `<table class="topic-list"><tr class="topic-list-item"><td class="main-link clearfix"><span class="link-top-line"><a href="${ item.ZDAEventURL }" class="raw-link raw-topic-link">${ item.ZDAEventName }<div class="event-date-container"><span class="event-date event-relative-date past" data-starts_at="${ item.ZDAEventStart.toJSON() }" data-ends_at="2021-03-19 16:00:00">4 months ago</span></div></a></span></td></tr><tr class="topic-list-item"><td class="main-link clearfix"><span class="link-top-line"><a href="/t/chatting-with-fission-january-14th-2021/654/3" class="raw-link raw-topic-link">Chatting with Fission – January 14th, 2021</a></span></td></tr>`;
+			return `<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:discourse="http://www.discourse.org/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><atom:link href="https://community.remotestorage.io/c/events/12.rss" rel="self" type="application/rss+xml" /><item><title>${ item.ZDAEventName }</title><description><![CDATA[
+            <p>I’ve been thinking about updating the website design, moving wiki content to forum, doing events and a newsletter, grant opportunities… Be welcome to join <a class="mention" href="/u/raucao">@raucao</a> and I  in the call and share your thoughts.</p>
+<div class="discourse-post-event" data-start="${ item.ZDAEventStart.toJSON() }" data-status="public" data-url="https://meet.calyx.net/remotestorage" data-end="2021-08-03 14:00" data-allowed-groups="trust_level_0"></div>
+            <p><small>1 post - 1 participant</small></p>
+            <p><a href="https://community.remotestorage.io/t/community-call-redesigning-the-remotestorage-homepage-other-stuff/705">Read full topic</a></p>
+          ]]></description><link>https://community.remotestorage.io/t/community-call-redesigning-the-remotestorage-homepage-other-stuff/705</link><source url="${ item.ZDAEventURL }.rss">Community call: Redesigning the remoteStorage homepage + other stuff</source></item></channel></rss>`;
 		};
 		
 		it('parses data', function () {
@@ -82,7 +88,7 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventName,
 				ZDAEventStart,
 			})), [{
-				ZDAEventURL: require('OLSKLink').OLSKLinkRelativeURL(mod.ZDAEventURLRemoteStorage(), ZDAEventURL),
+				ZDAEventURL,
 				ZDAEventName,
 				ZDAEventStart,
 			}]);

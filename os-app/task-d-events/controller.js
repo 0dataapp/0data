@@ -64,13 +64,13 @@ const mod = {
 			return Object.assign(coll, {
 				[item]: {
 					[mod.ZDAEventURLRemoteStorage()]: function () {
-						return cheerio('table.topic-list', param2).first().find('td.main-link').filter(function () {
-							return cheerio('span.event-date', this).text();
+						return cheerio('channel', param2).first().find('item').filter(function () {
+							return cheerio('description', this).html().match('discourse-post-event');
 						}).map(function () {
 							return {
-								ZDAEventURL: require('OLSKLink').OLSKLinkRelativeURL(param1, cheerio('a.raw-topic-link', this).attr('href')),
-								ZDAEventName: cheerio('a.raw-topic-link', this).text().split(cheerio('.event-relative-date', this).text()).shift(),
-								ZDAEventStart: new Date(cheerio('span.event-date', this).attr('data-starts_at')),
+								ZDAEventURL: cheerio('source', this).attr('url').split('.rss').shift(),
+								ZDAEventName: cheerio('title', this).text(),
+								ZDAEventStart: new Date(cheerio('description', this).html().match(/data-start="(.*)/)[0].split('"')[1]),
 							};
 						});
 					},

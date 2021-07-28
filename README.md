@@ -17,7 +17,7 @@ _Own your data, all of it._
 - https://github.com/0dataapp/awesome-0data
 
 ### Events
-- https://community.remotestorage.io/c/events/12
+- https://community.remotestorage.io/c/events/12.rss
 - https://lu.ma/embed-events/usr-q0wId4DZFlx7LCP
 - https://www.eventbrite.co.uk/o/solid-project-30026804546
 
