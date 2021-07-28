@@ -28,9 +28,6 @@ Object.entries({
 
 	ZDAVitrineGroupDiscussionHeading: '.ZDAVitrineGroupDiscussionHeading',
 	ZDAVitrineGroupDiscussionVideo: '.ZDAVitrineGroupDiscussionVideo',
-	
-	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
-	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
 }).map(function (e) {
 	return global[e.shift()]  = e.pop();
 });
@@ -150,14 +147,6 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows OLSKEdit', function () {
 		browser.assert.elements('.OLSKEdit', 1);
-	});
-
-	it('shows ZDAVitrineProjectsSourcesHeading', function () {
-		browser.assert.elements(ZDAVitrineProjectsSourcesHeading, 1);
-	});
-
-	it('shows ZDAVitrineProjectsSourcesBlurb', function () {
-		browser.assert.elements(ZDAVitrineProjectsSourcesBlurb, 1);
 	});
 
 	it('shows ROCOForum', function () {

@@ -141,19 +141,6 @@ describe('ZDAVitrine_Misc', function () {
 
 	});
 
-	require('../_shared/ZDABank/main.js').ZDABankURLs().forEach(function (e, i) {
-
-		describe('ZDAVitrineProjectsSourcesList', function test_ZDAVitrineProjectsSourcesList () {
-			
-			it('localizes ZDAVitrineProjectsSourcesList', function () {
-				browser.assert.attribute(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, 'href', e);
-				browser.assert.text(`.ZDAVitrineProjectsSourcesList li:nth-child(${ i + 1 }) .ZDAVitrineProjectsSourcesListItem`, e.replace('https://', ''));
-			});
-		
-		});
-
-	});
-
 	describe('ROCOGazette', function test_ROCOGazette () {
 
 		it('sets ROCOBulletinProject', function () {
