@@ -64,6 +64,10 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAVitrineEventsHeading, uLocalized('ZDAVitrineEventsHeadingText'));
 		});
 
+		it('localizes ZDAVitrineGroupDiscussionHeading', function () {
+			browser.assert.text(ZDAVitrineGroupDiscussionHeading, uLocalized('ZDAVitrineGroupDiscussionHeadingText'));
+		});
+
 		it('localizes ZDAVitrineProjectsSourcesHeading', function () {
 			browser.assert.text(ZDAVitrineProjectsSourcesHeading, uLocalized('ZDAVitrineProjectsSourcesHeadingText'));
 		});

@@ -25,6 +25,9 @@ Object.entries({
 	ZDAVitrineToolsBlurb: '.ZDAVitrineToolsBlurb',
 
 	ZDAVitrineEventsHeading: '.ZDAVitrineEventsHeading',
+
+	ZDAVitrineGroupDiscussionHeading: '.ZDAVitrineGroupDiscussionHeading',
+	ZDAVitrineGroupDiscussionVideo: '.ZDAVitrineGroupDiscussionVideo',
 	
 	ZDAVitrineProjectsSourcesHeading: '.ZDAVitrineProjectsSourcesHeading',
 	ZDAVitrineProjectsSourcesBlurb: '.ZDAVitrineProjectsSourcesBlurb',
@@ -127,6 +130,14 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineEventsList', function () {
 		browser.assert.elements('.ZDAVitrineEventsList', 1);
+	});
+
+	it('shows ZDAVitrineGroupDiscussionHeading', function () {
+		browser.assert.elements(ZDAVitrineGroupDiscussionHeading, 1);
+	});
+
+	it('shows ZDAVitrineGroupDiscussionVideo', function () {
+		browser.assert.elements(ZDAVitrineGroupDiscussionVideo, 1);
 	});
 
 	it('shows ROCOGazette', function () {

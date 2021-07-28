@@ -86,3 +86,11 @@
 .OLSKDecorGlossary dd {
 	margin: 4px 0 10px 0;
 }
+
+.ZDAVitrineGroupDiscussionVideo {
+	width: 100%;
+	height: 240px;
+	border: 0;
+	
+	background: black;
+}

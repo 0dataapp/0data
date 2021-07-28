@@ -73,6 +73,9 @@ locals.OLSKPageAssets = [
 	ZDAVitrineEventsListData: ZDAEvents(),
 }) %>
 
+<h1 class="ZDAVitrineGroupDiscussionHeading"><%= OLSKLocalized('ZDAVitrineGroupDiscussionHeadingText') %></h1>
+
+<iframe class="ZDAVitrineGroupDiscussionVideo" src="<%= process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL %>" allowfullscreen></iframe>
 <%- include('../../node_modules/ROCOGazette/main.ejs', {
 	_OLSKModulesDirPrefix: '../.',
 	ROCOBulletinProject: 'RP_005',

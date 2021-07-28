@@ -129,6 +129,18 @@ describe('ZDAVitrine_Misc', function () {
 
 	});
 
+	describe('ZDAVitrineGroupDiscussionVideo', function test_ZDAVitrineGroupDiscussionVideo () {
+
+		it('sets src', function () {
+			browser.assert.attribute(ZDAVitrineGroupDiscussionVideo, 'src', process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL);
+		});
+
+		it('sets allowfullscreen', function () {
+			browser.assert.attribute(ZDAVitrineGroupDiscussionVideo, 'allowfullscreen', '');
+		});
+
+	});
+
 	require('../_shared/ZDABank/main.js').ZDABankURLs().forEach(function (e, i) {
 
 		describe('ZDAVitrineProjectsSourcesList', function test_ZDAVitrineProjectsSourcesList () {
