@@ -1,5 +1,11 @@
 (function OLSKPostinstallHotfix() {
-	Object.entries(require('OLSKHotfix').OLSKHotfixPatches(process.env.NODE_ENV)).forEach(function ([path, patches]) {
+	Object.entries(Object.assign(require('OLSKHotfix').OLSKHotfixPatches(process.env.NODE_ENV), {
+		'./node_modules/ROCOForum/main.ejs': {
+			'?category=<%= ROCOForumTopic %>&amp;': '?alfa=bravo&amp;',
+			'" category="<%= ROCOForumTopic %>" per-page': '"  per-page',
+			'/c/<%= ROCOForumTopic %>': '/',
+		},
+	})).forEach(function ([path, patches]) {
 		if (!require('fs').existsSync(path)) {
 			return;
 		}
