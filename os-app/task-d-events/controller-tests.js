@@ -163,7 +163,7 @@ describe('DataEvents', function test_DataEvents() {
 	
 	const _DataEvents = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueCacheObject: {},
+			_OLSKCacheResultMap: {},
 			_DataEventObjects: (function () {
 				return [];
 			}),
@@ -173,14 +173,14 @@ describe('DataEvents', function test_DataEvents() {
 	it('calls _DataEventObjects', function () {
 		const item = [];
 
-		const _ValueCacheObject = mod.ZDAEventURLs().reduce(function (coll, item) {
+		const _OLSKCacheResultMap = mod.ZDAEventURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: Math.random().toString(),
 			});
 		}, {});
 		
 		_DataEvents({
-			_ValueCacheObject,
+			_OLSKCacheResultMap,
 			_DataEventObjects: (function () {
 				item.push([...arguments]);
 
@@ -189,7 +189,7 @@ describe('DataEvents', function test_DataEvents() {
 		});
 
 		deepEqual(item, mod.ZDAEventURLs().map(function (e) {
-			return [e, _ValueCacheObject[e]];
+			return [e, _OLSKCacheResultMap[e]];
 		}));
 	});
 
@@ -244,152 +244,59 @@ describe('DataEvents', function test_DataEvents() {
 
 });
 
-describe('SetupFetchQueue', function test_SetupFetchQueue() {
-
-	const _SetupFetchQueue = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKQueue: inputData,
-		}, inputData);
-		return _mod.SetupFetchQueue() || _mod;
-	};
-
-	it('calls OLSKQueueAPI', function () {
-		const item = Math.random().toString();
-		deepEqual(_SetupFetchQueue({
-			OLSKQueueAPI: (function () {
-				return [...arguments].concat(item);
-			}),
-		})._ValueFetchQueue, [item]);
-	});
-
-	it('sets _ValueFetchQueue', function () {
-		const item = Math.random().toString();
-
-		deepEqual(_SetupFetchQueue({
-			OLSKQueueAPI: (function () {
-				return item;
-			}),
-		})._ValueFetchQueue, item);
-	});
-
-});
-
-describe('SetupEventsCache', function test_SetupEventsCache() {
-
-	const _SetupEventsCache = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKDisk: Object.assign({
-				OLSKDiskRead: (function () {}),
-			}, inputData),
-		});
-		return _mod.SetupEventsCache() || _mod;
-	};
-
-	it('calls OLSKDiskRead', function () {
-		const items = [];
-
-		_SetupEventsCache({
-			OLSKDiskRead: (function () {
-				items.push(...arguments);
-			}),
-		});
-
-		deepEqual(items, mod.ZDAEventURLs().map(OLSKCache.OLSKCacheURLBasename).map(function (e) {
-			return OLSKCache.OLSKCachePath(__dirname, e);
-		}));
-	});
-
-	it('sets _ValueCacheObject', function () {
-		const OLSKDiskRead = uRandomElement(Math.random().toString(), null);
-
-		deepEqual(_SetupEventsCache({
-			OLSKDiskRead: (function () {
-				return OLSKDiskRead;
-			}),
-		})._ValueCacheObject, mod.ZDAEventURLs().reduce(function (coll, item) {
-			return Object.assign(coll, {
-				[item]: OLSKDiskRead,
-			});
-		}, {}));
-	});
-
-});
-
 describe('_SetupEvent', function test__SetupEvent() {
 
 	const __SetupEvent = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
-			_DataContentString: (function () {}),
+			_DataContentJSON: (function () {}),
 
 			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheResultFetchRenew: (function () {}),
+				OLSKCacheQueuedFetch: (function () {}),
 			}, inputData),
 
 			_DataFoilOLSKDisk: Object.assign({
 				OLSKDiskWrite: (function () {}),
 			}, inputData),
-		}, inputData)._SetupEvent(inputData.url || Math.random().toString());
+		}, inputData)._SetupEvent(inputData.ParamKey || Math.random().toString());
 	};
+	
+	it('calls OLSKCacheQueuedFetch', function () {
+		const ParamKey = Math.random().toString();
+		const OLSKDisk = {};
+		const item = (uCapture(function (OLSKCacheQueuedFetch) {
+			__SetupEvent({
+				ParamKey,
 
-	it('calls OLSKCacheResultFetchRenew', function () {
-		const url = Math.random().toString();
-		const _ValueCacheObject = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-
-		const item = __SetupEvent({
-			url,
-			_ValueCacheObject,
-			OLSKCacheResultFetchRenew: (function () {
-				return [...arguments];
-			}),
-		}).pop();
+				OLSKCacheQueuedFetch,
+				_DataFoilOLSKDisk: OLSKDisk,
+			});
+		})).pop();
 
 		deepEqual(item, {
-			ParamMap: _ValueCacheObject,
-			ParamKey: url,
+			ParamMod: mod,
+			ParamKey,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
-			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
+			ParamFileURLs: mod.ZDAEventURLs(),
+			ParamFileDirectory: __dirname,
+			OLSKQueue: require('OLSKQueue'),
+			OLSKDisk,
 		});
 	});
 
 	context('ParamCallback', function () {
 
 		it('calls _DataContentString', async function () {
-			const url = Math.random().toString();
-
+			const ParamKey = Math.random().toString();
 			deepEqual(await __SetupEvent({
-				url,
-				OLSKCacheResultFetchRenew: (function (inputData) {
+				ParamKey,
+				OLSKCacheQueuedFetch: (function (inputData) {
 					return inputData.ParamCallback();
 				}),
 				_DataContentString: (function () {
 					return [...arguments];
 				}),
-			}), [url]);
-		});
-	
-	});
-
-	context('_ParamCallbackDidFinish', function () {
-
-		it('calls OLSKDiskWrite', async function () {
-			const url = uLink();
-			const data = Math.random().toString();
-			
-			deepEqual(await __SetupEvent({
-				url,
-				_ValueCacheObject: {
-					[url]: data,
-				},
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData._ParamCallbackDidFinish();
-				}),
-				OLSKDiskWrite: (function () {
-					return [...arguments];
-				}),
-			}), [OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(url)), data]);
+			}), [ParamKey]);
 		});
 	
 	});
