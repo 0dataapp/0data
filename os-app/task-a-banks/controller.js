@@ -19,10 +19,6 @@ const mod = {
 		}
 	},
 
-	// VALUE
-
-	_OLSKCacheResultMap: {},
-
 	// DATA
 
 	_DataFoilOLSKCache: OLSKCache,
