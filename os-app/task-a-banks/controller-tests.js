@@ -555,7 +555,7 @@ describe('DataBankProjects', function test_DataBankProjects() {
 	
 	const _DataBankProjects = function (inputData = {}) {
 		return Object.assign(Object.assign({}, mod), {
-			_ValueCacheObject: {},
+			_OLSKCacheResultMap: {},
 			_DataBankObjects: (function () {
 				return [];
 			}),
@@ -565,14 +565,14 @@ describe('DataBankProjects', function test_DataBankProjects() {
 	it('calls _DataBankObjects', function () {
 		const item = [];
 
-		const _ValueCacheObject = ZDABank.ZDABankURLs().reduce(function (coll, item) {
+		const _OLSKCacheResultMap = ZDABank.ZDABankURLs().reduce(function (coll, item) {
 			return Object.assign(coll, {
 				[item]: Math.random().toString(),
 			});
 		}, {});
 		
 		_DataBankProjects({
-			_ValueCacheObject,
+			_OLSKCacheResultMap,
 			_DataBankObjects: (function () {
 				item.push([...arguments]);
 
@@ -581,7 +581,7 @@ describe('DataBankProjects', function test_DataBankProjects() {
 		});
 
 		deepEqual(item, ZDABank.ZDABankURLs().map(function (e) {
-			return [e, _ValueCacheObject[e]];
+			return [e, _OLSKCacheResultMap[e]];
 		}));
 	});
 
@@ -697,7 +697,7 @@ describe('DataBankProtocols', function test_DataBankProtocols() {
 		const item = Math.random().toString();
 		deepEqual(uCapture(function (capture) {
 			_DataBankProtocols({
-				_ValueCacheObject: {
+				_OLSKCacheResultMap: {
 					[ZDABank.ZDABankURLAwesome()]: item,
 				},
 				_DataBankProtocolObjects: (function () {
@@ -764,7 +764,7 @@ describe('DataBankTools', function test_DataBankTools() {
 		const item = Math.random().toString();
 		deepEqual(uCapture(function (_DataBankToolObjects) {
 			_DataBankTools({
-				_ValueCacheObject: {
+				_OLSKCacheResultMap: {
 					[ZDABank.ZDABankURLAwesome()]: item,
 				},
 				_DataBankToolObjects,
@@ -774,152 +774,59 @@ describe('DataBankTools', function test_DataBankTools() {
 
 });
 
-describe('SetupFetchQueue', function test_SetupFetchQueue() {
-
-	const _SetupFetchQueue = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKQueue: inputData,
-		}, inputData);
-		return _mod.SetupFetchQueue() || _mod;
-	};
-
-	it('calls OLSKQueueAPI', function () {
-		const item = Math.random().toString();
-		deepEqual(_SetupFetchQueue({
-			OLSKQueueAPI: (function () {
-				return [...arguments].concat(item);
-			}),
-		})._ValueFetchQueue, [item]);
-	});
-
-	it('sets _ValueFetchQueue', function () {
-		const item = Math.random().toString();
-
-		deepEqual(_SetupFetchQueue({
-			OLSKQueueAPI: (function () {
-				return item;
-			}),
-		})._ValueFetchQueue, item);
-	});
-
-});
-
-describe('SetupBanksCache', function test_SetupBanksCache() {
-
-	const _SetupBanksCache = function (inputData) {
-		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataFoilOLSKDisk: Object.assign({
-				OLSKDiskRead: (function () {}),
-			}, inputData),
-		});
-		return _mod.SetupBanksCache() || _mod;
-	};
-
-	it('calls OLSKDiskRead', function () {
-		const items = [];
-
-		_SetupBanksCache({
-			OLSKDiskRead: (function () {
-				items.push(...arguments);
-			}),
-		});
-
-		deepEqual(items, ZDABank.ZDABankURLs().map(OLSKCache.OLSKCacheURLBasename).map(function (e) {
-			return OLSKCache.OLSKCachePath(__dirname, e);
-		}));
-	});
-
-	it('sets _ValueCacheObject', function () {
-		const OLSKDiskRead = uRandomElement(Math.random().toString(), null);
-
-		deepEqual(_SetupBanksCache({
-			OLSKDiskRead: (function () {
-				return OLSKDiskRead;
-			}),
-		})._ValueCacheObject, ZDABank.ZDABankURLs().reduce(function (coll, item) {
-			return Object.assign(coll, {
-				[item]: OLSKDiskRead,
-			});
-		}, {}));
-	});
-
-});
-
 describe('_SetupBank', function test__SetupBank() {
 
 	const __SetupBank = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
-			_DataContentString: (function () {}),
+			_DataContentJSON: (function () {}),
 
 			_DataFoilOLSKCache: Object.assign({
-				OLSKCacheResultFetchRenew: (function () {}),
+				OLSKCacheQueuedFetch: (function () {}),
 			}, inputData),
 
 			_DataFoilOLSKDisk: Object.assign({
 				OLSKDiskWrite: (function () {}),
 			}, inputData),
-		}, inputData)._SetupBank(inputData.url || Math.random().toString());
+		}, inputData)._SetupBank(inputData.ParamKey || Math.random().toString());
 	};
+	
+	it('calls OLSKCacheQueuedFetch', function () {
+		const ParamKey = Math.random().toString();
+		const OLSKDisk = {};
+		const item = (uCapture(function (OLSKCacheQueuedFetch) {
+			__SetupBank({
+				ParamKey,
 
-	it('calls OLSKCacheResultFetchRenew', function () {
-		const url = Math.random().toString();
-		const _ValueCacheObject = {
-			[Math.random().toString()]: Math.random().toString(),
-		};
-
-		const item = __SetupBank({
-			url,
-			_ValueCacheObject,
-			OLSKCacheResultFetchRenew: (function () {
-				return [...arguments];
-			}),
-		}).pop();
+				OLSKCacheQueuedFetch,
+				_DataFoilOLSKDisk: OLSKDisk,
+			});
+		})).pop();
 
 		deepEqual(item, {
-			ParamMap: _ValueCacheObject,
-			ParamKey: url,
+			ParamMod: mod,
+			ParamKey,
 			ParamCallback: item.ParamCallback,
 			ParamInterval: 1000 * 60 * 60 * 24,
-			_ParamCallbackDidFinish: item._ParamCallbackDidFinish,
+			ParamFileURLs: ZDABank.ZDABankURLs(),
+			ParamFileDirectory: __dirname,
+			OLSKQueue: require('OLSKQueue'),
+			OLSKDisk,
 		});
 	});
 
 	context('ParamCallback', function () {
 
 		it('calls _DataContentString', async function () {
-			const url = Math.random().toString();
-
+			const ParamKey = Math.random().toString();
 			deepEqual(await __SetupBank({
-				url,
-				OLSKCacheResultFetchRenew: (function (inputData) {
+				ParamKey,
+				OLSKCacheQueuedFetch: (function (inputData) {
 					return inputData.ParamCallback();
 				}),
 				_DataContentString: (function () {
 					return [...arguments];
 				}),
-			}), [url]);
-		});
-	
-	});
-
-	context('_ParamCallbackDidFinish', function () {
-
-		it('calls OLSKDiskWrite', async function () {
-			const url = uLink();
-			const data = Math.random().toString();
-			
-			deepEqual(await __SetupBank({
-				url,
-				_ValueCacheObject: {
-					[url]: data,
-				},
-				OLSKCacheResultFetchRenew: (function (inputData) {
-					return inputData._ParamCallbackDidFinish();
-				}),
-				OLSKDiskWrite: (function () {
-					return [...arguments];
-				}),
-			}), [OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(url)), data]);
+			}), [ParamKey]);
 		});
 	
 	});

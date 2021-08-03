@@ -21,7 +21,7 @@ const mod = {
 
 	// VALUE
 
-	_ValueCacheObject: {},
+	_OLSKCacheResultMap: {},
 
 	// DATA
 
@@ -264,7 +264,7 @@ const mod = {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		return _mod._DataFillProjects(_mod._DataMergeProjects(ZDABank.ZDABankURLs().reduce(function (coll, item) {
-			return coll.concat(_mod._DataBankObjects(item, _mod._ValueCacheObject[item] || '').map(require('OLSKObject').OLSKObjectTrim));
+			return coll.concat(_mod._DataBankObjects(item, _mod._OLSKCacheResultMap[item] || '').map(require('OLSKObject').OLSKObjectTrim));
 		}, [])));
 	},
 
@@ -289,7 +289,7 @@ const mod = {
 			mod.SetupBanksCache();
 		}
 
-		return _mod._DataBankProtocolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]).map(function (e) {
+		return _mod._DataBankProtocolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]).map(function (e) {
 			return Object.assign(e, {
 				_ZDAProtocolIconURLCachedPath: _mod._DataFoilImages.DataCacheLocalPath(e.ZDAProtocolIconURL),
 			});
@@ -319,40 +319,25 @@ const mod = {
 			mod.SetupBanksCache();
 		}
 
-		return _mod._DataBankToolObjects(_mod._ValueCacheObject[ZDABank.ZDABankURLAwesome()]);
+		return _mod._DataBankToolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},
 
 	// SETUP
 
-	SetupFetchQueue () {
-		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
-
-		_mod._ValueFetchQueue = _mod._DataFoilOLSKQueue.OLSKQueueAPI();
-	},
-
-	SetupBanksCache () {
-		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
-		Object.assign(mod, Object.assign(_mod, {
-			_ValueCacheObject: ZDABank.ZDABankURLs().reduce(function (coll, item) {
-				return Object.assign(coll, {
-					[item]: _mod._DataFoilOLSKDisk.OLSKDiskRead(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(item))),
-				});
-			}, {}),
-		}));
-	},
-
 	_SetupBank (inputData) {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
-		return _mod._DataFoilOLSKCache.OLSKCacheResultFetchRenew({
-			ParamMap: _mod._ValueCacheObject,
+
+		return _mod._DataFoilOLSKCache.OLSKCacheQueuedFetch({
+			ParamMod: mod,
 			ParamKey: inputData,
 			ParamCallback: (function () {
 				return _mod._DataContentString(inputData);
 			}),
 			ParamInterval: 1000 * 60 * 60 * 24,
-			_ParamCallbackDidFinish: (function () {
-				return _mod._DataFoilOLSKDisk.OLSKDiskWrite(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(inputData)), _mod._ValueCacheObject[inputData]);
-			}),
+			ParamFileURLs: ZDABank.ZDABankURLs(),
+			ParamFileDirectory: __dirname,
+			OLSKQueue: _mod._DataFoilOLSKQueue,
+			OLSKDisk: _mod._DataFoilOLSKDisk,
 		});
 	},
 
