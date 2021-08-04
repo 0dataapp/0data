@@ -3,7 +3,6 @@
 	--OLSKStickyHeaderTop: var(--ZDAGlanceToolbarHeight);
 }
 
-
 @media screen and (max-width: 760px) {
 
 	:root {
