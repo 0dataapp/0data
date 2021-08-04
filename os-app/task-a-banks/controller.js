@@ -72,7 +72,7 @@ const mod = {
 						});
 					},
 					[ZDABank.ZDABankURLAwesome()]: function () {
-						return param2.split('# Apps').pop().trim().split('\n-').filter(function (e) {
+						return param2.split('# Apps').pop().split('#').shift().trim().split('\n-').filter(function (e) {
 							return !!e;
 						}).map(function (e) {
 							return {
