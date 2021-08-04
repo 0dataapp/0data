@@ -303,6 +303,15 @@ describe('DataProjectJSONSchema', function test_DataProjectJSONSchema() {
 		});
 	});
 
+	it('maps ZDAProjectFunding', function () {
+		const item = Math.random().toString();
+		deepEqual(mod.DataProjectJSONSchema({
+			ZDAProjectFunding: item,
+		}), {
+			funding: item,
+		});
+	});
+
 	context('ZDAProjectBanks', function () {
 		
 		it('maps ZDAProtocolName', function () {

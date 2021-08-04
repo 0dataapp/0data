@@ -101,6 +101,7 @@ const mod = {
 			ZDAProjectURL: 'url',
 			ZDAProjectIconURL: 'image',
 			ZDAProjectBanks: 'protocols',
+			ZDAProjectFunding: 'funding',
 		}).reduce(function (coll, item) {
 			return Object.assign(coll, !inputData[item[0]] ? {} : {
 				[item[1]]: item[0] === 'ZDAProjectBanks' ? Object.values(inputData[item[0]]).filter(function (e) {
