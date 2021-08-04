@@ -111,6 +111,10 @@ describe('ZDAVitrine_Misc', function () {
 					browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineToolsLink }`, 'href', e.ZDAToolURL);
 				});
 
+				it('sets target', function () {
+					browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineToolsLink }`, 'target', '_blank');
+				});
+
 				it('sets text', function () {
 					browser.assert.text(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineToolsLink }`, e.ZDAToolName);
 				});
