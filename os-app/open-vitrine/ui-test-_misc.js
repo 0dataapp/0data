@@ -164,7 +164,7 @@ describe('ZDAVitrine_Misc', function () {
 		});
 
 		it('sets ROCOForumTopic', function () {
-			browser.assert.attribute('.ROCOForumList', 'category', process.env.ROCO_FORUM_TOPIC);
+			browser.assert.attribute('.ROCOForumList', 'category', null);
 		});
 	
 	});
