@@ -13,6 +13,9 @@ _Own your data, all of it._
 - https://unhosted.org/apps
 - https://solidproject.org/apps
 
+### Protocols
+- https://github.com/0dataapp/awesome-0data
+
 ### Tools
 - https://github.com/0dataapp/awesome-0data
 
