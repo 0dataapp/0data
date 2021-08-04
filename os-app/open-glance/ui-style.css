@@ -6,7 +6,7 @@
 @media screen and (max-width: 760px) {
 
 	:root {
-		--ZDAGlanceToolbarHeight: 88px;
+		--ZDAGlanceToolbarHeight: 80px;
 	}
 
 }
@@ -35,15 +35,19 @@
 	margin-right: 4px;
 }
 
+.ZDAGlanceRootLink {
+	line-height: 0;
+}
+
 .ZDAGlanceRootLinkImage {
 	width: 32px;
-	padding: 3px;
+	padding: 4px;
 }
 
 @media screen and (max-width: 760px) {
 
 	.ZDAGlanceRootLinkImage {
-		width: 42px;
+		width: 36px;
 	}
 
 }
@@ -81,6 +85,14 @@
 
 	flex-grow: 1;
 	font-size: 140%;
+}
+
+@media screen and (max-width: 760px) {
+
+	.ZDAGlanceFilterInput {
+		font-size: 150%;
+	}
+
 }
 
 .ZDAGlanceProjectsCompilationLink {
