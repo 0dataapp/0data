@@ -7,17 +7,6 @@ const mod = {
 		document.querySelector('.ZDAGlanceFilterInput').value = inputData;
 	},
 
-	// MESSAGE
-
-	WindowDispatchKeyup (event) {
-		if (event.key !== 'Escape') {
-			return;
-		}
-
-		mod._ValueList.search('');
-		document.querySelector('.ZDAGlanceFilterInput').value = '';
-	},
-
 	// LIFECYCLE
 
 	LifecyclePageWillLoad() {
@@ -30,8 +19,6 @@ const mod = {
 				{ data: ['protocols'] },
 			],
 		});
-
-		window.addEventListener('keyup', mod.WindowDispatchKeyup);
 	},
 
 };
