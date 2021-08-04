@@ -7,6 +7,20 @@ const uAscending = function (a, b) {
 
 const mod = {
 
+	OLSKControllerTasks () {
+		return [{
+			OLSKTaskName: 'ZDAEventsStartFetch',
+			OLSKTaskFireTimeInterval: 1,
+			OLSKTaskShouldBePerformed () {
+				return true;
+			},
+			OLSKTaskCallback: (function () {
+				require('OLSKModule').OLSKModuleLifecycleSetup(mod);
+			}),
+			OLSKTaskFireLimit: 1,
+		}];
+	},
+
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAEvents () {
@@ -155,9 +169,5 @@ const mod = {
 	},
 
 };
-
-if (process.env.NODE_ENV === 'production' || process.env.npm_lifecycle_script === 'olsk-express') {
-	require('OLSKModule').OLSKModuleLifecycleSetup(mod);
-}
 
 Object.assign(exports, mod);
