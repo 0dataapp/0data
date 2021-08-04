@@ -68,6 +68,10 @@ describe('ZDAVitrine_Misc', function () {
 			it('sets href', function () {
 				browser.assert.attribute(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 })`, 'href', e.ZDAProtocolURL);
 			});
+
+			it('sets target', function () {
+				browser.assert.attribute(`${ ZDAVitrineProtocolsLink }:nth-of-type(${ i + 1 })`, 'target', '_blank');
+			});
 		
 		});
 

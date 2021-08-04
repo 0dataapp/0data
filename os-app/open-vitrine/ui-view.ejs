@@ -53,7 +53,7 @@ locals.OLSKPageAssets = [
 <h1 class="ZDAVitrineProtocolsHeading"><%= OLSKLocalized('ZDAVitrineProtocolsHeadingText') %></h1>
 
 <% ZDAProtocols().forEach(function (item) { -%>
-	<a class="ZDAVitrineProtocolsLink" href="<%= item.ZDAProtocolURL %>">
+	<a class="ZDAVitrineProtocolsLink" href="<%= item.ZDAProtocolURL %>" target="_blank">
 		<img class="ZDAVitrineProtocolsLinkImage" src="<%= item._ZDAProtocolIconURLCachedPath || item.ZDAProtocolIconURL %>" />
 		<span class="ZDAVitrineProtocolsLinkText"><%= item.ZDAProtocolName %></span>
 	</a>
