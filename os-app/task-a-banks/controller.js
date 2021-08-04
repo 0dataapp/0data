@@ -282,7 +282,7 @@ const mod = {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
-			mod.SetupBanksCache();
+			mod.SetupBanks();
 		}
 
 		return _mod._DataBankProtocolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]).map(function (e) {
@@ -312,7 +312,7 @@ const mod = {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
-			mod.SetupBanksCache();
+			mod.SetupBanks();
 		}
 
 		return _mod._DataBankToolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
