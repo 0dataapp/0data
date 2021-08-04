@@ -6,16 +6,15 @@ const mod = {
 
 	OLSKControllerSharedLocals () {
 		return {
-			ZDATools () {
-				return mod.DataBankTools();
+			ZDAGlanceProjectsCount () {
+				return mod.DataBankProjects().length;
 			},
 			ZDAProtocols () {
 				return mod.DataBankProtocols();
 			},
-			ZDAGlanceProjectsCount () {
-				return mod.DataBankProjects().length;
+			ZDATools () {
+				return mod.DataBankTools();
 			},
-			ZDAGlanceProjectsSourceURLs: ZDABank.ZDABankURLs(),
 		}
 	},
 
