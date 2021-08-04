@@ -326,7 +326,7 @@ describe('DataProjectJSONSchema', function test_DataProjectJSONSchema() {
 			});
 		});
 
-		it('maps ZDAProtocolName', function () {
+		it('lowercases name', function () {
 			const items = Array.from(Array(Math.max(1, uRandomInt(10)))).map(function () {
 				return 'ALFA' + Math.random().toString();
 			});
