@@ -84,6 +84,10 @@ describe('ZDAGlance_Misc', function () {
 
 	describe('ZDAGlanceFilterInput', function test_ZDAGlanceFilterInput () {
 
+		it('sets type', function () {
+			browser.assert.attribute(ZDAGlanceFilterInput, 'type', 'search');
+		});
+
 		it('sets accesskey', function () {
 			browser.assert.attribute(ZDAGlanceFilterInput, 'accesskey', 'f');
 		});
