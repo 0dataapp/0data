@@ -78,19 +78,20 @@
 }
 
 .ZDAGlanceFilterInput {
-	padding: 5px !important;
+	padding: 5px 8px !important;
 	height: 100%;
-	border-radius: 0 !important;
 	border: none !important;
-
+	border-radius: 5px !important;
 	flex-grow: 1;
-	font-size: 140%;
+
+	background: #e3e0d4 !important;
+	font-size: 125%;
 }
 
 @media screen and (max-width: 760px) {
 
 	.ZDAGlanceFilterInput {
-		font-size: 150%;
+		font-size: 120%;
 	}
 
 }
