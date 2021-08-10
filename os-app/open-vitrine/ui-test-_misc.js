@@ -18,6 +18,10 @@ describe('ZDAVitrine_Misc', function () {
 		it('classes OLSKDecorCapped', function () {
 			browser.assert.hasClass(ZDAVitrine, 'OLSKDecorCapped');
 		});
+
+		it('classes OLSKDecorNoTopPad', function () {
+			browser.assert.hasClass(ZDAVitrine, 'OLSKDecorNoTopPad');
+		});
 	
 	});
 
