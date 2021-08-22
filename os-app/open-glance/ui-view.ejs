@@ -24,7 +24,7 @@ locals.OLSKPageMetaViewport = 'width=device-width, initial-scale=1.0, maximum-sc
 	<a class="ZDAGlanceProjectsCompilationLink" href="<%= OLSKCanonical('ZDAProjectsJSONRoute') %>">JSON</a>
 </div>
 
-<div class="ZDAGlanceHeaderTwo OLSKCommonEdgeBottom">
+<div class="ZDAGlanceHeaderTwo OLSKCommonEdgeBottom OLSKDecorFormBlend">
 	<% locals.ZDAGlanceListData.reduce(function (coll, item) {
 		return coll.concat(Object.values(item.ZDAProjectBanks || {}).reduce(function (array, bank) {
 			const name = (bank.ZDABankProtocol || {}).ZDAProtocolName;

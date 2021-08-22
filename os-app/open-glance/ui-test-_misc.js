@@ -63,6 +63,10 @@ describe('ZDAGlance_Misc', function () {
 		it('classes OLSKCommonEdgeBottom', function () {
 			browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKCommonEdgeBottom');
 		});
+
+		it('classes OLSKDecorFormBlend', function () {
+			browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKDecorFormBlend');
+		});
 	
 	});
 
