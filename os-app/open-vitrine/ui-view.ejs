@@ -79,7 +79,7 @@ locals.OLSKPageAssets = [
 <iframe class="ZDAVitrineGroupDiscussionVideo" src="<%= process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL %>" allowfullscreen></iframe>
 <%- include('../../node_modules/ROCOGazette/main.ejs', {
 	_OLSKModulesDirPrefix: '../.',
-	ROCOBulletinProject: 'RP_005',
+	ROCOBulletinProject: process.env.ROCO_SHARED_PROJECT_ID,
 }) %>
 
 <%- include('../../node_modules/OLSKJar/main.ejs') %>
