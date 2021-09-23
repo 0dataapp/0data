@@ -18,7 +18,7 @@
     "OLSKRootLink": "olsk/OLSKRootLink",
     "SWARLink": "0dataapp/SWARLink",
     "ZDAForum": "0dataapp/ZDAForum",
-    "node-fetch": "latest",
+    "node-fetch": "2.x",
     "cheerio": "0.x",
     "list.js": "latest",
     "luxon": "latest",
