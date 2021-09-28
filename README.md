@@ -23,6 +23,7 @@ _Own your data, all of it._
 - https://community.remotestorage.io/c/events/12.rss
 - https://lu.ma/embed-events/usr-q0wId4DZFlx7LCP
 - https://www.eventbrite.co.uk/o/solid-project-30026804546
+- https://chat.0data.app/c/events/5.rss
 
 ## Architecture
 
