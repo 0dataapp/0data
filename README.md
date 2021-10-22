@@ -13,6 +13,10 @@ _Own your data, all of it._
 - https://unhosted.org/apps
 - https://solidproject.org/apps
 
+| Metadata | Source |
+| - | - |
+| Icon | `<link rel="apple-touch-icon" href="ICON_URL_HERE" />` on the app website or [`icons`](https://developer.mozilla.org/en-US/docs/Web/Manifest/icons) from the manifest |
+
 ### Protocols
 - https://github.com/0dataapp/awesome-0data
 
