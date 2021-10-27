@@ -16,4 +16,4 @@ jobs:
     - name: Test logic
       run: npm run test -- --ci
     - name: Test interface
-      run: npx start-server-and-test start 3000 'olsk-spec-ui --ci'
+      run: OLSK_FLAG_CI=true npx start-server-and-test start 3000 'olsk-spec-ui --ci'
