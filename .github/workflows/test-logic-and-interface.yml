@@ -1,0 +1,21 @@
+name: Test logic and interface
+
+on: [push, pull_request]
+
+jobs:
+  test-logic-and-interface:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Configure Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '14.x'
+    - name: Install dependencies
+      run: npm run setup
+    - name: Build project
+      run: npm run build --ci
+    - name: Test logic
+      run: npm run test -- --ci
+    - name: Test interface
+      run: npx start-server-and-test start 3000 'olsk-spec-ui --ci'
