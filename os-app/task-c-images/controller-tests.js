@@ -2,7 +2,7 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
-import OLSKCache from 'OLSKCache';
+const OLSKCache = require('OLSKCache');
 
 describe('DataCachePath', function test_DataCachePath() {
 

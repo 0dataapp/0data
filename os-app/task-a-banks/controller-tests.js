@@ -3,7 +3,7 @@ const { throws, rejects, deepEqual } = require('assert');
 const mod = require('./controller.js');
 
 const ZDABank = require('../_shared/ZDABank/main.js');
-import OLSKCache from 'OLSKCache';
+const OLSKCache = require('OLSKCache');
 
 describe('_DataBankObjects', function test__DataBankObjects() {
 

@@ -2,9 +2,9 @@ const { throws, rejects, deepEqual } = require('assert');
 
 const mod = require('./controller.js');
 
-import { JSDOM } from 'jsdom';
-import OLSKLink from 'OLSKLink';
-import OLSKCache from 'OLSKCache';
+const { JSDOM } = require('jsdom');
+const OLSKLink = require('OLSKLink');
+const OLSKCache = require('OLSKCache');
 const ZDABank = require('../_shared/ZDABank/main.js');
 
 describe('DataProjectsSort', function test_DataProjectsSort() {
