@@ -7,6 +7,10 @@ const mod = {
 			OLSKTaskName: 'ZDAImagesStartFetch',
 			OLSKTaskFireTimeInterval: 10,
 			OLSKTaskShouldBePerformed () {
+				if (process.env.OLSK_FLAG_CI === true) {
+					return false;
+				}
+
 				return true;
 			},
 			OLSKTaskCallback: (function () {
@@ -17,6 +21,10 @@ const mod = {
 			OLSKTaskName: 'ZDAImagesFetchIncoming',
 			OLSKTaskFireTimeInterval: 60 * 60,
 			OLSKTaskShouldBePerformed () {
+				if (process.env.OLSK_FLAG_CI === true) {
+					return false;
+				}
+
 				return true;
 			},
 			OLSKTaskCallback: mod.SetupImages,
