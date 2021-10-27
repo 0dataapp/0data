@@ -21,7 +21,7 @@ describe('DataCacheImageAttributeCandidates', function test_DataCacheImageAttrib
 			'apple-touch-icon',
 			'apple-touch-icon-precomposed',
 			'mask-icon',
-			]);
+		]);
 	});
 
 });
@@ -249,7 +249,7 @@ describe('_SetupCandidates', function test__SetupCandidates() {
 	const __SetupCandidates = function (inputData) {
 		return Object.assign(Object.assign({}, mod), {
 			_DataContentString: (function () {
-				return inputData.ParamHTML
+				return inputData.ParamHTML;
 			}),
 			_DataFoilOLSKDisk: Object.assign({
 				OLSKDiskWrite: (function () {
@@ -281,7 +281,7 @@ describe('_SetupCandidates', function test__SetupCandidates() {
 					return ParamHTML;
 				}),
 				OLSKDiskWrite: (function () {
-					res([...arguments])
+					res([...arguments]);
 				}),
 			});
 		}), [OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(ParamURL)), ParamHTML]);
@@ -350,9 +350,9 @@ describe('_SetupCandidates', function test__SetupCandidates() {
 
 			deepEqual(items, [
 				[OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(ParamURL)),
-				ParamHTML],
+					ParamHTML],
 				[OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(OLSKLink.OLSKLinkRelativeURL(ParamURL, manifest))), JSON.stringify(ParamManifest)],
-				]);
+			]);
 		});
 
 		it('returns _DataDOMPropertyCandidates', async function () {

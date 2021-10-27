@@ -333,7 +333,7 @@ describe('_DataMergeProjects', function test__DataMergeProjects() {
 		}, param2)]).map(function (e) {
 			delete e.ZDAProjectURL;
 
-			return e
+			return e;
 		});
 	};
 
@@ -703,9 +703,9 @@ describe('DataBankProtocols', function test_DataBankProtocols() {
 				_DataBankProtocolObjects: (function () {
 					capture(...arguments);
 					
-					return []
+					return [];
 				}),
-			})
+			});
 		}), [item]);
 	});
 
@@ -768,7 +768,7 @@ describe('DataBankTools', function test_DataBankTools() {
 					[ZDABank.ZDABankURLAwesome()]: item,
 				},
 				_DataBankToolObjects,
-			})
+			});
 		}), [item]);
 	});
 

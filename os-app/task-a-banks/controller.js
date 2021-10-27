@@ -41,7 +41,7 @@ const mod = {
 				
 				return mod.DataBankTools();
 			},
-		}
+		};
 	},
 
 	// DATA

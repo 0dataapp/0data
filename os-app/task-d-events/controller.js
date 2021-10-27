@@ -2,7 +2,7 @@ const cheerio = require('cheerio');
 const OLSKCache = require('OLSKCache');
 
 const uAscending = function (a, b) {
-  return (a < b) ? -1 : ((a > b) ? 1 : 0);
+	return (a < b) ? -1 : ((a > b) ? 1 : 0);
 };
 
 const mod = {
@@ -30,7 +30,7 @@ const mod = {
 				
 				return mod.DataEvents();
 			},
-		}
+		};
 	},
 
 	// DATA
