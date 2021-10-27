@@ -12,7 +12,7 @@ const mod = {
 			OLSKTaskName: 'ZDAEventsStartFetch',
 			OLSKTaskFireTimeInterval: 1,
 			OLSKTaskShouldBePerformed () {
-				if (process.env.OLSK_FLAG_CI === true) {
+				if (process.env.OLSK_FLAG_CI) {
 					return false;
 				}
 
