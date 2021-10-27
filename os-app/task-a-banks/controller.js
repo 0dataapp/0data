@@ -9,10 +9,6 @@ const mod = {
 			OLSKTaskName: 'ZDABanksStartFetch',
 			OLSKTaskFireTimeInterval: 1,
 			OLSKTaskShouldBePerformed () {
-				if (process.env.OLSK_FLAG_CI) {
-					return false;
-				}
-
 				return true;
 			},
 			OLSKTaskCallback: (function () {
@@ -25,12 +21,24 @@ const mod = {
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAGlanceProjectsCount () {
+				if (process.env.OLSK_FLAG_CI) {
+					return 0;
+				}
+
 				return mod.DataBankProjects().length;
 			},
 			ZDAProtocols () {
+				if (process.env.OLSK_FLAG_CI) {
+					return [];
+				}
+				
 				return mod.DataBankProtocols();
 			},
 			ZDATools () {
+				if (process.env.OLSK_FLAG_CI) {
+					return [];
+				}
+				
 				return mod.DataBankTools();
 			},
 		}

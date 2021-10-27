@@ -12,10 +12,6 @@ const mod = {
 			OLSKTaskName: 'ZDAEventsStartFetch',
 			OLSKTaskFireTimeInterval: 1,
 			OLSKTaskShouldBePerformed () {
-				if (process.env.OLSK_FLAG_CI) {
-					return false;
-				}
-
 				return true;
 			},
 			OLSKTaskCallback: (function () {
@@ -28,6 +24,10 @@ const mod = {
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAEvents () {
+				if (process.env.OLSK_FLAG_CI) {
+					return [];
+				}
+				
 				return mod.DataEvents();
 			},
 		}

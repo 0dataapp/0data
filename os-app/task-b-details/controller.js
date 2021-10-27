@@ -9,10 +9,6 @@ const mod = {
 			OLSKTaskName: 'ZDADetailsStartFetch',
 			OLSKTaskFireTimeInterval: 5,
 			OLSKTaskShouldBePerformed () {
-				if (process.env.OLSK_FLAG_CI) {
-					return false;
-				}
-
 				return true;
 			},
 			OLSKTaskCallback: (function () {
@@ -23,10 +19,6 @@ const mod = {
 			OLSKTaskName: 'ZDADetailsCheckNewBankListings',
 			OLSKTaskFireTimeInterval: 60 * 60 * 24,
 			OLSKTaskShouldBePerformed () {
-				if (process.env.OLSK_FLAG_CI) {
-					return false;
-				}
-
 				return true;
 			},
 			OLSKTaskCallback: mod._SetupDetailsIncoming,
