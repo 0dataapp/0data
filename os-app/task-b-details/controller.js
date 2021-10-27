@@ -1,4 +1,4 @@
-const { JSDOM } = require('JSDOM');
+const { JSDOM } = require('jsdom');
 const OLSKLink = require('OLSKLink');
 const OLSKCache = require('OLSKCache');
 
