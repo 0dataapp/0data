@@ -24,10 +24,6 @@ const mod = {
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAEvents () {
-				if (process.env.OLSK_FLAG_CI) {
-					return [];
-				}
-				
 				return mod.DataEvents();
 			},
 		};
@@ -153,6 +149,10 @@ const mod = {
 	},
 
 	DataEvents () {
+		if (process.env.OLSK_FLAG_CI) {
+			return [];
+		}
+		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		return _mod.ZDAEventURLs().reduce(function (coll, item) {

@@ -21,24 +21,12 @@ const mod = {
 	OLSKControllerSharedLocals () {
 		return {
 			ZDAGlanceProjectsCount () {
-				if (process.env.OLSK_FLAG_CI) {
-					return 0;
-				}
-
 				return mod.DataBankProjects().length;
 			},
 			ZDAProtocols () {
-				if (process.env.OLSK_FLAG_CI) {
-					return [];
-				}
-				
 				return mod.DataBankProtocols();
 			},
 			ZDATools () {
-				if (process.env.OLSK_FLAG_CI) {
-					return [];
-				}
-				
 				return mod.DataBankTools();
 			},
 		};
@@ -282,6 +270,10 @@ const mod = {
 	},
 
 	DataBankProjects () {
+		if (process.env.OLSK_FLAG_CI) {
+			return [];
+		}
+
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		return _mod._DataFillProjects(_mod._DataMergeProjects(ZDABank.ZDABankURLs().reduce(function (coll, item) {
@@ -304,6 +296,10 @@ const mod = {
 	},
 
 	DataBankProtocols () {
+		if (process.env.OLSK_FLAG_CI) {
+			return [];
+		}
+		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
@@ -334,6 +330,10 @@ const mod = {
 	},
 
 	DataBankTools () {
+		if (process.env.OLSK_FLAG_CI) {
+			return [];
+		}
+		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
