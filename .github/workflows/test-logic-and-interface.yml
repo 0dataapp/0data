@@ -13,8 +13,6 @@ jobs:
         node-version: '14.x'
     - name: Install dependencies
       run: npm run setup
-    - name: Build project
-      run: npm run build --ci
     - name: Test logic
       run: npm run test -- --ci
     - name: Test interface
