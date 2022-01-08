@@ -7,7 +7,7 @@ _Own your data, all of it._
 ## Data compiled automatically from the following locations:
 
 ### Apps
-- https://wiki.remotestorage.io/Apps
+- https://remotestorage.io/apps
 - https://github.com/0dataapp/unofficial-fission-apps-list
 - https://github.com/0dataapp/awesome-0data
 - https://unhosted.org/apps
