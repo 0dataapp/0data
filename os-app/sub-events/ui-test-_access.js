@@ -10,7 +10,7 @@ Object.entries({
 	ZDAVitrineEventsListItemStart: '.ZDAVitrineEventsListItemStart',
 	ZDAVitrineEventsListItemLink: '.ZDAVitrineEventsListItemLink',
 }).map(function (e) {
-	return global[e.shift()]  = e.pop();
+	return global[e.shift()] = e.pop();
 });
 
 describe('ZDAVitrineEventsList_Access', function () {

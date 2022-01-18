@@ -29,7 +29,7 @@ Object.entries({
 	ZDAVitrineGroupDiscussionHeading: '.ZDAVitrineGroupDiscussionHeading',
 	ZDAVitrineGroupDiscussionVideo: '.ZDAVitrineGroupDiscussionVideo',
 }).map(function (e) {
-	return global[e.shift()]  = e.pop();
+	return global[e.shift()] = e.pop();
 });
 
 describe('ZDAVitrine_Access', function () {

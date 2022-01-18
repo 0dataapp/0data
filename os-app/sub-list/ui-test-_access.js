@@ -12,7 +12,7 @@ Object.entries({
 	ZDAGlanceListItemName: '.ZDAGlanceListItemName',
 	ZDAGlanceListItemBlurb: '.ZDAGlanceListItemBlurb',
 }).map(function (e) {
-	return global[e.shift()]  = e.pop();
+	return global[e.shift()] = e.pop();
 });
 
 describe('ZDAGlanceList_Access', function () {
