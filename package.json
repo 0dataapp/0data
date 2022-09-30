@@ -17,7 +17,6 @@
     "OLSKModule": "olsk/OLSKModule",
     "OLSKRootLink": "olsk/OLSKRootLink",
     "SWARLink": "0dataapp/SWARLink",
-    "ZDAForum": "0dataapp/ZDAForum",
     "node-fetch": "2.x",
     "cheerio": "0.x",
     "list.js": "latest",

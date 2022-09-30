@@ -4,7 +4,6 @@ locals.OLSKPageDescription = OLSKLocalized('ZDAVitrineDescription');
 locals.OLSKPageAssets = [
 	'/_shared/__external/normalize.css/normalize.css',
 	'/_shared/__external/OLSKDecor/ui-style.css',
-	'/_shared/__external/ZDAForum/ui-style.css',
 	'/_shared/common/ui-style.css',
 	'ui-style.css',
 ];
@@ -86,10 +85,6 @@ locals.OLSKPageAssets = [
 
 <%- include('../../node_modules/OLSKEdit/main.ejs', {
 	OLSKEditURL: process.env.OLSK_REPO_URL,
-}) %>
-
-<%- include('../../node_modules/ROCOForum/main.ejs', {
-	ROCOForumDomain: process.env.ROCO_FORUM_DOMAIN,
 }) %>
 
 <hr role="presentation" />

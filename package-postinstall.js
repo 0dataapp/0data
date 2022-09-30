@@ -1,5 +1,5 @@
 (function OLSKPostinstallHotfix() {
-	Object.entries(Object.assign(require('OLSKHotfix').OLSKHotfixPatches(process.env.NODE_ENV), require('ZDAForum').ZDAForumHotfixPatches())).forEach(function ([path, patches]) {
+	Object.entries(require('OLSKHotfix').OLSKHotfixPatches(process.env.NODE_ENV)).forEach(function ([path, patches]) {
 		if (!require('fs').existsSync(path)) {
 			return;
 		}
@@ -18,7 +18,6 @@
 		'OLSKRootLink',
 		'OLSKUIAssets',
 		'ROCORootLink',
-		'ZDAForum',
 		'list.js',
 	], require('path').join(__dirname, 'node_modules'), require('path').join(__dirname, 'os-app/_shared/__external'));
 })();
