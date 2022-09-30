@@ -21,11 +21,11 @@
     "cheerio": "0.x",
     "list.js": "latest",
     "luxon": "latest",
-    "// I sacrifice myself for the commas of others": null
+    "//": "I sacrifice myself for the commas of others"
   },
   "devDependencies": {
     "OLSKPithToolchain": "olsk/OLSKPithToolchain",
     "jsdom": "latest",
-    "// I sacrifice myself for the commas of others": null
+    "//": "I sacrifice myself for the commas of others"
   }
 }
