@@ -353,7 +353,7 @@ describe('DataProjectJSONSchema', function test_DataProjectJSONSchema() {
 
 describe('DataProjectsJSON', function test_DataProjectsJSON() {
 
-	it('returns string', function () {
+	it('returns array', function () {
 		const ZDAProjectName = Math.random().toString();
 		const item = {
 			ZDAProjectName,
@@ -363,7 +363,7 @@ describe('DataProjectsJSON', function test_DataProjectsJSON() {
 			DataProjects: (function () {
 				return [item];
 			}),
-		}).DataProjectsJSON(), JSON.stringify([mod.DataProjectJSONSchema(item)]));
+		}).DataProjectsJSON(), [mod.DataProjectJSONSchema(item)]);
 	});
 
 });
