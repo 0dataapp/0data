@@ -57,7 +57,7 @@ const mod = {
 			return Object.assign(coll, {
 				[item]: {
 					[ZDABank.ZDABankURLRemoteStorage()]: function () {
-						return cheerio('table', param2).first().find('tbody tr').map(function () {
+						return cheerio('.main-content table:not(last-of-type)', param2).find('tbody tr').map(function () {
 							return {
 								ZDAProjectURL: cheerio('td:nth-child(1) a', this).attr('href'),
 								ZDAProjectBanks: {
