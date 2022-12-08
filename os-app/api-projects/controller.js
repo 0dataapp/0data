@@ -1,3 +1,7 @@
+const uAscending = function (a, b) {
+	return (a < b) ? -1 : ((a > b) ? 1 : 0);
+};
+
 const uDescending = function (a, b) {
 	return (a > b) ? -1 : ((a < b) ? 1 : 0);
 };
@@ -36,6 +40,10 @@ const mod = {
 			}, 0), unmatched.reduce(function (coll, item) {
 				return coll + !!b[item];
 			}, 0));
+		}
+
+		if (a.ZDAProjectBlurb.length > 140 || b.ZDAProjectBlurb.length > 140) {
+			return uAscending(a.ZDAProjectBlurb.length, b.ZDAProjectBlurb.length);
 		}
 
 		return uDescending(...[a, b].map(function (e) {

@@ -68,6 +68,31 @@ describe('DataProjectsSort', function test_DataProjectsSort() {
 		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
 	});
 
+	it('bumps blurb under 140 characters', function () {
+		const item1 = {
+			ZDAProjectBlurb: Array.from(Array(140 + uRandomInt())).map(function () {
+				return 'x';
+			}).join(''),
+			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectHasManifest: true,
+			ZDAProjectBanks: {
+				[Math.random().toString()]: {},
+			},
+		};
+		const item2 = {
+			ZDAProjectBlurb: Array.from(Array(uRandomInt(140))).map(function () {
+				return 'x';
+			}).join(''),
+			ZDAProjectIconURL: Math.random().toString(),
+			ZDAProjectHasManifest: true,
+			ZDAProjectBanks: {
+				[Math.random().toString()]: {},
+			},
+		};
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
 });
 
 describe('_DataProjectImageProperty', function test__DataProjectImageProperty() {
