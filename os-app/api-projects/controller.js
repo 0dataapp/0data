@@ -46,6 +46,12 @@ const mod = {
 			return uAscending(a.ZDAProjectBlurb.length, b.ZDAProjectBlurb.length);
 		}
 
+		const pattern = /git(?!hub.io)(?!ea)/i;
+		const exclude = /(pages.github.com|about.gitlab.com)/i;
+		if (a.ZDAProjectURL?.match(pattern) || b.ZDAProjectURL?.match(pattern)) {
+			return uAscending(a.ZDAProjectURL?.match(pattern) && !a.ZDAProjectURL?.match(exclude), b.ZDAProjectURL?.match(pattern) && !b.ZDAProjectURL?.match(exclude));
+		}
+
 		return uDescending(...[a, b].map(function (e) {
 			return Object.values(e.ZDAProjectBanks || {}).filter(function (e) {
 				return e.ZDABankProtocol;

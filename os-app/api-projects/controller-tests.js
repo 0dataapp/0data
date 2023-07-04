@@ -7,6 +7,14 @@ const OLSKLink = require('OLSKLink');
 const OLSKCache = require('OLSKCache');
 const ZDABank = require('../_shared/ZDABank/main.js');
 
+const uProject = function (inputData = {}) {
+	return Object.assign({
+		ZDAProjectBlurb: Math.random().toString(),
+		ZDAProjectIconURL: Math.random().toString(),
+		ZDAProjectHasManifest: true,
+	}, inputData);
+};
+
 describe('DataProjectsSort', function test_DataProjectsSort() {
 	
 	it('bumps ZDAProjectIconURL', function () {
@@ -89,6 +97,61 @@ describe('DataProjectsSort', function test_DataProjectsSort() {
 				[Math.random().toString()]: {},
 			},
 		};
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps if not git', function () {
+		const item1 = uProject({
+			ZDAProjectURL: 'git' + Math.random().toString(),
+		});
+		const item2 = uProject({
+			ZDAProjectURL: Math.random().toString(),
+		});
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps github.io', function () {
+		const item1 = uProject({
+			ZDAProjectURL: 'git' + Math.random().toString(),
+		});
+		const item2 = uProject({
+			ZDAProjectURL: 'github.io' + Math.random().toString(),
+		});
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps gitea', function () {
+		const item1 = uProject({
+			ZDAProjectURL: 'git' + Math.random().toString(),
+		});
+		const item2 = uProject({
+			ZDAProjectURL: 'gitea' + Math.random().toString(),
+		});
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps pages.github.com', function () {
+		const item1 = uProject({
+			ZDAProjectURL: 'git' + Math.random().toString(),
+		});
+		const item2 = uProject({
+			ZDAProjectURL: 'pages.github.com' + Math.random().toString(),
+		});
+
+		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
+	});
+
+	it('bumps about.gitlab.com', function () {
+		const item1 = uProject({
+			ZDAProjectURL: 'git' + Math.random().toString(),
+		});
+		const item2 = uProject({
+			ZDAProjectURL: 'about.gitlab.com' + Math.random().toString(),
+		});
 
 		deepEqual([item1, item2].sort(mod.DataProjectsSort), [item2, item1]);
 	});
