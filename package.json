@@ -24,6 +24,6 @@
   },
   "devDependencies": {
     "OLSKPithToolchain": "olsk/OLSKPithToolchain",
-    "jsdom": "latest"
+    "jsdom": "16.x"
   }
 }
