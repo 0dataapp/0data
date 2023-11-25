@@ -774,6 +774,69 @@ describe('DataBankTools', function test_DataBankTools() {
 
 });
 
+describe('_DataBankInitiativeObjects', function test__DataBankInitiativeObjects() {
+
+	const uBank = function (inputData = {}) {
+		const item = Object.assign({
+			ZDAInitiativeURL: Math.random().toString(),
+			ZDAInitiativeName: Math.random().toString(),
+			ZDAInitiativeBlurb: Math.random().toString(),
+		}, inputData);
+
+		return `# Adjacent initiatives\n- [${ item.ZDAInitiativeName }](${ item.ZDAInitiativeURL }): ${ item.ZDAInitiativeBlurb }\n#`;
+	};
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataBankInitiativeObjects(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns array', function () {
+		deepEqual(mod._DataBankInitiativeObjects(''), []);
+	});
+
+	it('parses data', function () {
+		const ZDAInitiativeURL = Math.random().toString();
+		const ZDAInitiativeName = Math.random().toString();
+		const ZDAInitiativeBlurb = Math.random().toString();
+
+		deepEqual(mod._DataBankInitiativeObjects(uBank({
+			ZDAInitiativeURL,
+			ZDAInitiativeName,
+			ZDAInitiativeBlurb,
+		})), [{
+			ZDAInitiativeURL,
+			ZDAInitiativeName,
+			ZDAInitiativeBlurb,
+		}]);
+	});
+
+});
+
+describe('DataBankInitiatives', function test_DataBankInitiatives() {
+
+	const _DataBankInitiatives = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataBankInitiativeObjects: (function () {}),
+		}, inputData);
+		return _mod.DataBankInitiatives() || _mod;
+	};
+
+	it('calls _DataBankInitiativeObjects', function () {
+		const item = Math.random().toString();
+		deepEqual(uCapture(function (_DataBankInitiativeObjects) {
+			_DataBankInitiatives({
+				_OLSKCacheResultMap: {
+					[ZDABank.ZDABankURLAwesome()]: item,
+				},
+				_DataBankInitiativeObjects,
+			});
+		}), [item]);
+	});
+
+});
+
 describe('_SetupBank', function test__SetupBank() {
 
 	const __SetupBank = function (inputData) {

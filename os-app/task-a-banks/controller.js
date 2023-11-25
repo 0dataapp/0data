@@ -29,6 +29,9 @@ const mod = {
 			ZDATools () {
 				return mod.DataBankTools();
 			},
+			ZDAInitiatives () {
+				return mod.DataBankInitiatives();
+			},
 		};
 	},
 
@@ -341,6 +344,36 @@ const mod = {
 		}
 
 		return _mod._DataBankToolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
+	},
+
+	_DataBankInitiativeObjects (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return inputData.split('# Adjacent initiatives').pop().split('#').shift().trim().split('\n-').filter(function (e) {
+			return !!e;
+		}).map(function (e) {
+			return {
+				ZDAInitiativeURL: e.match(/\(.*\)/)[0].slice(1, -1),
+				ZDAInitiativeName: e.match(/\[.*\]/)[0].slice(1, -1),
+				ZDAInitiativeBlurb: e.split(': ').pop(),
+			};
+		});
+	},
+
+	DataBankInitiatives () {
+		if (process.env.OLSK_FLAG_CI) {
+			return [];
+		}
+		
+		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
+
+		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
+			mod.SetupBanks();
+		}
+
+		return _mod._DataBankInitiativeObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},
 
 	// SETUP

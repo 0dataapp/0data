@@ -28,6 +28,11 @@ Object.entries({
 
 	ZDAVitrineGroupDiscussionHeading: '.ZDAVitrineGroupDiscussionHeading',
 	ZDAVitrineGroupDiscussionVideo: '.ZDAVitrineGroupDiscussionVideo',
+
+	ZDAVitrineInitiativesHeading: '.ZDAVitrineInitiativesHeading',
+	ZDAVitrineInitiativesContainer: '.ZDAVitrineInitiativesContainer',
+	ZDAVitrineInitiativesLink: '.ZDAVitrineInitiativesLink',
+	ZDAVitrineInitiativesBlurb: '.ZDAVitrineInitiativesBlurb',
 }).map(function (e) {
 	return global[e.shift()] = e.pop();
 });
@@ -36,6 +41,7 @@ describe('ZDAVitrine_Access', function () {
 
 	const protocols = require('../task-a-banks/controller.js').DataBankProtocols().length;
 	const tools = require('../task-a-banks/controller.js').DataBankTools().length;
+	const initiatives = require('../task-a-banks/controller.js').DataBankInitiatives().length;
 
 	before(function() {
 		return browser.visit(kDefaultRoutePath);
@@ -135,6 +141,22 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows ZDAVitrineGroupDiscussionVideo', function () {
 		browser.assert.elements(ZDAVitrineGroupDiscussionVideo, 1);
+	});
+
+	it('shows ZDAVitrineInitiativesHeading', function () {
+		browser.assert.elements(ZDAVitrineInitiativesHeading, 1);
+	});
+
+	it('shows ZDAVitrineInitiativesContainer', function () {
+		browser.assert.elements(ZDAVitrineInitiativesContainer, 1);
+	});
+
+	it('shows ZDAVitrineInitiativesLink', function () {
+		browser.assert.elements(ZDAVitrineInitiativesLink, initiatives);
+	});
+
+	it('shows ZDAVitrineInitiativesBlurb', function () {
+		browser.assert.elements(ZDAVitrineInitiativesBlurb, initiatives);
 	});
 
 	it('shows ROCOGazette', function () {
