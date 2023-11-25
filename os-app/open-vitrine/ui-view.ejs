@@ -76,7 +76,7 @@ locals.OLSKPageAssets = [
 
 <iframe class="ZDAVitrineGroupDiscussionVideo" src="<%= process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL %>" allowfullscreen></iframe>
 
-<h1 class="ZDAVitrineToolsHeading"><%= OLSKLocalized('ZDAVitrineInitiativesHeadingText') %></h1>
+<h1 class="ZDAVitrineInitiativesHeading"><%= OLSKLocalized('ZDAVitrineInitiativesHeadingText') %></h1>
 <dl class="ZDAVitrineInitiativesContainer OLSKDecorGlossary" lang="en">
 	<% ZDAInitiatives().forEach(function (item) { -%>
 	<dt><a class="ZDAVitrineInitiativesLink" href="<%= item.ZDAInitiativeURL %>" target="_blank"><%= item.ZDAInitiativeName %></a></dt>
