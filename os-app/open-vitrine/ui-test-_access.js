@@ -33,6 +33,12 @@ Object.entries({
 	ZDAVitrineInitiativesContainer: '.ZDAVitrineInitiativesContainer',
 	ZDAVitrineInitiativesLink: '.ZDAVitrineInitiativesLink',
 	ZDAVitrineInitiativesBlurb: '.ZDAVitrineInitiativesBlurb',
+
+	ZDAVitrineAlsoHeading: '.ZDAVitrineAlsoHeading',
+	ZDAVitrineZeroDataCrown: '.ZDAVitrineZeroDataCrown',
+	ZDAVitrineZeroDataCrownIcon: '.ZDAVitrineZeroDataCrownIcon',
+	ZDAVitrineZeroDataCrownName: '.ZDAVitrineZeroDataCrownName',
+	ZDAVitrineZeroDataCrownBlurb: '.ZDAVitrineZeroDataCrownBlurb',
 }).map(function (e) {
 	return global[e.shift()] = e.pop();
 });
@@ -165,6 +171,26 @@ describe('ZDAVitrine_Access', function () {
 
 	it('shows OLSKEdit', function () {
 		browser.assert.elements('.OLSKEdit', 1);
+	});
+
+	it('shows ZDAVitrineAlsoHeading', function () {
+		browser.assert.elements(ZDAVitrineAlsoHeading, 1);
+	});
+
+	it('shows ZDAVitrineZeroDataCrown', function () {
+		browser.assert.elements(ZDAVitrineZeroDataCrown, 1);
+	});
+
+	it('shows ZDAVitrineZeroDataCrownIcon', function () {
+		browser.assert.elements(ZDAVitrineZeroDataCrownIcon, 1);
+	});
+
+	it('shows ZDAVitrineZeroDataCrownName', function () {
+		browser.assert.elements(ZDAVitrineZeroDataCrownName, 1);
+	});
+
+	it('shows ZDAVitrineZeroDataCrownBlurb', function () {
+		browser.assert.elements(ZDAVitrineZeroDataCrownBlurb, 1);
 	});
 
 	it('shows SWARLink', function() {

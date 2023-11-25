@@ -72,6 +72,14 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 			browser.assert.text(ZDAVitrineInitiativesHeading, uLocalized('ZDAVitrineInitiativesHeadingText'));
 		});
 
+		it('localizes ZDAVitrineAlsoHeading', function () {
+			browser.assert.text(ZDAVitrineAlsoHeading, uLocalized('ZDAVitrineAlsoHeadingText'));
+		});
+
+		it('localizes ZDAVitrineZeroDataCrownBlurb', function () {
+			browser.assert.text(ZDAVitrineZeroDataCrownBlurb, uLocalized('ZDAVitrineZeroDataCrownBlurbText'));
+		});
+
 		context('OLSKCrown', function test_OLSKCrown () {
 
 			it('localizes OLSKCrownCardName', function () {

@@ -213,4 +213,40 @@ describe('ZDAVitrine_Misc', function () {
 
 	});
 
+	describe('ZDAVitrineZeroDataCrown', function test_ZDAVitrineZeroDataCrown() {
+
+		it('classes OLSKCommonCard', function () {
+			browser.assert.hasClass(ZDAVitrineZeroDataCrown, 'OLSKCommonCard');
+		});
+
+		it('classes OLSKCommonCrownCard', function () {
+			browser.assert.hasClass(ZDAVitrineZeroDataCrown, 'OLSKCommonCrownCard');
+		});
+		
+	});
+
+	describe('ZDAVitrineZeroDataCrownIcon', function () {
+
+		it('sets role', function () {
+			browser.assert.attribute(ZDAVitrineZeroDataCrownIcon, 'role', 'presentation');
+		});
+
+		it('sets src', function () {
+			browser.assert.attribute(ZDAVitrineZeroDataCrownIcon, 'src', process.env.ZDA_VITRINE_EASY_INDIE_IDENTITY_URL);
+		});
+
+	});
+
+	describe('ZDAVitrineZeroDataCrownName', function test_ZDAVitrineZeroDataCrownName () {
+
+		it('sets href', function () {
+			browser.assert.attribute(ZDAVitrineZeroDataCrownName, 'href', process.env.ZDA_VITRINE_EASY_INDIE_URL);
+		});
+		
+		it('sets text', function () {
+			browser.assert.text(ZDAVitrineZeroDataCrownName, 'Easy Indie App');
+		});
+	
+	});
+
 });
