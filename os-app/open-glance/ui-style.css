@@ -1,5 +1,5 @@
 :root {
-	--ZDAGlanceToolbarHeight: 78px;
+	--ZDAGlanceToolbarHeight: 0;
 	--OLSKStickyHeaderTop: var(--ZDAGlanceToolbarHeight);
 }
 
