@@ -180,6 +180,7 @@ const mod = {
 			'https://peercdn.com/',
 			'http://cryptosphere.org/',
 			'https://app.solidbase.info',
+			'https://waves.kosmos.org/',
 		].includes(e.ZDAProjectURL)) {
 			return false;
 		}
