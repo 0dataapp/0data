@@ -55,7 +55,8 @@ const mod = {
 		const response = await fetch(url);
 
 		if (!response.ok) {
-			throw new Error(`unexpected response from ${url}\n${response.statusText}`);
+			console.log(`unexpected response from ${url}\n${response.statusText}`);
+			return;
 		}
 
 		require('OLSKDisk').OLSKDiskCreateFolder(require('path').dirname(file));
