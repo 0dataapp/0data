@@ -46,6 +46,7 @@ const mod = {
 			'https://jeremyckahn.github.io/logoMaskable.png': 'https://jeremyckahn.github.io/farmhand/app-icons/ios-appicon-180-180.png',
 			'https://find.internet4000.com/public/favicon/android-chrome-512x512.png': 'https://find.internet4000.com/public/favicons/apple-touch-icon.png',
 			'https://hihayk.github.io/logo512.png': 'https://hihayk.github.io/shaper/logo192.png',
+			'https://petrolette.space/public/images/favicons/android-chrome-256x256.png': 'https://petrolette.space/static/images/favicons/apple-touch-icon.png',
 		}).forEach(function ([source, destination]) {
 			if (url.match(source)) {
 				url = destination;
