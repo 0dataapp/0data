@@ -261,6 +261,7 @@ describe('_DataFilterProject', function test__DataFilterProject() {
 			'http://cryptosphere.org/',
 			'https://app.solidbase.info',
 			'https://waves.kosmos.org/',
+			'https://sit.fyi',
 		].forEach(function (ZDAProjectURL) {
 			
 			it(`filters ${ ZDAProjectURL }`, function () {

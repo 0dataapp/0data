@@ -181,6 +181,7 @@ const mod = {
 			'http://cryptosphere.org/',
 			'https://app.solidbase.info',
 			'https://waves.kosmos.org/',
+			'https://sit.fyi',
 		].includes(e.ZDAProjectURL)) {
 			return false;
 		}
