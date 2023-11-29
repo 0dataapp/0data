@@ -262,6 +262,7 @@ describe('_DataFilterProject', function test__DataFilterProject() {
 			'https://app.solidbase.info',
 			'https://waves.kosmos.org/',
 			'https://sit.fyi',
+			'https://applications.linkedpipes.com/',
 		].forEach(function (ZDAProjectURL) {
 			
 			it(`filters ${ ZDAProjectURL }`, function () {

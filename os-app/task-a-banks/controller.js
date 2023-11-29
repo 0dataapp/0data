@@ -182,6 +182,7 @@ const mod = {
 			'https://app.solidbase.info',
 			'https://waves.kosmos.org/',
 			'https://sit.fyi',
+			'https://applications.linkedpipes.com/',
 		].includes(e.ZDAProjectURL)) {
 			return false;
 		}
