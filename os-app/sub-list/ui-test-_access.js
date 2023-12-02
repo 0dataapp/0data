@@ -22,15 +22,15 @@ describe('ZDAGlanceList_Access', function () {
 	});
 	
 	it('shows ZDAGlanceList', function() {
-		browser.assert.elements(ZDAGlanceList, 1);
+		return browser.assert.elements(ZDAGlanceList, 1);
 	});
 
 	it('shows ZDAGlanceListEmpty', function () {
-		browser.assert.elements(ZDAGlanceListEmpty, 1);
+		return browser.assert.elements(ZDAGlanceListEmpty, 1);
 	});
 
 	it('hides ZDAGlanceListItem', function () {
-		browser.assert.elements(ZDAGlanceListItem, 0);
+		return browser.assert.elements(ZDAGlanceListItem, 0);
 	});
 
 	context('ZDAGlanceListData', function () {
@@ -48,27 +48,27 @@ describe('ZDAGlanceList_Access', function () {
 		});
 
 		it('hides ZDAGlanceListEmpty', function () {
-			browser.assert.elements(ZDAGlanceListEmpty, 0);
+			return browser.assert.elements(ZDAGlanceListEmpty, 0);
 		});
 
 		it('shows ZDAGlanceListItem', function () {
-			browser.assert.elements(ZDAGlanceListItem, count);
+			return browser.assert.elements(ZDAGlanceListItem, count);
 		});
 
 		it('shows ZDAGlanceListItemIcon', function () {
-			browser.assert.elements(ZDAGlanceListItemIcon, count);
+			return browser.assert.elements(ZDAGlanceListItemIcon, count);
 		});
 
 		it('shows ZDAGlanceListItemIconImage', function () {
-			browser.assert.elements(ZDAGlanceListItemIconImage, count);
+			return browser.assert.elements(ZDAGlanceListItemIconImage, count);
 		});
 
 		it('shows ZDAGlanceListItemName', function () {
-			browser.assert.elements(ZDAGlanceListItemName, count);
+			return browser.assert.elements(ZDAGlanceListItemName, count);
 		});
 
 		it('shows ZDAGlanceListItemBlurb', function () {
-			browser.assert.elements(ZDAGlanceListItemBlurb, count);
+			return browser.assert.elements(ZDAGlanceListItemBlurb, count);
 		});
 
 	});

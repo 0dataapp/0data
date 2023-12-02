@@ -15,7 +15,7 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		});
 
 		it('localizes ZDAVitrineEventsListEmpty', function () {
-			browser.assert.text(ZDAVitrineEventsListEmpty, uLocalized('ZDAVitrineEventsListEmptyText'));
+			return browser.assert.text(ZDAVitrineEventsListEmpty, uLocalized('ZDAVitrineEventsListEmptyText'));
 		});
 
 	});

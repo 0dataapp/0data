@@ -19,7 +19,7 @@ describe('ZDAVitrineEventsList_Misc', function  () {
 	describe('ZDAVitrineEventsList', function test_ZDAVitrineEventsList () {
 
 		it('sets lang', function () {
-			browser.assert.attribute(ZDAVitrineEventsList, 'lang', 'en');
+			return browser.assert.attribute(ZDAVitrineEventsList, 'lang', 'en');
 		});
 
 	});
@@ -27,7 +27,7 @@ describe('ZDAVitrineEventsList_Misc', function  () {
 	describe('ZDAVitrineEventsListItemStart', function test_ZDAVitrineEventsListItemStart () {
 
 		it('binds ZDAEventStart', function () {
-			browser.assert.text(ZDAVitrineEventsListItemStart, require('luxon').DateTime.fromJSDate(item.ZDAEventStart).toFormat('MMM dd'));
+			return browser.assert.text(ZDAVitrineEventsListItemStart, require('luxon').DateTime.fromJSDate(item.ZDAEventStart).toFormat('MMM dd'));
 		});
 
 	});
@@ -35,15 +35,15 @@ describe('ZDAVitrineEventsList_Misc', function  () {
 	describe('ZDAVitrineEventsListItemLink', function test_ZDAVitrineEventsListItemLink () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAVitrineEventsListItemLink, 'href', item.ZDAEventURL);
+			return browser.assert.attribute(ZDAVitrineEventsListItemLink, 'href', item.ZDAEventURL);
 		});
 
 		it('sets target', function () {
-			browser.assert.attribute(ZDAVitrineEventsListItemLink, 'target', '_blank');
+			return browser.assert.attribute(ZDAVitrineEventsListItemLink, 'target', '_blank');
 		});
 
 		it('binds ZDAEventName', function () {
-			browser.assert.text(ZDAVitrineEventsListItemLink, item.ZDAEventName);
+			return browser.assert.text(ZDAVitrineEventsListItemLink, item.ZDAEventName);
 		});
 
 	});

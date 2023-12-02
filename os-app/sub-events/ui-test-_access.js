@@ -20,15 +20,15 @@ describe('ZDAVitrineEventsList_Access', function () {
 	});
 	
 	it('shows ZDAVitrineEventsList', function() {
-		browser.assert.elements(ZDAVitrineEventsList, 1);
+		return browser.assert.elements(ZDAVitrineEventsList, 1);
 	});
 
 	it('shows ZDAVitrineEventsListEmpty', function () {
-		browser.assert.elements(ZDAVitrineEventsListEmpty, 1);
+		return browser.assert.elements(ZDAVitrineEventsListEmpty, 1);
 	});
 
 	it('hides ZDAVitrineEventsListItem', function () {
-		browser.assert.elements(ZDAVitrineEventsListItem, 0);
+		return browser.assert.elements(ZDAVitrineEventsListItem, 0);
 	});
 
 	context('ZDAVitrineEventsListData', function () {
@@ -46,19 +46,19 @@ describe('ZDAVitrineEventsList_Access', function () {
 		});
 
 		it('hides ZDAVitrineEventsListEmpty', function () {
-			browser.assert.elements(ZDAVitrineEventsListEmpty, 0);
+			return browser.assert.elements(ZDAVitrineEventsListEmpty, 0);
 		});
 
 		it('shows ZDAVitrineEventsListItem', function () {
-			browser.assert.elements(ZDAVitrineEventsListItem, count);
+			return browser.assert.elements(ZDAVitrineEventsListItem, count);
 		});
 
 		it('shows ZDAVitrineEventsListItemStart', function () {
-			browser.assert.elements(ZDAVitrineEventsListItemStart, count);
+			return browser.assert.elements(ZDAVitrineEventsListItemStart, count);
 		});
 
 		it('shows ZDAVitrineEventsListItemLink', function () {
-			browser.assert.elements(ZDAVitrineEventsListItemLink, count);
+			return browser.assert.elements(ZDAVitrineEventsListItemLink, count);
 		});
 
 	});

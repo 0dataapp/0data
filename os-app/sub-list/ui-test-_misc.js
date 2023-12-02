@@ -24,7 +24,7 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceList', function test_ZDAGlanceList () {
 
 		it('sets lang', function () {
-			browser.assert.attribute(ZDAGlanceList, 'lang', 'en');
+			return browser.assert.attribute(ZDAGlanceList, 'lang', 'en');
 		});
 
 	});
@@ -32,11 +32,11 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceListItem', function test_ZDAGlanceListItem () {
 
 		it('classes OLSKCommonCard', function () {
-			browser.assert.hasClass(ZDAGlanceListItem, 'OLSKCommonCard');
+			return browser.assert.hasClass(ZDAGlanceListItem, 'OLSKCommonCard');
 		});
 
 		it('sets data-protocols', function () {
-			browser.assert.attribute('.ZDAGlanceListItem', 'data-protocols', Object.values(item.ZDAProjectBanks).filter(function (e) {
+			return browser.assert.attribute('.ZDAGlanceListItem', 'data-protocols', Object.values(item.ZDAProjectBanks).filter(function (e) {
 				return e.ZDABankProtocol;
 			}).map(function (e) {
 				return e.ZDABankProtocol.ZDAProtocolName;
@@ -48,15 +48,15 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceListItemIcon', function test_ZDAGlanceListItemIcon () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAGlanceListItemIcon, 'href', item.ZDAProjectURL);
+			return browser.assert.attribute(ZDAGlanceListItemIcon, 'href', item.ZDAProjectURL);
 		});
 
 		it('sets aria-hidden', function () {
-			browser.assert.attribute(ZDAGlanceListItemIcon, 'aria-hidden', 'true');
+			return browser.assert.attribute(ZDAGlanceListItemIcon, 'aria-hidden', 'true');
 		});
 
 		it('sets tabindex', function () {
-			browser.assert.attribute(ZDAGlanceListItemIcon, 'tabindex', '-1');
+			return browser.assert.attribute(ZDAGlanceListItemIcon, 'tabindex', '-1');
 		});
 
 	});
@@ -64,7 +64,7 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceListItemIconImage', function test_ZDAGlanceListItemIconImage () {
 
 		it('sets src', function () {
-			browser.assert.attribute(ZDAGlanceListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL || '/_shared/__external/OLSKUIAssets/_OLSKSharedIconPlaceholder.svg');
+			return browser.assert.attribute(ZDAGlanceListItemIconImage, 'src', item._ZDAProjectIconURLCachedPath || item.ZDAProjectIconURL || '/_shared/__external/OLSKUIAssets/_OLSKSharedIconPlaceholder.svg');
 		});
 
 	});
@@ -72,15 +72,15 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceListItemName', function test_ZDAGlanceListItemName () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAGlanceListItemName, 'href', item.ZDAProjectURL);
+			return browser.assert.attribute(ZDAGlanceListItemName, 'href', item.ZDAProjectURL);
 		});
 
 		it('sets target', function () {
-			browser.assert.attribute(ZDAGlanceListItemName, 'target', '_blank');
+			return browser.assert.attribute(ZDAGlanceListItemName, 'target', '_blank');
 		});
 
 		it('binds ZDAProjectName', function () {
-			browser.assert.text(ZDAGlanceListItemName, item.ZDAProjectName);
+			return browser.assert.text(ZDAGlanceListItemName, item.ZDAProjectName);
 		});
 
 	});
@@ -88,7 +88,7 @@ describe('ZDAGlanceList_Misc', function  () {
 	describe('ZDAGlanceListItemBlurb', function test_ZDAGlanceListItemBlurb () {
 
 		it('binds ZDAProjectBlurb', function () {
-			browser.assert.text(ZDAGlanceListItemBlurb, item.ZDAProjectBlurb);
+			return browser.assert.text(ZDAGlanceListItemBlurb, item.ZDAProjectBlurb);
 		});
 
 	});

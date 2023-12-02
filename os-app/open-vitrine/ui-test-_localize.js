@@ -15,75 +15,75 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		});
 
 		it('localizes title', function() {
-			browser.assert.text('title', uLocalized('ZDAVitrineTitle'));
+			return browser.assert.text('title', uLocalized('ZDAVitrineTitle'));
 		});
 
 		it('localizes meta[description]', function() {
-			browser.assert.attribute('meta[name=description]', 'content', uLocalized('ZDAVitrineDescription'));
+			return browser.assert.attribute('meta[name=description]', 'content', uLocalized('ZDAVitrineDescription'));
 		});
 
 		it('localizes ZDAVitrinePrinciplesHeading', function () {
-			browser.assert.text(ZDAVitrinePrinciplesHeading, uLocalized('ZDAVitrinePrinciplesHeadingText'));
+			return browser.assert.text(ZDAVitrinePrinciplesHeading, uLocalized('ZDAVitrinePrinciplesHeadingText'));
 		});
 
 		uLocalized('ZDAVitrinePrinciplesListItemText').forEach(function (e, i) {
 			it('localizes ZDAVitrinePrinciplesListItem', function () {
-				browser.assert.OLSKInnerHTML(`.ZDAVitrinePrinciplesListItem:nth-child(${ i + 1 })`, e);
+				return browser.assert.OLSKInnerHTML(`.ZDAVitrinePrinciplesListItem:nth-child(${ i + 1 })`, e);
 			});
 		});
 
 		it('localizes ZDAVitrineFlowsHeading', function () {
-			browser.assert.text(ZDAVitrineFlowsHeading, uLocalized('ZDAVitrineFlowsHeadingText'));
+			return browser.assert.text(ZDAVitrineFlowsHeading, uLocalized('ZDAVitrineFlowsHeadingText'));
 		});
 
 		it('localizes ZDAVitrineFlowsTraditionalHeading', function () {
-			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsTraditionalHeading, uLocalized('ZDAVitrineFlowsTraditionalHeadingText'));
+			return browser.assert.OLSKInnerHTML(ZDAVitrineFlowsTraditionalHeading, uLocalized('ZDAVitrineFlowsTraditionalHeadingText'));
 		});
 
 		it('localizes ZDAVitrineFlowsTraditionalBlurb', function () {
-			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsTraditionalBlurb, uLocalized('ZDAVitrineFlowsTraditionalBlurbText'));
+			return browser.assert.OLSKInnerHTML(ZDAVitrineFlowsTraditionalBlurb, uLocalized('ZDAVitrineFlowsTraditionalBlurbText'));
 		});
 
 		it('localizes ZDAVitrineFlowsModernHeading', function () {
-			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsModernHeading, uLocalized('ZDAVitrineFlowsModernHeadingText'));
+			return browser.assert.OLSKInnerHTML(ZDAVitrineFlowsModernHeading, uLocalized('ZDAVitrineFlowsModernHeadingText'));
 		});
 
 		it('localizes ZDAVitrineFlowsModernBlurb', function () {
-			browser.assert.OLSKInnerHTML(ZDAVitrineFlowsModernBlurb, uLocalized('ZDAVitrineFlowsModernBlurbText'));
+			return browser.assert.OLSKInnerHTML(ZDAVitrineFlowsModernBlurb, uLocalized('ZDAVitrineFlowsModernBlurbText'));
 		});
 
 		it('localizes ZDAVitrineProtocolsHeading', function () {
-			browser.assert.text(ZDAVitrineProtocolsHeading, uLocalized('ZDAVitrineProtocolsHeadingText'));
+			return browser.assert.text(ZDAVitrineProtocolsHeading, uLocalized('ZDAVitrineProtocolsHeadingText'));
 		});
 
 		it('localizes ZDAVitrineToolsHeading', function () {
-			browser.assert.text(ZDAVitrineToolsHeading, uLocalized('ZDAVitrineToolsHeadingText'));
+			return browser.assert.text(ZDAVitrineToolsHeading, uLocalized('ZDAVitrineToolsHeadingText'));
 		});
 
 		it('localizes ZDAVitrineEventsHeading', function () {
-			browser.assert.text(ZDAVitrineEventsHeading, uLocalized('ZDAVitrineEventsHeadingText'));
+			return browser.assert.text(ZDAVitrineEventsHeading, uLocalized('ZDAVitrineEventsHeadingText'));
 		});
 
 		it('localizes ZDAVitrineGroupDiscussionHeading', function () {
-			browser.assert.text(ZDAVitrineGroupDiscussionHeading, uLocalized('ZDAVitrineGroupDiscussionHeadingText'));
+			return browser.assert.text(ZDAVitrineGroupDiscussionHeading, uLocalized('ZDAVitrineGroupDiscussionHeadingText'));
 		});
 
 		it('localizes ZDAVitrineInitiativesHeading', function () {
-			browser.assert.text(ZDAVitrineInitiativesHeading, uLocalized('ZDAVitrineInitiativesHeadingText'));
+			return browser.assert.text(ZDAVitrineInitiativesHeading, uLocalized('ZDAVitrineInitiativesHeadingText'));
 		});
 
 		it('localizes ZDAVitrineAlsoHeading', function () {
-			browser.assert.text(ZDAVitrineAlsoHeading, uLocalized('ZDAVitrineAlsoHeadingText'));
+			return browser.assert.text(ZDAVitrineAlsoHeading, uLocalized('ZDAVitrineAlsoHeadingText'));
 		});
 
-		it('localizes ZDAVitrineZeroDataCrownBlurb', function () {
-			browser.assert.text(ZDAVitrineZeroDataCrownBlurb, uLocalized('ZDAVitrineZeroDataCrownBlurbText'));
+		it('localizes ZDAVitrineEasyIndieCrownBlurb', function () {
+			return browser.assert.text(ZDAVitrineEasyIndieCrownBlurb, uLocalized('ZDAVitrineEasyIndieCrownBlurbText'));
 		});
 
 		context('OLSKCrown', function test_OLSKCrown () {
 
 			it('localizes OLSKCrownCardName', function () {
-				browser.assert.text('.OLSKCrownCardName', uLocalized('ZDAVitrineTitle'));
+				return browser.assert.text('.OLSKCrownCardName', uLocalized('ZDAVitrineTitle'));
 			});
 		
 		});
@@ -91,15 +91,15 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		context('OLSKLanding', function test_OLSKLanding () {
 
 			it('localizes OLSKLandingHeadingText', function () {
-				browser.assert.text('.OLSKLandingHeading', uLocalized('ZDAVitrineDescription'));
+				return browser.assert.text('.OLSKLandingHeading', uLocalized('ZDAVitrineDescription'));
 			});
 
 			it('localizes OLSKLandingBlurbText', function () {
-				browser.assert.text('.OLSKLandingBlurb', uLocalized('OLSKLandingBlurbText'));
+				return browser.assert.text('.OLSKLandingBlurb', uLocalized('OLSKLandingBlurbText'));
 			});
 
 			it.skip('localizes OLSKLandingActionText', function () {
-				browser.assert.text('.OLSKLandingAction', OLSKTestingFormatted(uLocalized('OLSKLandingActionTextFormat'), require('../open-glance/controller.js').OLSKControllerSharedLocals().ZDAGlanceProjectsCount()));
+				return browser.assert.text('.OLSKLandingAction', OLSKTestingFormatted(uLocalized('OLSKLandingActionTextFormat'), require('../open-glance/controller.js').OLSKControllerSharedLocals().ZDAGlanceProjectsCount()));
 			});
 		
 		});

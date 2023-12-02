@@ -31,13 +31,13 @@ describe('ZDAGlance_Misc', function () {
 	});
 
 	it('sets meta:viewport', function () {
-		browser.assert.attribute('meta[name=viewport]', 'content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
+		return browser.assert.attribute('meta[name=viewport]', 'content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0');
 	});
 
 	describe('ZDAGlance', function () {
 		
 		it('classes OLSKDecor', function () {
-			browser.assert.hasClass(ZDAGlance, 'OLSKDecor');
+			return browser.assert.hasClass(ZDAGlance, 'OLSKDecor');
 		});
 	
 	});
@@ -45,7 +45,7 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceHeader', function test_ZDAGlanceHeader () {
 
 		it('classes OLSKDecorFixedHeader', function () {
-			browser.assert.hasClass(ZDAGlanceHeader, 'OLSKDecorFixedHeader');
+			return browser.assert.hasClass(ZDAGlanceHeader, 'OLSKDecorFixedHeader');
 		});
 	
 	});
@@ -53,7 +53,7 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceHeaderOne', function test_ZDAGlanceHeaderOne () {
 
 		it('classes OLSKCommonEdgeBottom', function () {
-			browser.assert.hasClass(ZDAGlanceHeaderOne, 'OLSKCommonEdgeBottom');
+			return browser.assert.hasClass(ZDAGlanceHeaderOne, 'OLSKCommonEdgeBottom');
 		});
 	
 	});
@@ -61,11 +61,11 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceHeaderTwo', function test_ZDAGlanceHeaderTwo () {
 
 		it('classes OLSKCommonEdgeBottom', function () {
-			browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKCommonEdgeBottom');
+			return browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKCommonEdgeBottom');
 		});
 
 		it('classes OLSKDecorFormBlend', function () {
-			browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKDecorFormBlend');
+			return browser.assert.hasClass(ZDAGlanceHeaderTwo, 'OLSKDecorFormBlend');
 		});
 	
 	});
@@ -73,7 +73,7 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceRootLink', function test_ZDAGlanceRootLink () {
 
 		it('sets href', function () {
-			browser.assert.attribute(ZDAGlanceRootLink, 'href', require('../open-vitrine/controller.js').OLSKControllerRoutes().shift().OLSKRoutePath);
+			return browser.assert.attribute(ZDAGlanceRootLink, 'href', require('../open-vitrine/controller.js').OLSKControllerRoutes().shift().OLSKRoutePath);
 		});
 	
 	});
@@ -81,7 +81,7 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceRootLinkImage', function test_ZDAGlanceRootLinkImage () {
 
 		it('sets src', function () {
-			browser.assert.attribute(ZDAGlanceRootLinkImage, 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
+			return browser.assert.attribute(ZDAGlanceRootLinkImage, 'src', process.env.ZDA_VITRINE_IDENTITY_URL);
 		});
 	
 	});
@@ -89,21 +89,21 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceFilterInput', function test_ZDAGlanceFilterInput () {
 
 		it('sets type', function () {
-			browser.assert.attribute(ZDAGlanceFilterInput, 'type', 'search');
+			return browser.assert.attribute(ZDAGlanceFilterInput, 'type', 'search');
 		});
 
 		it('sets accesskey', function () {
-			browser.assert.attribute(ZDAGlanceFilterInput, 'accesskey', 'f');
+			return browser.assert.attribute(ZDAGlanceFilterInput, 'accesskey', 'f');
 		});
 
 		it('classes OLSKDecorInput', function () {
-			browser.assert.hasClass(ZDAGlanceFilterInput, 'OLSKDecorInput');
+			return browser.assert.hasClass(ZDAGlanceFilterInput, 'OLSKDecorInput');
 		});
 
 		context('input', function () {
 			
 			before(function () {
-				browser.assert.elements('.ZDAGlanceListItem', count);
+				return browser.assert.elements('.ZDAGlanceListItem', count);
 			});
 
 			before(function () {
@@ -111,7 +111,7 @@ describe('ZDAGlance_Misc', function () {
 			});
 
 			it.skip('filters list', function () {
-				browser.assert.elements('.ZDAGlanceListItem', 1);
+				return browser.assert.elements('.ZDAGlanceListItem', 1);
 			});
 		
 		});
@@ -123,11 +123,11 @@ describe('ZDAGlance_Misc', function () {
 			});
 
 			it('filters list', function () {
-				browser.assert.elements('.ZDAGlanceListItem', count);
+				return browser.assert.elements('.ZDAGlanceListItem', count);
 			});
 
 			it('sets filter text', function () {
-				browser.assert.text(ZDAGlanceFilterInput, '');
+				return browser.assert.text(ZDAGlanceFilterInput, '');
 			});
 		
 		});
@@ -137,11 +137,11 @@ describe('ZDAGlance_Misc', function () {
 	describe('ZDAGlanceProjectsCompilationLink', function test_ZDAGlanceProjectsCompilationLink () {
 		
 		it('sets href', function () {
-			browser.assert.attribute(ZDAGlanceProjectsCompilationLink, 'href', require('../api-projects/controller.js').OLSKControllerRoutes().shift().OLSKRoutePath);
+			return browser.assert.attribute(ZDAGlanceProjectsCompilationLink, 'href', require('../api-projects/controller.js').OLSKControllerRoutes().shift().OLSKRoutePath);
 		});
 
 		it('sets text', function () {
-			browser.assert.text(ZDAGlanceProjectsCompilationLink, 'JSON');
+			return browser.assert.text(ZDAGlanceProjectsCompilationLink, 'JSON');
 		});
 	
 	});
@@ -152,16 +152,16 @@ describe('ZDAGlance_Misc', function () {
 
 		describe('ZDAGlanceProtocolButton', function test_ZDAGlanceProtocolButton () {
 
-			const selector = `${ ZDAGlanceProtocolButton }:nth-child(${ i + 1 })`;
+			const selector = `.ZDAGlanceProtocolButton:nth-child(${ i + 1 })`;
 			
 			it('binds ZDAProtocolName', function () {
-				browser.assert.text(selector, e[1].ZDABankProtocol.ZDAProtocolName);
+				return browser.assert.text(selector, e[1].ZDABankProtocol.ZDAProtocolName);
 			});
 
 			context.skip('click', function () {
 				
 				before(function () {
-					browser.assert.input(ZDAGlanceFilterInput, text);
+					return browser.assert.input(ZDAGlanceFilterInput, text);
 				});
 
 				before(function () {
@@ -169,7 +169,7 @@ describe('ZDAGlance_Misc', function () {
 				});
 
 				it('sets ZDAGlanceFilterInput text', function () {
-					browser.assert.input(ZDAGlanceFilterInput, e[1].ZDABankProtocol.ZDAProtocolName);
+					return browser.assert.input(ZDAGlanceFilterInput, e[1].ZDABankProtocol.ZDAProtocolName);
 				});
 			
 			});

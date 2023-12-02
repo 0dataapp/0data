@@ -15,7 +15,7 @@ kDefaultRoute.OLSKRouteLanguageCodes.forEach(function (OLSKRoutingLanguage) {
 		});
 
 		it('localizes ZDAGlanceListEmpty', function () {
-			browser.assert.text(ZDAGlanceListEmpty, uLocalized('ZDAGlanceListEmptyText'));
+			return browser.assert.text(ZDAGlanceListEmpty, uLocalized('ZDAGlanceListEmptyText'));
 		});
 
 	});

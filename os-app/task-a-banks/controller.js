@@ -276,7 +276,7 @@ const mod = {
 	},
 
 	DataBankProjects () {
-		if (process.env.OLSK_FLAG_CI) {
+		if (process.env.OLSK_FLAG_CI || process.env.OLSK_SPEC_MOCHA_INTERFACE) {
 			return [];
 		}
 
@@ -302,15 +302,11 @@ const mod = {
 	},
 
 	DataBankProtocols () {
-		if (process.env.OLSK_FLAG_CI) {
+		if (process.env.OLSK_FLAG_CI || process.env.OLSK_SPEC_MOCHA_INTERFACE) {
 			return [];
 		}
 		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
-
-		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
-			mod.SetupBanks();
-		}
 
 		return _mod._DataBankProtocolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]).map(function (e) {
 			return Object.assign(e, {
@@ -336,15 +332,11 @@ const mod = {
 	},
 
 	DataBankTools () {
-		if (process.env.OLSK_FLAG_CI) {
+		if (process.env.OLSK_FLAG_CI || process.env.OLSK_SPEC_MOCHA_INTERFACE) {
 			return [];
 		}
 		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
-
-		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
-			mod.SetupBanks();
-		}
 
 		return _mod._DataBankToolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},
@@ -366,15 +358,11 @@ const mod = {
 	},
 
 	DataBankInitiatives () {
-		if (process.env.OLSK_FLAG_CI) {
+		if (process.env.OLSK_FLAG_CI || process.env.OLSK_SPEC_MOCHA_INTERFACE) {
 			return [];
 		}
 		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
-
-		if (process.env.OLSK_SPEC_MOCHA_INTERFACE) {
-			mod.SetupBanks();
-		}
 
 		return _mod._DataBankInitiativeObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},

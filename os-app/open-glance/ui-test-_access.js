@@ -43,39 +43,39 @@ describe('ZDAGlance_Access', function () {
 	});
 	
 	it('shows ZDAGlance', function() {
-		browser.assert.elements(ZDAGlance, 1);
+		return browser.assert.elements(ZDAGlance, 1);
 	});
 
 	it('shows ZDAGlanceHeader', function () {
-		browser.assert.elements(ZDAGlanceHeader, 1);
+		return browser.assert.elements(ZDAGlanceHeader, 1);
 	});
 
 	it('shows ZDAGlanceHeaderOne', function () {
-		browser.assert.elements(ZDAGlanceHeaderOne, 1);
+		return browser.assert.elements(ZDAGlanceHeaderOne, 1);
 	});
 
 	it('shows ZDAGlanceHeaderTwo', function () {
-		browser.assert.elements(ZDAGlanceHeaderTwo, 1);
+		return browser.assert.elements(ZDAGlanceHeaderTwo, 1);
 	});
 
 	it('shows ZDAGlanceRootLink', function () {
-		browser.assert.elements(ZDAGlanceRootLink, 1);
+		return browser.assert.elements(ZDAGlanceRootLink, 1);
 	});
 
 	it('shows ZDAGlanceRootLinkImage', function () {
-		browser.assert.elements(ZDAGlanceRootLinkImage, 1);
+		return browser.assert.elements(ZDAGlanceRootLinkImage, 1);
 	});
 
 	it('shows ZDAGlanceFilterInput', function () {
-		browser.assert.elements(ZDAGlanceFilterInput, 1);
+		return browser.assert.elements(ZDAGlanceFilterInput, 1);
 	});
 
 	it('shows ZDAGlanceProjectsCompilationLink', function () {
-		browser.assert.elements(ZDAGlanceProjectsCompilationLink, 1);
+		return browser.assert.elements(ZDAGlanceProjectsCompilationLink, 1);
 	});
 
 	it('shows ZDAGlanceProtocolButton', function () {
-		browser.assert.elements(ZDAGlanceProtocolButton, count);
+		return browser.assert.elements(ZDAGlanceProtocolButton, count);
 	});
 
 });
