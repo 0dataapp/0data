@@ -4,7 +4,7 @@ describe('ZDAVitrine_Misc', function () {
 
 	const protocols = require('../task-a-banks/controller.js').DataBankProtocols();
 	const tools = require('../task-a-banks/controller.js').DataBankTools();
-	const initiatives = require('../task-a-banks/controller.js').DataBankInitiatives();
+	const adjacent = require('../task-a-banks/controller.js').DataBankAdjacent();
 
 	before(function () {
 		return browser.visit(kDefaultRoute.OLSKRoutePath);
@@ -154,42 +154,42 @@ describe('ZDAVitrine_Misc', function () {
 
 	});
 
-	describe('ZDAVitrineInitiativesContainer', function test_ZDAVitrineInitiativesContainer() {
+	describe('ZDAVitrineAdjacentContainer', function test_ZDAVitrineAdjacentContainer() {
 		
 		it('classes OLSKDecorGlossary', function () {
-			return browser.assert.hasClass(ZDAVitrineInitiativesContainer, 'OLSKDecorGlossary');
+			return browser.assert.hasClass(ZDAVitrineAdjacentContainer, 'OLSKDecorGlossary');
 		});
 
 		it('sets lang', function () {
-			return browser.assert.attribute(ZDAVitrineInitiativesContainer, 'lang', 'en');
+			return browser.assert.attribute(ZDAVitrineAdjacentContainer, 'lang', 'en');
 		});
 	
 	});
 
-	initiatives.forEach(function (e, i) {
+	adjacent.forEach(function (e, i) {
 		
-		context(e.ZDAInitiativeURL, function () {
+		context(e.ZDAAdjacentURL, function () {
 			
-			describe('ZDAVitrineInitiativesLink', function test_ZDAVitrineInitiativesLink() {
+			describe('ZDAVitrineAdjacentLink', function test_ZDAVitrineAdjacentLink() {
 				
 				it('sets href', function () {
-					return browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineInitiativesLink }`, 'href', e.ZDAInitiativeURL);
+					return browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineAdjacentLink }`, 'href', e.ZDAAdjacentURL);
 				});
 
 				it('sets target', function () {
-					return browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineInitiativesLink }`, 'target', '_blank');
+					return browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineAdjacentLink }`, 'target', '_blank');
 				});
 
 				it('sets text', function () {
-					return browser.assert.text(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineInitiativesLink }`, e.ZDAInitiativeName);
+					return browser.assert.text(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineAdjacentLink }`, e.ZDAAdjacentName);
 				});
 			
 			});
 
-			describe('ZDAVitrineInitiativesBlurb', function test_ZDAVitrineInitiativesBlurb() {
+			describe('ZDAVitrineAdjacentBlurb', function test_ZDAVitrineAdjacentBlurb() {
 				
 				it('sets text', function () {
-					return browser.assert.text(`${ ZDAVitrineInitiativesBlurb }:nth-of-type(${ i + 1 })`, e.ZDAInitiativeBlurb);
+					return browser.assert.text(`${ ZDAVitrineAdjacentBlurb }:nth-of-type(${ i + 1 })`, e.ZDAAdjacentBlurb);
 				});
 			
 			});

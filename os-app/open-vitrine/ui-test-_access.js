@@ -29,10 +29,10 @@ Object.entries({
 	ZDAVitrineGroupDiscussionHeading: '.ZDAVitrineGroupDiscussionHeading',
 	ZDAVitrineGroupDiscussionVideo: '.ZDAVitrineGroupDiscussionVideo',
 
-	ZDAVitrineInitiativesHeading: '.ZDAVitrineInitiativesHeading',
-	ZDAVitrineInitiativesContainer: '.ZDAVitrineInitiativesContainer',
-	ZDAVitrineInitiativesLink: '.ZDAVitrineInitiativesLink',
-	ZDAVitrineInitiativesBlurb: '.ZDAVitrineInitiativesBlurb',
+	ZDAVitrineAdjacentHeading: '.ZDAVitrineAdjacentHeading',
+	ZDAVitrineAdjacentContainer: '.ZDAVitrineAdjacentContainer',
+	ZDAVitrineAdjacentLink: '.ZDAVitrineAdjacentLink',
+	ZDAVitrineAdjacentBlurb: '.ZDAVitrineAdjacentBlurb',
 
 	ZDAVitrineAlsoHeading: '.ZDAVitrineAlsoHeading',
 	ZDAVitrineEasyIndieCrown: '.ZDAVitrineEasyIndieCrown',
@@ -47,7 +47,7 @@ describe('ZDAVitrine_Access', function () {
 
 	const protocols = require('../task-a-banks/controller.js').DataBankProtocols().length;
 	const tools = require('../task-a-banks/controller.js').DataBankTools().length;
-	const initiatives = require('../task-a-banks/controller.js').DataBankInitiatives().length;
+	const adjacent = require('../task-a-banks/controller.js').DataBankAdjacent().length;
 
 	before(function() {
 		return browser.visit(kDefaultRoutePath);
@@ -149,20 +149,20 @@ describe('ZDAVitrine_Access', function () {
 		return browser.assert.elements(ZDAVitrineGroupDiscussionVideo, 1);
 	});
 
-	it('shows ZDAVitrineInitiativesHeading', function () {
-		return browser.assert.elements(ZDAVitrineInitiativesHeading, 1);
+	it('shows ZDAVitrineAdjacentHeading', function () {
+		return browser.assert.elements(ZDAVitrineAdjacentHeading, 1);
 	});
 
-	it('shows ZDAVitrineInitiativesContainer', function () {
-		return browser.assert.elements(ZDAVitrineInitiativesContainer, 1);
+	it('shows ZDAVitrineAdjacentContainer', function () {
+		return browser.assert.elements(ZDAVitrineAdjacentContainer, 1);
 	});
 
-	it.skip('shows ZDAVitrineInitiativesLink', function () {
-		return browser.assert.elements(ZDAVitrineInitiativesLink, initiatives);
+	it.skip('shows ZDAVitrineAdjacentLink', function () {
+		return browser.assert.elements(ZDAVitrineAdjacentLink, adjacent);
 	});
 
-	it.skip('shows ZDAVitrineInitiativesBlurb', function () {
-		return browser.assert.elements(ZDAVitrineInitiativesBlurb, initiatives);
+	it.skip('shows ZDAVitrineAdjacentBlurb', function () {
+		return browser.assert.elements(ZDAVitrineAdjacentBlurb, adjacent);
 	});
 
 	it('shows ROCOGazette', function () {

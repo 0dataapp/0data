@@ -777,63 +777,63 @@ describe('DataBankTools', function test_DataBankTools() {
 
 });
 
-describe('_DataBankInitiativeObjects', function test__DataBankInitiativeObjects() {
+describe('_DataBankAdjacentObjects', function test__DataBankAdjacentObjects() {
 
 	const uBank = function (inputData = {}) {
 		const item = Object.assign({
-			ZDAInitiativeURL: Math.random().toString(),
-			ZDAInitiativeName: Math.random().toString(),
-			ZDAInitiativeBlurb: Math.random().toString(),
+			ZDAAdjacentURL: Math.random().toString(),
+			ZDAAdjacentName: Math.random().toString(),
+			ZDAAdjacentBlurb: Math.random().toString(),
 		}, inputData);
 
-		return `# Adjacent initiatives\n- [${ item.ZDAInitiativeName }](${ item.ZDAInitiativeURL }): ${ item.ZDAInitiativeBlurb }\n#`;
+		return `# Adjacent\n- [${ item.ZDAAdjacentName }](${ item.ZDAAdjacentURL }): ${ item.ZDAAdjacentBlurb }\n#`;
 	};
 
 	it('throws if not string', function () {
 		throws(function () {
-			mod._DataBankInitiativeObjects(null);
+			mod._DataBankAdjacentObjects(null);
 		}, /ZDAErrorInputNotValid/);
 	});
 
 	it('returns array', function () {
-		deepEqual(mod._DataBankInitiativeObjects(''), []);
+		deepEqual(mod._DataBankAdjacentObjects(''), []);
 	});
 
 	it('parses data', function () {
-		const ZDAInitiativeURL = Math.random().toString();
-		const ZDAInitiativeName = Math.random().toString();
-		const ZDAInitiativeBlurb = Math.random().toString();
+		const ZDAAdjacentURL = Math.random().toString();
+		const ZDAAdjacentName = Math.random().toString();
+		const ZDAAdjacentBlurb = Math.random().toString();
 
-		deepEqual(mod._DataBankInitiativeObjects(uBank({
-			ZDAInitiativeURL,
-			ZDAInitiativeName,
-			ZDAInitiativeBlurb,
+		deepEqual(mod._DataBankAdjacentObjects(uBank({
+			ZDAAdjacentURL,
+			ZDAAdjacentName,
+			ZDAAdjacentBlurb,
 		})), [{
-			ZDAInitiativeURL,
-			ZDAInitiativeName,
-			ZDAInitiativeBlurb,
+			ZDAAdjacentURL,
+			ZDAAdjacentName,
+			ZDAAdjacentBlurb,
 		}]);
 	});
 
 });
 
-describe('DataBankInitiatives', function test_DataBankInitiatives() {
+describe('DataBankAdjacent', function test_DataBankAdjacent() {
 
-	const _DataBankInitiatives = function (inputData) {
+	const _DataBankAdjacent = function (inputData) {
 		const _mod = Object.assign(Object.assign({}, mod), {
-			_DataBankInitiativeObjects: (function () {}),
+			_DataBankAdjacentObjects: (function () {}),
 		}, inputData);
-		return _mod.DataBankInitiatives() || _mod;
+		return _mod.DataBankAdjacent() || _mod;
 	};
 
-	it('calls _DataBankInitiativeObjects', function () {
+	it('calls _DataBankAdjacentObjects', function () {
 		const item = Math.random().toString();
-		deepEqual(uCapture(function (_DataBankInitiativeObjects) {
-			_DataBankInitiatives({
+		deepEqual(uCapture(function (_DataBankAdjacentObjects) {
+			_DataBankAdjacent({
 				_OLSKCacheResultMap: {
 					[ZDABank.ZDABankURLAwesome()]: item,
 				},
-				_DataBankInitiativeObjects,
+				_DataBankAdjacentObjects,
 			});
 		}), [item]);
 	});

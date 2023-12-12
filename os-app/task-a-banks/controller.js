@@ -29,8 +29,8 @@ const mod = {
 			ZDATools () {
 				return mod.DataBankTools();
 			},
-			ZDAInitiatives () {
-				return mod.DataBankInitiatives();
+			ZDAAdjacent () {
+				return mod.DataBankAdjacent();
 			},
 		};
 	},
@@ -341,30 +341,30 @@ const mod = {
 		return _mod._DataBankToolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},
 
-	_DataBankInitiativeObjects (inputData) {
+	_DataBankAdjacentObjects (inputData) {
 		if (typeof inputData !== 'string') {
 			throw new Error('ZDAErrorInputNotValid');
 		}
 
-		return inputData.split('# Adjacent initiatives').pop().split('#').shift().trim().split('\n-').filter(function (e) {
+		return inputData.split('# Adjacent').pop().split('#').shift().trim().split('\n-').filter(function (e) {
 			return !!e;
 		}).map(function (e) {
 			return {
-				ZDAInitiativeURL: e.match(/\(.*\)/)[0].slice(1, -1),
-				ZDAInitiativeName: e.match(/\[.*\]/)[0].slice(1, -1),
-				ZDAInitiativeBlurb: e.split(': ').pop(),
+				ZDAAdjacentURL: e.match(/\(.*\)/)[0].slice(1, -1),
+				ZDAAdjacentName: e.match(/\[.*\]/)[0].slice(1, -1),
+				ZDAAdjacentBlurb: e.split(': ').pop(),
 			};
 		});
 	},
 
-	DataBankInitiatives () {
+	DataBankAdjacent () {
 		if (process.env.OLSK_FLAG_CI || process.env.OLSK_SPEC_MOCHA_INTERFACE) {
 			return [];
 		}
 		
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
-		return _mod._DataBankInitiativeObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
+		return _mod._DataBankAdjacentObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},
 
 	// SETUP
