@@ -75,6 +75,14 @@ locals.OLSKPageAssets = [
 <h1 class="ZDAVitrineGroupDiscussionHeading"><%= OLSKLocalized('ZDAVitrineGroupDiscussionHeadingText') %></h1>
 <iframe class="ZDAVitrineGroupDiscussionVideo" src="<%= process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL %>" allowfullscreen></iframe>
 
+<h1 class="ZDAVitrineReadingHeading"><%= OLSKLocalized('ZDAVitrineReadingHeadingText') %> 💊</h1>
+<dl class="ZDAVitrineReadingContainer OLSKDecorGlossary" lang="en">
+	<% ZDAReading().forEach(function (item) { -%>
+	<dt><a class="ZDAVitrineReadingLink" href="<%= item.ZDAReadingURL %>" target="_blank"><%= item.ZDAReadingName %></a></dt>
+	<dd class="ZDAVitrineReadingBlurb"><%= item.ZDAReadingBlurb %></dd>
+	<% }) -%>
+</dl>
+
 <h1 class="ZDAVitrineAdjacentHeading"><%= OLSKLocalized('ZDAVitrineAdjacentHeadingText') %></h1>
 <dl class="ZDAVitrineAdjacentContainer OLSKDecorGlossary" lang="en">
 	<% ZDAAdjacent().forEach(function (item) { -%>

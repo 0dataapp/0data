@@ -777,6 +777,69 @@ describe('DataBankTools', function test_DataBankTools() {
 
 });
 
+describe('_DataBankReadingObjects', function test__DataBankReadingObjects() {
+
+	const uBank = function (inputData = {}) {
+		const item = Object.assign({
+			ZDAReadingURL: Math.random().toString(),
+			ZDAReadingName: Math.random().toString(),
+			ZDAReadingBlurb: Math.random().toString(),
+		}, inputData);
+
+		return `# Reading\n- [${ item.ZDAReadingName }](${ item.ZDAReadingURL }): ${ item.ZDAReadingBlurb }\n#`;
+	};
+
+	it('throws if not string', function () {
+		throws(function () {
+			mod._DataBankReadingObjects(null);
+		}, /ZDAErrorInputNotValid/);
+	});
+
+	it('returns array', function () {
+		deepEqual(mod._DataBankReadingObjects(''), []);
+	});
+
+	it('parses data', function () {
+		const ZDAReadingURL = Math.random().toString();
+		const ZDAReadingName = Math.random().toString();
+		const ZDAReadingBlurb = Math.random().toString();
+
+		deepEqual(mod._DataBankReadingObjects(uBank({
+			ZDAReadingURL,
+			ZDAReadingName,
+			ZDAReadingBlurb,
+		})), [{
+			ZDAReadingURL,
+			ZDAReadingName,
+			ZDAReadingBlurb,
+		}]);
+	});
+
+});
+
+describe('DataBankReading', function test_DataBankReading() {
+
+	const _DataBankReading = function (inputData) {
+		const _mod = Object.assign(Object.assign({}, mod), {
+			_DataBankReadingObjects: (function () {}),
+		}, inputData);
+		return _mod.DataBankReading() || _mod;
+	};
+
+	it('calls _DataBankReadingObjects', function () {
+		const item = Math.random().toString();
+		deepEqual(uCapture(function (_DataBankReadingObjects) {
+			_DataBankReading({
+				_OLSKCacheResultMap: {
+					[ZDABank.ZDABankURLAwesome()]: item,
+				},
+				_DataBankReadingObjects,
+			});
+		}), [item]);
+	});
+
+});
+
 describe('_DataBankAdjacentObjects', function test__DataBankAdjacentObjects() {
 
 	const uBank = function (inputData = {}) {

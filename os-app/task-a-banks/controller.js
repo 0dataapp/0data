@@ -29,6 +29,9 @@ const mod = {
 			ZDATools () {
 				return mod.DataBankTools();
 			},
+			ZDAReading () {
+				return mod.DataBankReading();
+			},
 			ZDAAdjacent () {
 				return mod.DataBankAdjacent();
 			},
@@ -339,6 +342,32 @@ const mod = {
 		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
 
 		return _mod._DataBankToolObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
+	},
+
+	_DataBankReadingObjects (inputData) {
+		if (typeof inputData !== 'string') {
+			throw new Error('ZDAErrorInputNotValid');
+		}
+
+		return inputData.split('# Reading').pop().split('#').shift().trim().split('\n-').filter(function (e) {
+			return !!e;
+		}).map(function (e) {
+			return {
+				ZDAReadingURL: e.match(/\(.*\)/)[0].slice(1, -1),
+				ZDAReadingName: e.match(/\[.*\]/)[0].slice(1, -1),
+				ZDAReadingBlurb: e.split(': ').pop(),
+			};
+		});
+	},
+
+	DataBankReading () {
+		if (process.env.OLSK_FLAG_CI || process.env.OLSK_SPEC_MOCHA_INTERFACE) {
+			return [];
+		}
+		
+		const _mod = process.env.npm_lifecycle_script === 'olsk-spec' ? this : mod;
+
+		return _mod._DataBankReadingObjects(_mod._OLSKCacheResultMap[ZDABank.ZDABankURLAwesome()]);
 	},
 
 	_DataBankAdjacentObjects (inputData) {

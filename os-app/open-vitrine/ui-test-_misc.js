@@ -4,6 +4,7 @@ describe('ZDAVitrine_Misc', function () {
 
 	const protocols = require('../task-a-banks/controller.js').DataBankProtocols();
 	const tools = require('../task-a-banks/controller.js').DataBankTools();
+	const reading = require('../task-a-banks/controller.js').DataBankReading();
 	const adjacent = require('../task-a-banks/controller.js').DataBankAdjacent();
 
 	before(function () {
@@ -150,6 +151,50 @@ describe('ZDAVitrine_Misc', function () {
 
 		it('sets allowfullscreen', function () {
 			return browser.assert.attribute(ZDAVitrineGroupDiscussionVideo, 'allowfullscreen', '');
+		});
+
+	});
+
+	describe('ZDAVitrineReadingContainer', function test_ZDAVitrineReadingContainer() {
+		
+		it('classes OLSKDecorGlossary', function () {
+			return browser.assert.hasClass(ZDAVitrineReadingContainer, 'OLSKDecorGlossary');
+		});
+
+		it('sets lang', function () {
+			return browser.assert.attribute(ZDAVitrineReadingContainer, 'lang', 'en');
+		});
+	
+	});
+
+	reading.forEach(function (e, i) {
+		
+		context(e.ZDAReadingURL, function () {
+			
+			describe('ZDAVitrineReadingLink', function test_ZDAVitrineReadingLink() {
+				
+				it('sets href', function () {
+					return browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineReadingLink }`, 'href', e.ZDAReadingURL);
+				});
+
+				it('sets target', function () {
+					return browser.assert.attribute(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineReadingLink }`, 'target', '_blank');
+				});
+
+				it('sets text', function () {
+					return browser.assert.text(`dt:nth-of-type(${ i + 1 }) ${ ZDAVitrineReadingLink }`, e.ZDAReadingName);
+				});
+			
+			});
+
+			describe('ZDAVitrineReadingBlurb', function test_ZDAVitrineReadingBlurb() {
+				
+				it('sets text', function () {
+					return browser.assert.text(`${ ZDAVitrineReadingBlurb }:nth-of-type(${ i + 1 })`, e.ZDAReadingBlurb);
+				});
+			
+			});
+		
 		});
 
 	});
