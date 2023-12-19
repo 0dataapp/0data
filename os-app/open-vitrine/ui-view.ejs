@@ -72,6 +72,16 @@ locals.OLSKPageAssets = [
 	ZDAVitrineEventsListData: ZDAEvents(),
 }) %>
 
+<script src="https://olsk.rosano.ca/OLSKLatest/master/main.js"></script>
+<div class="ZDAVitrineLatest"></div>
+<script type="text/javascript">
+OLSKLatest.load({
+	parent: document.querySelector('.ZDAVitrineLatest'),
+	feed: 'https://utopia.rosano.ca/0data/feed',
+	limit: 5,
+});
+</script>
+
 <h1 class="ZDAVitrineGroupDiscussionHeading"><%= OLSKLocalized('ZDAVitrineGroupDiscussionHeadingText') %></h1>
 <iframe class="ZDAVitrineGroupDiscussionVideo" src="<%= process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL %>" allowfullscreen></iframe>
 
