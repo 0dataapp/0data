@@ -77,7 +77,7 @@ locals.OLSKPageAssets = [
 <script type="text/javascript">
 OLSKLatest.load({
 	parent: document.querySelector('.ZDAVitrineLatest'),
-	feed: 'https://utopia.rosano.ca/0data/feed',
+	feed: '<%= process.env.ROCO_FEED_URL %>',
 	limit: 5,
 });
 </script>
