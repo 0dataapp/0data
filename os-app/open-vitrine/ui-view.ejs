@@ -72,10 +72,10 @@ locals.OLSKPageAssets = [
 	ZDAVitrineEventsListData: ZDAEvents(),
 }) %>
 
-<script src="https://olsk.rosano.ca/OLSKLatest/master/main.js"></script>
+<script src="https://olsk.rosano.ca/OSFeedbox/master/main.js"></script>
 <div class="ZDAVitrineLatest"></div>
 <script type="text/javascript">
-OLSKLatest.load({
+OSFeedbox.load({
 	parent: document.querySelector('.ZDAVitrineLatest'),
 	feed: '<%= process.env.ROCO_FEED_URL %>',
 	limit: 5,
