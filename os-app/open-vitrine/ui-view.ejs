@@ -73,10 +73,10 @@ locals.OLSKPageAssets = [
 }) %>
 
 <script src="https://olsk.rosano.ca/OSFeedbox/master/main.js"></script>
-<div class="ZDAVitrineLatest"></div>
+<div class="parent-OSFeedbox"></div>
 <script type="text/javascript">
 OSFeedbox.load({
-	parent: document.querySelector('.ZDAVitrineLatest'),
+	parent: document.querySelector('.parent-OSFeedbox'),
 	feed: '<%= process.env.ROCO_FEED_URL %>',
 	limit: 5,
 });
