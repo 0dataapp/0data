@@ -45,7 +45,15 @@ const mod = {
 			return '';
 		}
 
-		return mod._DataFoilOLSKDisk.OLSKDiskRead(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(inputData))) || (await require('node-fetch')(inputData)).text();
+		let response;
+
+		try {
+			response = await require('node-fetch')(inputData);
+		} catch (e) {
+			return '';
+		}
+
+		return mod._DataFoilOLSKDisk.OLSKDiskRead(OLSKCache.OLSKCachePath(__dirname, OLSKCache.OLSKCacheURLBasename(inputData))) || response.text();
 	},
 
 	DataCacheAggregateBasename() {
