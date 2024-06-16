@@ -57,12 +57,6 @@ const mod = {
 		}).shift();
 	},
 
-	ZDAEventURLZeroData () {
-		return mod.ZDAEventURLs().filter(function (e) {
-			return e.match(/0data/i);
-		}).shift();
-	},
-
 	async _DataContentString (inputData) {
 		return (await require('node-fetch')(inputData)).text();
 	},
@@ -119,17 +113,6 @@ const mod = {
 								// 	zone: 'Europe/Rome',
 								// }).toJSDate(),
 								ZDAEventStart: new Date(e.startDate),
-							};
-						});
-					},
-					[mod.ZDAEventURLZeroData()]: function () {
-						return cheerio('channel', param2).first().find('item').filter(function () {
-							return cheerio('description', this).html().match('discourse-post-event');
-						}).map(function () {
-							return {
-								ZDAEventURL: cheerio('source', this).attr('url').split('.rss').shift(),
-								ZDAEventName: cheerio('title', this).text(),
-								ZDAEventStart: new Date(cheerio('description', this).html().match(/data-start="(.*)/)[0].split('"')[1]),
 							};
 						});
 					},

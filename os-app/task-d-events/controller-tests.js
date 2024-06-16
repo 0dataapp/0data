@@ -42,16 +42,6 @@ describe('ZDAEventURLSolidProject', function test_ZDAEventURLSolidProject() {
 
 });
 
-describe('ZDAEventURLZeroData', function test_ZDAEventURLZeroData() {
-
-	it('returns string', function () {
-		deepEqual(mod.ZDAEventURLZeroData(), mod.ZDAEventURLs().filter(function (e) {
-			return e.match(/0data/i);
-		}).shift());
-	});
-
-});
-
 describe('_DataEventObjects', function test__DataEventObjects() {
 
 	it('throws if param1 not in ZDAEventURLs', function () {
@@ -166,41 +156,6 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 		});
 		
 	});
-
-	context('ZeroData', function test_ZeroData () {
-
-		const uEvent = function (inputData = {}) {
-			const item = Object.assign({
-				ZDAEventURL: Math.random().toString(),
-				ZDAEventName: Math.random().toString(),
-				ZDAEventStart: new Date(),
-			}, inputData);
-
-			return `<?xml version="1.0" encoding="UTF-8" ?>
-<rss version="2.0" xmlns:discourse="http://www.discourse.org/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/"><channel><atom:link href="https://chat.0data.app/c/events/5.rss" rel="self" type="application/rss+xml" /><item><title>${ item.ZDAEventName }</title><description><![CDATA[
-            <div class="discourse-post-event" data-start="${ item.ZDAEventStart.toJSON() }" data-status="public" data-end="2021-08-03 14:00" data-allowed-groups="trust_level_0"></div>
-          ]]></description><link>https://chat.0data.app/t/zero-data-swap-2-files-portability-september-29-2021/37</link><source url="${ item.ZDAEventURL }.rss">Zero Data Swap #2: Files / Portability — September 29, 2021</source></item></channel></rss>`;
-		};
-		
-		it('parses data', function () {
-			const ZDAEventURL = Math.random().toString();
-			const ZDAEventName = Math.random().toString();
-			const ZDAEventStart = new Date();
-
-			deepEqual(mod._DataEventObjects(mod.ZDAEventURLZeroData(), uEvent({
-				ZDAEventURL,
-				ZDAEventName,
-				ZDAEventStart,
-			})), [{
-				ZDAEventURL,
-				ZDAEventName,
-				ZDAEventStart,
-			}]);
-		});
-	
-	});
-
-	
 
 });
 
