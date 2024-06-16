@@ -26,7 +26,7 @@ describe('ZDAEventURLFission', function test_ZDAEventURLFission() {
 
 	it('returns string', function () {
 		deepEqual(mod.ZDAEventURLFission(), mod.ZDAEventURLs().filter(function (e) {
-			return e.match(/q0wId4DZFlx7LCP/i);
+			return e.match(/fission/i);
 		}).shift());
 	});
 
@@ -105,7 +105,7 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventStart: new Date(),
 			}, inputData);
 
-			return `<script id="__NEXT_DATA__" type="application/json">{"props":{"pageProps": {"initialData": {"events": [{"name": "${ item.ZDAEventName }","url": "${ item.ZDAEventURL }","start_at": "${ item.ZDAEventStart.toJSON() }","duration_minutes": 90,"visibility": "public","cover_url": "https://cdn.lu.ma/event-covers/se/3ec890e2-f604-4e76-ad7b-69996063b386","event_type": "independent","recurrence_id": null,"api_id": "evt-nHhXeNbXYwW4DW1","session_count_total": null,"session_count_future": null}]}}}}</script>`;
+			return `<script id="__NEXT_DATA__" type="application/json">{"props":{"initialUserData":null,"randomSeed":0.4125239166066439,"countryCode":"CA","sha":"e43177ff3c9fb5e66e90db9ead58739e9021defe","initialLocale":null,"initialMessages":null,"pageProps":{"initialData":{"data":{"featured_items":[{"event":{"name":"${ item.ZDAEventName }","start_at":"${ item.ZDAEventStart.toJSON() }","url":"${ item.ZDAEventURL }"}}]}},"_sentryTraceData":"f9b43f74bb1c40ea8b672db7adb94cff-814265555acf4eac-0"}},"page":"/[...url]","query":{"url":["fission"]},"buildId":"d1Og0wHWZGo6L1FKcDWEC","isFallback":false,"isExperimentalCompile":false,"gip":true,"appGip":true,"scriptLoader":[]}</script>`;
 		};
 		
 		it('parses data', function () {
@@ -118,7 +118,7 @@ describe('_DataEventObjects', function test__DataEventObjects() {
 				ZDAEventName,
 				ZDAEventStart,
 			})), [{
-				ZDAEventURL: require('OLSKLink').OLSKLinkRelativeURL(mod.ZDAEventURLFission(), '/' + ZDAEventURL),
+				ZDAEventURL,
 				ZDAEventName,
 				ZDAEventStart,
 			}]);

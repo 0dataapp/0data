@@ -47,7 +47,7 @@ const mod = {
 
 	ZDAEventURLFission () {
 		return mod.ZDAEventURLs().filter(function (e) {
-			return e.match(/q0wId4DZFlx7LCP/i);
+			return e.match(/fission/i);
 		}).shift();
 	},
 
@@ -85,11 +85,11 @@ const mod = {
 						});
 					},
 					[mod.ZDAEventURLFission()]: function () {
-						return (param2 ? JSON.parse(param2.split('<script id="__NEXT_DATA__" type="application/json">').pop().split('</script>').shift()).props.pageProps.initialData.events : []).map(function (e) {
+						return (param2 ? JSON.parse(param2.split('<script id="__NEXT_DATA__" type="application/json">').pop().split('</script>').shift()).props.pageProps.initialData.data.featured_items : []).map(function (e) {
 							return {
-								ZDAEventURL: require('OLSKLink').OLSKLinkRelativeURL(param1, '/' + e.url),
-								ZDAEventName: e.name,
-								ZDAEventStart: new Date(e.start_at),
+								ZDAEventURL: e.event.url,
+								ZDAEventName: e.event.name,
+								ZDAEventStart: new Date(e.event.start_at),
 							};
 						});
 					},
