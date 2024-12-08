@@ -3,7 +3,7 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY ./package.json /usr/src/app/
 COPY ./package-postinstall.js /usr/src/app/
-ARG CACHE_BUST=10
+ARG CACHE_BUST=11
 RUN npm install
 COPY ./ /usr/src/app
 ENV NODE_ENV production
