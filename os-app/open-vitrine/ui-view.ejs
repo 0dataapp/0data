@@ -73,15 +73,7 @@ locals.OLSKPageAssets = [
 	ZDAVitrineEventsListData: ZDAEvents(),
 }) %>
 
-<script src="https://olsk.rosano.ca/OSFeedbox/master/main.js"></script>
-<div class="parent-OSFeedbox"></div>
-<script type="text/javascript">
-OSFeedbox.load({
-	parent: document.querySelector('.parent-OSFeedbox'),
-	feed: '<%= process.env.ROCO_FEED_URL %>',
-	limit: 5,
-});
-</script>
+<script src="https://olsk.rosano.ca/OSFeedbox/master/main.js" data-OSFeedbox></script>
 
 <h1 class="ZDAVitrineGroupDiscussionHeading"><%= OLSKLocalized('ZDAVitrineGroupDiscussionHeadingText') %></h1>
 <iframe class="ZDAVitrineGroupDiscussionVideo" src="<%= process.env.ZDA_VITRINE_GROUP_DISCUSSION_VIDEO_URL %>" allowfullscreen></iframe>
