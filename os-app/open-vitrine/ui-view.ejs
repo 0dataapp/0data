@@ -94,10 +94,7 @@ locals.OLSKPageAssets = [
 	<% }) -%>
 </dl>
 
-<%- include('../../node_modules/ROCOGazette/main.ejs', {
-	_OLSKModulesDirPrefix: '../.',
-	ROCOBulletinProject: 'Zero Data App',
-}) %>
+<script src="https://pkg.rosano.ca/gazette/master/main.js" data-gazette></script>
 
 <%- include('../../node_modules/OLSKEdit/main.ejs', {
 	OLSKEditURL: process.env.OLSK_REPO_URL,
