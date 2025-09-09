@@ -1,12 +1,15 @@
 FROM node:16
+
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-COPY ./package.json /usr/src/app/
-COPY ./package-postinstall.js /usr/src/app/
-ARG CACHE_BUST=11
+
+# copy package.json in isolation to detect changes
+ADD package.json package-postinstall.js /usr/src/app/
 RUN npm install
-COPY ./ /usr/src/app
-ENV NODE_ENV production
+
+ADD . /usr/src/app
+
 ENV PORT 80
 EXPOSE 80
+
 CMD [ "npm", "start" ]
