@@ -173,6 +173,10 @@ const mod = {
 			return [
 				'Hello World',
 				'Cesium',
+				'Mylar',
+				'Peer CDN',
+				'+PeerServer',
+				'Fargo',
 			].includes(e.ZDABankName);
 		}).length) {
 			return false;
@@ -195,7 +199,9 @@ const mod = {
 
 	_DataHotfixProject (e) {
 		Object.entries({
-			ZDAProjectURL: {},
+			ZDAProjectURL: {
+				'http://draw.io/': 'https://www.drawio.com/',
+			},
 		}).forEach(function ([key, changes]) {
 			Object.entries(changes).forEach(function ([source, destination]) {
 				if (e[key] === source) {
